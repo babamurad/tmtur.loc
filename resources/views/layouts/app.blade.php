@@ -40,6 +40,11 @@
                     <!-- Left Menu Start -->
                     <ul class="metismenu list-unstyled" id="side-menu">
                         <li class="menu-title">Menu</li>
+                        <li><a href="{{ route('tour-categories.index') }}">Tour Categories</a></li>
+                        <li><a href="{{ route('tour-groups.index') }}">Tour Groups</a></li>
+                        <li><a href="{{ route('culture-items.index') }}">Culture Items</a></li>
+                        <li><a href="{{ route('customers.index') }}">Customers</a></li>
+                        <li><a href="{{ route('guides.index') }}">Guides</a></li>
 
                         <li>
                             <a href="index.html" class="waves-effect"><i class='bx bx-home-smile'></i><span class="badge badge-pill badge-primary float-right">3</span><span>Dashboard</span></a>
