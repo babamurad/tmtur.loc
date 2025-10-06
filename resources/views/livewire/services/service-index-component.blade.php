@@ -1,5 +1,16 @@
+@push('alerts-css')
+ <!-- Sweet Alerts css -->
+<link href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+@push('alerts-js')
+<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+@endpush
+
 <div class="page-content">
     <div class="container-fluid">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
         {{-- 1. Заголовок + кнопка «Создать» на одной строке --}}
         <div class="row">
@@ -25,8 +36,7 @@
                         {{-- 2.1 Поисковая строка --}}
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form method="GET" action="{{ route('services.index') }}"
-                                      class="form-inline">
+                                <form method="GET" action="{{ route('services.index') }}" class="form-inline">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -92,15 +102,12 @@
                                         {{-- Кнопки действий --}}
                                         <td class="text-center">
                                             <a href="{{ route('services.edit', $service) }}"
-                                               class="btn btn-sm btn-outline-warning waves-effect waves-light mx-1"
+                                               class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                                data-toggle="tooltip" title="Edit">
                                                 <i class="bx bx-pencil font-size-14"></i>
                                             </a>
 
-                                            <button wire:click="delete({{ $service->id }})"
-                                                    class="btn btn-sm btn-outline-danger waves-effect waves-light mx-1"
-                                                    data-toggle="tooltip" title="Delete"
-                                                    onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">
+                                            <button  onclick="deleteService({{ $service->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
                                                 <i class="bx bx-trash font-size-14"></i>
                                             </button>
                                         </td>
@@ -119,7 +126,7 @@
                         {{-- 2.3 Пагинация --}}
                         @if($services->hasPages())
                         <div class="pt-3">
-                            {{ $services->links('pagination::bootstrap-4') }}
+                            {{ $services->links('pagination::bootstrap-4') }}                        
                         </div>
                         @endif
 
@@ -129,4 +136,22 @@
         </div>{{-- /.row --}}
 
     </div>{{-- container-fluid --}}
+        <script>
+        function deleteService(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    alert(id);
+                }
+            });
+        }
+    </script>
+    
 </div>

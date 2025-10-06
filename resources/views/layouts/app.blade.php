@@ -12,6 +12,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
+    @stack('alerts-css')
+
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -31,7 +33,7 @@
 
                 <div class="navbar-brand-box">
                     <a href="index.html" class="logo">
-                        <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22" />
+                        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="22" />
                     </a>
                 </div>
 
@@ -320,13 +322,16 @@
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
 
+    @stack('alerts-js')
+    @stack('scripts')
+
     <!-- Morris Js-->
-    <script src="{{ asset('plugins/morris-js/morris.min.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/morris-js/morris.min.js') }}"></script> -->
     <!-- Raphael Js-->
-    <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script> -->
 
     <!-- Morris Custom Js-->
-    <script src="{{ asset('assets/pages/morris-chart-demo.js') }}"></script>
+    <!-- <script src="{{ asset('assets/pages/morris-chart-demo.js') }}"></script> -->
 
     <!-- App js -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>

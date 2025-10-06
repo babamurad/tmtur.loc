@@ -4,16 +4,22 @@ namespace App\Livewire\Services;
 
 use App\Models\Service;
 use Livewire\Component;
+use App\Enums\ServiceType;
 
 class ServiceCreateComponent extends Component
 {
     public $name;
-    public $description;
+    public $type;
+    public $priceRub;       
 
-    protected $rules = [
-        'name' => 'required|min:3',
-        'description' => 'required',
-    ];
+    protected function rules()
+    {
+        return [
+            'name'     => 'required|min:3|max:255',
+            'type'     => 'required|in:' . ServiceType::ruleIn(),
+            'priceRub' => 'required|numeric|min:0.01',
+        ];
+    }
 
     public function render()
     {
@@ -25,10 +31,12 @@ class ServiceCreateComponent extends Component
         $this->validate();
 
         Service::create([
-            'name' => $this->name,
-            'description' => $this->description,
+            'name'                => $this->name,
+            'type'                => $this->type,
+            'default_price_cents' => (int) round($this->priceRub * 100),
         ]);
 
+        session()->flash('success', 'Service created successfully.');
         return redirect()->route('services.index');
     }
 }
