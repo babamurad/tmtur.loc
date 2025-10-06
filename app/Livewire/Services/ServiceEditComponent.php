@@ -5,6 +5,7 @@ namespace App\Livewire\Services;
 use App\Models\Service;
 use Livewire\Component;
 use App\Enums\ServiceType;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class ServiceEditComponent extends Component
 {
@@ -45,7 +46,10 @@ class ServiceEditComponent extends Component
             'default_price_cents' => (int) round($this->priceRub * 100),
         ]);
 
-        session()->flash('success', 'Service updated successfully.');
+        session()->flash('saved', [
+        'title' => 'Услуга сохранена!',
+        'text' => 'Изменения сохранились!',
+        ]);
         return redirect()->route('services.index');
     }
 }

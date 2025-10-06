@@ -14,14 +14,24 @@ class ServiceIndexComponent extends Component
     
     public $delId;
 
-    protected $listeners = ['delete'];
-
     public function render()
     {
         $services = Service::orderBy('id', 'desc')->paginate(8);
         return view('livewire.services.service-index-component', [
             'services' => $services,
         ]);
+    }
+
+    public function mount()
+    {
+        if (session()->has('saved')) {
+            LivewireAlert::title(session('saved.title'))
+                ->text(session('saved.text'))
+                ->success()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        }
     }
 
     // #[On('delete')]

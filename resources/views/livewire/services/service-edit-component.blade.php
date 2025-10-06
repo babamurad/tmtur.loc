@@ -26,7 +26,7 @@
                                 <label for="name">Name <span class="text-danger">*</span></label>
                                 <input type="text"
                                        id="name"
-                                       wire:model.defer="name"
+                                       wire:model="name"
                                        class="form-control @error('name') is-invalid @enderror"
                                        placeholder="e.g. City Tour">
                                 @error('name')
@@ -35,7 +35,7 @@
                             </div>
 
                             {{-- Type --}}
-                            <select wire:model.defer="type" class="form-control @error('type') is-invalid @enderror">
+                            <select wire:model="type" class="form-control @error('type') is-invalid @enderror">
                                 <option value="">-- Choose type --</option>
                                 @foreach (App\Enums\ServiceType::options() as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
@@ -54,7 +54,7 @@
                                     </div>
                                     <input type="text"
                                            id="price"
-                                           wire:model.defer="priceRub"
+                                           wire:model="priceRub"
                                            class="form-control @error('default_price_cents') is-invalid @enderror"
                                            placeholder="1 500.00"
                                            oninput="this.value = this.value.replace(/[^\d,.]/g,'').replace(',','.')">

@@ -36,7 +36,10 @@ class ServiceCreateComponent extends Component
             'default_price_cents' => (int) round($this->priceRub * 100),
         ]);
 
-        session()->flash('success', 'Service created successfully.');
+        session()->flash('saved', [
+        'title' => 'Услуга создана!',
+        'text' => 'Созадана новая услуга!',
+        ]);
         return redirect()->route('services.index');
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->unsignedInteger('base_price_cents'); // цена «от»
             $table->unsignedTinyInteger('duration_days');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
