@@ -12,7 +12,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    @stack('alerts-css')
+    <!-- @stack('alerts-css') -->
+    <link href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
 
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -322,7 +323,8 @@
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
 
-    @stack('alerts-js')
+    <!-- @stack('alerts-js') -->
+     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     @stack('scripts')
 
     <!-- Morris Js-->

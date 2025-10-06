@@ -1,11 +1,23 @@
-@push('alerts-css')
- <!-- Sweet Alerts css -->
-<link href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-@endpush
-@push('alerts-js')
-<script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-@endpush
-
+@script
+<script>
+    // hereai
+        function deleteService(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    alert(id);
+                }
+            });
+        }
+    </script>
+@endscript
 <div class="page-content">
     <div class="container-fluid">
         @if(session('success'))
@@ -136,22 +148,5 @@
         </div>{{-- /.row --}}
 
     </div>{{-- container-fluid --}}
-        <script>
-        function deleteService(id) {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    alert(id);
-                }
-            });
-        }
-    </script>
-    
 </div>
+
