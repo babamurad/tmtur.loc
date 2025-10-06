@@ -12,14 +12,11 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    <!-- @stack('alerts-css') -->
-    <link href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" /> 
-
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
-
+    @livewireScripts
 </head>
 
 <body>
@@ -323,8 +320,6 @@
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
 
-    <!-- @stack('alerts-js') -->
-     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     @stack('scripts')
 
     <!-- Morris Js-->
@@ -337,7 +332,9 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-
+    <script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>
+    @livewireScripts
+    @livewireAlertScripts
 </body>
 
 </html>

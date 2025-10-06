@@ -1,23 +1,3 @@
-@script
-<script>
-    // hereai
-        function deleteService(id) {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    alert(id);
-                }
-            });
-        }
-    </script>
-@endscript
 <div class="page-content">
     <div class="container-fluid">
         @if(session('success'))
@@ -119,7 +99,7 @@
                                                 <i class="bx bx-pencil font-size-14"></i>
                                             </a>
 
-                                            <button  onclick="deleteService({{ $service->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
+                                            <button  wire:click="delete({{ $service->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
                                                 <i class="bx bx-trash font-size-14"></i>
                                             </button>
                                         </td>
