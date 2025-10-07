@@ -42,8 +42,10 @@ class Tour extends Model
     {
         return $this->hasMany(Review::class);
     }
-    public function media(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // Tour
+    public function media()
     {
-        return $this->hasMany(Media::class, 'model_id')->where('model_type', Tour::class);
+        return $this->hasOne(Media::class, 'model_id', 'id')
+                    ->where('model_type', Tour::class);
     }
 }

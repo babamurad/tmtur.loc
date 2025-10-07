@@ -15,7 +15,7 @@
 
         <div class="row">
 
-            <div class="col-lg-8 col-xl-6">
+            <div class="col-lg-9 col-xl-8">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">Tour details</h5>
@@ -29,12 +29,10 @@
                                 <label for="title">Title <span class="text-danger">*</span></label>
                                 <input type="text"
                                     id="title"
-                                    wire:model.debounce.300ms="title"
-                                    wire:input="generateSlug"
+                                    wire:model.debounce.300ms="title"                                    
                                     class="form-control @error('title') is-invalid @enderror"
                                     placeholder="e.g. City Tour">
-                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                <span>Slug: {{ $slug }}</span>
+                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror                                
                             </div>
                             
 
@@ -75,19 +73,6 @@
                                 @enderror
                             </div>
 
-                            {{-- Content --}}
-                            <div class="form-group">
-                                <label for="content">Content</label>
-                                <textarea id="content"
-                                           wire:model.defer="content"
-                                           class="form-control @error('content') is-invalid @enderror"
-                                           placeholder="e.g. Description of the tour"></textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-
                             {{-- Buttons --}}
                             <div class="form-group mb-0">
                                 <button type="submit"
@@ -106,69 +91,41 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-xl-6">
-<div class="card">
-    <div class="card-body">
-                                    {{-- Image --}}
-                            <div class="form-group">
-                                <label for="image">File Browser</label>
-                                <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('oldImage') is-invalid @enderror"
-                                        id="image"
-                                        wire:model="oldImage"
-                                        accept="image/*">
-                                    <label class="custom-file-label" for="image">
-                                        @if ($oldImage)
-                                            {{ $oldImage }}
-                                        @else
-                                            Choose file
-                                        @endif
-                                    </label>
-                                    @error('oldImage')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+            <div class="col-lg-3 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                    {{-- Image --}}
+                    <div class="form-group">
+                        <div class="image-preview img-fluid rounded"
+                                 style="
+                                 @if($newimage)
+                                 background-image: url({{ $newimage->temporaryUrl() }});
+                                 @else
+                                 background-image: url({{ asset('uploads/' . $image) }});
+                                 @endif
+                                 background-size: cover;
+                                 @error('image') border: 2px dashed #dc3545; @enderror
+                                 background-position: center center; width: 100%;">
+                                <label for="image-upload" id="image-label">Choose File</label>
+                                <input type="file" name="image" id="image-upload" wire:model="newimage">
+                        </div>
+                        @error('image') <span>{{ $message }}</span> @enderror
+                        
+                    </div>
+                    
 
-                                {{-- контейнер 200 px --}}
-                                <div class="position-relative mb-3" style="height:200px;">
-
-                                    {{-- спиннер во время загрузки --}}
-                                    <!-- <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50">
-                                        <span class="sr-only"></span>
-                                    </div> -->
-
-                                    {{-- картинка или плейсхолдер --}}
-                                    <div wire:loading.remove wire:target="image">
-                                        @if ($image)
-                                            {{-- свежезагруженное изображение --}}
-                                            <img class="img-fluid rounded"
-                                                style="max-height:200px; object-fit:cover;"
-                                                src="{{ $image->temporaryUrl() }}"
-                                                alt="Preview">
-                                        @else
-                                            {{-- постоянное изображение, если нужно --}}
-                                            <img class="img-fluid rounded"
-                                                style="max-height:200px; object-fit:cover;"
-                                                src="{{ asset('uploads/' . $oldImage) }}"
-                                                alt="Placeholder">
-                                        @endif
-                                    </div>
-                                </div>
-
-                            {{-- Is Published --}}
-                            <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           id="is_published"
-                                           wire:model.defer="is_published">
-                                    <label class="custom-control-label" for="is_published">Is Published</label>
-                                </div>
-                            </div>
-    </div>
-</div>
+                    {{-- Is Published --}}
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox"
+                                class="custom-control-input"
+                                id="is_published"
+                                wire:model.defer="is_published">
+                            <label class="custom-control-label" for="is_published">Is Published</label>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

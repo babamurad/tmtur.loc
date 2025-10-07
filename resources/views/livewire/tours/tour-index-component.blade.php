@@ -83,9 +83,8 @@
                                             </span>
                                         </td>
                                         <td>
-                                        <td>
                                             <span class="font-weight-semibold">
-                                                {{ $tour->media->first()->file_name ?? 'N/A' }}
+                                                {{ $tour->media->file_name ?? 'N/A' }}
                                             </span>
                                         </td>
                                         <td>

@@ -6,8 +6,9 @@ use App\Models\Tour;
 use App\Models\TourCategory;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Livewire\WithFileUploads;
+use Livewire\WithFileUploads ;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class TourEditComponent extends Component
 {
@@ -16,13 +17,12 @@ class TourEditComponent extends Component
     public $tour;
     public $title;
     public $slug;
-    public $category_id;
-    public $content;
-    public $image;
+    public $category_id;    
     public $is_published;
     public $base_price_cents;
     public $duration_days;
-    public $oldImage;
+    public $newimage = null;
+    public $image    = null;
 
     protected function rules()
     {
@@ -30,9 +30,8 @@ class TourEditComponent extends Component
             'title' => 'required|min:3|max:255',
             'slug' => 'nullable|min:3|max:255|unique:tours,slug,' . $this->tour->id,
             'category_id' => 'required|exists:tour_categories,id',
-            'content' => 'nullable',
-            'image' => 'nullable|image|max:2048',
-            'is_published' => 'boolean',
+            'newimage' => 'nullable|image|max:2048',
+            // 'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
         ];
@@ -49,12 +48,14 @@ class TourEditComponent extends Component
         $this->tour = $tour;
         $this->title = $tour->title;
         $this->slug = $tour->slug;
-        $this->category_id = $tour->tourCategory;
-        $this->content = $tour->content;
+        $this->category_id = $tour->tourCategory->id;
         $this->is_published = $tour->is_published;
         $this->base_price_cents = $tour->base_price_cents;
         $this->duration_days = $tour->duration_days;
-        $this->oldImage = $tour->media->first() ? $tour->media->first()->file_path : null;
+        if ( $tour->media ) {
+            $this->image = $tour->media->file_path;
+        }
+        
     }
 
     public function render()
@@ -65,38 +66,39 @@ class TourEditComponent extends Component
         ]);
     }
 
-    public function generateSlug()
-    {
-        $this->slug = Str::slug($this->title, language: 'ru');
-    }
-
     public function save()
     {
         $this->validate();
 
-        $imagePath = $this->oldImage;
-        if ($this->image && is_object($this->image)) {
-            if ($this->oldImage) {
-                Storage::disk('public')->delete($this->oldImage);
+        // 1. обновляем собственные поля
+        $this->tour->fill([
+            'title'            => $this->title,
+            'tour_category_id' => $this->category_id,
+            'base_price_cents' => $this->base_price_cents,
+            'duration_days'    => $this->duration_days,
+        ])->save();
+
+        // 2. картинка
+        if ($this->newimage) {
+            // старый файл
+            $old = $this->tour->media;
+            if ($old && Storage::exists($old->file_path)) {
+                Storage::delete($old->file_path);
             }
-            $imagePath = $this->image->store('tours', 'public');
+
+            // новый файл
+            $path = $this->newimage->store('tours'); // вернёт "tours/hfjd7wL7KjBQuCeW.jpg"
+            $this->tour->media()->updateOrCreate(
+                ['model_type' => Tour::class],
+                [
+                    'file_path' => $path,
+                    'file_name' => $this->newimage->getClientOriginalName(),
+                    'mime_type' => $this->newimage->getMimeType(),
+                ]
+            );
         }
 
-        $this->tour->update([
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'tour_category_id' => $this->category_id,
-            'content' => $this->content,
-            'image' => $imagePath,
-            'is_published' => $this->is_published,
-            'base_price_cents' => $this->base_price_cents,
-            'duration_days' => $this->duration_days,
-        ]);
-
-        session()->flash('saved', [
-            'title' => 'Тур сохранен!',
-            'text' => 'Изменения сохранились!',
-        ]);
+        session()->flash('saved', ['title' => 'Тур сохранён!', 'text' => 'Изменения сохранились!']);
         return redirect()->route('tours.index');
     }
 }

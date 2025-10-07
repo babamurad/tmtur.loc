@@ -15,7 +15,7 @@
 
         <div class="row">
 
-            <div class="col-lg-8 col-xl-6">
+            <div class="col-lg-8 col-xl-8">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">Tour details</h5>
@@ -106,69 +106,69 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-xl-6">
-<div class="card">
-    <div class="card-body">
-                                    {{-- Image --}}
-                            <div class="form-group">
-                                <label for="image">Выберите изображение</label>
-                                <div class="custom-file">
-                                    <input type="file"
-                                        class="custom-file-input @error('image') is-invalid @enderror"
-                                        id="image"
-                                        wire:model="image"
-                                        accept="image/*">
-                                    <label class="custom-file-label" for="image">
-                                        @if ($image)
-                                            {{ $image->getClientOriginalName() }}
-                                        @else
-                                            Выбрать изображение
-                                        @endif
-                                    </label>
-                                    @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+            <div class="col-lg-4 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                                                    {{-- Image --}}
+                                            <div class="form-group">
+                                                <label for="image">Выберите изображение</label>
+                                                <div class="custom-file">
+                                                    <input type="file"
+                                                        class="custom-file-input @error('image') is-invalid @enderror"
+                                                        id="image"
+                                                        wire:model="image"
+                                                        accept="image/*">
+                                                    <label class="custom-file-label" for="image">
+                                                        @if ($image)
+                                                            {{ $image->getClientOriginalName() }}
+                                                        @else
+                                                            Выбрать изображение
+                                                        @endif
+                                                    </label>
+                                                    @error('image')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
-                                {{-- контейнер 200 px --}}
-                                <div class="position-relative mb-3" style="height:200px;">
+                                                {{-- контейнер 200 px --}}
+                                                <div class="position-relative mb-3" style="height:200px;">
 
-                                    {{-- спиннер во время загрузки --}}
-                                    <!-- <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50">
-                                        <span class="sr-only"></span>
-                                    </div> -->
+                                                    {{-- спиннер во время загрузки --}}
+                                                    <!-- <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50">
+                                                        <span class="sr-only"></span>
+                                                    </div> -->
 
-                                    {{-- картинка или плейсхолдер --}}
-                                    <div wire:loading.remove wire:target="image">
-                                        @if ($image)
-                                            {{-- свежезагруженное изображение --}}
-                                            <img class="img-fluid rounded"
-                                                style="max-height:200px; object-fit:cover;"
-                                                src="{{ $image->temporaryUrl() }}"
-                                                alt="Preview">
-                                        @else
-                                            {{-- постоянное изображение, если нужно --}}
-                                            <img class="img-fluid rounded"
-                                                style="max-height:200px; object-fit:cover;"
-                                                src="{{ asset('assets/images/media/sm-5.jpg') }}"
-                                                alt="Placeholder">
-                                        @endif
-                                    </div>
-                                </div>
+                                                    {{-- картинка или плейсхолдер --}}
+                                                    <div wire:loading.remove wire:target="image">
+                                                        @if ($image)
+                                                            {{-- свежезагруженное изображение --}}
+                                                            <img class="img-fluid rounded"
+                                                                style="max-height:200px; object-fit:cover;"
+                                                                src="{{ $image->temporaryUrl() }}"
+                                                                alt="Preview">
+                                                        @else
+                                                            {{-- постоянное изображение, если нужно --}}
+                                                            <img class="img-fluid rounded"
+                                                                style="max-height:200px; object-fit:cover;"
+                                                                src="{{ asset('assets/images/media/sm-5.jpg') }}"
+                                                                alt="Placeholder">
+                                                        @endif
+                                                    </div>
+                                                </div>
 
-                            {{-- Is Published --}}
-                            <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           id="is_published"
-                                           wire:model.defer="is_published">
-                                    <label class="custom-control-label" for="is_published">Is Published</label>
-                                </div>
-                            </div>
-    </div>
-</div>
+                                            {{-- Is Published --}}
+                                            <div class="form-group">
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox"
+                                                        class="custom-control-input"
+                                                        id="is_published"
+                                                        wire:model.defer="is_published">
+                                                    <label class="custom-control-label" for="is_published">Is Published</label>
+                                                </div>
+                                            </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
