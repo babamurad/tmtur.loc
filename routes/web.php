@@ -34,9 +34,7 @@ use App\Livewire\Customers\CustomerEditComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
 
-Route::get('/tours', TourIndexComponent::class)->name('tours.index');
-Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
-Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+Route::get('/dashboard', HomeComponent::class)->name('dashboard');
 
 Route::get('guides', GuideIndexComponent::class)->name('guides.index');
 Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
@@ -75,9 +73,14 @@ Route::get('tour-categories', App\Livewire\TourCategories\TourCategoryIndexCompo
 Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
 Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
 
+Route::get('/tours', TourIndexComponent::class)->name('tours.index');
+Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
+Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+
 Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
 Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');
 Route::get('tour-groups/edit/{tourGroup}', App\Livewire\TourGroups\TourGroupEditComponent::class)->name('tour-groups.edit');
+Route::get('tour-groups/delete/{tourGroup}', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.delete');
 
 Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
 Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');

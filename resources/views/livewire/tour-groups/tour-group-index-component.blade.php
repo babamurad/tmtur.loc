@@ -28,35 +28,40 @@
                         {{-- 2.1 Поисковая строка --}}
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form method="GET" action="{{ route('tour-groups.index') }}" class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text"
-                                               name="search"
-                                               value="{{ request('search') }}"
-                                               class="form-control"
-                                               placeholder="Search tour groups…"
-                                               aria-label="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-primary" type="submit">
-                                                Find
-                                            </button>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                    <input
+                                        type="text"
+                                        wire:model.live.debounce.300ms="search"
+                                        class="form-control"
+                                        placeholder="Search tour groups…"
+                                    >
+                                </div>
+                            </div>
+                            
+                            
+                            
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center justify-content-md-end gap-3">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="text-muted small">Show</span>
+                                            <select class="form-select form-select-sm mx-2" wire:model.live="perPage" style="width: auto;">
+                                                <option value="8">8</option>
+                                                <option value="15">15</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                            <span class="text-muted small">of {{ $tourGroups->total() }} results</span>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
+                                
                             </div>
 
                             {{-- можно сюда добавить фильтры или экспорт --}}
-                            <div class="col-md-6 text-md-right mt-2 mt-md-0">
-                                <span class="text-muted font-size-12">
-                                    Found: <strong>{{ $tourGroups->total() }}</strong>
-                                </span>
-                            </div>
-                        </div>{{-- /.row --}}
+                        </div>
 
                         {{-- 2.2 Таблица --}}
                         <div class="table-responsive">

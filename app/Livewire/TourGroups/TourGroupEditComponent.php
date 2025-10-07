@@ -8,27 +8,42 @@ use Livewire\Component;
 class TourGroupEditComponent extends Component
 {
     public $tourGroup;
-    public $name;
-    public $description;
+    public $tour_id;
+    public $starts_at;
+    public $max_people;
+    public $current_people;
+    public $price_cents;
+    public $status;
 
     protected function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable',
+            'tour_id' => 'required|exists:tours,id',
+            'starts_at' => 'required|date',
+            'max_people' => 'required|integer|min:1',
+            'current_people' => 'nullable|integer|min:0|lte:max_people',
+            'price_cents' => 'required|integer|min:0',
+            'status' => 'required|in:draft,open,closed,cancelled',
         ];
     }
 
     public function mount(TourGroup $tourGroup)
     {
         $this->tourGroup = $tourGroup;
-        $this->name = $tourGroup->name;
-        $this->description = $tourGroup->description;
+        $this->tour_id = $tourGroup->tour_id;
+        $this->starts_at = $tourGroup->starts_at->format('Y-m-d\TH:i'); // Format for datetime-local input
+        $this->max_people = $tourGroup->max_people;
+        $this->current_people = $tourGroup->current_people;
+        $this->price_cents = $tourGroup->price_cents;
+        $this->status = $tourGroup->status; // This will be 'draft', 'open', 'closed', or 'cancelled'
     }
 
     public function render()
     {
-        return view('livewire.tour-groups.tour-group-edit-component');
+        $tours = \App\Models\Tour::all();
+        return view('livewire.tour-groups.tour-group-edit-component', [
+            'tours' => $tours,
+        ]);
     }
 
     public function save()
@@ -36,8 +51,12 @@ class TourGroupEditComponent extends Component
         $this->validate();
 
         $this->tourGroup->update([
-            'name' => $this->name,
-            'description' => $this->description,
+            'tour_id' => $this->tour_id,
+            'starts_at' => $this->starts_at,
+            'max_people' => $this->max_people,
+            'current_people' => $this->current_people,
+            'price_cents' => $this->price_cents,
+            'status' => $this->status,
         ]);
 
         session()->flash('saved', [

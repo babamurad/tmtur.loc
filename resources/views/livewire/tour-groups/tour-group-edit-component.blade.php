@@ -21,27 +21,81 @@
                         <h5 class="card-title mb-4">Tour Group details</h5>
 
                         <form wire:submit.prevent="save">
-                            {{-- Name --}}
+                            {{-- Tour --}}
                             <div class="form-group">
-                                <label for="name">Name <span class="text-danger">*</span></label>
-                                <input type="text"
-                                       id="name"
-                                       wire:model="name"
-                                       class="form-control @error('name') is-invalid @enderror"
-                                       placeholder="e.g. Summer Tour Group">
-                                @error('name')
+                                <label for="tour_id">Tour <span class="text-danger">*</span></label>
+                                <select wire:model.defer="tour_id" class="form-control @error('tour_id') is-invalid @enderror">
+                                    <option value="">-- Choose tour --</option>
+                                    @foreach ($tours as $tour)
+                                        <option value="{{ $tour->id }}">{{ $tour->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('tour_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            {{-- Description --}}
+                            {{-- Starts At --}}
                             <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea id="description"
-                                          wire:model="description"
-                                          class="form-control @error('description') is-invalid @enderror"
-                                          placeholder="e.g. Description of the tour group"></textarea>
-                                @error('description')
+                                <label for="starts_at">Starts At <span class="text-danger">*</span></label>
+                                <input type="datetime-local"
+                                       id="starts_at"
+                                       wire:model.defer="starts_at"
+                                       class="form-control @error('starts_at') is-invalid @enderror">
+                                @error('starts_at')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Max People --}}
+                            <div class="form-group">
+                                <label for="max_people">Max People <span class="text-danger">*</span></label>
+                                <input type="number"
+                                       id="max_people"
+                                       wire:model.defer="max_people"
+                                       class="form-control @error('max_people') is-invalid @enderror"
+                                       min="1">
+                                @error('max_people')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Current People --}}
+                            <div class="form-group">
+                                <label for="current_people">Current People</label>
+                                <input type="number"
+                                       id="current_people"
+                                       wire:model.defer="current_people"
+                                       class="form-control @error('current_people') is-invalid @enderror"
+                                       min="0">
+                                @error('current_people')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Price --}}
+                            <div class="form-group">
+                                <label for="price_cents">Price (cents) <span class="text-danger">*</span></label>
+                                <input type="number"
+                                       id="price_cents"
+                                       wire:model.defer="price_cents"
+                                       class="form-control @error('price_cents') is-invalid @enderror"
+                                       min="0">
+                                @error('price_cents')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Status --}}
+                            <div class="form-group">
+                                <label for="status">Status <span class="text-danger">*</span></label>
+                                <select wire:model.defer="status" class="form-control @error('status') is-invalid @enderror">
+                                    <option value="draft">Draft</option>
+                                    <option value="open">Open</option>
+                                    <option value="closed">Closed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                                @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
