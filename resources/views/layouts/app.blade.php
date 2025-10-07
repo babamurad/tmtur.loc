@@ -31,7 +31,7 @@
             <div data-simplebar class="h-100">
 
                 <div class="navbar-brand-box">
-                    <a href="index.html" class="logo">
+                    <a href="/" class="logo" target="_blank">
                         <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="22" />
                     </a>
                 </div>

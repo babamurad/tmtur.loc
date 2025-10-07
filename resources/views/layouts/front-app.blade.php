@@ -1,651 +1,507 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Туркменистан - Земля Огня и Тайн | Врата Ада Дарваза</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-        }
+  <meta charset="utf-8">
+  <title>Туркменистан — Земля Огня и Тайн | TurkmenTravel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
+  <!-- Bootstrap 5.3 -->
+  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-        .testimonial-card {
-            transition: all 0.3s ease;
-        }
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .testimonial-card:hover {
-            transform: scale(1.05);
-        }
+  <link rel="stylesheet" href="css/style.css">
 
-        .cta-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1508514177221-188e1e464282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .gallery-item {
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.03);
-            z-index: 10;
-        }
-    </style>
 </head>
-<body class="font-sans bg-gray-50">
-<!-- Header -->
-<header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center">
-            <i class="fas fa-fire text-2xl text-red-600 mr-2"></i>
-            <span class="text-xl font-bold text-gray-800">TurkmenTravel</span>
-        </div>
-        <nav class="hidden md:flex space-x-8">
-            <a href="#home" class="text-gray-800 hover:text-red-600 font-medium">Главная</a>
-            <a href="#about" class="text-gray-800 hover:text-red-600 font-medium">О Туркменистане</a>
-            <a href="#tours" class="text-gray-800 hover:text-red-600 font-medium">Туры</a>
-            <a href="#darwaza" class="text-gray-800 hover:text-red-600 font-medium">Дарваза</a>
-            <a href="#contact" class="text-gray-800 hover:text-red-600 font-medium">Контакты</a>
-        </nav>
-        <div class="md:hidden">
-            <button id="menu-toggle" class="text-gray-800 focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
-        <a href="#home" class="block py-2 text-gray-800 hover:text-red-600">Главная</a>
-        <a href="#about" class="block py-2 text-gray-800 hover:text-red-600">О Туркменистане</a>
-        <a href="#tours" class="block py-2 text-gray-800 hover:text-red-600">Туры</a>
-        <a href="#darwaza" class="block py-2 text-gray-800 hover:text-red-600">Дарваза</a>
-        <a href="#contact" class="block py-2 text-gray-800 hover:text-red-600">Контакты</a>
-    </div>
-</header>
 
-<!-- Hero Section -->
-<section id="home" class="hero min-h-screen flex items-center justify-center text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-pulse">Откройте для себя Туркменистан</h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Земля древних цивилизаций, загадочных пустынь и легендарных "Врат Ада" в Дарваза</p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#tours" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Выбрать тур</a>
-            <a href="#darwaza" class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Узнать о Дарваза</a>
-        </div>
+<body data-bs-spy="scroll" data-bs-target="#mainNav">
+
+<!-- ========== НАВБАР ========== -->
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#home">
+      <i class="fa-solid fa-fire text-danger me-2"></i>TurkmenTravel
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">О Туркменистане</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tours">Туры</a></li>
+        <li class="nav-item"><a class="nav-link" href="#darwaza">Дарваза</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+      </ul>
     </div>
+  </div>
+</nav>
+
+<!-- ========== HERO-CAROUSEL ========== -->
+<section id="home" class="carousel slide" data-bs-ride="carousel">
+  <!-- Индикаторы -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#home" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#home" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#home" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#home" data-bs-slide-to="3"></button>
+  </div>
+
+  <!-- Слайды -->
+  <div class="carousel-inner">
+    <!-- Слайд 1 -->
+    <div class="carousel-item active"
+         style="background-image:url('https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=2070&q=80');">
+      <div class="carousel-caption  text-center">
+        <h1 class="display-3 fw-bold">Откройте для себя Туркменистан</h1>
+        <p class="lead mb-4">Земля древних цивилизаций, загадочных пустынь и легендарных «Врат Ада»</p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+          <a href="#tours" class="btn btn-danger btn-lg">Выбрать тур</a>
+          <a href="#darwaza" class="btn btn-outline-light btn-lg">Узнать о Дарваза</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Слайд 2 -->
+    <div class="carousel-item"
+         style="background-image:url('https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=2070&q=80');">
+      <div class="carousel-caption text-center">
+        <h2 class="display-4 fw-bold">Дарваза — Врата Ада</h2>
+        <p class="lead">Горящий кратер в сердце пустыни Каракумы, который невозможно забыть</p>
+        <a href="#darwaza" class="btn btn-light btn-lg">Подробнее</a>
+      </div>
+    </div>
+
+    <!-- Слайд 3 -->
+    <div class="carousel-item"
+         style="background-image:url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2070&q=80');">
+      <div class="carousel-caption text-center">
+        <h2 class="display-4 fw-bold">Древний Мерв</h2>
+        <p class="lead">ЮНЕСКО и Великий Шелковый путь — прикоснитесь к истории</p>
+        <a href="#tours" class="btn btn-light btn-lg">Туры в Мерв</a>
+      </div>
+    </div>
+
+    <!-- Слайд 4 -->
+    <div class="carousel-item"
+         style="background-image:url('https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=2070&q=80');">
+      <div class="carousel-caption text-center">
+        <h2 class="display-4 fw-bold">Каспийское море и Аваза</h2>
+        <p class="lead">Белоснежные пляжи и современные отели на берегу крупнейшего озёра планеты</p>
+        <a href="#tours" class="btn btn-light btn-lg">Пляжные туры</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Стрелки -->
+    <button class="carousel-control-prev" type="button"
+            data-bs-target="#home" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button"
+            data-bs-target="#home" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    </button>
 </section>
 
+<!-- ========== О ТУРКМЕНИСТАНЕ ========== -->
+<section id="about" class="py-5">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Туркменистан — страна контрастов</h2>
+    <div class="row align-items-center gy-4">
+      <div class="col-md-6">
+        <p class="mb-3">Туркменистан — уникальная страна, где древние традиции встречаются с современностью, а бескрайние пустыни соседствуют с мраморными городами.</p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Более 300 солнечных дней в году</li>
+          <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Уникальные природные достопримечательности</li>
+          <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Гостеприимные местные жители</li>
+          <li class="mb-3"><i class="fa-solid fa-check-circle text-success me-2"></i>Богатая история и культура</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark">Связаться с нами</a>
+      </div>
+      <div class="col-md-6">
+        <div class="row g-2">
+          <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
+          <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
+          <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
+          <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ========== ПРЕИМУЩЕСТВА ========== -->
+<section class="py-5 bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Почему стоит выбрать Туркменистан?</h2>
+    <div class="row g-4">
+      <!-- Карточка 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-fire fa-3x"></i></div>
+            <h5 class="card-title">Врата Ада</h5>
+            <p class="card-text small">Уникальный газовый кратер Дарваза, горящий более 50-ти лет. Зрелище, которое невозможно забыть.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-archway fa-3x"></i></div>
+            <h5 class="card-title">Древние города</h5>
+            <p class="card-text small">Руины Мерва, Куня-Ургенча и другие жемчужины Великого Шелкового пути, внесённые в список ЮНЕСКО.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-horse fa-3x"></i></div>
+            <h5 class="card-title">Ахалтекинские кони</h5>
+            <p class="card-text small">Легендарные «небесные скакуны» — символ грации и выносливости.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 4 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-umbrella-beach fa-3x"></i></div>
+            <h5 class="card-title">Каспийское море</h5>
+            <p class="card-text small">Современный курорт Аваза с песчаными пляжами и комфортными отелями.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 5 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-utensils fa-3x"></i></div>
+            <h5 class="card-title">Национальная кухня</h5>
+            <p class="card-text small">Аутентичный плов, манты, шашлык — готовятся по старинным рецептам.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 6 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <div class="text-danger mb-3"><i class="fa-solid fa-spa fa-3x"></i></div>
+            <h5 class="card-title">Лечебные источники</h5>
+            <p class="card-text small">Целебные воды и грязи, известные своими свойствами ещё с античности.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- About Turkmenistan -->
-<section id="about" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Туркменистан - страна контрастов</h2>
-        <div class="grid md:grid-cols-2 gap-8 items-center">
+<!-- ========== ДАРВАЗА ========== -->
+<section id="darwaza" class="py-5">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Дарваза — Врата Ада</h2>
+    <div class="row gy-4 align-items-center">
+      <div class="col-md-6 order-2 order-md-1">
+        <p>Газовый кратер Дарваза, известный как «Врата Ада», — одно из самых загадочных мест планеты. Диаметром около 70 м и глубиной 20 м он горит непрерывно более 50 лет.</p>
+        <p>По легенде кратер образовался в 1971 г., когда геологи случайно попали в подземную каверну с газом. Чтобы избежать выброса, газ подожгли… и он горит до сих пор.</p>
+        <p>Ночью языки пламени поднимаются до 15 м, освещая пустыню зловещим светом. Это уникальное зрелище привлекает путешественников со всего мира.</p>
+        <a href="#tours" class="btn btn-danger mt-3">Забронировать тур к Вратам Ада</a>
+      </div>
+      <div class="col-md-6 order-1 order-md-2">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=1000&q=80" class="img-fluid rounded shadow" alt="Дарваза">
+          <div class="position-absolute bottom-0 start-0 p-3 text-white">
+            <h5 class="mb-0">«Это нужно увидеть своими глазами!»</h5>
+            <small>— Марк, путешественник из Германии</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ТУРЫ ========== -->
+<section id="tours" class="py-5 bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Наши популярные туры</h2>
+    <div class="row g-4">
+      <!-- Карточка 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Тур к Вратам Ада">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">ХИТ</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Тур к Вратам Ада</h5>
+            <p class="card-text small">2 дня / 1 ночь. Незабываемое путешествие к газовому кратеру Дарваза с ночевкой в пустыне.</p>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <div><span class="text-decoration-line-through text-muted">$450</span><span class="fw-bold text-danger ms-2">$399</span></div>
+              <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <a href="#contact" class="btn btn-dark w-100 mt-2">Забронировать</a>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow">
+          <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Древние города">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Древние города Туркменистана</h5>
+            <p class="card-text small">5 дней / 4 ночи. Тур по историческим местам: Мерв, Куня-Ургенч, Ниса.</p>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <div><span class="fw-bold text-danger">$750</span></div>
+              <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-alt"></i></div>
+            </div>
+            <a href="#contact" class="btn btn-dark w-100 mt-2">Забронировать</a>
+          </div>
+        </div>
+      </div>
+      <!-- Карточка 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Комбинированный тур">
+            <span class="badge bg-success position-absolute top-0 end-0 m-2">НОВИНКА</span>
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Все сокровища Туркменистана</h5>
+            <p class="card-text small">8 дней / 7 ночей. Комбинированный тур: Дарваза, Ашхабад, Мерв, Аваза.</p>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <div><span class="fw-bold text-danger">$1200</span></div>
+              <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="far fa-star"></i></div>
+            </div>
+            <a href="#contact" class="btn btn-dark w-100 mt-2">Забронировать</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4"><a href="#contact" class="btn btn-danger btn-lg">Хочу индивидуальный тур</a></div>
+  </div>
+</section>
+
+<!-- ========== ОТЗЫВЫ ========== -->
+<section class="py-5">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Отзывы наших клиентов</h2>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;">АК</div>
+              <div>
+                <h6 class="mb-0 fw-bold">Анна К.</h6>
+                <div class="text-warning small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              </div>
+            </div>
+            <p class="small fst-italic">«Врата Ада превзошли все ожидания! Ночью это выглядит нереально. Тур организован на высшем уровне. Вернусь снова!»</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;">ИП</div>
+              <div>
+                <h6 class="mb-0 fw-bold">Иван П.</h6>
+                <div class="text-warning small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              </div>
+            </div>
+            <p class="small fst-italic">«Контраст между современным Ашхабадом и древним Мервом запомнился навсегда. Спасибо за организацию!»</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width:48px;height:48px;">МС</div>
+              <div>
+                <h6 class="mb-0 fw-bold">Мария С.</h6>
+                <div class="text-warning small"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-alt"></i></div>
+              </div>
+            </div>
+            <p class="small fst-italic">«Отдых в Авазе был сказочным! А экскурсия к Вратам Ада добавила адреналина. Рекомендую!»</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ГАЛЕРЕЯ ========== -->
+<section class="py-5 bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Туркменистан в фотографиях</h2>
+    <div class="row g-3 gallery-item">
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic1"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic2"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic3"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic4"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic5"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic6"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic7"></div>
+      <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic8"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA-FORM ========== -->
+<section class="py-5 text-white" style="background:url('https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=2070&q=80') center/covered;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center">
+        <h2 class="mb-4">Готовы к незабываемому приключению?</h2>
+        <p class="mb-4">Оставьте заявку прямо сейчас, и мы подберём идеальный тур!</p>
+        <div class="bg-white bg-opacity-10 p-4 rounded">
+          <form id="cta-form">
+            <div class="mb-3"><input type="text" class="form-control" placeholder="Ваше имя" required></div>
+            <div class="mb-3"><input type="email" class="form-control" placeholder="Ваш email" required></div>
+            <div class="mb-3"><input type="tel" class="form-control" placeholder="Ваш телефон" required></div>
+            <div class="mb-3">
+              <select class="form-select" required>
+                <option value="">Выберите интересующий тур</option>
+                <option>Тур к Вратам Ада</option>
+                <option>Древние города Туркменистана</option>
+                <option>Все сокровища Туркменистана</option>
+                <option>Индивидуальный тур</option>
+              </select>
+            </div>
+            <button class="btn btn-danger w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="py-5">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Часто задаваемые вопросы</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">Нужна ли виза для посещения Туркменистана?</button></h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">Для большинства иностранцев требуется виза. Мы поможем с приглашением и оформлением.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">Когда лучше всего посещать Дарваза?</button></h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">С марта по май и с сентября по ноябрь — комфортная температура. Летом +50°C, зимой ночью холодно.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Безопасно ли посещение Врат Ада?</button></h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Да, при соблюдении правил, которые объяснит гид. К кратеру не подходят близко.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">Что взять с собой в тур к Вратам Ада?</button></h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Удобная обувь, тёплая одежда (ночью холодно), головной убор, SPF-крем, фотоаппарат, вода. Палатки и еду предоставим.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">Есть ли возрастные ограничения?</button></h2>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Детям до 10 лет в Дарвазу не рекомендуем. Пожилым — оценить физические возможности.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== КОНТАКТЫ ========== -->
+<section id="contact" class="py-5 bg-light">
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Свяжитесь с нами</h2>
+    <div class="row gy-4">
+      <div class="col-lg-6">
+        <form>
+          <div class="mb-3"><input type="text" class="form-control" placeholder="Ваше имя" required></div>
+          <div class="mb-3"><input type="email" class="form-control" placeholder="Ваш email" required></div>
+          <div class="mb-3"><input type="tel" class="form-control" placeholder="Ваш телефон" required></div>
+          <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Ваше сообщение" required></textarea></div>
+          <button class="btn btn-dark w-100">Отправить сообщение</button>
+        </form>
+      </div>
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Наши контакты</h5>
+            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-map-marker-alt text-danger mt-1 me-3"></i><div><div class="fw-bold">Адрес:</div><span>г. Ашхабад, проспект Махтумкули, 123</span></div></div>
+            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-phone-alt text-danger mt-1 me-3"></i><div><div class="fw-bold">Телефон:</div><span>+993 12 34 56 78</span></div></div>
+            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-envelope text-danger mt-1 me-3"></i><div><div class="fw-bold">Email:</div><span>info@turkmentravel.com</span></div></div>
+            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-clock text-danger mt-1 me-3"></i><div><div class="fw-bold">Часы работы:</div><span>Пн-Пт: 9:00–18:00<br>Сб: 10:00–15:00<br>Вс: выходной</span></div></div>
             <div>
-                <p class="text-lg text-gray-700 mb-6">Туркменистан - это уникальная страна, где древние традиции встречаются с современностью, а бескрайние пустыни соседствуют с роскошными мраморными городами.</p>
-                <p class="text-lg text-gray-700 mb-6">Страна обладает богатым культурным наследием, уходящим корнями в глубину веков, когда через эти земли проходил Великий Шелковый путь.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <span class="text-gray-700">Более 300 солнечных дней в году</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <span class="text-gray-700">Уникальные природные достопримечательности</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <span class="text-gray-700">Гостеприимные местные жители</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <span class="text-gray-700">Богатая история и культура</span>
-                    </li>
-                </ul>
-                <a href="#contact" class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full transition duration-300">Связаться с нами</a>
+              <div class="fw-bold mb-2">Мы в соцсетях:</div>
+              <div class="d-flex gap-2">
+                <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-youtube"></i></a>
+              </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="overflow-hidden rounded-lg shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-                </div>
-                <div class="overflow-hidden rounded-lg shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-                </div>
-                <div class="overflow-hidden rounded-lg shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-                </div>
-                <div class="overflow-hidden rounded-lg shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Features -->
-<section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Почему стоит выбрать Туркменистан?</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-fire text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Врата Ада</h3>
-                <p class="text-gray-700">Уникальное природное явление - газовый кратер Дарваза, горящий непрерывно более 50 лет. Это зрелище, которое вы никогда не забудете.</p>
-            </div>
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-archway text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Древние города</h3>
-                <p class="text-gray-700">Посетите руины древнего Мерва, включенного в список Всемирного наследия ЮНЕСКО, и другие исторические памятники Великого Шелкового пути.</p>
-            </div>
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-horse text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Ахалтекинские кони</h3>
-                <p class="text-gray-700">Узнайте о легендарных ахалтекинских скакунах, которых называют "небесными конями" за их грацию и выносливость.</p>
-            </div>
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-umbrella-beach text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Каспийское море</h3>
-                <p class="text-gray-700">Отдохните на побережье Каспийского моря в современном курортном городе Аваза с его прекрасными пляжами и отелями.</p>
-            </div>
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-utensils text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Национальная кухня</h3>
-                <p class="text-gray-700">Попробуйте настоящий туркменский плов, манты, шашлык и другие блюда, приготовленные по древним рецептам.</p>
-            </div>
-            <div class="feature-card bg-white p-8 rounded-lg shadow-md transition duration-300">
-                <div class="text-red-600 mb-4">
-                    <i class="fas fa-spa text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Лечебные источники</h3>
-                <p class="text-gray-700">Посетите знаменитые лечебные источники и грязи, известные своими целебными свойствами еще с древних времен.</p>
-            </div>
+<!-- ========== FOOTER ========== -->
+<footer class="bg-dark text-white py-4">
+  <div class="container">
+    <div class="row gy-3">
+      <div class="col-md-4">
+        <div class="d-flex align-items-center mb-2">
+          <i class="fa-solid fa-fire text-danger me-2"></i><span class="fw-bold">TurkmenTravel</span>
         </div>
+        <p class="small mb-0">Ваш надёжный гид по удивительному Туркменистану.</p>
+      </div>
+      <div class="col-md-4">
+        <div class="fw-bold mb-2">Быстрые ссылки</div>
+        <ul class="list-unstyled small">
+          <li><a href="#home" class="text-white-50">Главная</a></li>
+          <li><a href="#about" class="text-white-50">О Туркменистане</a></li>
+          <li><a href="#tours" class="text-white-50">Туры</a></li>
+          <li><a href="#darwaza" class="text-white-50">Дарваза</a></li>
+          <li><a href="#contact" class="text-white-50">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <div class="fw-bold mb-2">Подписаться на рассылку</div>
+        <form class="d-flex"><input type="email" class="form-control form-control-sm me-2" placeholder="Ваш email" required><button class="btn btn-sm btn-danger"><i class="fa-solid fa-paper-plane"></i></button></form>
+      </div>
     </div>
-</section>
-
-<!-- Darvaza Section -->
-<section id="darwaza" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Дарваза - Врата Ада</h2>
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1">
-                <p class="text-lg text-gray-700 mb-6">Газовый кратер Дарваза, известный как "Врата Ада", - это одно из самых загадочных и впечатляющих мест на планете. Расположенный в сердце пустыни Каракумы, этот горящий кратер диаметром около 70 метров и глубиной 20 метров непрерывно пылает уже более 50 лет.</p>
-                <p class="text-lg text-gray-700 mb-6">По легенде, кратер образовался в 1971 году, когда советские геологи бурили разведочную скважину и случайно попали в подземную каверну с природным газом. Чтобы избежать распространения газа, его подожгли, рассчитывая, что огонь потухнет через несколько недель. Однако кратер горит до сих пор.</p>
-                <p class="text-lg text-gray-700 mb-8">Ночью зрелище особенно впечатляющее - языки пламени вздымаются на высоту до 10-15 метров, освещая окрестности пустыни зловещим светом. Это уникальное явление привлекает туристов со всего мира.</p>
-                <a href="#tours" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">Забронировать тур к Вратам Ада</a>
-            </div>
-            <div class="order-1 md:order-2">
-                <div class="relative overflow-hidden rounded-lg shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1508514177221-188e1e464282?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Дарваза - Врата Ада" class="w-full h-auto">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-0 left-0 p-6 text-white">
-                        <h3 class="text-xl font-bold">"Это нужно увидеть своими глазами!"</h3>
-                        <p>- Марк, путешественник из Германии</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Tours -->
-<section id="tours" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Наши популярные туры</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition duration-300 hover:shadow-xl">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Тур к Вратам Ада" class="w-full h-64 object-cover">
-                    <div class="absolute top-0 right-0 bg-red-600 text-white px-3 py-1 font-bold">ХИТ</div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Тур к Вратам Ада</h3>
-                    <p class="text-gray-700 mb-4">2 дня / 1 ночь. Незабываемое путешествие к газовому кратеру Дарваза с ночевкой в пустыне.</p>
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-gray-600 line-through">$450</span>
-                            <span class="text-red-600 font-bold text-xl ml-2">$399</span>
-                        </div>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <a href="#contact" class="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center font-bold py-2 px-4 rounded transition duration-300">Забронировать</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition duration-300 hover:shadow-xl">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Тур по древним городам" class="w-full h-64 object-cover">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Древние города Туркменистана</h3>
-                    <p class="text-gray-700 mb-4">5 дней / 4 ночи. Тур по историческим местам: Мерв, Куня-Ургенч, Ниса.</p>
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-red-600 font-bold text-xl">$750</span>
-                        </div>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                    <a href="#contact" class="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center font-bold py-2 px-4 rounded transition duration-300">Забронировать</a>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-lg transition duration-300 hover:shadow-xl">
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Комбинированный тур" class="w-full h-64 object-cover">
-                    <div class="absolute top-0 right-0 bg-green-600 text-white px-3 py-1 font-bold">НОВИНКА</div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Все сокровища Туркменистана</h3>
-                    <p class="text-gray-700 mb-4">8 дней / 7 ночей. Комбинированный тур: Дарваза, Ашхабад, Мерв, Аваза.</p>
-                    <div class="flex justify-between items-center mb-4">
-                        <div>
-                            <span class="text-red-600 font-bold text-xl">$1200</span>
-                        </div>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                    </div>
-                    <a href="#contact" class="block w-full bg-gray-800 hover:bg-gray-900 text-white text-center font-bold py-2 px-4 rounded transition duration-300">Забронировать</a>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-12">
-            <a href="#contact" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300">Хочу индивидуальный тур</a>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Отзывы наших клиентов</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="testimonial-card bg-gray-100 p-6 rounded-lg">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white font-bold mr-4">АК</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800">Анна К.</h4>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-gray-700 italic">"Врата Ада превзошли все мои ожидания! Ночью это выглядит просто нереально. Тур был организован на высшем уровне, гиды очень профессиональные. Обязательно вернусь снова!"</p>
-            </div>
-            <div class="testimonial-card bg-gray-100 p-6 rounded-lg">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white font-bold mr-4">ИП</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800">Иван П.</h4>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-gray-700 italic">"Путешествие в Туркменистан стало одним из самых ярких впечатлений в моей жизни. Особенно запомнился контраст между современным Ашхабадом и древним Мервом. Спасибо за отличную организацию!"</p>
-            </div>
-            <div class="testimonial-card bg-gray-100 p-6 rounded-lg">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white font-bold mr-4">МС</div>
-                    <div>
-                        <h4 class="font-bold text-gray-800">Мария С.</h4>
-                        <div class="text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-gray-700 italic">"Отдых в Авазе был просто сказочным! Чистые пляжи, ласковое море и отличный сервис. А экскурсия к Вратам Ада добавила адреналина в наш спокойный отдых. Рекомендую всем!"</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Gallery -->
-<section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Туркменистан в фотографиях</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-            <div class="gallery-item overflow-hidden rounded-lg shadow-md">
-                <img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Туркменистан" class="w-full h-full object-cover">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section py-16 text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Готовы к незабываемому приключению?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">Оставьте заявку прямо сейчас, и мы подберем для вас идеальный тур по Туркменистану!</p>
-        <div class="max-w-md mx-auto bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-6">
-            <form id="cta-form" class="space-y-4">
-                <div>
-                    <input type="text" placeholder="Ваше имя" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                </div>
-                <div>
-                    <input type="email" placeholder="Ваш email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                </div>
-                <div>
-                    <input type="tel" placeholder="Ваш телефон" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                </div>
-                <div>
-                    <select class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                        <option value="">Выберите интересующий тур</option>
-                        <option value="darwaza">Тур к Вратам Ада</option>
-                        <option value="ancient">Древние города Туркменистана</option>
-                        <option value="all">Все сокровища Туркменистана</option>
-                        <option value="custom">Индивидуальный тур</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Отправить заявку</button>
-            </form>
-        </div>
-    </div>
-</section>
-
-<!-- FAQ -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Часто задаваемые вопросы</h2>
-        <div class="max-w-3xl mx-auto space-y-4">
-            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                <button class="faq-question w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300 flex justify-between items-center">
-                    <span class="font-medium text-gray-800">Нужна ли виза для посещения Туркменистана?</span>
-                    <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
-                </button>
-                <div class="faq-answer p-4 bg-white hidden">
-                    <p class="text-gray-700">Для большинства иностранных граждан требуется виза для въезда в Туркменистан. Мы можем помочь вам с оформлением всех необходимых документов и приглашения для получения визы.</p>
-                </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                <button class="faq-question w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300 flex justify-between items-center">
-                    <span class="font-medium text-gray-800">Когда лучше всего посещать Дарваза?</span>
-                    <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
-                </button>
-                <div class="faq-answer p-4 bg-white hidden">
-                    <p class="text-gray-700">Лучшее время для посещения Врат Ада - с марта по май и с сентября по ноябрь, когда температура наиболее комфортная. Летом в пустыне может быть очень жарко (до +50°C), а зимой - холодно по ночам.</p>
-                </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                <button class="faq-question w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300 flex justify-between items-center">
-                    <span class="font-medium text-gray-800">Безопасно ли посещение Врат Ада?</span>
-                    <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
-                </button>
-                <div class="faq-answer p-4 bg-white hidden">
-                    <p class="text-gray-700">Да, посещение абсолютно безопасно при соблюдении правил, которые вам объяснит гид. Главное - не подходить слишком близко к краю кратера и следовать указаниям сопровождающего.</p>
-                </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                <button class="faq-question w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300 flex justify-between items-center">
-                    <span class="font-medium text-gray-800">Что взять с собой в тур к Вратам Ада?</span>
-                    <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
-                </button>
-                <div class="faq-answer p-4 bg-white hidden">
-                    <p class="text-gray-700">Рекомендуем взять: удобную обувь, теплую одежду (ночью в пустыне холодно), головной убор, солнцезащитные очки, крем от солнца, фотоаппарат, запас воды. Мы предоставляем палатки и питание.</p>
-                </div>
-            </div>
-            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                <button class="faq-question w-full text-left p-4 bg-gray-100 hover:bg-gray-200 focus:outline-none transition duration-300 flex justify-between items-center">
-                    <span class="font-medium text-gray-800">Есть ли возрастные ограничения для туров?</span>
-                    <i class="fas fa-chevron-down text-red-600 transition-transform duration-300"></i>
-                </button>
-                <div class="faq-answer p-4 bg-white hidden">
-                    <p class="text-gray-700">Для стандартных туров возрастных ограничений нет, но для посещения Дарваза мы не рекомендуем брать детей младше 10 лет из-за особенностей маршрута. Пожилым людям следует оценить свои физические возможности.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact -->
-<section id="contact" class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Свяжитесь с нами</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div>
-                <form class="space-y-4">
-                    <div>
-                        <input type="text" placeholder="Ваше имя" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                    </div>
-                    <div>
-                        <input type="email" placeholder="Ваш email" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                    </div>
-                    <div>
-                        <input type="tel" placeholder="Ваш телефон" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600">
-                    </div>
-                    <div>
-                        <textarea placeholder="Ваше сообщение" rows="5" class="w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-600"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Отправить сообщение</button>
-                </form>
-            </div>
-            <div class="bg-white p-8 rounded-lg shadow-md">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Наши контакты</h3>
-                <div class="space-y-4">
-                    <div class="flex items-start">
-                        <i class="fas fa-map-marker-alt text-red-600 mt-1 mr-3"></i>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Адрес:</h4>
-                            <p class="text-gray-700">г. Ашхабад, проспект Махтумкули, 123</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-phone-alt text-red-600 mt-1 mr-3"></i>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Телефон:</h4>
-                            <p class="text-gray-700">+993 12 34 56 78</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-envelope text-red-600 mt-1 mr-3"></i>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Email:</h4>
-                            <p class="text-gray-700">info@turkmentravel.com</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-clock text-red-600 mt-1 mr-3"></i>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Часы работы:</h4>
-                            <p class="text-gray-700">Пн-Пт: 9:00 - 18:00<br>Сб: 10:00 - 15:00<br>Вс: выходной</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <h4 class="font-bold text-gray-800 mb-3">Мы в социальных сетях:</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-gray-900 text-white rounded-full flex items-center justify-center transition duration-300">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-blue-400 hover:bg-blue-500 text-white rounded-full flex items-center justify-center transition duration-300">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-pink-600 hover:bg-pink-700 text-white rounded-full flex items-center justify-center transition duration-300">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition duration-300">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-4 gap-8">
-            <div>
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-fire text-2xl text-red-600 mr-2"></i>
-                    <span class="text-xl font-bold">TurkmenTravel</span>
-                </div>
-                <p class="text-gray-400">Ваш надежный гид по удивительному Туркменистану. Мы открываем для вас самые захватывающие места этой загадочной страны.</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Быстрые ссылки</h4>
-                <ul class="space-y-2">
-                    <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Главная</a></li>
-                    <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">О Туркменистане</a></li>
-                    <li><a href="#tours" class="text-gray-400 hover:text-white transition duration-300">Туры</a></li>
-                    <li><a href="#darwaza" class="text-gray-400 hover:text-white transition duration-300">Дарваза</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Контакты</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Наши туры</h4>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Тур к Вратам Ада</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Древние города</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Все сокровища Туркменистана</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Отдых в Авазе</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Индивидуальные туры</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Подписаться на рассылку</h4>
-                <p class="text-gray-400 mb-4">Будьте в курсе наших новых предложений и акций.</p>
-                <form class="flex">
-                    <input type="email" placeholder="Ваш email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
-                    <button type="submit" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-r-lg transition duration-300">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
-            <p>&copy; 2023 TurkmenTravel. Все права защищены.</p>
-        </div>
-    </div>
+    <hr class="my-3 bg-white-50">
+    <div class="text-center small text-white-50">&copy; 2023 TurkmenTravel. Все права защищены.</div>
+  </div>
 </footer>
 
+<!-- ========== SCRIPTS ========== -->
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script>
-    // Mobile menu toggle
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
+  // Smooth-scroll для якорей
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth'});
     });
-
-    // FAQ accordion
-    document.querySelectorAll('.faq-question').forEach(button => {
-        button.addEventListener('click', () => {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('i');
-
-            // Toggle answer visibility
-            answer.classList.toggle('hidden');
-
-            // Rotate icon
-            icon.classList.toggle('rotate-180');
-
-            // Close other answers
-            document.querySelectorAll('.faq-question').forEach(otherButton => {
-                if (otherButton !== button) {
-                    otherButton.nextElementSibling.classList.add('hidden');
-                    otherButton.querySelector('i').classList.remove('rotate-180');
-                }
-            });
-        });
-    });
-
-    // Form submission
-    document.getElementById('cta-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
-        this.reset();
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu if open
-                if (!document.getElementById('mobile-menu').classList.contains('hidden')) {
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                }
-            }
-        });
-    });
+  });
+  // Простая отправка формы
+  document.getElementById('cta-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    alert('Спасибо за заявку! Мы свяжемся в ближайшее время.');
+    this.reset();
+  });
 </script>
 </body>
 </html>

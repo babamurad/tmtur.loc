@@ -1,0 +1,59 @@
+.navbar.mb-3, .navbar.mb-4 { margin-bottom: 0 !important; }
+
+.navbar {                       
+  margin-bottom: 0 !important; /* убираем нижний отступ Bootstrap */
+}
+
+/* следующий элемент после navbar = карусель, поднимаем её вверх */
+.navbar + section {             /* если у вас <section id="home" …> идёт сразу после nav */
+  margin-top: -1px;             /* «прилипание» к навбару (1 px надёжнее 0) */
+}
+
+/* --------- Full-screen carousel --------- */
+html, body { height: 100%; }                /* чтобы 100vh работала на iOS */
+
+.carousel,
+.carousel-inner,
+.carousel-item {
+  height: 95vh;                            /* 1,2: родитель и слайды = вся высота */
+}
+
+.carousel-item:not(.active) {
+  display: none !important;   /* Bootstrap сам переключает */
+}
+
+.carousel-item {
+  display: flex !important;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 3. Расположение внутри слайда */
+.carousel-caption {
+  margin: auto 0;                           /* центр по вертикали */
+  padding: 2vh 3vw;
+  background: rgba(0,0,0,.55);
+  border-radius: .5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.carousel-indicators {
+  margin: auto 0 2vh 0;                     /* прижать к низу слайда */
+ /*  position: relative;                       убираем absolute, чтобы не вылезать */
+  z-index: 3;
+}
+
+/* стрелки чуть крупнее (по желанию) */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* 4. Мелкий экран: уменьшаем текст */
+@media (max-height: 600px) {
+  .carousel-caption h1 { font-size: 6vh; }
+  .carousel-caption .lead { font-size: 2.5vh; }
+}
