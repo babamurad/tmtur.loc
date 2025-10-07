@@ -16,6 +16,7 @@ class Tour extends Model
         'map_id',
         'base_price_cents',
         'duration_days',
+        'slug',
         'tour_category_id'
     ];
 
@@ -23,6 +24,7 @@ class Tour extends Model
         'description' => 'array',
         'base_price_cents' => 'integer',
         'duration_days' => 'integer',
+        'slug' => 'string',
         'tour_category_id' => 'integer'
     ];
 

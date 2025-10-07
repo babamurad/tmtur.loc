@@ -25,28 +25,15 @@
                             <div class="form-group">
                                 <label for="title">Title <span class="text-danger">*</span></label>
                                 <input type="text"
-                                       id="title"
-                                       wire:model.defer="title"
-                                       class="form-control @error('title') is-invalid @enderror"
-                                       placeholder="e.g. City Tour"
-                                       wire:keyup="generateSlug">
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                    id="title"
+                                    wire:model.debounce.300ms="title"
+                                    wire:input="generateSlug"
+                                    class="form-control @error('title') is-invalid @enderror"
+                                    placeholder="e.g. City Tour">
+                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                <span>Slug: {{ $slug }}</span>
                             </div>
-
-                            {{-- Slug --}}
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text"
-                                       id="slug"
-                                       wire:model.defer="slug"
-                                       class="form-control @error('slug') is-invalid @enderror"
-                                       placeholder="e.g. city-tour">
-                                @error('slug')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            
 
                             {{-- Category --}}
                             <div class="form-group">
@@ -58,6 +45,29 @@
                                     @endforeach
                                 </select>
                                 @error('category_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="base_price_cents">Price <span class="text-danger">*</span> </label>
+                                <input type="number"
+                                       wire:model.defer="base_price_cents"
+                                       class="form-control @error('base_price_cents') is-invalid @enderror"
+                                       placeholder="e.g. 1500">
+                                @error('base_price_cents')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Duration Days --}}
+                            <div class="form-group">
+                                <label for="duration_days">Duration (days) <span class="text-danger">*</span> </label>
+                                <input type="number"
+                                       wire:model.defer="duration_days"
+                                       class="form-control @error('duration_days') is-invalid @enderror"
+                                       placeholder="e.g. 5">
+                                @error('duration_days')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -75,15 +85,55 @@
                             </div>
 
                             {{-- Image --}}
-                            <div class="form-group">
-                                <label for="image">Image</label>
-                                <input type="file"
-                                       id="image"
-                                       wire:model.defer="image"
-                                       class="form-control @error('image') is-invalid @enderror">
-                                @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <div class="custom-file">
+                                        <input type="file"
+                                            class="custom-file-input @error('image') is-invalid @enderror"
+                                            id="image"
+                                            wire:model="image"
+                                            accept="image/*">
+                                        <label class="custom-file-label" for="image">
+                                            @if ($image)
+                                                {{ $image->getClientOriginalName() }}
+                                            @else
+                                                Choose file
+                                            @endif
+                                        </label>
+                                        @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- контейнер 200 px --}}
+                                <div class="position-relative mb-3" style="height:200px;">
+
+                                    {{-- спиннер во время загрузки --}}
+                                    <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50" role="status">
+                                        <span class="sr-only"></span>
+                                    </div>
+
+                                    {{-- картинка или плейсхолдер --}}
+                                    <div wire:loading.remove wire:target="image">
+                                        @if ($image)
+                                            {{-- свежезагруженное изображение --}}
+                                            <img class="img-fluid rounded"
+                                                style="max-height:200px; object-fit:cover;"
+                                                src="{{ $image->temporaryUrl() }}"
+                                                alt="Preview">
+                                        @else
+                                            {{-- постоянное изображение, если нужно --}}
+                                            <img class="img-fluid rounded"
+                                                style="max-height:200px; object-fit:cover;"
+                                                src="{{ asset('uploads/sliders/placeholder.jpg') }}"
+                                                alt="Placeholder">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-text">Recommended: 800×600 px or larger</div>
                             </div>
 
                             {{-- Is Published --}}
