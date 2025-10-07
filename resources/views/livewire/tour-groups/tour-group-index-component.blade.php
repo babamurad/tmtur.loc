@@ -109,9 +109,22 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="text-muted">
-                                                {{ $tourGroup->status }}
-                                            </span>
+                                            @switch($tourGroup->status)
+                                                @case('draft')
+                                                    <span class="badge badge-soft-info font-size-12">{{ $tourGroup->status }}</span>
+                                                    @break
+                                                @case('open')
+                                                    <span class="badge badge-soft-success font-size-12">{{ $tourGroup->status }}</span>
+                                                    @break
+                                                @case('closed')
+                                                    <span class="badge badge-soft-warning font-size-12">{{ $tourGroup->status }}</span>
+                                                    @break
+                                                @case('cancelled')
+                                                    <span class="badge badge-soft-danger font-size-12">{{ $tourGroup->status }}</span>
+                                                    @break
+                                                @default
+                                                    <span class="badge badge-soft-secondary font-size-12">{{ $tourGroup->status }}</span>
+                                            @endswitch
                                         </td>
 
                                         {{-- Кнопки действий --}}
