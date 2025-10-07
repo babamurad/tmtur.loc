@@ -65,6 +65,7 @@
                                     <tr>
                                         <th style="width: 60px">#</th>
                                         <th>Title</th>
+                                        <th>Image</th>
                                         <th>Category</th>
                                         <th>Base Price</th>
                                         <th>Duration (Days)</th>
@@ -82,8 +83,14 @@
                                             </span>
                                         </td>
                                         <td>
+                                        <td>
+                                            <span class="font-weight-semibold">
+                                                {{ $tour->media->first()->file_name ?? 'N/A' }}
+                                            </span>
+                                        </td>
+                                        <td>
                                             <span class="text-muted">
-                                                {{ $tour->category->title ?? 'N/A' }}
+                                                {{ $tour->tourCategory->title ?? 'N/A' }}
                                             </span>
                                         </td>
                                         <td>
@@ -99,7 +106,7 @@
 
                                         {{-- Кнопки действий --}}
                                         <td class="text-center">
-                                            <a href="{{ route('tours.edit', $tour) }}"
+                                            <a href="{{ route('tours.edit', $tour->id) }}"
                                                class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                                data-toggle="tooltip" title="Edit">
                                                 <i class="bx bx-pencil font-size-14"></i>

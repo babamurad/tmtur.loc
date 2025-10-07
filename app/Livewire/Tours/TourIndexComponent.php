@@ -16,7 +16,7 @@ class TourIndexComponent extends Component
 
     public function render()
     {
-        $tours = Tour::orderBy('id', 'desc')->paginate(8);
+        $tours = Tour::with('tourCategory', 'media')->orderBy('id', 'desc')->paginate(8);
         return view('livewire.tours.tour-index-component', [
             'tours' => $tours,
         ]);

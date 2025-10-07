@@ -114,18 +114,18 @@
                                 <label for="image">File Browser</label>
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('image') is-invalid @enderror"
+                                        class="custom-file-input @error('oldImage') is-invalid @enderror"
                                         id="image"
-                                        wire:model="image"
+                                        wire:model="oldImage"
                                         accept="image/*">
                                     <label class="custom-file-label" for="image">
-                                        @if ($image)
-                                            {{ $image->getClientOriginalName() }}
+                                        @if ($oldImage)
+                                            {{ $oldImage }}
                                         @else
                                             Choose file
                                         @endif
                                     </label>
-                                    @error('image')
+                                    @error('oldImage')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -151,7 +151,7 @@
                                             {{-- постоянное изображение, если нужно --}}
                                             <img class="img-fluid rounded"
                                                 style="max-height:200px; object-fit:cover;"
-                                                src="{{ asset('assets/images/media/sm-5.jpg') }}"
+                                                src="{{ asset('uploads/' . $oldImage) }}"
                                                 alt="Placeholder">
                                         @endif
                                     </div>

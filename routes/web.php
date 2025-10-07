@@ -73,7 +73,7 @@ Route::get('customers/edit/{id}', CustomerEditComponent::class)->name('customers
 
 Route::get('tour-categories', App\Livewire\TourCategories\TourCategoryIndexComponent::class)->name('tour-categories.index');
 Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
-Route::get('tour-categories/edit/{tourCategory}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
+Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
 
 Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
 Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');

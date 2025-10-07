@@ -8,16 +8,19 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Media;
+use Carbon\Carbon;
 
 class TourCreateComponent extends Component
 {
     use WithFileUploads;
     
+    public $tourId;
     public $title;
     public $slug;
     public $category_id;
     public $content;
-    public $image;
+    public $image = '';
     public $is_published = true;
     public $base_price_cents;
     public $duration_days;
@@ -54,19 +57,30 @@ class TourCreateComponent extends Component
         $this->validate();
 
         $imagePath = null;
+        $imageName = null;
         if ($this->image) {
-            $imagePath = $this->image->store('tours', 'public');
+            $imageName = 'tours/' . Carbon::now()->timestamp . '.' . $this->image->extension();
+            $imagePath = $this->image->storeAs($imageName);
         }
 
         Tour::create([
             'title' => $this->title,
             'slug' => $this->slug,
             'tour_category_id' => $this->category_id,
-            'content' => $this->content,
-            'image' => $imagePath,
+            'content' => $this->content,            
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents,
             'duration_days' => $this->duration_days,
+        ]);
+
+        $this->tourId = Tour::latest()->first()->id;
+
+        Media::create([
+            'model_type' => Tour::class,
+            'model_id' => $this->tourId,
+            'file_path' => $imagePath,
+            'file_name' => $this->image->getClientOriginalName(),
+            'mime_type' => $this->image->getClientMimeType(),
         ]);
 
         session()->flash('saved', [

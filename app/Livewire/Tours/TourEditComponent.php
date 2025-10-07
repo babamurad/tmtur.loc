@@ -38,18 +38,23 @@ class TourEditComponent extends Component
         ];
     }
 
-    public function mount(Tour $tour)
+    public function mount($id)
     {
+        $tour = Tour::with('tourCategory', 'media')->findOrFail($id);
+        if (!$tour) {
+            session()->flash('error', 'Тур не найден.');
+            return redirect()->route('tours.index');
+        }
+
         $this->tour = $tour;
         $this->title = $tour->title;
         $this->slug = $tour->slug;
-        $this->category_id = $tour->tour_category_id;
+        $this->category_id = $tour->tourCategory;
         $this->content = $tour->content;
-        $this->image = $tour->image;
         $this->is_published = $tour->is_published;
         $this->base_price_cents = $tour->base_price_cents;
         $this->duration_days = $tour->duration_days;
-        $this->oldImage = $tour->image;
+        $this->oldImage = $tour->media->first() ? $tour->media->first()->file_path : null;
     }
 
     public function render()
