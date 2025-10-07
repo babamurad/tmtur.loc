@@ -1,7 +1,7 @@
 <?php
 
+use App\Livewire\Front\HomeComponent;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\HomeComponent;
 use App\Livewire\Tours\TourIndexComponent;
 use App\Livewire\Tours\TourCreateComponent;
 use App\Livewire\Tours\TourEditComponent;
@@ -34,7 +34,7 @@ use App\Livewire\Customers\CustomerEditComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
 
-Route::get('/dashboard', HomeComponent::class)->name('dashboard');
+Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
 
 Route::get('guides', GuideIndexComponent::class)->name('guides.index');
 Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
