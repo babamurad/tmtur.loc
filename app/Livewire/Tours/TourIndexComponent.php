@@ -13,10 +13,19 @@ class TourIndexComponent extends Component
     use WithPagination;
 
     public $delId;
+    public $perPage = 8;
+    public $search = '';
 
     public function render()
     {
-        $tours = Tour::with('tourCategory', 'media')->orderBy('id', 'desc')->paginate(8);
+        $tours = Tour::with('tourCategory', 'media')
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate($this->perPage);
+
         return view('livewire.tours.tour-index-component', [
             'tours' => $tours,
         ]);
@@ -32,6 +41,17 @@ class TourIndexComponent extends Component
                 ->position('top-end')
                 ->show();
         }
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage($value)
+    {
+        $this->resetPage();
+        $this->perPage = $value;        
     }
 
     public function delete($id)

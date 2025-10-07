@@ -28,35 +28,40 @@
                         {{-- 2.1 Поисковая строка --}}
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form method="GET" action="{{ route('tours.index') }}" class="form-inline">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text"
-                                               name="search"
-                                               value="{{ request('search') }}"
-                                               class="form-control"
-                                               placeholder="Search tours…"
-                                               aria-label="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-primary" type="submit">
-                                                Find
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                    <input 
+                                        type="text" 
+                                        wire:model.live.debounce.300ms="search" 
+                                        class="form-control" 
+                                        placeholder="Search tours…"
+                                    >
+                                </div>
                             </div>
+                            
+
+                            
 
                             {{-- можно сюда добавить фильтры или экспорт --}}
-                            <div class="col-md-6 text-md-right mt-2 mt-md-0">
-                                <span class="text-muted font-size-12">
-                                    Found: <strong>{{ $tours->total() }}</strong>
-                                </span>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center justify-content-md-end gap-3">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="text-muted small">Show</span>
+                                            <select class="form-select form-select-sm mx-2" wire:model.live="perPage" style="width: auto;">
+                                                <option value="8">8</option>
+                                                <option value="15">15</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                            <span class="text-muted small">of {{ $tours->total() }} results</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
-                        </div>{{-- /.row --}}
+                        </div>
 
                         {{-- 2.2 Таблица --}}
                         <div class="table-responsive">
@@ -84,7 +89,11 @@
                                         </td>
                                         <td>
                                             <span class="font-weight-semibold">
-                                                {{ $tour->media->file_name ?? 'N/A' }}
+                                                @if($tour->media)
+                                                    <img class="rounded" src="{{ asset('uploads/' . $tour->media->file_path) }}" alt="{{ $tour->title }}" height="50">
+                                                @else
+                                                    N/A    
+                                                @endif
                                             </span>
                                         </td>
                                         <td>
