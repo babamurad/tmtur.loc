@@ -66,6 +66,8 @@
                                         <th style="width: 60px">#</th>
                                         <th>Title</th>
                                         <th>Category</th>
+                                        <th>Base Price</th>
+                                        <th>Duration (Days)</th>
                                         <th style="width: 120px" class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -82,6 +84,16 @@
                                         <td>
                                             <span class="text-muted">
                                                 {{ $tour->category->title ?? 'N/A' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">
+                                                {{ number_format($tour->base_price_cents / 100, 2) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">
+                                                {{ $tour->duration_days }}
                                             </span>
                                         </td>
 
