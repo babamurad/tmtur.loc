@@ -32,6 +32,9 @@ use App\Livewire\CultureItems\CultureItemEditComponent;
 use App\Livewire\Customers\CustomerIndexComponent;
 use App\Livewire\Customers\CustomerCreateComponent;
 use App\Livewire\Customers\CustomerEditComponent;
+use App\Livewire\Reviews\ReviewIndexComponent;
+use App\Livewire\Reviews\ReviewCreateComponent;
+use App\Livewire\Reviews\ReviewEditComponent;
 // use App\Http\Livewire\RouteIndexComponent;
 // use App\Http\Livewire\RouteShowComponent;
 
@@ -93,4 +96,10 @@ Route::prefix('posts')->name('posts.')->group(function () {
     Route::get('/',             PostIndexComponent::class)->name('index');
     Route::get('/create',       PostCreateComponent::class)->name('create');
     Route::get('/edit/{post}',  PostEditComponent::class)->name('edit');
+});
+
+Route::prefix('reviews')->name('reviews.')->group(function () {
+    Route::get('/',                ReviewIndexComponent::class)->name('index');
+    Route::get('/create',          ReviewCreateComponent::class)->name('create');
+    Route::get('/edit/{review}',   ReviewEditComponent::class)->name('edit');
 });
