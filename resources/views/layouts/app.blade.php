@@ -11,7 +11,7 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
-     
+
 
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -61,14 +61,15 @@
                                 <i class="bx bx-receipt"></i><span>Контент</span></a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды карусели</a></li>
+                                <li><a href="{{ route('categories.index') }}"><i class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
                             </ul>
                         </li>
-                        
+
                         <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-world"></i> Culture Items</a></li>
                         <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>
 
-                        
+
 
                     </ul>
                 </div>

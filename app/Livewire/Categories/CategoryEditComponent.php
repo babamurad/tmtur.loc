@@ -28,13 +28,13 @@ class CategoryEditComponent extends Component
         ];
     }
 
-    public function mount(Category $category): void
+    public function mount($id): void
     {
-        $this->category = $category;
-        $this->title = $category->title;
-        $this->slug = $category->slug;
-        $this->content = $category->content;
-        $this->is_published = (bool)$category->is_published;
+        $this->category = Category::findOrFail($id);
+        $this->title = $this->category->title;
+        $this->slug = $this->category->slug;
+        $this->content = $this->category->content;
+        $this->is_published = (bool)$this->category->is_published;
     }
 
     public function updatedTitle($value): void

@@ -52,12 +52,12 @@
                                         </td>
                                         <td>
                                                 <span
-                                                    class="badge bg-{{ $cat->is_published?'success':'secondary' }}">
+                                                    class="badge badge-{{ $cat->is_published?'success':'secondary' }}">
                                                     {{ $cat->is_published?'Да':'Нет' }}
                                                 </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('categories.edit', $cat) }}"
+                                            <a href="{{ route('categories.edit', $cat->id) }}"
                                                class="btn btn-sm btn-outline-primary">
                                                 <i class="bx bx-pencil"></i>
                                             </a>
