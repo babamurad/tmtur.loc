@@ -39,72 +39,7 @@
   </div>
 </nav>
 
-<!-- ========== HERO-CAROUSEL ========== -->
-<section id="home" class="carousel slide" data-bs-ride="carousel">
-  <!-- Индикаторы -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#home" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#home" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#home" data-bs-slide-to="2"></button>
-    <button type="button" data-bs-target="#home" data-bs-slide-to="3"></button>
-  </div>
-
-  <!-- Слайды -->
-  <div class="carousel-inner">
-    <!-- Слайд 1 -->
-    <div class="carousel-item active"
-         style="background-image:url('https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=2070&q=80');">
-      <div class="carousel-caption  text-center">
-        <h1 class="display-3 fw-bold">Откройте для себя Туркменистан</h1>
-        <p class="lead mb-4">Земля древних цивилизаций, загадочных пустынь и легендарных «Врат Ада»</p>
-        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-          <a href="#tours" class="btn btn-danger btn-lg">Выбрать тур</a>
-          <a href="#darwaza" class="btn btn-outline-light btn-lg">Узнать о Дарваза</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Слайд 2 -->
-    <div class="carousel-item"
-         style="background-image:url('https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=2070&q=80');">
-      <div class="carousel-caption text-center">
-        <h2 class="display-4 fw-bold">Дарваза — Врата Ада</h2>
-        <p class="lead">Горящий кратер в сердце пустыни Каракумы, который невозможно забыть</p>
-        <a href="#darwaza" class="btn btn-light btn-lg">Подробнее</a>
-      </div>
-    </div>
-
-    <!-- Слайд 3 -->
-    <div class="carousel-item"
-         style="background-image:url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2070&q=80');">
-      <div class="carousel-caption text-center">
-        <h2 class="display-4 fw-bold">Древний Мерв</h2>
-        <p class="lead">ЮНЕСКО и Великий Шелковый путь — прикоснитесь к истории</p>
-        <a href="#tours" class="btn btn-light btn-lg">Туры в Мерв</a>
-      </div>
-    </div>
-
-    <!-- Слайд 4 -->
-    <div class="carousel-item"
-         style="background-image:url('https://images.unsplash.com/photo-1519904981063-b0cf448d479e?auto=format&fit=crop&w=2070&q=80');">
-      <div class="carousel-caption text-center">
-        <h2 class="display-4 fw-bold">Каспийское море и Аваза</h2>
-        <p class="lead">Белоснежные пляжи и современные отели на берегу крупнейшего озёра планеты</p>
-        <a href="#tours" class="btn btn-light btn-lg">Пляжные туры</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Стрелки -->
-    <button class="carousel-control-prev" type="button"
-            data-bs-target="#home" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button"
-            data-bs-target="#home" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-    </button>
-</section>
+@livewire('front.carousel-component')
 
 <!-- ========== О ТУРКМЕНИСТАНЕ ========== -->
 <section id="about" class="py-5">

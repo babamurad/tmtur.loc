@@ -52,9 +52,17 @@
                                 <li><a href="{{ route('tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a></li>
                                 <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы туров</a></li>
                                 <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i> Дополнительные услуги</a></li>
-     
                             </ul>
                         </li>
+
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                <i class="bx bx-receipt"></i><span>Контент</span></a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды карусели</a></li>
+                            </ul>
+                        </li>
+                        
                         <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-world"></i> Culture Items</a></li>
                         <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>

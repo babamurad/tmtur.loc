@@ -8,9 +8,9 @@ use App\Livewire\Tours\TourEditComponent;
 use App\Livewire\Guides\GuideIndexComponent;
 use App\Livewire\Guides\GuideEditComponent;
 use App\Livewire\Guides\GuideCreateComponent;
-use App\Livewire\CarouselSlides\CarouselSlideIndexComponent;
-use App\Livewire\CarouselSlides\CarouselSlideCreateComponent;
-use App\Livewire\CarouselSlides\CarouselSlideEditComponent;
+use App\Livewire\Carousel\CarouselIndexComponent;
+use App\Livewire\Carousel\CarouselCreateComponent;
+use App\Livewire\Carousel\CarouselEditComponent;
 use App\Livewire\ContactInfos\ContactInfoIndexComponent;
 use App\Livewire\ContactInfos\ContactInfoCreateComponent;
 use App\Livewire\ContactInfos\ContactInfoEditComponent;
@@ -40,9 +40,9 @@ Route::get('guides', GuideIndexComponent::class)->name('guides.index');
 Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
 Route::get('guides/edit/{id}', GuideEditComponent::class)->name('guides.edit');
 
-Route::get('carousel-slides', CarouselSlideIndexComponent::class)->name('carousel-slides.index');
-Route::get('carousel-slides/create', CarouselSlideCreateComponent::class)->name('carousel-slides.create');
-Route::get('carousel-slides/edit/{id}', CarouselSlideEditComponent::class)->name('carousel-slides.edit');
+Route::get('carousels', CarouselIndexComponent::class)->name('carousels.index');
+Route::get('carousels/create', CarouselCreateComponent::class)->name('carousels.create');
+Route::get('carousels/edit/{id}', CarouselEditComponent::class)->name('carousels.edit');
 
 Route::get('contact-infos', ContactInfoIndexComponent::class)->name('contact-infos.index');
 Route::get('contact-infos/create', ContactInfoCreateComponent::class)->name('contact-infos.create');
