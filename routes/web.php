@@ -1,6 +1,9 @@
 <?php
 
 use App\Livewire\Front\HomeComponent;
+use App\Livewire\Posts\PostCreateComponent;
+use App\Livewire\Posts\PostEditComponent;
+use App\Livewire\Posts\PostIndexComponent;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Tours\TourIndexComponent;
 use App\Livewire\Tours\TourCreateComponent;
@@ -85,3 +88,9 @@ Route::get('tour-groups/delete/{tourGroup}', App\Livewire\TourGroups\TourGroupIn
 Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
 Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');
 Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');
+
+Route::prefix('posts')->name('posts.')->group(function () {
+    Route::get('/',             PostIndexComponent::class)->name('index');
+    Route::get('/create',       PostCreateComponent::class)->name('create');
+    Route::get('/edit/{post}',  PostEditComponent::class)->name('edit');
+});

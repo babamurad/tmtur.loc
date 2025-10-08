@@ -62,6 +62,7 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды карусели</a></li>
                                 <li><a href="{{ route('categories.index') }}"><i class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
+                                <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
                             </ul>
                         </li>
 
