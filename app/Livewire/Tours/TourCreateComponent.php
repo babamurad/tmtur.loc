@@ -14,7 +14,7 @@ use Carbon\Carbon;
 class TourCreateComponent extends Component
 {
     use WithFileUploads;
-    
+
     public $tourId;
     public $title;
     public $slug;
@@ -24,6 +24,7 @@ class TourCreateComponent extends Component
     public $is_published = true;
     public $base_price_cents;
     public $duration_days;
+    public $description;
 
     protected function rules()
     {
@@ -36,6 +37,7 @@ class TourCreateComponent extends Component
             'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
+            'description' => 'nullable'
         ];
     }
 
@@ -67,10 +69,11 @@ class TourCreateComponent extends Component
             'title' => $this->title,
             'slug' => $this->slug,
             'tour_category_id' => $this->category_id,
-            'content' => $this->content,            
+            'content' => $this->content,
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents,
             'duration_days' => $this->duration_days,
+            'description' => $this->description,
         ]);
 
         $this->tourId = Tour::latest()->first()->id;

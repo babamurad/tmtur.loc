@@ -22,19 +22,24 @@
 
                         <form wire:submit.prevent="save">
                             <div class="row">
-                                
+
                             </div>
                             {{-- Title --}}
                             <div class="form-group">
                                 <label for="title">Title <span class="text-danger">*</span></label>
                                 <input type="text"
                                     id="title"
-                                    wire:model.debounce.300ms="title"                                    
+                                    wire:model.debounce.300ms="title"
                                     class="form-control @error('title') is-invalid @enderror"
                                     placeholder="e.g. City Tour">
-                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror                                
+                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
-                            
+
+                            <div class="form-group">
+                                <label for="description">Textarea</label>
+                                <textarea class="form-control" id="description" rows="3" wire:model="description"></textarea>
+                                @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
 
                             {{-- Category --}}
                             <div class="form-group">
@@ -110,9 +115,9 @@
                                 <input type="file" name="image" id="image-upload" wire:model="newimage">
                         </div>
                         @error('image') <span>{{ $message }}</span> @enderror
-                        
+
                     </div>
-                    
+
 
                     {{-- Is Published --}}
                     <div class="form-group">

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Roadmap – туристический сайт на Filament</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+            line-height: 1.55;
+            color: #222;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 40px;
+        }
+        h1, h2, h3 {
+            margin-top: 30px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 28px;
+            color: #005a9c;
+            border-bottom: 2px solid #005a9c;
+            padding-bottom: 6px;
+        }
+        h2 {
+            font-size: 22px;
+            color: #005a9c;
+        }
+        h3 {
+            font-size: 18px;
+            color: #444;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 10px 0 20px 0;
+        }
+        li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+        li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #005a9c;
+            border-radius: 3px;
+            background: #fff;
+        }
+        code, pre {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+        code {
+            padding: 2px 5px;
+        }
+        pre {
+            padding: 12px 15px;
+            overflow-x: auto;
+            margin: 10px 0 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px 0;
+        }
+        th, td {
+            border: 1px solid #bbb;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: #e8f1fa;
+            font-weight: 600;
+        }
+        .note {
+            background: #e8f1fa;
+            border-left: 4px solid #005a9c;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Roadmap: MVP туристического сайта на Filament</h1>
+
+<h2>Этап 0. Окружение (0,5 дня)</h2>
+<ul>
+    <li>PHP 8.3, MySQL 8, Node 20, Composer 2</li>
+    <li><code>composer create-project laravel/laravel tm-tour</code></li>
+    <li><code>.env</code> → DB, timezone = <code>Asia/Ashgabat</code>, locale = <code>en</code></li>
+    <li><code>sail up</code> или локальный сервер</li>
+    <li>Git-репо на GitHub (private) + <code>.gitignore</code> дописать <code>/public/media</code></li>
+</ul>
+
+<h2>Этап 1. База и модели (уже создано → проверить)</h2>
+<ul>
+    <li>Все 8 миграций лежат в <code>database/migrations</code></li>
+    <li><code>php artisan migrate</code> — OK</li>
+    <li>Создать модели, фабрики, сидеры (5 туров, 20 групп, 10 услуг)</li>
+    <li><code>php artisan db:seed</code></li>
+</ul>
+
+<h2>Этап 2. Установка Filament 3 (0,25 дня)</h2>
+<pre><code>composer require filament/filament:"^3.2" -W
+php artisan filament:install --panels
+php artisan make:filament-user</code></pre>
+<ul><li>Зайти <code>/admin</code> → авторизоваться</li></ul>
+
+<h2>Этап 3. Ресурсы Filament (1 день)</h2>
+<pre><code>php artisan make:filament-resource Tour --generate
+php artisan make:filament-resource TourGroup --generate
+php artisan make:filament-resource Service --generate
+php artisan make:filament-resource Customer --generate
+php artisan make:filament-resource Booking --generate
+php artisan make:filament-resource Inquiry --generate</code></pre>
+
+<table>
+    <tr><th>Resource</th><th>Что изменить / добавить</th></tr>
+    <tr><td><strong>Tour</strong></td><td><code>description</code> → RichEditor, <code>base_price_cents</code> → Money (TMT)</td></tr>
+    <tr><td><strong>TourGroup</strong></td><td><code>starts_at</code> → DateTimePicker (tz Asia/Ashgabat), <code>status</code> → Select, добавить TourGroupsRelationManager в Tour</td></tr>
+    <tr><td><strong>Service</strong></td><td><code>type</code> → Select, <code>default_price_cents</code> → Money</td></tr>
+    <tr><td><strong>Customer</strong></td><td><code>passport</code> → KeyValue, <code>gdpr_consent_at</code> → Checkbox + date</td></tr>
+    <tr><td><strong>Booking</strong></td><td><code>tour_group_id</code> Select (scope open), <code>people_count</code> RangeSlider (1…freeSeats), <code>total_price_cents</code> Money, Action «Подтвердить»</td></tr>
+    <tr><td><strong>Inquiry</strong></td><td>read-only, Action «Преобразовать в Booking»</td></tr>
+</table>
+
+<h2>Этап 4. Бизнес-логика (0,5 дня)</h2>
+<h3>4.1 Подтверждение брони</h3>
+<pre><code>Actions\Action::make('confirm')
+  ->requiresConfirmation()
+  ->action(fn (Booking $b) => $b->confirm())</code></pre>
+<p>В модели Booking:</p>
+<pre><code>public function confirm(){
+   $this->update(['status'=>'confirmed','confirmed_at'=>now()]);
+   $this->group()->increment('current_people');
+   Mail::to($this->customer->email)->send(new BookingConfirmed($this));
+}</code></pre>
+
+<h3>4.2 Авто-заполнение booking_services</h3>
+<p>Observer <code>BookingObserver::created</code> → клонировать tour_group_services в booking_services.</p>
+
+<h3>4.3 Проверка свободных мест</h3>
+<p><code>people_count</code> ≤ (<code>max_people</code> − <code>current_people</code>) через правило в форме.</p>
+
+<h2>Этап 5. Почта и уведомления (0,25 дня)</h2>
+<ul>
+    <li>Mailtrap / SMTP в <code>.env</code></li>
+    <li><code>php artisan make:mail BookingConfirmed</code></li>
+    <li>Blade-шаблон + QR-код на voucher</li>
+</ul>
+
+<h2>Этап 6. Печать voucher (PDF) (0,5 дня)</h2>
+<pre><code>composer require barryvdh/laravel-dompdf</code></pre>
+<ul>
+    <li>Route <code>/voucher/{booking:uuid}</code></li>
+    <li>Filament Action «Скачать PDF»</li>
+</ul>
+
+<h2>Этап 7. Мультиязычность (0 дней сейчас)</h2>
+<ul>
+    <li>Ничего не трогаем</li>
+    <li>При заказе китайской версии → подключаем <code>filament/spatie-laravel-translatable-plugin</code> и таблицу <code>tour_translations</code></li>
+</ul>
+
+<h2>Этап 8. Media (фото, PDF) (0,25 дня)</h2>
+<pre><code>composer require spatie/laravel-medialibrary</code></pre>
+<ul>
+    <li>Трейт <code>InteractsWithMedia</code> в Tour, Service</li>
+    <li>Filament компонент <code>SpatieMediaLibraryFileUpload</code></li>
+</ul>
+
+<h2>Этап 9. Админ-дашборд (0,25 дня)</h2>
+<ul>
+    <li>Виджеты: NewInquiriesWidget, DeparturesTodayWidget, BookingStatsWidget</li>
+</ul>
+
+<h2>Этап 10. Безопасность и роли (0,25 дня)</h2>
+<pre><code>composer require bezhansalleh/filament-shield</code></pre>
+<ul>
+    <li>Роли: admin, operator</li>
+    <li>Разграничить доступ к ресурсам</li>
+</ul>
+
+<h2>Этап 11. Тесты (0,5 дня)</h2>
+<pre><code>php artisan pest:install</code></pre>
+<ul>
+    <li>Feature-тест: «оператор подтверждает бронь»</li>
+    <li>Feature-тест: «нельзя превысить max_people»</li>
+    <li>GitHub Actions → <code>sail test</code> на пуш</li>
+</ul>
+
+<h2>Этап 12. Деплой (0,5 дня)</h2>
+<ul>
+    <li>VPS (Hetzner / DigitalOcean) → Ubuntu 22, nginx, PHP 8.3, Redis</li>
+    <li>SSL (Let’s Encrypt), queue worker, scheduler</li>
+    <li>Deploy через Deployer или Laravel Forge</li>
+</ul>
+
+<div class="note">
+    <strong>Итого трудозатраты MVP:</strong> ~ 4–5 человеко-дней. После завершения этапа 12 сайт полностью готов к приёму заявок и печати voucher.
+</div>
+
+</body>
+</html>

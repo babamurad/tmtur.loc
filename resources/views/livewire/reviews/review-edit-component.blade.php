@@ -1,4 +1,4 @@
-...
+
 <form wire:submit.prevent="save">
     <div class="form-group">
         <label>Пользователь <span class="text-danger">*</span></label>
@@ -47,4 +47,4 @@
         </a>
     </div>
 </form>
-...
+

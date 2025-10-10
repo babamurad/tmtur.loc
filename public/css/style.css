@@ -1,6 +1,6 @@
 .navbar.mb-3, .navbar.mb-4 { margin-bottom: 0 !important; }
 
-.navbar {                       
+.navbar {
   margin-bottom: 0 !important; /* убираем нижний отступ Bootstrap */
 }
 
@@ -56,4 +56,41 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 @media (max-height: 600px) {
   .carousel-caption h1 { font-size: 6vh; }
   .carousel-caption .lead { font-size: 2.5vh; }
+}
+
+.guide-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border: 3px solid var(--primary-color);
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.badge-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.badge-info {
+    color: #fff;
+    background-color: #17a2b8;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }

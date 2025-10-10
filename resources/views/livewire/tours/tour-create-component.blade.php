@@ -22,7 +22,7 @@
 
                         <form wire:submit.prevent="save">
                             <div class="row">
-                                
+
                             </div>
                             {{-- Title --}}
                             <div class="form-group">
@@ -36,7 +36,12 @@
                                 @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 <span>Slug: {{ $slug }}</span>
                             </div>
-                            
+
+                            <div class="form-group">
+                                <label for="description">Textarea</label>
+                                <textarea class="form-control" id="description" rows="3" wire:model="description"></textarea>
+                                @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
 
                             {{-- Category --}}
                             <div class="form-group">

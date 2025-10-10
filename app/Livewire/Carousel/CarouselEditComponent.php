@@ -35,8 +35,13 @@ class CarouselEditComponent extends Component
         ];
     }
 
-    public function mount(CarouselSlide $carouselSlide)
+    public function mount($id)
     {
+        $carouselSlide = CarouselSlide::find($id);
+
+        if (!$carouselSlide) {
+            abort(404);
+        }
         $this->carouselSlide = $carouselSlide;
         $this->title = $carouselSlide->title;
         $this->description = $carouselSlide->description;
@@ -83,6 +88,6 @@ class CarouselEditComponent extends Component
             'text' => 'Изменения успешно сохранены.',
         ]);
 
-        return redirect()->route('carousel-slides.index');
+        return redirect()->route('carousels.index');
     }
 }

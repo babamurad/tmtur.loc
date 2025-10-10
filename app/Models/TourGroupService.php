@@ -23,4 +23,12 @@ class TourGroupService extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    // TourGroup
+    public function services()
+    {
+        return $this->belongsToMany(Service::class)
+            ->withPivot('price_cents')
+            ->withTimestamps();
+    }
 }

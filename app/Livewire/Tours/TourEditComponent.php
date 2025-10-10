@@ -17,12 +17,13 @@ class TourEditComponent extends Component
     public $tour;
     public $title;
     public $slug;
-    public $category_id;    
+    public $category_id;
     public $is_published;
     public $base_price_cents;
     public $duration_days;
     public $newimage = null;
     public $image    = null;
+    public $description;
 
     protected function rules()
     {
@@ -34,6 +35,7 @@ class TourEditComponent extends Component
             // 'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
+            'description' => 'nullable'
         ];
     }
 
@@ -52,10 +54,11 @@ class TourEditComponent extends Component
         $this->is_published = $tour->is_published;
         $this->base_price_cents = $tour->base_price_cents;
         $this->duration_days = $tour->duration_days;
+        $this->description = $tour->description;
         if ( $tour->media ) {
             $this->image = $tour->media->file_path;
         }
-        
+
     }
 
     public function render()

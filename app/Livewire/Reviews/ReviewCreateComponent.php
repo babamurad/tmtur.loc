@@ -26,21 +26,45 @@ class ReviewCreateComponent extends Component
 
     public function save()
     {
-        $this->validate();
-
-        Review::create([
-            'user_id'  => $this->user_id,
-            'tour_id'  => $this->tour_id,
-            'rating'   => $this->rating,
-            'comment'  => $this->comment,
+        \Log::info('Попытка сохранения отзыва', [
+            'user_id' => $this->user_id,
+            'tour_id' => $this->tour_id,
+            'rating' => $this->rating,
+            'comment' => $this->comment,
         ]);
 
-        session()->flash('saved', [
-            'title' => 'Отзыв добавлен!',
-            'text'  => 'Новый отзыв успешно создан.',
-        ]);
-        return $this->redirectRoute('reviews.index');
+        try {
+            $this->validate();
+
+            $review = Review::create([
+                'user_id' => $this->user_id,
+                'tour_id' => $this->tour_id,
+                'rating' => $this->rating,
+                'comment' => $this->comment,
+            ]);
+
+            \Log::info('Отзыв успешно создан', ['review_id' => $review->id]);
+
+            session()->flash('saved', [
+                'title' => 'Отзыв добавлен!',
+                'text'  => 'Новый отзыв успешно создан.',
+            ]);
+
+            return $this->redirectRoute('reviews.index');
+
+        } catch (\Exception $e) {
+            \Log::error('Ошибка при создании отзыва', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            session()->flash('error', [
+                'title' => 'Ошибка',
+                'text'  => 'Не удалось создать отзыв: ' . $e->getMessage(),
+            ]);
+        }
     }
+
 
     public function render()
     {

@@ -117,6 +117,43 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-4 col-xl-6">
+                <!-- Services -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Дополнительные услуги</h5>
+
+                        @forelse($services as $service)
+                            <div class="row align-items-center mb-2">
+                                <div class="col-auto">
+                                    <input type="checkbox"
+                                           wire:model.live="serviceChecked.{{ $service->id }}"
+                                           id="srv_{{ $service->id }}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="srv_{{ $service->id }}" class="mb-0">
+                                        {{ $service->name }} ({{ $service->type }})
+                                    </label>
+                                </div>
+
+                                <div class="col-auto">
+                                    <input type="number"
+                                           class="form-control form-control-sm"
+                                           style="width:120px"
+                                           wire:model="servicePrices.{{ $service->id }}"
+                                           min="0"
+                                           step="1"
+                                        {{ empty($serviceChecked[$service->id]) ? 'disabled' : '' }}>
+                                    <small class="text-muted">цена (¢)</small>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-muted">Нет доступных услуг.</p>
+                        @endforelse
+                    </div>
+                </div>
         </div>
     </div>
 </div>

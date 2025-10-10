@@ -18,6 +18,7 @@
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+
     @livewireScripts
 </head>
 
@@ -52,7 +53,7 @@
                                <li><a href="{{ route('tour-categories.index') }}"><i class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
                                 <li><a href="{{ route('tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a></li>
                                 <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы туров</a></li>
-                                <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i> Дополнительные услуги</a></li>
+                                <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i> Услуги</a></li>
                             </ul>
                         </li>
 

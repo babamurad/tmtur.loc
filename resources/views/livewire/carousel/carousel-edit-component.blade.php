@@ -6,7 +6,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Edit Carousel Slide</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('carousel-slides.index') }}">Carousel Slides</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('carousels.index') }}">Carousel Slides</a></li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
                 </div>
@@ -104,7 +104,7 @@
                                     </div>
                                 @elseif ($currentImage)
                                     <div class="mt-2">
-                                        <img src="{{ asset('storage/carousel/' . $currentImage) }}" class="img-fluid rounded" style="max-height: 200px;">
+                                        <img src="{{ asset('uploads/' . $currentImage) }}" class="img-fluid rounded" style="max-height: 200px;">
                                     </div>
                                 @endif
                             </div>
@@ -127,7 +127,7 @@
                                     <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
                                     Save
                                 </button>
-                                <a href="{{ route('carousel-slides.index') }}"
+                                <a href="{{ route('carousels.index') }}"
                                    class="btn btn-secondary waves-effect waves-light">
                                     <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                     Cancel
