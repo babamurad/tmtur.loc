@@ -36,4 +36,10 @@ class Guide extends Model
     {
         return $query->orderBy('sort_order')->orderBy('created_at');
     }
+
+    public function media()
+    {
+        return $this->hasOne(Media::class, 'model_id', 'id')
+            ->where('model_type', Tour::class);
+    }
 }
