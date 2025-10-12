@@ -282,10 +282,12 @@
                                 href="javascript:void(0)">
                                 <span>Lock Account</span>
                             </a>
-                            <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                href="javascript:void(0)">
-                                <span>Log Out</span>
-                            </a>
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between border-0 bg-transparent">
+                                    <span>Log Out</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
 

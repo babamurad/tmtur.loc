@@ -4,6 +4,7 @@ use App\Livewire\Front\HomeComponent;
 use App\Livewire\Posts\PostCreateComponent;
 use App\Livewire\Posts\PostEditComponent;
 use App\Livewire\Posts\PostIndexComponent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Tours\TourIndexComponent;
 use App\Livewire\Tours\TourCreateComponent;
@@ -40,66 +41,86 @@ use App\Livewire\Reviews\ReviewEditComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
 
-Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
-
-Route::get('guides', GuideIndexComponent::class)->name('guides.index');
-Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
-Route::get('guides/edit/{id}', GuideEditComponent::class)->name('guides.edit');
-
-Route::get('carousels', CarouselIndexComponent::class)->name('carousels.index');
-Route::get('carousels/create', CarouselCreateComponent::class)->name('carousels.create');
-Route::get('carousels/edit/{id}', CarouselEditComponent::class)->name('carousels.edit');
-
-Route::get('contact-infos', ContactInfoIndexComponent::class)->name('contact-infos.index');
-Route::get('contact-infos/create', ContactInfoCreateComponent::class)->name('contact-infos.create');
-Route::get('contact-infos/edit/{id}', ContactInfoEditComponent::class)->name('contact-infos.edit');
-
-Route::get('bookings', BookingIndexComponent::class)->name('bookings.index');
-Route::get('bookings/create', BookingCreateComponent::class)->name('bookings.create');
-Route::get('bookings/edit/{id}', BookingEditComponent::class)->name('bookings.edit');
-
-Route::get('booking-services', BookingServiceIndexComponent::class)->name('booking-services.index');
-Route::get('booking-services/create', BookingServiceCreateComponent::class)->name('booking-services.create');
-Route::get('booking-services/edit/{id}', BookingServiceEditComponent::class)->name('booking-services.edit');
-
-Route::get('categories', CategoryIndexComponent::class)->name('categories.index');
-Route::get('categories/create', CategoryCreateComponent::class)->name('categories.create');
-Route::get('categories/edit/{id}', CategoryEditComponent::class)->name('categories.edit');
-
-Route::get('culture-items', CultureItemIndexComponent::class)->name('culture-items.index');
-Route::get('culture-items/create', CultureItemCreateComponent::class)->name('culture-items.create');
-Route::get('culture-items/edit/{id}', CultureItemEditComponent::class)->name('culture-items.edit');
-
-Route::get('customers', CustomerIndexComponent::class)->name('customers.index');
-Route::get('customers/create', CustomerCreateComponent::class)->name('customers.create');
-Route::get('customers/edit/{id}', CustomerEditComponent::class)->name('customers.edit');
+Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
+Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
+Route::post('/logout', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
 
 
-Route::get('tour-categories', App\Livewire\TourCategories\TourCategoryIndexComponent::class)->name('tour-categories.index');
-Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
-Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
+    Route::get('guides', GuideIndexComponent::class)->name('guides.index');
+    Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
+    Route::get('guides/edit/{id}', GuideEditComponent::class)->name('guides.edit');
 
-Route::get('/tours', TourIndexComponent::class)->name('tours.index');
-Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
-Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+    Route::get('carousels', CarouselIndexComponent::class)->name('carousels.index');
+    Route::get('carousels/create', CarouselCreateComponent::class)->name('carousels.create');
+    Route::get('carousels/edit/{id}', CarouselEditComponent::class)->name('carousels.edit');
 
-Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
-Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');
-Route::get('tour-groups/edit/{tourGroup}', App\Livewire\TourGroups\TourGroupEditComponent::class)->name('tour-groups.edit');
-Route::get('tour-groups/delete/{tourGroup}', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.delete');
+    Route::get('contact-infos', ContactInfoIndexComponent::class)->name('contact-infos.index');
+    Route::get('contact-infos/create', ContactInfoCreateComponent::class)->name('contact-infos.create');
+    Route::get('contact-infos/edit/{id}', ContactInfoEditComponent::class)->name('contact-infos.edit');
 
-Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
-Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');
-Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');
+    Route::get('bookings', BookingIndexComponent::class)->name('bookings.index');
+    Route::get('bookings/create', BookingCreateComponent::class)->name('bookings.create');
+    Route::get('bookings/edit/{id}', BookingEditComponent::class)->name('bookings.edit');
 
-Route::prefix('posts')->name('posts.')->group(function () {
-    Route::get('/',             PostIndexComponent::class)->name('index');
-    Route::get('/create',       PostCreateComponent::class)->name('create');
-    Route::get('/edit/{post}',  PostEditComponent::class)->name('edit');
+    Route::get('booking-services', BookingServiceIndexComponent::class)->name('booking-services.index');
+    Route::get('booking-services/create', BookingServiceCreateComponent::class)->name('booking-services.create');
+    Route::get('booking-services/edit/{id}', BookingServiceEditComponent::class)->name('booking-services.edit');
+
+    Route::get('categories', CategoryIndexComponent::class)->name('categories.index');
+    Route::get('categories/create', CategoryCreateComponent::class)->name('categories.create');
+    Route::get('categories/edit/{id}', CategoryEditComponent::class)->name('categories.edit');
+
+    Route::get('culture-items', CultureItemIndexComponent::class)->name('culture-items.index');
+    Route::get('culture-items/create', CultureItemCreateComponent::class)->name('culture-items.create');
+    Route::get('culture-items/edit/{id}', CultureItemEditComponent::class)->name('culture-items.edit');
+
+    Route::get('customers', CustomerIndexComponent::class)->name('customers.index');
+    Route::get('customers/create', CustomerCreateComponent::class)->name('customers.create');
+    Route::get('customers/edit/{id}', CustomerEditComponent::class)->name('customers.edit');
+
+
+    Route::get('tour-categories', App\Livewire\TourCategories\TourCategoryIndexComponent::class)->name('tour-categories.index');
+    Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
+    Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
+
+    Route::get('/tours', TourIndexComponent::class)->name('tours.index');
+    Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
+    Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+
+    Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
+    Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');
+    Route::get('tour-groups/edit/{tourGroup}', App\Livewire\TourGroups\TourGroupEditComponent::class)->name('tour-groups.edit');
+    Route::get('tour-groups/delete/{tourGroup}', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.delete');
+
+    Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
+    Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');
+    Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');
+
+    Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('/',             PostIndexComponent::class)->name('index');
+        Route::get('/create',       PostCreateComponent::class)->name('create');
+        Route::get('/edit/{post}',  PostEditComponent::class)->name('edit');
+    });
+
+    Route::prefix('reviews')->name('reviews.')->group(function () {
+        Route::get('/',                ReviewIndexComponent::class)->name('index');
+        Route::get('/create',          ReviewCreateComponent::class)->name('create');
+        Route::get('/edit/{review}',   ReviewEditComponent::class)->name('edit');
+    });
+
 });
 
-Route::prefix('reviews')->name('reviews.')->group(function () {
-    Route::get('/',                ReviewIndexComponent::class)->name('index');
-    Route::get('/create',          ReviewCreateComponent::class)->name('create');
-    Route::get('/edit/{review}',   ReviewEditComponent::class)->name('edit');
+Route::middleware(['auth', 'role:admin,manager'])->group(function () {
+    Route::get('/', HomeComponent::class);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', HomeComponent::class);
 });
