@@ -40,9 +40,9 @@
                                     >
                                 </div>
                             </div>
-                            
-                            
-                            
+
+
+
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center justify-content-md-end gap-3">
                                         <div class="d-flex align-items-center gap-2">
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             {{-- можно сюда добавить фильтры или экспорт --}}
@@ -72,7 +72,7 @@
                                         <th>Tour</th>
                                         <th>Starts At</th>
                                         <th>Max People</th>
-                                        <th>Current People</th>
+                                        <th>Current <br> People</th>
                                         <th>Price</th>
                                         <th>Status</th>
                                         <th style="width: 120px" class="text-center">Actions</th>
