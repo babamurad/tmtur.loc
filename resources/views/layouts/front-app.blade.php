@@ -76,6 +76,14 @@
 
 <!-- ========== SCRIPTS ========== -->
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<!-- 3. jQuery (обязательно ДО bootstrap.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 4. Popper.js 1.16 -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- 5. Bootstrap 4 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script>
   // Smooth-scroll для якорей
   document.querySelectorAll('a[href^="#"]').forEach(anchor=>{

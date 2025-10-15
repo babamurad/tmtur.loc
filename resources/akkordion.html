@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>FAQ – Bootstrap 4 + Boxicons</title>
+
+    <!-- 1. Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- 2. Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        /* ====== FAQ makeover ====== */
+        .section-title{ font-weight:600; letter-spacing:.5px; }
+
+        .accordion-btn{
+            width:100%;
+            padding:1.1rem 1.25rem;
+            font-size:1.05rem;
+            font-weight:500;
+            color:#212529;
+            text-decoration:none;
+            border-radius:.45rem;
+            transition:background .25s;
+        }
+        .accordion-btn:hover{ text-decoration:none; background:#f8f9fa; }
+
+        .accordion-btn:not(.collapsed){
+            background:#fff;
+            box-shadow:0 .125rem .25rem rgba(0,0,0,.05);
+        }
+        .accordion-btn:focus{ box-shadow:none; }
+
+        .accordion-btn .icon{
+            font-size:1.25rem;
+            color:#0d6efd;
+            transition:transform .3s;
+        }
+        .accordion-btn:not(.collapsed) .icon{ transform:rotate(45deg); }
+
+        .card-body{ padding:1.25rem 1.5rem; }
+
+        .accordion.shadow-sm{ border-radius:.5rem; overflow:hidden; }
+    </style>
+</head>
+<body>
+
+<!-- ========== FAQ (Bootstrap 4 + Boxicons) ========== -->
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <h2 class="text-center mb-5 section-title">Frequently asked questions</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion shadow-sm" id="faqAccordion">
+
+                    <!-- item 1 -->
+                    <div class="card border-0 mb-3">
+                        <div class="card-header bg-white border-0 p-0" id="h-faq1">
+                            <button class="btn btn-link accordion-btn d-flex align-items-center justify-content-between"
+                                    data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                <span>Do I need a visa to visit Turkmenistan?</span>
+                                <i class="bx bx-plus-circle icon"></i>
+                            </button>
+                        </div>
+                        <div id="faq1" class="collapse show" aria-labelledby="h-faq1" data-parent="#faqAccordion">
+                            <div class="card-body text-muted">
+                                Most foreigners require a visa. We will help with invitation and processing.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- item 2 -->
+                    <div class="card border-0 mb-3">
+                        <div class="card-header bg-white border-0 p-0" id="h-faq2">
+                            <button class="btn btn-link accordion-btn collapsed d-flex align-items-center justify-content-between"
+                                    data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                <span>When is the best time to visit Darvaza?</span>
+                                <i class="bx bx-plus-circle icon"></i>
+                            </button>
+                        </div>
+                        <div id="faq2" class="collapse" aria-labelledby="h-faq2" data-parent="#faqAccordion">
+                            <div class="card-body text-muted">
+                                March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- item 3 -->
+                    <div class="card border-0 mb-3">
+                        <div class="card-header bg-white border-0 p-0" id="h-faq3">
+                            <button class="btn btn-link accordion-btn collapsed d-flex align-items-center justify-content-between"
+                                    data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                <span>Is it safe to visit the Gates of Hell?</span>
+                                <i class="bx bx-plus-circle icon"></i>
+                            </button>
+                        </div>
+                        <div id="faq3" class="collapse" aria-labelledby="h-faq3" data-parent="#faqAccordion">
+                            <div class="card-body text-muted">
+                                Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- item 4 -->
+                    <div class="card border-0 mb-3">
+                        <div class="card-header bg-white border-0 p-0" id="h-faq4">
+                            <button class="btn btn-link accordion-btn collapsed d-flex align-items-center justify-content-between"
+                                    data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                <span>What should I bring on a tour to the Gates of Hell?</span>
+                                <i class="bx bx-plus-circle icon"></i>
+                            </button>
+                        </div>
+                        <div id="faq4" class="collapse" aria-labelledby="h-faq4" data-parent="#faqAccordion">
+                            <div class="card-body text-muted">
+                                Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- item 5 -->
+                    <div class="card border-0 mb-3">
+                        <div class="card-header bg-white border-0 p-0" id="h-faq5">
+                            <button class="btn btn-link accordion-btn collapsed d-flex align-items-center justify-content-between"
+                                    data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                <span>Are there age restrictions?</span>
+                                <i class="bx bx-plus-circle icon"></i>
+                            </button>
+                        </div>
+                        <div id="faq5" class="collapse" aria-labelledby="h-faq5" data-parent="#faqAccordion">
+                            <div class="card-body text-muted">
+                                We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /accordion -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. jQuery (обязательно ДО bootstrap.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- 4. Popper.js 1.16 -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- 5. Bootstrap 4 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

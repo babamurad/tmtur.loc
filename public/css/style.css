@@ -94,3 +94,49 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
+/* ====== FAQ с иконками ====== */
+.section-title{ font-weight:600; letter-spacing:.5px; }
+
+.accordion-btn{
+    width:100%;
+    padding:1.1rem 1.25rem;
+    font-size:1.05rem;
+    font-weight:500;
+    color:#212529;
+    text-decoration:none;
+    border-radius:.45rem;
+    display:flex;
+    align-items:center;
+    gap:.75rem;                      /* расстояние иконка→текст */
+    transition:background .25s;
+}
+.accordion-btn:hover,
+.accordion-btn:focus{ text-decoration:none; background:#f8f9fa; }
+
+.accordion-btn:not(.collapsed){
+    background:#fff;
+    box-shadow:0 .125rem .25rem rgba(0,0,0,.05);
+}
+
+/* иконка справа «плюс/минус» */
+.accordion-btn .toggle-icon{
+    margin-left:auto;               /* прижать вправо */
+    font-size:1.25rem;
+    color:#0d6efd;
+    transition:transform .3s;
+}
+.accordion-btn:not(.collapsed) .toggle-icon{ transform:rotate(45deg); }
+
+/* иконки вопроса и ответа */
+.q-icon{ color:#0d6efd; font-size:1.3rem; }
+.a-icon{ color:#28a745; font-size:1.2rem; }
+
+/* оформление раскрытого блока */
+.answer-wrap{
+    display:flex;
+    gap:.75rem;
+    padding:1.25rem 1.5rem;
+    background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius:0 0 .45rem .45rem;
+}

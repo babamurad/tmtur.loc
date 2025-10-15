@@ -16,10 +16,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row g-2">
-                        <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow"></div>
+                        <div class="col-6"><img src="{{ asset('assets/images/fontan.webp') }}" class="img-fluid rounded shadow"></div>
+                        <div class="col-6"><img src="{{ asset('assets/images/ayak.webp') }}" class="img-fluid rounded shadow"></div>
+                        <div class="col-6"><img src="{{ asset('assets/images/seyit_jemalletdin.png') }}" class="img-fluid rounded shadow"></div>
+                        <div class="col-6"><img src="{{ asset('assets/images/urgench.webp') }}" class="img-fluid rounded shadow"></div>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=1000&q=80" class="img-fluid rounded shadow" alt="Darvaza">
+                        <img src="{{ asset('assets/images/darwaza_optimized.jpg') }}" class="img-fluid rounded shadow" alt="Darvaza">
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
                             <h5 class="mb-0">“You have to see it with your own eyes!”</h5>
                             <small>— Mark, traveler from Germany</small>
@@ -268,67 +268,136 @@
         </div>
     </section>
 
-    <!-- ========== CTA-FORM ========== -->
-    <section class="py-5 text-white" style="background:url('https://images.unsplash.com/photo-1508514177221-188e1e464282?auto=format&fit=crop&w=2070&q=80') center/covered;">
+    <!-- ========== FAQ (Bootstrap 4 + Boxicons) ========== -->
+    <section class="py-5 bg-light">
         <div class="container py-5">
+            <h2 class="text-center mb-5 section-title">Frequently asked questions</h2>
+
             <div class="row justify-content-center">
-                <div class="col-lg-6 text-center">
-                    <h2 class="mb-4">Ready for an unforgettable adventure?</h2>
-                    <p class="mb-4">Leave a request right now and we will select the perfect tour!</p>
-                    <div class="bg-white bg-opacity-10 p-4 rounded">
-                        <form id="cta-form">
-                            <div class="mb-3"><input type="text" class="form-control" placeholder="Your name" required></div>
-                            <div class="mb-3"><input type="email" class="form-control" placeholder="Your email" required></div>
-                            <div class="mb-3"><input type="tel" class="form-control" placeholder="Your phone" required></div>
-                            <div class="mb-3">
-                                <select class="form-select" required>
-                                    <option value="">Choose your tour</option>
-                                    <option>Tour to the Gates of Hell</option>
-                                    <option>Ancient cities of Turkmenistan</option>
-                                    <option>All treasures of Turkmenistan</option>
-                                    <option>Private tour</option>
-                                </select>
+                <div class="col-lg-8">
+
+                    <!-- accordion wrapper -->
+                    <div class="accordion shadow-sm" id="faqAccordion">
+
+                        <!-- item 1 -->
+                        <div class="card border-0 mb-3">
+                            <div class="card-header bg-white border-0 p-0" id="h-faq1">
+                                <button class="btn btn-link accordion-btn"
+                                        data-toggle="collapse" data-target="#faq1"
+                                        aria-expanded="true" aria-controls="faq1">
+                                    <i class="bx bx-help-circle q-icon"></i>
+                                    <span>Do I need a visa to visit Turkmenistan?</span>
+                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                                </button>
                             </div>
-                            <button class="btn btn-danger w-100">Send request</button>
-                        </form>
-                    </div>
+
+                            <div id="faq1" class="collapse show" aria-labelledby="h-faq1" data-parent="#faqAccordion">
+                                <div class="answer-wrap">
+                                    <i class="bx bx-message-rounded-check a-icon"></i>
+                                    <div class="text-muted">
+                                        Most foreigners require a visa. We will help with invitation and processing.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- item 2 -->
+                        <div class="card border-0 mb-3">
+                            <div class="card-header bg-white border-0 p-0" id="h-faq2">
+                                <button class="btn btn-link accordion-btn"
+                                        data-toggle="collapse" data-target="#faq2"
+                                        aria-expanded="false" aria-controls="faq2">
+                                    <i class="bx bx-help-circle q-icon"></i>
+                                    <span>When is the best time to visit Darvaza?</span>
+                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                                </button>
+                            </div>
+
+                            <div id="faq2" class="collapse" aria-labelledby="h-faq2" data-parent="#faqAccordion">
+                                <div class="answer-wrap">
+                                    <i class="bx bx-message-rounded-check a-icon"></i>
+                                    <div class="text-muted">
+                                        March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- item 3 -->
+                        <div class="card border-0 mb-3">
+                            <div class="card-header bg-white border-0 p-0" id="h-faq3">
+                                <button class="btn btn-link accordion-btn"
+                                        data-toggle="collapse" data-target="#faq3"
+                                        aria-expanded="false" aria-controls="faq3">
+                                    <i class="bx bx-help-circle q-icon"></i>
+                                    <span>Is it safe to visit the Gates of Hell?</span>
+                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                                </button>
+                            </div>
+
+                            <div id="faq3" class="collapse" aria-labelledby="h-faq3" data-parent="#faqAccordion">
+                                <div class="answer-wrap">
+                                    <i class="bx bx-message-rounded-check a-icon"></i>
+                                    <div class="text-muted">
+                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- item 4 -->
+                        <div class="card border-0 mb-3">
+                            <div class="card-header bg-white border-0 p-0" id="h-faq4">
+                                <button class="btn btn-link accordion-btn"
+                                        data-toggle="collapse" data-target="#faq4"
+                                        aria-expanded="false" aria-controls="faq4">
+                                    <i class="bx bx-help-circle q-icon"></i>
+                                    <span>Is it safe to visit the Gates of Hell?</span>
+                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                                </button>
+                            </div>
+
+                            <div id="faq4" class="collapse" aria-labelledby="h-faq4" data-parent="#faqAccordion">
+                                <div class="answer-wrap">
+                                    <i class="bx bx-message-rounded-check a-icon"></i>
+                                    <div class="text-muted">
+                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- item 5 -->
+                        <div class="card border-0 mb-3">
+                            <div class="card-header bg-white border-0 p-0" id="h-faq5">
+                                <button class="btn btn-link accordion-btn"
+                                        data-toggle="collapse" data-target="#faq5"
+                                        aria-expanded="false" aria-controls="faq5">
+                                    <i class="bx bx-help-circle q-icon"></i>
+                                    <span>Is it safe to visit the Gates of Hell?</span>
+                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                                </button>
+                            </div>
+
+                            <div id="faq5" class="collapse" aria-labelledby="h-faq5" data-parent="#faqAccordion">
+                                <div class="answer-wrap">
+                                    <i class="bx bx-message-rounded-check a-icon"></i>
+                                    <div class="text-muted">
+                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /accordion -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== FAQ ========== -->
-    <section class="py-5">
-        <div class="container py-5">
-            <h2 class="text-center mb-5">Frequently asked questions</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faq1">Do I need a visa to visit Turkmenistan?</button></h2>
-                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion"><div class="accordion-body">Most foreigners require a visa. We will help with invitation and processing.</div></div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">When is the best time to visit Darvaza?</button></h2>
-                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div></div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Is it safe to visit the Gates of Hell?</button></h2>
-                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div></div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">What should I bring on a tour to the Gates of Hell?</button></h2>
-                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div></div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">Are there age restrictions?</button></h2>
-                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Boxicons CSS (одна строка в <head> или перед закрывающим </body>) -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <!-- ========== CONTACTS ========== -->
     <section id="contact" class="py-5 bg-light">
