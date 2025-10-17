@@ -240,6 +240,7 @@
                             <span class="badge badge-primary">RU</span>
                             <span class="badge badge-secondary">EN</span>
                             <span class="badge badge-info">TM</span>
+                            <span class="badge bg-warning">ES</span>
                         </div>
                     </div>
                 </div>
