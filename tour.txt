@@ -101,9 +101,12 @@ darvazatour.com
 
 github token
 cd /home/u960938720/tmtourism.com
+chmod -R 755 storage bootstrap/cache
+
 git pull
 
 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
+
 
 php artisan make:filament-resource Tour --generate
 php artisan make:filament-resource Service --generate
