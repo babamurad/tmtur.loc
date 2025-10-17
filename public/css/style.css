@@ -140,3 +140,94 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius:0 0 .45rem .45rem;
 }
+
+/* ---------- Contacts «mdb-style» ---------- */
+.contact-card,
+.form-card{
+    border:none;
+    border-radius:.75rem;
+    box-shadow:0 .125rem .5rem rgba(0,0,0,.08);
+    transition:box-shadow .25s, transform .25s;
+}
+.contact-card:hover,
+.form-card:hover{
+    box-shadow:0 .5rem 1.5rem rgba(0,0,0,.12);
+    transform:translateY(-2px);
+}
+
+/* кружочки-иконки */
+.contact-icon{
+    width:44px;
+    height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg, #ff416c, #ff4b2b);
+    color:#fff;
+    font-size:1.1rem;
+    flex-shrink:0;
+}
+
+/* кнопка «Send message» */
+.btn-send{
+    border:none;
+    border-radius:.5rem;
+    padding:.65rem;
+    font-weight:500;
+    color:#fff;
+    background:linear-gradient(135deg, #232526, #414345);
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    transition:box-shadow .25s;
+}
+.btn-send:hover{
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+    color:#fff;
+}
+
+/* круглые цветные соц-кнопки */
+.soc-btn{
+    width:44px;
+    height:44px;
+    padding:0;
+    border-radius:50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff !important;
+    transition:box-shadow .25s;
+}
+.soc-btn:hover{ box-shadow:0 4px 12px rgba(0,0,0,.25); }
+
+.btn-fb{ background:#3b5998; }
+.btn-tw{ background:#1da1f2; }
+.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.btn-yt{ background:#ff0000; }
+
+/* ------ соц-кнопки: никакого светлого ховера BS5 ------ */
+.soc-btn{
+    width:44px;
+    height:44px;
+    padding:0;
+    border-radius:50%;
+    color:#fff !important;
+    border:none !important;
+    outline:none !important;               /* убираем рамку фокуса BS5 */
+    transition:transform .25s, box-shadow .25s;
+}
+.soc-btn:hover,
+.soc-btn:focus,
+.contact-icon:hover{
+    transform:translateY(-3px) scale(1.08); /* поднять + увеличить */
+    box-shadow:0 8px 24px rgba(0,0,0,.5) !important;
+}
+
+/* цвета кнопок (остаются) */
+.btn-fb{ background:#3b5998; }
+.btn-tw{ background:#1da1f2; }
+.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.btn-yt{ background:#ff0000; }
+.btn-fb:hover{ background:#3b5998; }
+.btn-tw:hover{ background:#1da1f2; }
+.btn-ig:hover{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.btn-yt:hover{ background:#ff0000; }

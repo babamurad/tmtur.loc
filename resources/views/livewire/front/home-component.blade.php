@@ -268,124 +268,96 @@
         </div>
     </section>
 
-    <!-- ========== FAQ (Bootstrap 4 + Boxicons) ========== -->
+    <!-- ========== FAQ (Bootstrap 5) ========== -->
     <section class="py-5 bg-light">
         <div class="container py-5">
             <h2 class="text-center mb-5 section-title">Frequently asked questions</h2>
 
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-
-                    <!-- accordion wrapper -->
-                    <div class="accordion shadow-sm" id="faqAccordion">
+                    <div class="accordion accordion-flush rounded-4 overflow-hidden" id="faqAccordion">
 
                         <!-- item 1 -->
-                        <div class="card border-0 mb-3">
-                            <div class="card-header bg-white border-0 p-0" id="h-faq1">
-                                <button class="btn btn-link accordion-btn"
-                                        data-toggle="collapse" data-target="#faq1"
-                                        aria-expanded="true" aria-controls="faq1">
-                                    <i class="bx bx-help-circle q-icon"></i>
+                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="faq1Head">
+                                <button class="accordion-button d-flex align-items-center gap-3"
+                                        data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
                                     <span>Do I need a visa to visit Turkmenistan?</span>
-                                    <i class="bx bx-plus-circle toggle-icon"></i>
                                 </button>
-                            </div>
-
-                            <div id="faq1" class="collapse show" aria-labelledby="h-faq1" data-parent="#faqAccordion">
-                                <div class="answer-wrap">
-                                    <i class="bx bx-message-rounded-check a-icon"></i>
-                                    <div class="text-muted">
-                                        Most foreigners require a visa. We will help with invitation and processing.
-                                    </div>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1Head" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body d-flex align-items-start gap-3">
+                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                                    <div>Most foreigners require a visa. We will help with invitation and processing.</div>
                                 </div>
                             </div>
                         </div>
 
-
                         <!-- item 2 -->
-                        <div class="card border-0 mb-3">
-                            <div class="card-header bg-white border-0 p-0" id="h-faq2">
-                                <button class="btn btn-link accordion-btn"
-                                        data-toggle="collapse" data-target="#faq2"
-                                        aria-expanded="false" aria-controls="faq2">
-                                    <i class="bx bx-help-circle q-icon"></i>
+                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="faq2Head">
+                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
+                                        data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
                                     <span>When is the best time to visit Darvaza?</span>
-                                    <i class="bx bx-plus-circle toggle-icon"></i>
                                 </button>
-                            </div>
-
-                            <div id="faq2" class="collapse" aria-labelledby="h-faq2" data-parent="#faqAccordion">
-                                <div class="answer-wrap">
-                                    <i class="bx bx-message-rounded-check a-icon"></i>
-                                    <div class="text-muted">
-                                        March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.
-                                    </div>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2Head" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body d-flex align-items-start gap-3">
+                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                                    <div>March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- item 3 -->
-                        <div class="card border-0 mb-3">
-                            <div class="card-header bg-white border-0 p-0" id="h-faq3">
-                                <button class="btn btn-link accordion-btn"
-                                        data-toggle="collapse" data-target="#faq3"
-                                        aria-expanded="false" aria-controls="faq3">
-                                    <i class="bx bx-help-circle q-icon"></i>
+                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="faq3Head">
+                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
+                                        data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
                                     <span>Is it safe to visit the Gates of Hell?</span>
-                                    <i class="bx bx-plus-circle toggle-icon"></i>
                                 </button>
-                            </div>
-
-                            <div id="faq3" class="collapse" aria-labelledby="h-faq3" data-parent="#faqAccordion">
-                                <div class="answer-wrap">
-                                    <i class="bx bx-message-rounded-check a-icon"></i>
-                                    <div class="text-muted">
-                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
-                                    </div>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3Head" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body d-flex align-items-start gap-3">
+                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                                    <div>Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- item 4 -->
-                        <div class="card border-0 mb-3">
-                            <div class="card-header bg-white border-0 p-0" id="h-faq4">
-                                <button class="btn btn-link accordion-btn"
-                                        data-toggle="collapse" data-target="#faq4"
-                                        aria-expanded="false" aria-controls="faq4">
-                                    <i class="bx bx-help-circle q-icon"></i>
-                                    <span>Is it safe to visit the Gates of Hell?</span>
-                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="faq4Head">
+                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
+                                        data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                    <span>What should I bring on a tour to the Gates of Hell?</span>
                                 </button>
-                            </div>
-
-                            <div id="faq4" class="collapse" aria-labelledby="h-faq4" data-parent="#faqAccordion">
-                                <div class="answer-wrap">
-                                    <i class="bx bx-message-rounded-check a-icon"></i>
-                                    <div class="text-muted">
-                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
-                                    </div>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4Head" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body d-flex align-items-start gap-3">
+                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                                    <div>Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- item 5 -->
-                        <div class="card border-0 mb-3">
-                            <div class="card-header bg-white border-0 p-0" id="h-faq5">
-                                <button class="btn btn-link accordion-btn"
-                                        data-toggle="collapse" data-target="#faq5"
-                                        aria-expanded="false" aria-controls="faq5">
-                                    <i class="bx bx-help-circle q-icon"></i>
-                                    <span>Is it safe to visit the Gates of Hell?</span>
-                                    <i class="bx bx-plus-circle toggle-icon"></i>
+                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
+                            <h2 class="accordion-header" id="faq5Head">
+                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
+                                        data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                    <span>Are there age restrictions?</span>
                                 </button>
-                            </div>
-
-                            <div id="faq5" class="collapse" aria-labelledby="h-faq5" data-parent="#faqAccordion">
-                                <div class="answer-wrap">
-                                    <i class="bx bx-message-rounded-check a-icon"></i>
-                                    <div class="text-muted">
-                                        Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.
-                                    </div>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" aria-labelledby="faq5Head" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body d-flex align-items-start gap-3">
+                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                                    <div>We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div>
                                 </div>
                             </div>
                         </div>
@@ -396,44 +368,68 @@
         </div>
     </section>
 
-    <!-- Boxicons CSS (одна строка в <head> или перед закрывающим </body>) -->
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-
     <!-- ========== CONTACTS ========== -->
     <section id="contact" class="py-5 bg-light">
         <div class="container py-5">
             <h2 class="text-center mb-5">Contact us</h2>
-            <div class="row gy-4">
+
+            <div class="row g-4">
+                <!-- форма -->
                 <div class="col-lg-6">
-                    <form>
-                        <div class="mb-3"><input type="text" class="form-control" placeholder="Your name" required></div>
-                        <div class="mb-3"><input type="email" class="form-control" placeholder="Your email" required></div>
-                        <div class="mb-3"><input type="tel" class="form-control" placeholder="Your phone" required></div>
-                        <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Your message" required></textarea></div>
-                        <button class="btn btn-dark w-100">Send message</button>
-                    </form>
+                    <div class="card border-0 shadow-lg form-card p-3">
+                        <form>
+                            <div class="mb-3"><input type="text" class="form-control" placeholder="Your name" required></div>
+                            <div class="mb-3"><input type="email" class="form-control" placeholder="Your email" required></div>
+                            <div class="mb-3"><input type="tel" class="form-control" placeholder="Your phone" required></div>
+                            <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Your message" required></textarea></div>
+                            <button class="btn btn-send btn-lg w-100">Send message</button>
+                        </form>
+                    </div>
                 </div>
+
+                <!-- контакты -->
                 <div class="col-lg-6">
-                    <div class="card h-100">
+                    <div class="card border-0 shadow-lg contact-card">
                         <div class="card-body">
-                            <h5 class="card-title">Our contacts</h5>
-                            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-map-marker-alt text-danger mt-1 me-3"></i><div><div class="fw-bold">Address:</div><span>Ashgabat, Magtymguly Ave., 123</span></div></div>
-                            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-phone-alt text-danger mt-1 me-3"></i><div><div class="fw-bold">Phone:</div><span>+993 12 34 56 78</span></div></div>
-                            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-envelope text-danger mt-1 me-3"></i><div><div class="fw-bold">Email:</div><span>info@turkmentravel.com</span></div></div>
-                            <div class="d-flex align-items-start mb-3"><i class="fa-solid fa-clock text-danger mt-1 me-3"></i><div><div class="fw-bold">Working hours:</div><span>Mon–Fri: 9:00–18:00<br>Sat: 10:00–15:00<br>Sun: closed</span></div></div>
-                            <div>
-                                <div class="fw-bold mb-2">Follow us:</div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fab fa-youtube"></i></a>
+                            <h5 class="card-title mb-4">Our contacts</h5>
+
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="bx bx-map contact-icon me-3"></i>
+                                <div><div class="fw-bold">Address</div><span>Ashgabat, Magtymguly Ave., 123</span></div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="bx bx-phone contact-icon me-3"></i>
+                                <div><div class="fw-bold">Phone</div><span>+993 12 34 56 78</span></div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="bx bx-envelope contact-icon me-3"></i>
+                                <div><div class="fw-bold">Email</div><span>info@turkmentravel.com</span></div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-4">
+                                <i class="bx bx-time contact-icon me-3"></i>
+                                <div><div class="fw-bold">Working hours</div>
+                                    <span>Mon–Fri: 9:00–18:00<br>Sat: 10:00–15:00<br>Sun: closed</span>
                                 </div>
                             </div>
+
+                            <div>
+                                <div class="fw-bold mb-2">Follow us</div>
+                                <div class="d-flex gap-2">
+                                    <a href="#" class="btn btn-lg btn-fb soc-btn"><i class="bx bxl-facebook"></i></a>
+                                    <a href="#" class="btn btn-lg btn-tw soc-btn"><i class="bx bxl-twitter"></i></a>
+                                    <a href="#" class="btn btn-lg btn-ig soc-btn"><i class="bx bxl-instagram"></i></a>
+                                    <a href="#" class="btn btn-lg btn-yt soc-btn"><i class="bx bxl-youtube"></i></a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 </div>

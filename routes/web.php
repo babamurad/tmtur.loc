@@ -117,10 +117,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:admin,manager'])->group(function () {
-    Route::get('/', HomeComponent::class);
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', HomeComponent::class);
-});
+//Route::middleware(['auth', 'role:admin,manager'])->group(function () {
+//    Route::get('/', HomeComponent::class);
+//});
+//
+//Route::middleware(['auth'])->group(function () {
+//    Route::get('/', HomeComponent::class);
+//});
