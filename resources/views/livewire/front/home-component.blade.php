@@ -16,11 +16,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row g-2">
-                        <div class="col-6"><img src="{{ asset('assets/images/fontan.webp') }}" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="{{ asset('assets/images/ayak.webp') }}" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="{{ asset('assets/images/seyit_jemalletdin.png') }}" class="img-fluid rounded shadow"></div>
-                        <div class="col-6"><img src="{{ asset('assets/images/urgench.webp') }}" class="img-fluid rounded shadow"></div>
-                    </div>
+                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                    </div>
                 </div>
             </div>
         </div>
@@ -108,7 +104,7 @@
                 </div>
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="position-relative">
-                        <img src="{{ asset('assets/images/darwaza_optimized.jpg') }}" class="img-fluid rounded shadow" alt="Darvaza">
+                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}>
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
                             <h5 class="mb-0">“You have to see it with your own eyes!”</h5>
                             <small>— Mark, traveler from Germany</small>
@@ -130,9 +126,9 @@
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 @if($tour->media)
-                                    <img src="{{ 'uploads/' . $tour->media->file_path }}" class="card-img-top" alt="{{ $tour->title }}">
+                                    <img src="{{ asset('assets/images/tmfotos/1.jpg') }} }}">
                                 @else
-                                    <img src="{{ asset('uploads/tmtourism.jpeg') }}"  class="card-img-top" alt="{{ $tour->title }}">
+                                    <img src="{{ asset('assets/images/tmfotos/1.jpg') }} }}">
                                 @endif
                                 <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>
                             </div>
@@ -213,7 +209,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Ayna" loading="lazy">
+                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Ayna" loading="lazy">
                         <h4>Meret</h4>
                         <p class="px-5">Certified guide with 10 years of experience</p>
                         <div class="languages">
@@ -225,7 +221,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Meret" loading="lazy">
+                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Meret" loading="lazy">
                         <h4>Ayna</h4>
                         <p class="px-5">Historian, Silk Road specialist</p>
                         <div class="languages">
@@ -237,7 +233,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Arslan" loading="lazy">
+                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Arslan" loading="lazy">
                         <h4>Arslan</h4>
                         <p class="px-5">Expert in natural attractions</p>
                         <div class="languages">
@@ -255,15 +251,15 @@
     <section class="py-5 bg-light">
         <div class="container py-5">
             <h2 class="text-center mb-5">Turkmenistan in photos</h2>
-            <div class="row g-3 gallery-item">
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic1"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic2"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic3"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic4"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic5"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic6"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic7"></div>
-                <div class="col-6 col-md-3"><img src="https://images.unsplash.com/photo-1580077871668-fdb475203b2a?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded shadow" alt="pic8"></div>
+            <div class="row g-3 gallery-item align-items-stretch justify-content-center">
+{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}" class="img-fluid rounded shadow" alt="pic1"></div>--}}
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/2.jpg') }}" class="img-fluid rounded shadow" alt="pic2"></div>
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/3.jpg') }}" class="img-fluid rounded shadow" alt="pic3"></div>
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/4.jpg') }}" class="img-fluid rounded shadow" alt="pic4"></div>
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/6.webp') }}" class="img-fluid rounded shadow" alt="pic6"></div>
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/7.webp') }}" class="img-fluid rounded shadow" alt="pic7"></div>
+                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/8.webp') }}" class="img-fluid rounded shadow" alt="pic8"></div>
+{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/5.jpg') }}" class="img-fluid rounded shadow" alt="pic8"></div>--}}
             </div>
         </div>
     </section>

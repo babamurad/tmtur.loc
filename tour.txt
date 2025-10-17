@@ -101,9 +101,12 @@ darvazatour.com
 
 github token
 cd /home/u960938720/tmtourism.com
+git pull
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
 chmod -R 755 storage bootstrap/cache
 
-git pull
 
 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
 
@@ -127,9 +130,6 @@ php artisan make:filament-resource Inquiry --generate   # только View
 Цены и пакеты туров	⚠️ ✔️	Сделайте их более конкретными и заметными.
 Мобильная адаптивность	❓	Убедитесь, что сайт идеально работает на смартфонах (большинство туристов ищут туры с телефона).
 
-php artisan cache:clear
-php artisan config:clear
-php artisan view:clear
 
 Guides
 Routes
