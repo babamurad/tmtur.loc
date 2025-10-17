@@ -209,7 +209,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Ayna" loading="lazy">
+                        <img src="{{ asset('assets/images/guides/arslan.webp') }}" class="guide-img" alt="Arslan" loading="lazy">
                         <h4>Meret</h4>
                         <p class="px-5">Certified guide with 10 years of experience</p>
                         <div class="languages">
@@ -221,7 +221,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Meret" loading="lazy">
+                        <img src="{{ asset('assets/images/guides/ayna.webp') }}" class="guide-img" alt="Ayna" loading="lazy">
                         <h4>Ayna</h4>
                         <p class="px-5">Historian, Silk Road specialist</p>
                         <div class="languages">
@@ -233,7 +233,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}&amp;fit=crop&amp;w=400&amp;h=400&amp;q=80" class="guide-img" alt="Arslan" loading="lazy">
+                        <img src="{{ asset('assets/images/guides/meret.webp') }}" class="guide-img" alt="Meret" loading="lazy">
                         <h4>Arslan</h4>
                         <p class="px-5">Expert in natural attractions</p>
                         <div class="languages">
