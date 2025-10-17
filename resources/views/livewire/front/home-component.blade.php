@@ -1,22 +1,58 @@
 <div>
     <!-- ========== ABOUT TURKMENISTAN ========== -->
-    <section id="about" class="py-5">
-        <div class="container py-5">
-            <h2 class="text-center mb-5">Turkmenistan — a land of contrasts</h2>
-            <div class="row align-items-center gy-4">
+    <section id="about" class="py-5 bg-white">
+        <div class="container px-4">
+            <h2 class="text-center mb-5 fs-2 fw-bold text-dark">Туркменистан — страна контрастов</h2>
+            <div class="row align-items-center g-5">
+                <!-- Текстовая часть -->
                 <div class="col-md-6">
-                    <p class="mb-3">Turkmenistan is a unique country where ancient traditions meet modernity, and endless deserts neighbor marble cities.</p>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Over 300 sunny days a year</li>
-                        <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Unique natural attractions</li>
-                        <li class="mb-2"><i class="fa-solid fa-check-circle text-success me-2"></i>Hospitable locals</li>
-                        <li class="mb-3"><i class="fa-solid fa-check-circle text-success me-2"></i>Rich history and culture</li>
+                    <p class="mb-4">Туркменистан — это уникальная страна, где древние традиции встречаются с современностью, а бескрайние пустыни соседствуют с роскошными мраморными городами.</p>
+                    <p class="mb-4">Страна обладает богатым культурным наследием, уходящим корнями в глубину веков, когда через эти земли проходил Великий Шелковый путь.</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span>Более 300 солнечных дней в году</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span>Уникальные природные достопримечательности</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span>Гостеприимные местные жители</span>
+                        </li>
+                        <li class="d-flex align-items-start mb-2">
+                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <span>Богатая история и культура</span>
+                        </li>
                     </ul>
-                    <a href="#contact" class="btn btn-dark">Contact us</a>
+                    <a href="#contact" class="btn btn-dark px-4 py-2 rounded-pill">Связаться с нами</a>
                 </div>
+
+                <!-- Изображения -->
                 <div class="col-md-6">
-                    <div class="row g-2">
-                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                        <div class="col-6"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="overflow-hidden rounded shadow-sm">
+                                <img src="{{ asset('assets/images/tmfotos/i (4).webp') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="Туркменистан">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="overflow-hidden rounded shadow-sm">
+                                <img src="{{ asset('assets/images/tmfotos/i.webp') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="Туркменистан">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="overflow-hidden rounded shadow-sm">
+                                <img src="{{ asset('assets/images/tmfotos/i (1).webp') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="Туркменистан">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="overflow-hidden rounded shadow-sm">
+                                <img src="{{ asset('assets/images/tmfotos/i (2).webp') }}" class="img-fluid w-100 h-100 object-fit-cover" alt="Туркменистан">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,13 +140,12 @@
                 </div>
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="position-relative">
-                        <img src="{{ asset('assets/images/tmfotos/1.jpg') }}>
+                        <img class="img-fluid rounded" src="{{ asset('assets/images/tmfotos/darwaza.jpg') }}">
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
                             <h5 class="mb-0">“You have to see it with your own eyes!”</h5>
                             <small>— Mark, traveler from Germany</small>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </section>
