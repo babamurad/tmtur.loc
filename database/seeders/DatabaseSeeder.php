@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
             RouteSeeder::class,
             CultureItemSeeder::class,
             ContactInfoSeeder::class,
+            CarouselSlidesSeeder::class,
         ]);
 
         /*$cats = [
