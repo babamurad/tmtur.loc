@@ -25,19 +25,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'bobo',
             'email' => 'bobo@tm.tm',
             'password' => '123123',
-            'role' => '1',
+            'role' => 'admin',
         ]);
         User::factory()->create([
             'name' => 'user',
             'email' => 'bobo12@tm.tm',
             'password' => '123123',
-            'role' => '0',
+            'role' => 'manager',
         ]);
         User::factory()->create([
             'name' => 'shohrateke',
             'email' => 'shohrateke@tm.tm',
             'password' => '123123',
-            'role' => '1',
+            'role' => 'admin',
         ]);
 
         // 1. категории

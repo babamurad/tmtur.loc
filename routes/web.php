@@ -51,7 +51,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 
-//Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
     Route::get('guides', GuideIndexComponent::class)->name('guides.index');
     Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
@@ -104,19 +104,17 @@ Route::post('/logout', function () {
     Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');
 
     Route::prefix('posts')->name('posts.')->group(function () {
-        Route::get('/',             PostIndexComponent::class)->name('index');
-        Route::get('/create',       PostCreateComponent::class)->name('create');
-        Route::get('/edit/{post}',  PostEditComponent::class)->name('edit');
+        Route::get('/', PostIndexComponent::class)->name('index');
+        Route::get('/create', PostCreateComponent::class)->name('create');
+        Route::get('/edit/{post}', PostEditComponent::class)->name('edit');
     });
 
     Route::prefix('reviews')->name('reviews.')->group(function () {
-        Route::get('/',                ReviewIndexComponent::class)->name('index');
-        Route::get('/create',          ReviewCreateComponent::class)->name('create');
-        Route::get('/edit/{review}',   ReviewEditComponent::class)->name('edit');
+        Route::get('/', ReviewIndexComponent::class)->name('index');
+        Route::get('/create', ReviewCreateComponent::class)->name('create');
+        Route::get('/edit/{review:id}', ReviewEditComponent::class)->name('edit');
     });
-
-//});
-
+});
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
 //    Route::get('/', HomeComponent::class);
 //});

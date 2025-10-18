@@ -33,8 +33,8 @@ class LoginComponent extends Component
 //            dd($user->role);
 
             return match ($user->role) {
-                '1' => redirect()->route('dashboard'),
-                '2' => redirect('/'),
+                'admin' => redirect()->route('dashboard'),
+                'manager' => redirect('/'),
                 default => redirect('/'),
             };
         }
