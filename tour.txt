@@ -102,10 +102,11 @@ darvazatour.com
 github token
 cd /home/u960938720/tmtourism.com
 git pull
+chmod -R 755 storage bootstrap/cache
 php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
-chmod -R 755 storage bootstrap/cache
+
 
 
 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
