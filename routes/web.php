@@ -51,7 +51,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+//Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
     Route::get('guides', GuideIndexComponent::class)->name('guides.index');
     Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
@@ -115,7 +115,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit/{review}',   ReviewEditComponent::class)->name('edit');
     });
 
-});
+//});
 
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
 //    Route::get('/', HomeComponent::class);
