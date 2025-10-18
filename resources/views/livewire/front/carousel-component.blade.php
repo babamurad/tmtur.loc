@@ -11,7 +11,7 @@
   <div class="carousel-inner carousel-fade">
     <!-- Слайд 1 -->
      @foreach($carousels as $carousel)
-    <div class="carousel-item active"
+    <div class="carousel-item {{ $loop->first ? 'active' : '' }}"
          style="background-image:url('uploads/{{ $carousel->image }}');">
       <div class="carousel-caption  text-center">
         <h1 class="display-3 fw-bold">{{ $carousel->title }}</h1>

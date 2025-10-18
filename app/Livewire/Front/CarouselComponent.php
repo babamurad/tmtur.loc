@@ -9,7 +9,7 @@ class CarouselComponent extends Component
 {
     public function render()
     {
-        $carousels = CarouselSlide::where('is_active', true)->get();
+        $carousels = CarouselSlide::orderBy('id')->where('is_active', true)->get();
         return view('livewire.front.carousel-component', [
             'carousels' => $carousels,
         ]);
