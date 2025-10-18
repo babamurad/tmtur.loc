@@ -161,9 +161,9 @@
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 @if($tour->media)
-                                    <img src="{{ asset('assets/images/tmfotos/1.jpg') }} }}">
+                                    <img src="{{ asset('uploads/' . $tour->media->file_path) }}" class="card-img-top">
                                 @else
-                                    <img src="{{ asset('assets/images/tmfotos/1.jpg') }} }}">
+                                    <img src="{{ asset('assets/images/tmfotos/default.jpg') }}" class="card-img-top">
                                 @endif
                                 <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>
                             </div>
