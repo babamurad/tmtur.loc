@@ -45,7 +45,7 @@ class CarouselCreateComponent extends Component
         $imagePath = null;
         if ($this->image) {
             $imageName = 'carousel/' . Carbon::now()->timestamp . '.' . $this->image->extension();
-            $imagePath = $this->image->storeAs($imageName); // Store in public/carousel
+            $imagePath = $this->image->storeAs($imageName); // Store in public/uploads/carousel
         }
 
         CarouselSlide::create([
