@@ -13,7 +13,7 @@ class TourGroupIndexComponent extends Component
     use WithPagination;
 
     public $delId;
-    public $perPage = 8;
+    public $perPage = 10;
     public $search = '';
 
     public function render()
@@ -44,6 +44,14 @@ class TourGroupIndexComponent extends Component
                 ->position('top-end')
                 ->show();
         }
+    }
+
+    public function clearSearch()
+    {
+        $this->search = '';
+
+        // Опционально: обновить input через JS
+        $this->dispatch('search-cleared');
     }
 
     public function updatedSearch()

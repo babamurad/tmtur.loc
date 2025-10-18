@@ -35,133 +35,158 @@
                                     <input
                                         type="text"
                                         wire:model.live.debounce.300ms="search"
+                                        id="searchInput"
                                         class="form-control"
                                         placeholder="Search tour groups…"
                                     >
+                                    <!-- Кнопка очистки -->
+                                    @if($search)
+                                        <button
+                                            wire:click="clearSearch"
+                                            type="button"
+                                            class="btn btn-outline-secondary border-start-0"
+                                            style="margin-left: -1px;"
+                                        >
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
+                            <script>
+                                document.addEventListener('livewire:initialized', () => {
+                                    Livewire.on('search-cleared', () => {
+                                        document.getElementById('searchInput').value = '';
+                                    });
+                                });
+                            </script>
 
-
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-center justify-content-md-end gap-3">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="text-muted small">Show</span>
-                                            <select class="form-select form-select-sm mx-2" wire:model.live="perPage" style="width: auto;">
-                                                <option value="8">8</option>
-                                                <option value="15">15</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                            </select>
-                                            <span class="text-muted small">of {{ $tourGroups->total() }} results</span>
-                                        </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center justify-content-md-end gap-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="text-muted small">Show</span>
+                                        <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
+                                                style="width: auto;">
+                                            <option value="8">10</option>
+                                            <option value="15">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span class="text-muted small">of {{ $tourGroups->total() }} results</span>
                                     </div>
                                 </div>
-
                             </div>
 
-                            {{-- можно сюда добавить фильтры или экспорт --}}
                         </div>
 
-                        {{-- 2.2 Таблица --}}
-                        <div class="table-responsive">
-                            <table class="table table-hover table-nowrap mb-0">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th style="width: 60px">#</th>
-                                        <th>Tour</th>
-                                        <th>Starts At</th>
-                                        <th>Max People</th>
-                                        <th>Current <br> People</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                        <th style="width: 120px" class="text-center">Actions</th>
-                                    </tr>
-                                </thead>
+                        {{-- можно сюда добавить фильтры или экспорт --}}
+                    </div>
 
-                                <tbody>
-                                    @forelse($tourGroups as $tourGroup)
-                                    <tr>
-                                        <td>{{ $tourGroup->id }}</td>
-                                        <td>
+                    {{-- 2.2 Таблица --}}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-nowrap mb-0">
+                            <thead class="thead-light">
+                            <tr>
+                                <th style="width: 60px">#</th>
+                                <th>Tour</th>
+                                <th>Starts At</th>
+                                <th>Max People</th>
+                                <th>Current <br> People</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th style="width: 120px" class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @forelse($tourGroups as $tourGroup)
+                                <tr>
+                                    <td>{{ $tourGroup->id }}</td>
+                                    <td>
                                             <span class="font-weight-semibold">
                                                 {{ $tourGroup->tour->title ?? 'N/A' }}
                                             </span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                             <span class="text-muted">
                                                 {{ $tourGroup->starts_at }}
                                             </span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                             <span class="text-muted">
                                                 {{ $tourGroup->max_people }}
                                             </span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                             <span class="text-muted">
                                                 {{ $tourGroup->current_people }}
                                             </span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                             <span class="text-muted">
                                                 {{ $tourGroup->price_cents / 100 }}
                                             </span>
-                                        </td>
-                                        <td>
-                                            @switch($tourGroup->status)
-                                                @case('draft')
-                                                    <span class="badge badge-soft-info font-size-12">{{ $tourGroup->status }}</span>
-                                                    @break
-                                                @case('open')
-                                                    <span class="badge badge-soft-success font-size-12">{{ $tourGroup->status }}</span>
-                                                    @break
-                                                @case('closed')
-                                                    <span class="badge badge-soft-warning font-size-12">{{ $tourGroup->status }}</span>
-                                                    @break
-                                                @case('cancelled')
-                                                    <span class="badge badge-soft-danger font-size-12">{{ $tourGroup->status }}</span>
-                                                    @break
-                                                @default
-                                                    <span class="badge badge-soft-secondary font-size-12">{{ $tourGroup->status }}</span>
-                                            @endswitch
-                                        </td>
+                                    </td>
+                                    <td>
+                                        @switch($tourGroup->status)
+                                            @case('draft')
+                                                <span
+                                                    class="badge badge-soft-info font-size-12">{{ $tourGroup->status }}</span>
+                                                @break
+                                            @case('open')
+                                                <span
+                                                    class="badge badge-soft-success font-size-12">{{ $tourGroup->status }}</span>
+                                                @break
+                                            @case('closed')
+                                                <span
+                                                    class="badge badge-soft-warning font-size-12">{{ $tourGroup->status }}</span>
+                                                @break
+                                            @case('cancelled')
+                                                <span
+                                                    class="badge badge-soft-danger font-size-12">{{ $tourGroup->status }}</span>
+                                                @break
+                                            @default
+                                                <span
+                                                    class="badge badge-soft-secondary font-size-12">{{ $tourGroup->status }}</span>
+                                        @endswitch
+                                    </td>
 
-                                        {{-- Кнопки действий --}}
-                                        <td class="text-center">
-                                            <a href="{{ route('tour-groups.edit', $tourGroup) }}"
-                                               class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Edit">
-                                                <i class="bx bx-pencil font-size-14"></i>
-                                            </a>
+                                    {{-- Кнопки действий --}}
+                                    <td class="text-center">
+                                        <a href="{{ route('tour-groups.edit', $tourGroup) }}"
+                                           class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
+                                           data-toggle="tooltip" title="Edit">
+                                            <i class="bx bx-pencil font-size-14"></i>
+                                        </a>
 
-                                            <button wire:click="delete({{ $tourGroup->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
-                                                <i class="bx bx-trash font-size-14"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="8" class="text-center text-muted py-4">
-                                            No tour groups found.
-                                        </td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>{{-- /.table-responsive --}}
+                                        <button wire:click="delete({{ $tourGroup->id }})"
+                                                class="btn btn-sm btn-outline-danger waves-effect waves-light">
+                                            <i class="bx bx-trash font-size-14"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted py-4">
+                                        No tour groups found.
+                                    </td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>{{-- /.table-responsive --}}
 
-                        {{-- 2.3 Пагинация --}}
-                        @if($tourGroups->hasPages())
+                    {{-- 2.3 Пагинация --}}
+                    @if($tourGroups->hasPages())
                         <div class="pt-3">
                             {{ $tourGroups->links('pagination::bootstrap-4') }}
                         </div>
-                        @endif
+                    @endif
 
-                    </div>{{-- /.card-body --}}
-                </div>{{-- /.card --}}
-            </div>{{-- /.col-12 --}}
-        </div>{{-- /.row --}}
+                </div>{{-- /.card-body --}}
+            </div>{{-- /.card --}}
+        </div>{{-- /.col-12 --}}
+    </div>{{-- /.row --}}
 
-    </div>{{-- container-fluid --}}
+</div>{{-- container-fluid --}}
 </div>
