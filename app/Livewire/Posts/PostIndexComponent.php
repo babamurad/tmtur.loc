@@ -26,26 +26,39 @@ class PostIndexComponent extends Component
     public function deleteConfirm(int $id): void
     {
         $this->delId = $id;
-        LivewireAlert::title('Удалить?')
-            ->text('Вы уверены, что хотите удалить пост?')
-            ->timer(5000)
+        LivewireAlert::title('Удалить пост?')
+            ->timer(null)
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
-            ->onConfirm('delete')
+            ->onConfirm('destroy')
             ->show();
     }
 
     /* событие подтверждения */
-    #[On('delete')]
-    public function delete(): void
+    public function destroy(): void
     {
-        Post::findOrFail($this->delId)->delete();
+        try {
+            $post = Post::findOrFail($this->delId);
 
-        LivewireAlert::title('Пост удалён.')
-            ->success()
-            ->toast()
-            ->position('top-end')
-            ->show();
+            // Удаляем изображение, если оно существует
+            if ($post->image) {
+                $imagePath = strpos($post->image, 'posts/') === 0 ? $post->image : 'posts/' . $post->image;
+                if (file_exists(public_path('uploads/' . $imagePath))) {
+                    unlink(public_path('uploads/' . $imagePath));
+                }
+            }
+
+            $post->delete();
+
+            LivewireAlert::title('Пост успешно удалён')
+                ->success()
+                ->show();
+
+        } catch (\Exception $e) {
+            LivewireAlert::title('Ошибка при удалении поста')
+                ->error()
+                ->show();
+        }
     }
 
     /* flashes после редиректов create / edit */

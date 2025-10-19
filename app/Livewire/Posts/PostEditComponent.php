@@ -86,7 +86,7 @@ class PostEditComponent extends Component
         // Обновляем запись
         $this->post->update($data);
 
-        session()->flash('message', 'Пост успешно обновлен.');
+        session()->flash('saved', ['title' => 'Пост сохранён!', 'text' => 'Изменения сохранились!']);
         return redirect()->route('posts.index');
     }
     public function render()

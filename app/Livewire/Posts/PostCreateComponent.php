@@ -99,7 +99,7 @@ class PostCreateComponent extends Component
                 'post_data' => $post->toArray()
             ]);
 
-            session()->flash('success', 'Пост успешно создан!');
+            session()->flash('saved', ['title' => 'Пост сохранён!', 'text' => 'Создан новый пост!']);
             return $this->redirectRoute('posts.index');
 
         } catch (\Exception $e) {
