@@ -20,8 +20,14 @@ class Category extends Model
     {
         static::creating(function ($category) {
             if (empty($category->slug)) {
-                $category->slug = Str::slug($category->title);                
+                $category->slug = Str::slug($category->title);
             }
+        });
+
+        static::deleting(function ($category) {
+            $category->posts()->each(function ($post) {
+                $post->delete();
+            });
         });
     }
 

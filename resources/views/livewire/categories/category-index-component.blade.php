@@ -1,6 +1,10 @@
 <div class="page-content">
     <div class="container-fluid">
 
+        @php
+            use Carbon\Carbon;
+        @endphp
+
         <!-- заголовок + кнопка -->
         <div class="row">
             <div class="col-12">
@@ -38,6 +42,7 @@
                                     <th width="60">#</th>
                                     <th>Название</th>
                                     <th>Публикация</th>
+                                    <th>Опубликовано</th>
                                     <th width="120" class="text-center">Действия</th>
                                 </tr>
                                 </thead>
@@ -47,7 +52,7 @@
                                         <td>{{ $cat->id }}</td>
                                         <td>
                                             <img src="{{ $cat->image_url }}" alt="{{ $cat->title }}"
-                                                 style="height:32px;" class="rounded me-2">
+                                                 style="height:32px;" class="rounded me-2"/>
                                             {{ $cat->title }}
                                         </td>
                                         <td>
@@ -55,6 +60,9 @@
                                                     class="badge badge-{{ $cat->is_published?'success':'secondary' }}">
                                                     {{ $cat->is_published?'Да':'Нет' }}
                                                 </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light">{{ Carbon::create($cat->created_at)->format('d.m.Y ') }}</span>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('categories.edit', $cat->id) }}"
@@ -65,7 +73,7 @@
                                                     wire:click="deleteConfirm({{ $cat->id }})">
                                                 <i class="bx bx-trash"></i>
                                             </button>
-                                        </td>
+                                        </td>                                        
                                     </tr>
                                 @empty
                                     <tr>

@@ -47,8 +47,8 @@ class CategoryEditComponent extends Component
         $this->validate();
 
         if ($this->newImage) {
-            $this->category->image && \Storage::disk('public')->delete($this->category->image);
-            $this->category->image = $this->newImage->store('categories', 'public');
+            $this->category->image && \Storage::disk('public_uploads')->delete($this->category->image);
+            $this->category->image = $this->newImage->store('categories', 'public_uploads');
         }
 
         $this->category->update([

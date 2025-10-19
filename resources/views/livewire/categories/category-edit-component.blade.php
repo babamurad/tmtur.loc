@@ -66,10 +66,10 @@
 
                                 <!-- preview -->
                                 <div class="position-relative mt-2" style="height:200px;">
-                                    <div wire:loading wire:target="newImage"
+                                    <!-- <div wire:loading wire:target="newImage"
                                          class="spinner-border text-primary m-2 top-50 start-50">
                                         <span class="sr-only"></span>
-                                    </div>
+                                    </div> -->
                                     <div wire:loading.remove wire:target="newImage">
                                         @if ($newImage)
                                             <img class="img-fluid rounded"

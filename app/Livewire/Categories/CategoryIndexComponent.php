@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 class CategoryIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public int $perPage = 8;
     public string $search = '';
@@ -24,8 +25,8 @@ class CategoryIndexComponent extends Component
     public function deleteConfirm($id)
     {
         $this->delId = $id;
-        LivewireAlert::title('Удалить?')
-            ->text('Вы уверены, что хотите удалить тур?')
+        LivewireAlert::title('Удалить категорию?')
+            ->text('Вы уверены, вместе с категорией будут удалены посты этой категории?')
             ->timer(5000)
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
@@ -38,7 +39,7 @@ class CategoryIndexComponent extends Component
         $category =  Category::findOrFail($this->delId);
         $category->delete();
 
-        LivewireAlert::title('Категория удалена.')
+        LivewireAlert::title('Категория и посты категории удалены.')
             ->success()
             ->toast()
             ->position('top-end')
