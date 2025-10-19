@@ -11,10 +11,11 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->title }}</h2>
                         <p class="card-text">{{ Str::limit($post->content, 150) }}</p>
-                        <a href="{{ route('blog.show', $post->id) }}" class="btn btn-primary">Читать далее</a>
+                        <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary">Читать далее</a>
                     </div>
                     <div class="card-footer text-muted">
-                        Опубликовано {{ $post->created_at->diffForHumans() }} в категории <a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->name }}</a>
+                        Опубликовано {{ $post->created_at->diffForHumans() }} в категории <a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->title }}</a>
+                        <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
                     </div>
                 </div>
             @endforeach
@@ -23,22 +24,66 @@
         </div>
         <div class="col-md-4">
             <!-- Сайдбар с категориями -->
-            <div class="card my-4">
-                <h5 class="card-header">Категории</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="list-unstyled mb-0">
-                                @foreach ($categories as $category)
-                                    <li>
-                                        <a href="{{ route('blog.category', $category->slug) }}">{{ $category->title }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+            <section class="section mb-5">
+                <h4 class="fw-bold mt-2">
+                    <strong>КАТЕГОРИИ</strong>
+                </h4>
+                <hr class="border-danger border-2 opacity-75">
+                <ul class="list-group shadow-1-strong mt-4">
+                    @foreach ($categories as $category)
+                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a href="{{ route('blog.category', $category->slug) }}" class="text-decoration-none text-dark">{{ $category->title }}</a>
+                            <span class="badge bg-danger rounded-pill">{{ $category->posts_count }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </section>
+            <!-- Section: Categories -->
+            <!-- Section: Featured posts -->
+            <section class="section widget-content">
+                <!-- Heading -->
+                <h4 class="fw-bold pt-2">
+                    <strong>ПОПУЛЯРНЫЕ ПОСТЫ</strong>
+                </h4>
+                <hr class="border-danger border-2 opacity-75 mb-4">
+                <!-- Card -->
+                <div class="card card-body pb-0">
+                    @foreach (\App\Models\Post::where('status', true)->orderBy('views', 'desc')->take(5)->get() as $featuredPost)
+                        <div class="single-post mb-3">
+                            <!-- Grid row -->
+                            <div class="row">
+                                <div class="col-4">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay ripple rounded shadow-1-strong" data-ripple-color="light">
+                                        @if ($featuredPost->image)
+                                            <img src="{{ asset('uploads/' . $featuredPost->image) }}"
+                                                class="img-fluid" alt="{{ $featuredPost->title }}">
+                                        @endif
+                                        <a href="{{ route('blog.show', $featuredPost->slug) }}">
+                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Excerpt -->
+                                <div class="col-8">
+                                    <h6 class="mt-0 mb-3">
+                                        <a href="{{ route('blog.show', $featuredPost->slug) }}">
+                                            <strong>{{ Str::limit($featuredPost->title, 50) }}</strong>
+                                        </a>
+                                    </h6>
+                                    <div class="post-data">
+                                        <p class="font-small text-secondary mb-0">
+                                            <i class="far fa-clock"></i> {{ $featuredPost->published_at->diffForHumans() }}</p>
+                                    </div>
+                                </div>
+                                <!-- Excerpt -->
+                            </div>
+                            <!-- Grid row -->
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-            </div>
+            </section>
+            <!-- Section: Featured posts -->
         </div>
     </div>
 </div>

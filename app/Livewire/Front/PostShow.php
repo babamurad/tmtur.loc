@@ -9,13 +9,18 @@ class PostShow extends Component
 {
     public $post;
 
-    public function mount($id)
+    public function mount(Post $post)
     {
-        $this->post = Post::findOrFail($id);
+        $this->post = $post;
+        $this->post->increment('views');
     }
 
     public function render()
     {
-        return view('livewire.front.post-show')->layout('layouts.front-app');
+        $categories = \App\Models\Category::withCount('posts')->where('is_published', true)->get();
+
+        return view('livewire.front.post-show', [
+            'categories' => $categories,
+        ])->layout('layouts.front-app');
     }
 }

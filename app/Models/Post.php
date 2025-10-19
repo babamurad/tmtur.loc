@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'category_id', 'content', 'image', 'status', 'published_at'
+        'title', 'slug', 'category_id', 'content', 'image', 'status', 'published_at', 'views'
     ];
 
     protected $casts = [
@@ -26,6 +26,11 @@ class Post extends Model
                 $post->slug = Str::slug($post->title);
             }
         });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     public function category()

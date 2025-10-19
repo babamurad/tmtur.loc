@@ -20,7 +20,7 @@ class Category extends Model
     {
         static::creating(function ($category) {
             if (empty($category->slug)) {
-                $category->slug = Str::slug($category->title);
+                $category->slug = Str::slug($category->title);                
             }
         });
     }
@@ -33,5 +33,8 @@ class Category extends Model
             : asset('assets/images/media/sm-5.jpg');
     }
 
-
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

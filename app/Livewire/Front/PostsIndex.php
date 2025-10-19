@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class PostsIndex extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $categorySlug = null;
 
@@ -28,9 +29,9 @@ class PostsIndex extends Component
             })
             ->where('status', true)
             ->orderBy('published_at', 'desc')
-            ->paginate(5);
+            ->paginate(2);
 
-        $categories = Category::where('is_published', true)->get();
+        $categories = Category::withCount('posts')->where('is_published', true)->get();
 
         return view('livewire.front.posts-index', [
             'posts' => $posts,
