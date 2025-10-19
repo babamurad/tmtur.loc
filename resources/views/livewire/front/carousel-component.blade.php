@@ -1,5 +1,5 @@
 <!-- ========== HERO-CAROUSEL ========== -->
-<section id="home" class="carousel slide" data-bs-ride="carousel">
+<section id="home" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <!-- Индикаторы -->
   <div class="carousel-indicators">
     @foreach($carousels as $carousel)
@@ -8,11 +8,12 @@
   </div>
 
   <!-- Слайды -->
-  <div class="carousel-inner carousel-fade">
+  <div class="carousel-inner">
     <!-- Слайд 1 -->
      @foreach($carousels as $carousel)
     <div class="carousel-item {{ $loop->first ? 'active' : '' }}"
-         style="background-image:url('uploads/{{ $carousel->image }}');">
+         data-bs-interval="3000"
+         style="background-image:url({{ asset('uploads/' . $carousel->image) }});">
       <div class="carousel-caption  text-center">
         <h1 class="display-3 fw-bold">{{ $carousel->title }}</h1>
         <p class="lead mb-4">{{ $carousel->description }}</p>

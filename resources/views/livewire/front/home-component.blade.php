@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="#contact" class="btn btn-dark w-100 mt-2">Book now</a>
+                                <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-dark w-100 mt-2">Book now</a>
                             </div>
                         </div>
                     </div>

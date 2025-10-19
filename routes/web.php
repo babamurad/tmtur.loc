@@ -40,6 +40,7 @@ use App\Livewire\Reviews\ReviewEditComponent;
 // use App\Http\Livewire\RouteShowComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
+Route::get('tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
 
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');

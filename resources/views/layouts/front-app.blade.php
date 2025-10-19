@@ -27,7 +27,7 @@
 <!-- ========== НАВБАР ========== -->
 <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#home">
+    <a class="navbar-brand fw-bold" href="/#home">
       <i class="fa-solid fa-fire text-danger me-2"></i>TurkmenTravel
     </a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -36,11 +36,11 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">О Туркменистане</a></li>
-        <li class="nav-item"><a class="nav-link" href="#tours">Туры</a></li>
-        <li class="nav-item"><a class="nav-link" href="#darwaza">Дарваза</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Контакты</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#home">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#about">О Туркменистане</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#tours">Туры</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#darwaza">Дарваза</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#contact">Контакты</a></li>
       </ul>
     </div>
   </div>
@@ -76,7 +76,7 @@
       </div>
     </div>
     <hr class="my-3 bg-white-50">
-    <div class="text-center small text-white-50">&copy; 2023 TurkmenTravel. Все права защищены.</div>
+    <div class="text-center small text-white-50">&copy; 2025 TmTourism. Все права защищены.</div>
   </div>
 </footer>
 
