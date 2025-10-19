@@ -64,7 +64,7 @@
                             <div class="card-footer">
                                 <a href="{{ route('tours.show', $tour->id) }}"
                                    class="btn btn-dark w-100 mt-2">
-                                    Book now
+                                    Read more
                                 </a>
                             </div>
                         </div>

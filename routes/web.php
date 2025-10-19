@@ -41,6 +41,9 @@ use App\Livewire\Reviews\ReviewEditComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
 Route::get('tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
+Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
+Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
+Route::get('blog/{id}', \App\Livewire\Front\PostShow::class)->name('blog.show');
 
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');

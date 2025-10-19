@@ -28,7 +28,7 @@
 <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/#home">
-      <i class="fa-solid fa-fire text-danger me-2"></i>TurkmenTravel
+      <i class="fa-solid fa-fire text-danger me-2"></i>TmTourism
     </a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
       <span class="navbar-toggler-icon"></span>
@@ -39,6 +39,7 @@
         <li class="nav-item"><a class="nav-link" href="/#home">Главная</a></li>
         <li class="nav-item"><a class="nav-link" href="/#about">О Туркменистане</a></li>
         <li class="nav-item"><a class="nav-link" href="/#tours">Туры</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Блог</a></li>
         <li class="nav-item"><a class="nav-link" href="/#darwaza">Дарваза</a></li>
         <li class="nav-item"><a class="nav-link" href="/#contact">Контакты</a></li>
       </ul>
