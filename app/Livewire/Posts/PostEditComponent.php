@@ -19,13 +19,26 @@ class PostEditComponent extends Component
     public bool $status;
     public string $published_at;
     public $newImage;
+    public string $currentImage = '';
     public int $uploadProgress = 0;
+
+    protected $listeners = ['upload:progress' => 'updateUploadProgress'];
+
+    public function updateUploadProgress($progress)
+    {
+        $this->uploadProgress = $progress;
+    }
+
+    public function updatedTitle($value)
+    {
+        $this->slug = \Illuminate\Support\Str::slug($value);
+    }
 
     protected function rules(): array
     {
         return [
-            'title' => 'required|string|max:255|unique:posts,title,'.$this->post->id,
-            'slug'  => 'nullable|string|max:255|unique:posts,slug,'.$this->post->id,
+            'title' => 'required|string|max:255|unique:posts,title,' . $this->post->id,
+            'slug' => 'nullable|string|max:255|unique:posts,slug,' . $this->post->id,
             'category_id' => 'required|exists:categories,id',
             'content' => 'nullable|string',
             'status' => 'boolean',
@@ -34,55 +47,52 @@ class PostEditComponent extends Component
         ];
     }
 
-    public function mount(Post $post)
+    public function mount($id)
     {
-        $this->post = $post;
-        $this->title = $post->title;
-        $this->slug = $post->slug;
-        $this->category_id = $post->category_id;
-        $this->content = $post->content ?? '';
-        $this->status = (bool)$post->status;
-        $this->published_at = $post->published_at->format('Y-m-d\TH:i');
-    }
-
-    public function updatedTitle($v)
-    {
-        $this->slug = \Str::slug($v);
-    }
-
-    protected $listeners = ['upload:progress' => 'updateUploadProgress'];
-
-    public function updateUploadProgress($p)
-    {
-        $this->uploadProgress = $p;
+        $this->post = Post::findOrFail($id);
+        $this->title = $this->post->title;
+        $this->slug = $this->post->slug;
+        $this->category_id = $this->post->category_id;
+        $this->content = $this->post->content ?? '';
+        $this->status = (bool)$this->post->status;
+        $this->published_at = $this->post->published_at->format('Y-m-d\TH:i');
+        $this->currentImage = $this->post->image;
     }
 
     public function save()
     {
         $this->validate();
 
-        if ($this->newImage) {
-            $this->post->image && \Storage::disk('public')->delete($this->post->image);
-            $this->post->image = $this->newImage->store('posts', 'public');
-        }
-
-        $this->post->update([
+        $data = [
             'title' => $this->title,
-            'slug'  => $this->slug ?: \Str::slug($this->title),
+            'slug' => $this->slug ?: \Illuminate\Support\Str::slug($this->title),
             'category_id' => $this->category_id,
             'content' => $this->content,
             'status' => $this->status,
             'published_at' => $this->published_at,
-        ]);
+        ];
 
-        session()->flash('success', 'Пост обновлён.');
-        return $this->redirectRoute('posts.index');
+        // Обработка загрузки изображения
+        if ($this->newImage) {
+            // Удаляем старое изображение, если оно есть
+            if ($this->currentImage) {
+                \Illuminate\Support\Facades\Storage::disk('public_uploads')->delete($this->currentImage);
+            }
+
+            // Сохраняем новое изображение
+            $data['image'] = $this->newImage->store('posts', 'public_uploads');
+        }
+
+        // Обновляем запись
+        $this->post->update($data);
+
+        session()->flash('message', 'Пост успешно обновлен.');
+        return redirect()->route('posts.index');
     }
-
     public function render()
     {
         return view('livewire.posts.post-edit-component', [
-            'categories' => Category::where('is_published', 1)->get(),
+            'categories' => \App\Models\Category::where('is_published', 1)->get(),
         ]);
     }
 }

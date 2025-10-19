@@ -1,7 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
-
-        <!-- page-title -->
+        <!-- page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -14,7 +13,7 @@
             </div>
         </div>
 
-        <!-- форма -->
+        <!-- form -->
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -97,7 +96,7 @@
                                     @error('newImage') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
 
-                                <!-- прогресс -->
+                                <!-- progress -->
                                 <div class="mt-2 d-none" wire:loading wire:target="newImage" wire:loading.class.remove="d-none">
                                     <div class="progress" style="height:20px;">
                                         <div class="progress-bar" role="progressbar"
@@ -110,23 +109,29 @@
                                 </div>
 
                                 <!-- preview -->
-                                <div class="position-relative mt-2" style="height:150px;">
-                                    <div wire:loading.remove wire:target="newImage">
-                                        <img src="{{ $post->image_url }}"
-                                             class="img-fluid rounded" style="max-height:150px;">
+                                <div class="position-relative mb-5" style="height:150px;">
+                                    <div class="row mb-2">
+                                        @if($currentImage)
+                                            <div wire:loading.remove wire:target="newImage" class="img-fluid rounded mr-1" style="max-height:150px;">
+                                                <small class="text-muted">Текущее изображение</small><br>
+                                                <img src="{{ asset('uploads/' . $currentImage) }}"
+                                                     class="img-fluid rounded" style="max-height:150px;">
+                                            </div>
+                                        @endif
+                                        @if($newImage)
+                                            <div>
+                                                <small class="text-muted">Новое изображение:</small><br>
+                                                <img src="{{ $newImage->temporaryUrl() }}"
+                                                     class="img-fluid rounded ml-1" style="max-height:150px;">
+                                            </div>
+                                        @endif
                                     </div>
-                                    @if($newImage)
-                                        <div class="mt-1">
-                                            <small class="text-muted">Новое изображение:</small><br>
-                                            <img src="{{ $newImage->temporaryUrl() }}"
-                                                 class="img-fluid rounded" style="max-height:150px;">
-                                        </div>
-                                    @endif
+
                                 </div>
                             </div>
 
                             <!-- buttons -->
-                            <div class="form-group mb-0">
+                            <div class="form-group mb-0 pt-1">
                                 <button type="submit" class="btn btn-success waves-effect waves-light mr-2">
                                     <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
                                     Сохранить

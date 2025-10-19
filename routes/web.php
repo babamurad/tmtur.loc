@@ -106,7 +106,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/', PostIndexComponent::class)->name('index');
         Route::get('/create', PostCreateComponent::class)->name('create');
-        Route::get('/edit/{post}', PostEditComponent::class)->name('edit');
+        Route::get('/edit/{id}', PostEditComponent::class)->name('edit');
     });
 
     Route::prefix('reviews')->name('reviews.')->group(function () {

@@ -29,7 +29,7 @@
                                 <label>Заголовок <span class="text-danger">*</span></label>
                                 <input type="text"
                                        class="form-control @error('title') is-invalid @enderror"
-                                       wire:model.debounce.500ms="title"
+                                       wire:model.debounce.300ms="title"
                                        placeholder="Например: Мой первый пост">
                                 @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
@@ -39,7 +39,8 @@
                                 <label>Slug</label>
                                 <input type="text"
                                        class="form-control @error('slug') is-invalid @enderror"
-                                       wire:model.defer="slug"
+                                       wire:model="slug"
+                                       disabled
                                        placeholder="Оставьте пустым для автогенерации">
                                 @error('slug') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>

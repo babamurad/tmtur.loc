@@ -48,7 +48,7 @@
                                         <td>{{ $p->title }}</td>
                                         <td>{{ $p->category->title ?? '-' }}</td>
                                         <td>
-                                            <span class="badge bg-{{ $p->status?'success':'secondary' }}">
+                                            <span class="badge badge-{{ $p->status?'success':'secondary' }}">
                                                 {{ $p->status?'Опубликован':'Черновик' }}
                                             </span>
                                         </td>

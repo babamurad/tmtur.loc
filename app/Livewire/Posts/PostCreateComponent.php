@@ -53,25 +53,75 @@ class PostCreateComponent extends Component
 
     public function save()
     {
-        $this->validate();
+        \Log::info('Начало создания поста', ['title' => $this->title]);
 
-        $path = null;
-        if ($this->image) {
-            $path = $this->image->store('posts', 'public');
+        try {
+            // Валидация данных
+            $validatedData = $this->validate();
+            \Log::debug('Валидация пройдена', $validatedData);
+
+            // Обработка загрузки изображения
+            $path = null;
+            if ($this->image) {
+                \Log::debug('Начало загрузки изображения');
+                $path = $this->image->storeAs(
+                    'posts',
+                    \Illuminate\Support\Str::uuid() . '.' . $this->image->extension(),
+                    'public_uploads'
+                );
+                \Log::debug('Изображение загружено', ['path' => $path]);
+            }
+
+            // Подготовка данных для создания поста
+            $postData = [
+                'title' => $this->title,
+                'slug' => $this->slug ?: \Str::slug($this->title),
+                'category_id' => (int)$this->category_id,
+                'content' => $this->content,
+                'status' => (bool)$this->status,
+                'published_at' => $this->published_at,
+                'image' => $path,
+            ];
+
+            \Log::debug('Данные для создания поста', $postData);
+
+            // Создание поста с обработкой исключений
+            $post = new Post();
+            $post->fill($postData);
+            $saved = $post->save();
+
+            if (!$saved) {
+                throw new \Exception('Не удалось сохранить пост в базу данных');
+            }
+
+            \Log::info('Пост успешно создан', [
+                'post_id' => $post->id,
+                'post_data' => $post->toArray()
+            ]);
+
+            session()->flash('success', 'Пост успешно создан!');
+            return $this->redirectRoute('posts.index');
+
+        } catch (\Exception $e) {
+            \Log::error('Ошибка при создании поста', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+                'input_data' => [
+                    'title' => $this->title,
+                    'slug' => $this->slug,
+                    'category_id' => $this->category_id,
+                    'content' => $this->content,
+                    'status' => $this->status,
+                    'published_at' => $this->published_at,
+                    'image' => $path ?? null,
+                ]
+            ]);
+
+            session()->flash('error', 'Произошла ошибка при создании поста: ' . $e->getMessage());
+            return;
         }
-
-        Post::create([
-            'title' => $this->title,
-            'slug'  => $this->slug ?: \Str::slug($this->title),
-            'category_id' => $this->category_id,
-            'content' => $this->content,
-            'status' => $this->status,
-            'published_at' => $this->published_at,
-            'image' => $path,
-        ]);
-
-        session()->flash('success', 'Пост создан.');
-        return $this->redirectRoute('posts.index');
     }
 
     public function render()
