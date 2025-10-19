@@ -11,7 +11,7 @@
                     <div class="position-relative">
                         @if($selectedTour->media)
                             <img class="img-fluid rounded" src="{{ asset('uploads' . '/' . $selectedTour->media->file_path) }}">
-                        else
+                        @else
                             <img class="img-fluid rounded" src="{{ asset('assets/images/tmfotos/default.jpg') }}">
                         @endif
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
