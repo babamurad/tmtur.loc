@@ -36,6 +36,6 @@ class PostsIndex extends Component
         return view('livewire.front.posts-index', [
             'posts' => $posts,
             'categories' => $categories,
-        ])->layout('layouts.front-app');
+        ])->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

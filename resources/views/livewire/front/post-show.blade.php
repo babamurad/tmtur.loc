@@ -151,18 +151,20 @@
                                     <!-- Image -->
                                     <div class="bg-image hover-overlay ripple rounded shadow-1-strong" data-ripple-color="light">
                                         @if ($featuredPost->image)
-                                            <img src="{{ asset('uploads/' . $featuredPost->image) }}"
+                                        <a href="{{ route('blog.show', $featuredPost->slug) }}">
+                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
+                                                <img src="{{ asset('uploads/' . $featuredPost->image) }}"
                                                 class="img-fluid" alt="{{ $featuredPost->title }}">
+                                            </div>
+                                        </a>                                            
                                         @endif
-                                        <a href="{{ route('blog.show', $featuredPost->id) }}">
-                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);"></div>
-                                        </a>
+                                        
                                     </div>
                                 </div>
                                 <!-- Excerpt -->
                                 <div class="col-8">
                                     <h6 class="mt-0 mb-3">
-                                        <a href="{{ route('blog.show', $featuredPost->id) }}">
+                                        <a href="{{ route('blog.show', $featuredPost->slug) }}">
                                             <strong>{{ Str::limit($featuredPost->title, 50) }}</strong>
                                         </a>
                                     </h6>

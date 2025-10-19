@@ -56,12 +56,13 @@
                                     <!-- Image -->
                                     <div class="bg-image hover-overlay ripple rounded shadow-1-strong" data-ripple-color="light">
                                         @if ($featuredPost->image)
-                                            <img src="{{ asset('uploads/' . $featuredPost->image) }}"
-                                                class="img-fluid" alt="{{ $featuredPost->title }}">
-                                        @endif
                                         <a href="{{ route('blog.show', $featuredPost->slug) }}">
-                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);"></div>
-                                        </a>
+                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
+                                                <img src="{{ asset('uploads/' . $featuredPost->image) }}"
+                                                class="img-fluid" alt="{{ $featuredPost->title }}">
+                                            </div>
+                                        </a>                                            
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- Excerpt -->

@@ -47,7 +47,9 @@
   </div>
 </nav>
 
-@livewire('front.carousel-component')
+@if (!isset($hideCarousel) || !$hideCarousel)
+    @livewire('front.carousel-component')
+@endif
 
 {{ $slot }}
 
