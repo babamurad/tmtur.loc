@@ -203,6 +203,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 .btn-tw{ background:#1da1f2; }
 .btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 .btn-yt{ background:#ff0000; }
+.btn-ws{ background: #29A71A;}
 
 /* ------ соц-кнопки: никакого светлого ховера BS5 ------ */
 .soc-btn{
@@ -214,19 +215,26 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     border:none !important;
     outline:none !important;               /* убираем рамку фокуса BS5 */
     transition:transform .25s, box-shadow .25s;
+    -webkit-tap-highlight-color: transparent; /* убираем подсветку на мобильных */
 }
 .soc-btn:hover,
-.soc-btn:focus{
+.soc-btn:focus,
+.soc-btn:active{
     transform:translateY(-3px) scale(1.08); /* поднять + увеличить */
     box-shadow:0 8px 24px rgba(0,0,0,.5) !important;
+    color:#fff !important;
+    background-color: inherit !important;
 }
 
 /* цвета кнопок (остаются) */
-.btn-fb{ background:#3b5998; }
-.btn-tw{ background:#1da1f2; }
-.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-.btn-yt{ background:#ff0000; }
-.btn-fb:hover{ background:#3b5998; }
-.btn-tw:hover{ background:#1da1f2; }
-.btn-ig:hover{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-.btn-yt:hover{ background:#ff0000; }
+.btn-fb{ background:#3b5998 !important; }
+.btn-tw{ background:#1da1f2 !important; }
+.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
+.btn-yt{ background:#ff0000 !important; }
+.btn-ws{ background:#29A71A !important; }
+
+.btn-fb:hover, .btn-fb:focus, .btn-fb:active{ background:#3b5998 !important; }
+.btn-tw:hover, .btn-tw:focus, .btn-tw:active{ background:#1da1f2 !important; }
+.btn-ig:hover, .btn-ig:focus, .btn-ig:active{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
+.btn-yt:hover, .btn-yt:focus, .btn-yt:active{ background:#ff0000 !important; }
+.btn-ws:hover, .btn-ws:focus, .btn-ws:active{ background:#29A71A !important; }
