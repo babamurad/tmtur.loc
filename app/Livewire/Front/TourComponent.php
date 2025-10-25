@@ -9,9 +9,24 @@ class TourComponent extends Component
 {
     public Tour $selectedTour;
 
-    public function mount($id)
+    public function mount(string $id = null)
     {
-        $this->selectedTour = Tour::find($id);
+        if ($id) {
+//             dd($id);
+            $this->selectedTour = Tour::find($id);
+        } else {
+            return;
+        }
+    }
+
+    public function editTour($id)
+    {
+        if ($id) {
+            $this->selectedTour = Tour::find($id);
+        } else {
+            return;
+}
+
     }
     public function render()
     {

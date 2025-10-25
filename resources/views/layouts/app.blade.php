@@ -12,14 +12,17 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    @stack('summernote-css')
+    <!-- jQuery  -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    @stack('scripts')
 
-    @livewireScripts
+    @livewireStyles
 </head>
 
 <body>
@@ -329,14 +332,12 @@
     <div class="menu-overlay"></div>
 
 
-    <!-- jQuery  -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/metismenu.min.js') }}"></script>
     <script src="{{ asset('assets/js/waves.js') }}"></script>
     <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
 
-    @stack('scripts')
+
 
     <!-- Morris Js-->
     <!-- <script src="{{ asset('plugins/morris-js/morris.min.js') }}"></script> -->
@@ -349,8 +350,11 @@
     <!-- App js -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>
+-------
     @livewireScripts
+    @stack('summernote-js')
     @livewireAlertScripts
+
 </body>
 
 </html>

@@ -37,12 +37,6 @@
                                 <span>Slug: {{ $slug }}</span>
                             </div>
 
-                            <div class="form-group">
-                                <label for="description">Textarea</label>
-                                <textarea class="form-control" id="description" rows="3" wire:model="description"></textarea>
-                                @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-
                             {{-- Category --}}
                             <div class="form-group">
                                 <label for="category_id">Category <span class="text-danger">*</span></label>
@@ -81,14 +75,21 @@
                             </div>
 
                             {{-- Content --}}
-                            <div class="form-group">
-                                <label for="content">Content</label>
-                                <textarea id="content"
-                                          wire:model.defer="content"
+                            {{-- Content --}}
+-------
+
+                            <div
+                                wire:ignore
+                                class="form-group"
+                            >
+                                <label for="summernote-content">Content</label>
+                                <textarea id="summernote-content"
+                                          name="summernote-content"
                                           class="form-control @error('content') is-invalid @enderror"
-                                          placeholder="e.g. Description of the tour"></textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                          placeholder="e.g. Description of the tour"
+                                          x-ref="editor"
+                                ></textarea> @error('content')
+                                <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -114,67 +115,114 @@
             <div class="col-lg-4 col-xl-4">
                 <div class="card">
                     <div class="card-body">
-                                                    {{-- Image --}}
-                                            <div class="form-group">
-                                                <label for="image">Выберите изображение</label>
-                                                <div class="custom-file">
-                                                    <input type="file"
-                                                        class="custom-file-input @error('image') is-invalid @enderror"
-                                                        id="image"
-                                                        wire:model="image"
-                                                        accept="image/*">
-                                                    <label class="custom-file-label" for="image">
-                                                        @if ($image)
-                                                            {{ $image->getClientOriginalName() }}
-                                                        @else
-                                                            Выбрать изображение
-                                                        @endif
-                                                    </label>
-                                                    @error('image')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                {{-- Image --}}
+                        <div class="form-group">
+                            <label for="image">Выберите изображение</label>
+                            <div class="custom-file">
+                                <input type="file"
+                                    class="custom-file-input @error('image') is-invalid @enderror"
+                                    id="image"
+                                    wire:model="image"
+                                    accept="image/*">
+                                <label class="custom-file-label" for="image">
+                                    @if ($image)
+                                        {{ $image->getClientOriginalName() }}
+                                    @else
+                                        Выбрать изображение
+                                    @endif
+                                </label>
+                                @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                                                {{-- контейнер 200 px --}}
-                                                <div class="position-relative mb-3" style="height:200px;">
+                            {{-- контейнер 200 px --}}
+                            <div class="position-relative mb-3" style="height:200px;">
 
-                                                    {{-- спиннер во время загрузки --}}
-                                                    <!-- <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50">
-                                                        <span class="sr-only"></span>
-                                                    </div> -->
+                                {{-- спиннер во время загрузки --}}
+                                <!-- <div wire:loading wire:target="image" class="spinner-border text-primary m-2 top-50 start-50">
+                                    <span class="sr-only"></span>
+                                </div> -->
 
-                                                    {{-- картинка или плейсхолдер --}}
-                                                    <div wire:loading.remove wire:target="image">
-                                                        @if ($image)
-                                                            {{-- свежезагруженное изображение --}}
-                                                            <img class="img-fluid rounded"
-                                                                style="max-height:200px; object-fit:cover;"
-                                                                src="{{ $image->temporaryUrl() }}"
-                                                                alt="Preview">
-                                                        @else
-                                                            {{-- постоянное изображение, если нужно --}}
-                                                            <img class="img-fluid rounded"
-                                                                style="max-height:200px; object-fit:cover;"
-                                                                src="{{ asset('assets/images/media/sm-5.jpg') }}"
-                                                                alt="Placeholder">
-                                                        @endif
-                                                    </div>
-                                                </div>
+                                {{-- картинка или плейсхолдер --}}
+                                <div wire:loading.remove wire:target="image">
+                                    @if ($image)
+                                        {{-- свежезагруженное изображение --}}
+                                        <img class="img-fluid rounded"
+                                            style="max-height:200px; object-fit:cover;"
+                                            src="{{ $image->temporaryUrl() }}"
+                                            alt="Preview">
+                                    @else
+                                        {{-- постоянное изображение, если нужно --}}
+                                        <img class="img-fluid rounded"
+                                            style="max-height:200px; object-fit:cover;"
+                                            src="{{ asset('assets/images/media/sm-5.jpg') }}"
+                                            alt="Placeholder">
+                                    @endif
+                                </div>
+                            </div>
 
-                                            {{-- Is Published --}}
-                                            <div class="form-group">
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox"
-                                                        class="custom-control-input"
-                                                        id="is_published"
-                                                        wire:model.defer="is_published">
-                                                    <label class="custom-control-label" for="is_published">Is Published</label>
-                                                </div>
-                                            </div>
+                        {{-- Is Published --}}
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox"
+                                    class="custom-control-input"
+                                    id="is_published"
+                                    wire:model.defer="is_published">
+                                <label class="custom-control-label" for="is_published">Is Published</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@push('summernote-css')
+-------
+-------
+    <link rel="stylesheet" href="{{ asset('assets/css/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.woff2') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.woff') }}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.ttf') }}">
+@endpush
+@push('summernote-js')
+-------
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script>
+        // 1. Инициализация Summernote
+        $('#summernote-content').summernote({
+            placeholder: 'Введите текст поста...',
+            tabsize: 2,
+            height: 200,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ],
+            // 2. Обязательный callback для синхронизации с Livewire
+            callbacks: {
+                onChange: function(contents, $editable) {
+                    console.log(contents);
+                    // Синхронизация данных: при каждом изменении содержимого
+                    // вызываем метод set Livewire, чтобы обновить свойство $content
+                    // @this - это глобальная переменная Livewire для доступа к компоненту
+                @this.set('content', contents);
+                }
+            }
+        });
+
+        // 3. Обработка случая, когда Livewire загружает или обновляет компонент
+        // (например, при редактировании)
+        document.addEventListener('livewire:initialized', () => {
+            // Проверка, что Summernote уже инициализирован, перед установкой кода
+            if ($('#summernote-content').data('summernote')) {
+                $('#summernote-content').summernote('code', @this.content);
+            }
+        });
+    </script>
+@endpush
