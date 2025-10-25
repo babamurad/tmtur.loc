@@ -350,9 +350,8 @@
     <!-- App js -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>
--------
-    @livewireScripts
     @stack('summernote-js')
+    @livewireScripts
     @livewireAlertScripts
 
 </body>

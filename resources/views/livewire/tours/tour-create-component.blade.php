@@ -75,9 +75,6 @@
                             </div>
 
                             {{-- Content --}}
-                            {{-- Content --}}
--------
-
                             <div
                                 wire:ignore
                                 class="form-group"
@@ -88,7 +85,8 @@
                                           class="form-control @error('content') is-invalid @enderror"
                                           placeholder="e.g. Description of the tour"
                                           x-ref="editor"
-                                ></textarea> @error('content')
+                                ></textarea> 
+                                @error('content')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -180,15 +178,10 @@
     </div>
 </div>
 @push('summernote-css')
--------
--------
     <link rel="stylesheet" href="{{ asset('assets/css/summernote-bs4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.woff2') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.woff') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/summernote.ttf') }}">
 @endpush
+
 @push('summernote-js')
--------
     <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         // 1. Инициализация Summernote
