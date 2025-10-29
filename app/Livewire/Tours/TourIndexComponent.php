@@ -64,7 +64,7 @@ class TourIndexComponent extends Component
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
             ->onConfirm('tourDelete')
-            ->show();
+            ->show(null, ['backdrop' => true]);
     }
 
     public function tourDelete()

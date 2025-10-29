@@ -74,13 +74,15 @@ class TourCreateComponent extends Component
 
         $this->tourId = Tour::latest()->first()->id;
 
-        Media::create([
-            'model_type' => Tour::class,
-            'model_id' => $this->tourId,
-            'file_path' => $imagePath,
-            'file_name' => $this->image->getClientOriginalName(),
-            'mime_type' => $this->image->getClientMimeType(),
-        ]);
+        if ($imagePath) {
+            Media::create([
+                'model_type' => Tour::class,
+                'model_id' => $this->tourId,
+                'file_path' => $imagePath,
+                'file_name' => $imageName,
+                'mime_type' => $this->image->getClientMimeType(),
+            ]);
+        }
 
         session()->flash('saved', [
             'title' => 'Тур создан!',
