@@ -94,42 +94,37 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Smooth-scroll для якорей
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      // Пропускаем якоря с data-toggle, так как они используются для других целей (например, модальные окна)
-      if (!anchor.getAttribute('data-toggle')) {
-        anchor.addEventListener('click', function (e) {
-          const targetId = this.getAttribute('href');
+    document.addEventListener('click', function (e) {
+        // Проверяем, что кликнули по якорной ссылке
+        if (e.target.matches('a[href^="#"]')) {
+            const anchor = e.target;
+            if (anchor.hasAttribute('data-toggle')) return;
 
-          // Проверяем, существует ли элемент с таким id на странице
-          if (targetId !== '#' && document.querySelector(targetId)) {
-            e.preventDefault();
+            const href = anchor.getAttribute('href');
+            if (href === '#' || href === '#home') return;
 
-            // Плавная прокрутка к целевому элементу
-            document.querySelector(targetId).scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
 
-            // Обновляем URL без перезагрузки страницы
-            if (history.pushState) {
-              history.pushState(null, null, targetId);
-            } else {
-              window.location.hash = targetId;
+                const navbar = document.getElementById('mainNav');
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+                const targetPosition = target.getBoundingClientRect().top;
+                const offsetPosition = window.pageYOffset + targetPosition - navbarHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                history.pushState(null, null, href);
             }
-          }
-        });
-      }
+        }
     });
-  });
 </script>
 
 @stack('scripts')
 
-<script>
-    // Поддержка работы Bootstrap модалов с Livewire
-    window.livewire.on('refreshPage', () => location.reload());
-</script>
 </body>
 </html>

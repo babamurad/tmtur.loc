@@ -3,6 +3,9 @@
 namespace App\Livewire\Front;
 
 use Livewire\Component;
+use App\Models\ContactMessage;
+use App\Mail\ContactReceived;
+use Illuminate\Support\Facades\Mail;
 
 class ContactFormComponent extends Component
 {
@@ -78,6 +81,6 @@ class ContactFormComponent extends Component
 
     public function render()
     {
-        return view('livewire.front.contact-form-component')->layout('layouts.front-app');
+        return view('livewire.front.contact-form-component');
     }
 }

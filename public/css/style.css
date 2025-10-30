@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .navbar.mb-3, .navbar.mb-4 { margin-bottom: 0 !important; }
 
 .navbar {
@@ -15,7 +19,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 .carousel,
 .carousel-inner,
 .carousel-item {
-  height: 95vh;                            /* 1,2: родитель и слайды = вся высота */
+  height: 100vh;                            /* 1,2: родитель и слайды = вся высота */
 }
 
 .carousel-item:not(.active) {
