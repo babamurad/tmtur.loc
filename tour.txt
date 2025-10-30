@@ -107,7 +107,8 @@ php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
 
-
+Blanditiis repudiand
+livumoj@mailinator.com
 
 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
 

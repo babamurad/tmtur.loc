@@ -71,7 +71,7 @@
                             </ul>
                         </li>
 
-                        <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-world"></i> Culture Items</a></li>
+                        <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-diamond"></i> Culture Items</a></li>
                         <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>
 

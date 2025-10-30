@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6">
+                            <h5>Main info</h5>
                             <!-- Name -->
                             <div class="form-group">
                                 <label for="name">Full Name</label>
