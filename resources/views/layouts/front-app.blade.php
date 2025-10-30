@@ -34,16 +34,16 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="/#home">Главная</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#about">О Туркменистане</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#tours">Туры</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Блог</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#darwaza">Дарваза</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#contact">Контакты</a></li>
-      </ul>
-    </div>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/#home">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/#about">About Turkmenistan</a></li>
+              <li class="nav-item"><a class="nav-link" href="/#tours">Tours</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
+              <li class="nav-item"><a class="nav-link" href="/#darwaza">Darvaza</a></li>
+              <li class="nav-item"><a class="nav-link" href="/#contact">Contact</a></li>
+          </ul>
+      </div>
   </div>
 </nav>
 
@@ -55,32 +55,32 @@
 
 <!-- ========== FOOTER ========== -->
 <footer class="bg-dark text-white py-4">
-  <div class="container">
-    <div class="row gy-3">
-      <div class="col-md-4">
-        <div class="d-flex align-items-center mb-2">
-          <i class="fa-solid fa-fire text-danger me-2"></i><span class="fw-bold">TmTourism</span>
+    <div class="container">
+        <div class="row gy-3">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="fa-solid fa-fire text-danger me-2"></i><span class="fw-bold">TmTourism</span>
+                </div>
+                <p class="small mb-0">Your reliable guide to amazing Turkmenistan.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="fw-bold mb-2">Quick links</div>
+                <ul class="list-unstyled small">
+                    <li><a href="#home" class="text-white-50">Home</a></li>
+                    <li><a href="#about" class="text-white-50">About Turkmenistan</a></li>
+                    <li><a href="#tours" class="text-white-50">Tours</a></li>
+                    <li><a href="#darwaza" class="text-white-50">Darvaza</a></li>
+                    <li><a href="#contact" class="text-white-50">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <div class="fw-bold mb-2">Subscribe to newsletter</div>
+                <form class="d-flex"><input type="email" class="form-control form-control-sm me-2" placeholder="Your email" required><button class="btn btn-sm btn-danger"><i class="fa-solid fa-paper-plane"></i></button></form>
+            </div>
         </div>
-        <p class="small mb-0">Ваш надёжный гид по удивительному Туркменистану.</p>
-      </div>
-      <div class="col-md-4">
-        <div class="fw-bold mb-2">Быстрые ссылки</div>
-        <ul class="list-unstyled small">
-          <li><a href="#home" class="text-white-50">Главная</a></li>
-          <li><a href="#about" class="text-white-50">О Туркменистане</a></li>
-          <li><a href="#tours" class="text-white-50">Туры</a></li>
-          <li><a href="#darwaza" class="text-white-50">Дарваза</a></li>
-          <li><a href="#contact" class="text-white-50">Контакты</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <div class="fw-bold mb-2">Подписаться на рассылку</div>
-        <form class="d-flex"><input type="email" class="form-control form-control-sm me-2" placeholder="Ваш email" required><button class="btn btn-sm btn-danger"><i class="fa-solid fa-paper-plane"></i></button></form>
-      </div>
+        <hr class="my-3 bg-white-50">
+        <div class="text-center small text-white-50">&copy; 2025 TmTourism. All rights reserved.</div>
     </div>
-    <hr class="my-3 bg-white-50">
-    <div class="text-center small text-white-50">&copy; 2025 TmTourism. Все права защищены.</div>
-  </div>
 </footer>
 
 <!-- ========== SCRIPTS ========== -->
