@@ -398,104 +398,104 @@
 
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="accordion" id="faqAccordion">
+                    <div id="faqAccordion" role="tablist" aria-multiselectable="true">
 
-                        <!-- item 1 -->
+                        <!-- FAQ Item 1 -->
                         <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-header bg-white" id="faq1Head">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none"
-                                            data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                        <span class="text-dark">Do I need a visa to visit Turkmenistan?</span>
-                                    </button>
-                                </h2>
+                            <div class="card-header bg-white" role="tab" id="faq1Head">
+                                <h5 class="mb-0">
+                                    <a class="btn btn-link text-dark text-decoration-none d-flex align-items-center justify-content-between w-100 collapsed"
+                                       data-toggle="collapse" href="#faq1" aria-expanded="true" aria-controls="faq1">
+                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>Do I need a visa to visit Turkmenistan?</span>
+                                    </a>
+                                </h5>
                             </div>
-                            <div id="faq1" class="collapse show" aria-labelledby="faq1Head" data-parent="#faqAccordion">
-                                <div class="card-body d-flex align-items-start gap-3">
-                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                            <div id="faq1" class="collapse show" role="tabpanel" aria-labelledby="faq1Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex">
+                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Most foreigners require a visa. We will help with invitation and processing.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- item 2 -->
+                        <!-- FAQ Item 2 -->
                         <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-header bg-white" id="faq2Head">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
-                                            data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                        <span class="text-dark">When is the best time to visit Darvaza?</span>
-                                    </button>
-                                </h2>
+                            <div class="card-header bg-white" role="tab" id="faq2Head">
+                                <h5 class="mb-0">
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
+                                       data-toggle="collapse" href="#faq2" aria-expanded="false" aria-controls="faq2">
+                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>When is the best time to visit Darvaza?</span>
+                                    </a>
+                                </h5>
                             </div>
-                            <div id="faq2" class="collapse" aria-labelledby="faq2Head" data-parent="#faqAccordion">
-                                <div class="card-body d-flex align-items-start gap-3">
-                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                            <div id="faq2" class="collapse" role="tabpanel" aria-labelledby="faq2Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex">
+                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- item 3 -->
+                        <!-- FAQ Item 3 -->
                         <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-header bg-white" id="faq3Head">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
-                                            data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                        <span class="text-dark">Is it safe to visit the Gates of Hell?</span>
-                                    </button>
-                                </h2>
+                            <div class="card-header bg-white" role="tab" id="faq3Head">
+                                <h5 class="mb-0">
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
+                                       data-toggle="collapse" href="#faq3" aria-expanded="false" aria-controls="faq3">
+                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>Is it safe to visit the Gates of Hell?</span>
+                                    </a>
+                                </h5>
                             </div>
-                            <div id="faq3" class="collapse" aria-labelledby="faq3Head" data-parent="#faqAccordion">
-                                <div class="card-body d-flex align-items-start gap-3">
-                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                            <div id="faq3" class="collapse" role="tabpanel" aria-labelledby="faq3Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex">
+                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- item 4 -->
+                        <!-- FAQ Item 4 -->
                         <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-header bg-white" id="faq4Head">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
-                                            data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                        <span class="text-dark">What should I bring on a tour to the Gates of Hell?</span>
-                                    </button>
-                                </h2>
+                            <div class="card-header bg-white" role="tab" id="faq4Head">
+                                <h5 class="mb-0">
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
+                                       data-toggle="collapse" href="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>What should I bring on a tour to the Gates of Hell?</span>
+                                    </a>
+                                </h5>
                             </div>
-                            <div id="faq4" class="collapse" aria-labelledby="faq4Head" data-parent="#faqAccordion">
-                                <div class="card-body d-flex align-items-start gap-3">
-                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                            <div id="faq4" class="collapse" role="tabpanel" aria-labelledby="faq4Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex">
+                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- item 5 -->
+                        <!-- FAQ Item 5 -->
                         <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-header bg-white" id="faq5Head">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
-                                            data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5">
-                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                        <span class="text-dark">Are there age restrictions?</span>
-                                    </button>
-                                </h2>
+                            <div class="card-header bg-white" role="tab" id="faq5Head">
+                                <h5 class="mb-0">
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
+                                       data-toggle="collapse" href="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>Are there age restrictions?</span>
+                                    </a>
+                                </h5>
                             </div>
-                            <div id="faq5" class="collapse" aria-labelledby="faq5Head" data-parent="#faqAccordion">
-                                <div class="card-body d-flex align-items-start gap-3">
-                                    <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
+                            <div id="faq5" class="collapse" role="tabpanel" aria-labelledby="faq5Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex">
+                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div>
                                 </div>
                             </div>
                         </div>
 
-                    </div><!-- /accordion -->
+                    </div>
                 </div>
             </div>
         </div>

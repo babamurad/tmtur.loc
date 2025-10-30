@@ -245,13 +245,13 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 
 /* Стрелка вниз – блок открыт */
 .card-header .btn-link[aria-expanded="true"]::after {
-    content: "▲";
+    /*content: "▲";*/
     float: right;
     transition: transform .3s;
 }
 /* Стрелка вбок – блок закрыт */
 .card-header .btn-link[aria-expanded="false"]::after {
-    content: "▼";
+    /*content: "▼";*/
     float: right;
     transition: transform .3s;
 }

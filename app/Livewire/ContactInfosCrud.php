@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use App\Models\ContactInfo;
 use Livewire\WithPagination;
@@ -26,7 +27,7 @@ class ContactInfosCrud extends Component
     public function render()
     {
         $items = ContactInfo::orderBy('sort_order')->paginate(10);
-        return view('livewire.admin.contact-infos-crud', compact('items'));
+        return view('livewire.contact-infos-crud', compact('items'));
     }
 
     public function resetForm()
@@ -45,6 +46,12 @@ class ContactInfosCrud extends Component
         }
         $this->resetForm();
         session()->flash('message', 'Saved successfully.');
+        LivewireAlert::title('Info saved')
+            ->text('Data has been succesfulle saved!')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 
     public function editContact($id)

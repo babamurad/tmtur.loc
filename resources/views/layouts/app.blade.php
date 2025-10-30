@@ -75,6 +75,8 @@
                         <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>
 
+                        <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Contsact Infos</a></li>
+
 
 
                     </ul>
