@@ -503,6 +503,8 @@
 
 
 
+
+
     <!-- ========== CONTACTS ========== -->
     <section id="contact" class="py-5 bg-light">
         <div class="container py-5">
@@ -512,21 +514,7 @@
                 <!-- Форма -->
                 <div class="col-lg-6 px-2 mb-4 mb-lg-0">
                     <div class="card border-0 shadow form-card p-3">
-                        <form>
-                            <div class="form-group mb-3">
-                                <input type="text" class="form-control" placeholder="Your name" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="email" class="form-control" placeholder="Your email" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="tel" class="form-control" placeholder="Your phone" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <textarea class="form-control" rows="5" placeholder="Your message" required></textarea>
-                            </div>
-                            <button class="btn btn-send btn-lg btn-block">Send message</button>
-                        </form>
+                        @livewire('front.contact-form-component')
                     </div>
                 </div>
 

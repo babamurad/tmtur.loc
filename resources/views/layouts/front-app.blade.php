@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Boxicons -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -95,12 +95,32 @@
 
 <script>
   // Smooth-scroll для якорей
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
-      });
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      // Пропускаем якоря с data-toggle, так как они используются для других целей (например, модальные окна)
+      if (!anchor.getAttribute('data-toggle')) {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+
+          // Проверяем, существует ли элемент с таким id на странице
+          if (targetId !== '#' && document.querySelector(targetId)) {
+            e.preventDefault();
+
+            // Плавная прокрутка к целевому элементу
+            document.querySelector(targetId).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Обновляем URL без перезагрузки страницы
+            if (history.pushState) {
+              history.pushState(null, null, targetId);
+            } else {
+              window.location.hash = targetId;
+            }
+          }
+        });
+      }
     });
   });
 </script>

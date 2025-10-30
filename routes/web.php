@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ContactInfosCrud;
 use App\Livewire\Front\HomeComponent;
 use App\Livewire\Posts\PostCreateComponent;
 use App\Livewire\Posts\PostEditComponent;
@@ -118,6 +119,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/create', ReviewCreateComponent::class)->name('create');
         Route::get('/edit/{review:id}', ReviewEditComponent::class)->name('edit');
     });
+
+    Route::get('contact-infos', ContactInfosCrud::class)->name('admin.contact-infos');
+//    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
 //    Route::get('/', HomeComponent::class);

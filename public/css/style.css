@@ -238,3 +238,27 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 .btn-ig:hover, .btn-ig:focus, .btn-ig:active{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
 .btn-yt:hover, .btn-yt:focus, .btn-yt:active{ background:#ff0000 !important; }
 .btn-ws:hover, .btn-ws:focus, .btn-ws:active{ background:#29A71A !important; }
+
+/* Стрелка вниз – блок открыт */
+.card-header .btn-link[aria-expanded="true"]::after {
+    content: "▲";
+    float: right;
+    transition: transform .3s;
+}
+/* Стрелка вбок – блок закрыт */
+.card-header .btn-link[aria-expanded="false"]::after {
+    content: "▼";
+    float: right;
+    transition: transform .3s;
+}
+
+.card-header .btn-link::after {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f107";          /* fa-angle-down */
+    float: right;
+    transition: transform .35s;
+}
+.card-header .btn-link[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
