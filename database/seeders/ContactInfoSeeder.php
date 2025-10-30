@@ -2,60 +2,49 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContactInfo;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\ContactInfo;
 
 class ContactInfoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        ContactInfo::create([
-            'type' => 'whatsapp',
-            'label' => 'WhatsApp',
-            'value' => '+993-12-345-678',
-            'icon' => 'fab fa-whatsapp',
-            'is_active' => true,
-            'sort_order' => 1
-        ]);
+        ContactInfo::truncate();
 
         ContactInfo::create([
-            'type' => 'telegram',
-            'label' => 'Telegram',
-            'value' => '+993-12-345-678',
-            'icon' => 'fab fa-telegram',
-            'is_active' => true,
-            'sort_order' => 2
+            'type' => 'address',
+            'label' => 'Address',
+            'value' => 'Ashgabat, Magtymguly Ave., 123',
+            'icon' => 'bx bx-map',
+            'sort_order' => 1,
+            'input_type' => 'text',
         ]);
 
         ContactInfo::create([
             'type' => 'phone',
-            'label' => 'Телефон',
-            'value' => '+993-12-345-678',
-            'icon' => 'fas fa-phone',
-            'is_active' => true,
-            'sort_order' => 3
+            'label' => 'Phone',
+            'value' => '+993 12 34 56 78',
+            'icon' => 'bx bx-phone',
+            'sort_order' => 2,
+            'input_type' => 'text',
         ]);
 
         ContactInfo::create([
-            'type' => 'social',
-            'label' => 'Facebook',
-            'value' => 'https://facebook.com/turkmentravel',
-            'icon' => 'fab fa-facebook',
-            'is_active' => true,
-            'sort_order' => 4
+            'type' => 'email',
+            'label' => 'Email',
+            'value' => 'info@turkmentravel.com',
+            'icon' => 'bx bx-envelope',
+            'sort_order' => 3,
+            'input_type' => 'text',
         ]);
 
         ContactInfo::create([
-            'type' => 'social',
-            'label' => 'Instagram',
-            'value' => 'https://instagram.com/turkmentravel',
-            'icon' => 'fab fa-instagram',
-            'is_active' => true,
-            'sort_order' => 5
+            'type' => 'hours',
+            'label' => 'Working hours',
+            'value' => "Mon–Fri: 9:00–18:00\nSat: 10:00–15:00\nSun: closed",
+            'icon' => 'bx bx-time',
+            'sort_order' => 4,
+            'input_type' => 'textarea',
         ]);
     }
 }

@@ -165,7 +165,7 @@
                                 @else
                                     <img src="{{ asset('assets/images/tmfotos/default.jpg') }}" class="card-img-top">
                                 @endif
-                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>
+{{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>--}}
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->title }}</h5>
@@ -391,26 +391,28 @@
         </div>
     </section>
 
-    <!-- ========== FAQ (Bootstrap 5) ========== -->
+    <!-- ========== FAQ (Bootstrap 4) ========== -->
     <section class="py-5 bg-light">
         <div class="container py-5">
-            <h2 class="text-center mb-5 section-title">Frequently asked questions</h2>
+            <h2 class="text-center mb-5">Frequently asked questions</h2>
 
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="accordion accordion-flush rounded-4 overflow-hidden" id="faqAccordion">
+                    <div class="accordion" id="faqAccordion">
 
                         <!-- item 1 -->
-                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
-                            <h2 class="accordion-header" id="faq1Head">
-                                <button class="accordion-button d-flex align-items-center gap-3"
-                                        data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                    <span>Do I need a visa to visit Turkmenistan?</span>
-                                </button>
-                            </h2>
-                            <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1Head" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body d-flex align-items-start gap-3">
+                        <div class="card mb-2 border-0 shadow-sm">
+                            <div class="card-header bg-white" id="faq1Head">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none"
+                                            data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                        <span class="text-dark">Do I need a visa to visit Turkmenistan?</span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faq1" class="collapse show" aria-labelledby="faq1Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex align-items-start gap-3">
                                     <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
                                     <div>Most foreigners require a visa. We will help with invitation and processing.</div>
                                 </div>
@@ -418,16 +420,18 @@
                         </div>
 
                         <!-- item 2 -->
-                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
-                            <h2 class="accordion-header" id="faq2Head">
-                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
-                                        data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                    <span>When is the best time to visit Darvaza?</span>
-                                </button>
-                            </h2>
-                            <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2Head" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body d-flex align-items-start gap-3">
+                        <div class="card mb-2 border-0 shadow-sm">
+                            <div class="card-header bg-white" id="faq2Head">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
+                                            data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                        <span class="text-dark">When is the best time to visit Darvaza?</span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faq2" class="collapse" aria-labelledby="faq2Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex align-items-start gap-3">
                                     <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
                                     <div>March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div>
                                 </div>
@@ -435,16 +439,18 @@
                         </div>
 
                         <!-- item 3 -->
-                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
-                            <h2 class="accordion-header" id="faq3Head">
-                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
-                                        data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
-                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                    <span>Is it safe to visit the Gates of Hell?</span>
-                                </button>
-                            </h2>
-                            <div id="faq3" class="accordion-collapse collapse" aria-labelledby="faq3Head" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body d-flex align-items-start gap-3">
+                        <div class="card mb-2 border-0 shadow-sm">
+                            <div class="card-header bg-white" id="faq3Head">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
+                                            data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                        <span class="text-dark">Is it safe to visit the Gates of Hell?</span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faq3" class="collapse" aria-labelledby="faq3Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex align-items-start gap-3">
                                     <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
                                     <div>Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div>
                                 </div>
@@ -452,16 +458,18 @@
                         </div>
 
                         <!-- item 4 -->
-                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
-                            <h2 class="accordion-header" id="faq4Head">
-                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
-                                        data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
-                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                    <span>What should I bring on a tour to the Gates of Hell?</span>
-                                </button>
-                            </h2>
-                            <div id="faq4" class="accordion-collapse collapse" aria-labelledby="faq4Head" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body d-flex align-items-start gap-3">
+                        <div class="card mb-2 border-0 shadow-sm">
+                            <div class="card-header bg-white" id="faq4Head">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
+                                            data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                        <span class="text-dark">What should I bring on a tour to the Gates of Hell?</span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faq4" class="collapse" aria-labelledby="faq4Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex align-items-start gap-3">
                                     <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
                                     <div>Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div>
                                 </div>
@@ -469,16 +477,18 @@
                         </div>
 
                         <!-- item 5 -->
-                        <div class="accordion-item rounded-3 mb-1 border-0 shadow-sm">
-                            <h2 class="accordion-header" id="faq5Head">
-                                <button class="accordion-button collapsed d-flex align-items-center gap-3"
-                                        data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
-                                    <i class="bx bx-help-circle fs-5 text-primary"></i>
-                                    <span>Are there age restrictions?</span>
-                                </button>
-                            </h2>
-                            <div id="faq5" class="accordion-collapse collapse" aria-labelledby="faq5Head" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body d-flex align-items-start gap-3">
+                        <div class="card mb-2 border-0 shadow-sm">
+                            <div class="card-header bg-white" id="faq5Head">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left d-flex align-items-center gap-3 text-decoration-none collapsed"
+                                            data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        <i class="bx bx-help-circle fs-5 text-primary"></i>
+                                        <span class="text-dark">Are there age restrictions?</span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="faq5" class="collapse" aria-labelledby="faq5Head" data-parent="#faqAccordion">
+                                <div class="card-body d-flex align-items-start gap-3">
                                     <i class="bx bx-message-rounded-check fs-5 text-success mt-1"></i>
                                     <div>We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div>
                                 </div>
@@ -498,66 +508,84 @@
         <div class="container py-5">
             <h2 class="text-center mb-5">Contact us</h2>
 
-            <div class="row g-4">
-                <!-- форма -->
-                <div class="col-lg-6">
-                    <div class="card border-0 shadow-lg form-card p-3">
+            <div class="row">
+                <!-- Форма -->
+                <div class="col-lg-6 px-2 mb-4 mb-lg-0">
+                    <div class="card border-0 shadow form-card p-3">
                         <form>
-                            <div class="mb-3"><input type="text" class="form-control" placeholder="Your name" required></div>
-                            <div class="mb-3"><input type="email" class="form-control" placeholder="Your email" required></div>
-                            <div class="mb-3"><input type="tel" class="form-control" placeholder="Your phone" required></div>
-                            <div class="mb-3"><textarea class="form-control" rows="5" placeholder="Your message" required></textarea></div>
-                            <button class="btn btn-send btn-lg w-100">Send message</button>
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" class="form-control" placeholder="Your email" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="tel" class="form-control" placeholder="Your phone" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <textarea class="form-control" rows="5" placeholder="Your message" required></textarea>
+                            </div>
+                            <button class="btn btn-send btn-lg btn-block">Send message</button>
                         </form>
                     </div>
                 </div>
 
-                <!-- контакты -->
-                <div class="col-lg-6">
-                    <div class="card border-0 shadow-lg contact-card">
+                <!-- Контакты -->
+                <div class="col-lg-6 px-2">
+                    <div class="card border-0 shadow contact-card">
                         <div class="card-body">
                             <h5 class="card-title mb-4">Our contacts</h5>
 
                             <div class="d-flex align-items-start mb-3">
-                                <i class="bx bx-map contact-icon me-3"></i>
-                                <div><div class="fw-bold">Address</div><span>Ashgabat, Magtymguly Ave., 123</span></div>
+                                <i class="bx bx-map contact-icon mr-3"></i>
+                                <div>
+                                    <div class="font-weight-bold">Address</div>
+                                    <span>Ashgabat, Magtymguly Ave., 123</span>
+                                </div>
                             </div>
 
                             <div class="d-flex align-items-start mb-3">
-                                <i class="bx bx-phone contact-icon me-3"></i>
-                                <div><div class="fw-bold">Phone</div><span>+993 12 34 56 78</span></div>
+                                <i class="bx bx-phone contact-icon mr-3"></i>
+                                <div>
+                                    <div class="font-weight-bold">Phone</div>
+                                    <span>+993 12 34 56 78</span>
+                                </div>
                             </div>
 
                             <div class="d-flex align-items-start mb-3">
-                                <i class="bx bx-envelope contact-icon me-3"></i>
-                                <div><div class="fw-bold">Email</div><span>info@turkmentravel.com</span></div>
+                                <i class="bx bx-envelope contact-icon mr-3"></i>
+                                <div>
+                                    <div class="font-weight-bold">Email</div>
+                                    <span>info@turkmentravel.com</span>
+                                </div>
                             </div>
 
                             <div class="d-flex align-items-start mb-4">
-                                <i class="bx bx-time contact-icon me-3"></i>
-                                <div><div class="fw-bold">Working hours</div>
+                                <i class="bx bx-time contact-icon mr-3"></i>
+                                <div>
+                                    <div class="font-weight-bold">Working hours</div>
                                     <span>Mon–Fri: 9:00–18:00<br>Sat: 10:00–15:00<br>Sun: closed</span>
                                 </div>
                             </div>
 
                             <div>
-                                <div class="fw-bold mb-2">Follow us</div>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-lg btn-fb soc-btn"><i class="bx bxl-facebook"></i></a>
-                                    <a href="#" class="btn btn-lg btn-tw soc-btn"><i class="bx bxl-twitter"></i></a>
-                                    <a href="#" class="btn btn-lg btn-ig soc-btn"><i class="bx bxl-instagram"></i></a>
-                                    <a href="#" class="btn btn-lg btn-yt soc-btn"><i class="bx bxl-youtube"></i></a>
+                                <div class="font-weight-bold mb-2">Follow us</div>
+                                <div class="d-flex">
+                                    <a href="#" class="btn btn-lg btn-fb soc-btn mr-2"><i class="bx bxl-facebook"></i></a>
+                                    <a href="#" class="btn btn-lg btn-tw soc-btn mr-2"><i class="bx bxl-twitter"></i></a>
+                                    <a href="#" class="btn btn-lg btn-ig soc-btn mr-2"><i class="bx bxl-instagram"></i></a>
+                                    <a href="#" class="btn btn-lg btn-yt soc-btn mr-2"><i class="bx bxl-youtube"></i></a>
                                     <a href="https://wa.me/99362846733" target="_blank" class="btn btn-lg btn-ws soc-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M18.403 5.633A8.92 8.92 0 0 0 12.053 3c-4.948 0-8.976 4.027-8.978 8.977c0 1.582.413 3.126 1.198 4.488L3 21.116l4.759-1.249a9 9 0 0 0 4.29 1.093h.004c4.947 0 8.975-4.027 8.977-8.977a8.93 8.93 0 0 0-2.627-6.35m-6.35 13.812h-.003a7.45 7.45 0 0 1-3.798-1.041l-.272-.162l-2.824.741l.753-2.753l-.177-.282a7.45 7.45 0 0 1-1.141-3.971c.002-4.114 3.349-7.461 7.465-7.461a7.4 7.4 0 0 1 5.275 2.188a7.42 7.42 0 0 1 2.183 5.279c-.002 4.114-3.349 7.462-7.461 7.462m4.093-5.589c-.225-.113-1.327-.655-1.533-.73s-.354-.112-.504.112s-.58.729-.711.879s-.262.168-.486.056s-.947-.349-1.804-1.113c-.667-.595-1.117-1.329-1.248-1.554s-.014-.346.099-.458c.101-.1.224-.262.336-.393s.149-.224.224-.374s.038-.281-.019-.393c-.056-.113-.505-1.217-.692-1.666c-.181-.435-.366-.377-.504-.383a10 10 0 0 0-.429-.008a.83.83 0 0 0-.599.28c-.206.225-.785.767-.785 1.871s.804 2.171.916 2.321s1.582 2.415 3.832 3.387c.536.231.954.369 1.279.473c.537.171 1.026.146 1.413.089c.431-.064 1.327-.542 1.514-1.066s.187-.973.131-1.067s-.207-.151-.43-.263" clip-rule="evenodd"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd" d="M18.403 5.633A8.92 8.92 0 0 0 12.053 3c-4.948 0-8.976 4.027-8.978 8.977c0 1.582.413 3.126 1.198 4.488L3 21.116l4.759-1.249a9 9 0 0 0 4.29 1.093h.004c4.947 0 8.975-4.027 8.977-8.977a8.93 8.93 0 0 0-2.627-6.35m-6.35 13.812h-.003a7.45 7.45 0 0 1-3.798-1.041l-.272-.162l-2.824.741l.753-2.753l-.177-.282a7.45 7.45 0 0 1-1.141-3.971c.002-4.114 3.349-7.461 7.465-7.461a7.4 7 0 0 1 5.275 2.188a7.42 7.42 0 0 1 2.183 5.279c-.002 4.114-3.349 7.462-7.461 7.462m4.093-5.589c-.225-.113-1.327-.655-1.533-.73s-.354-.112-.504.112s-.58.729-.711.879s-.262.168-.486.056s-.947-.349-1.804-1.113c-.667-.595-1.117-1.329-1.248-1.554s-.014-.346.099-.458c.101-.1.224-.262.336-.393s.149-.224.224-.374s.038-.281-.019-.393c-.056-.113-.505-1.217-.692-1.666c-.181-.435-.366-.377-.504-.383a10 10 0 0 0-.429-.008a.83.83 0 0 0-.599.28c-.206.225-.785.767-.785 1.871s.804 2.171.916 2.321s1.582 2.415 3.832 3.387c.536.231.954.369 1.279.473c.537.171 1.026.146 1.413.089c.431-.064 1.327-.542 1.514-1.066s.187-.973.131-1.067s-.207-.151-.43-.263" clip-rule="evenodd"/>
+                                        </svg>
                                     </a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </div>

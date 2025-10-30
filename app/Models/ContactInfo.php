@@ -10,12 +10,7 @@ class ContactInfo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
-        'label',
-        'value',
-        'icon',
-        'is_active',
-        'sort_order'
+        'type', 'label', 'value', 'icon', 'is_active', 'sort_order', 'input_type', 'url'
     ];
 
     protected $casts = [
