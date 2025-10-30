@@ -5,6 +5,7 @@ use App\Livewire\Front\HomeComponent;
 use App\Livewire\Posts\PostCreateComponent;
 use App\Livewire\Posts\PostEditComponent;
 use App\Livewire\Posts\PostIndexComponent;
+use App\Livewire\ProfileEdit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Tours\TourIndexComponent;
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 
     Route::get('contact-infos', ContactInfosCrud::class)->name('admin.contact-infos');
+    Route::get('profile-edit', ProfileEdit::class)->name('admin.profile-edit');
 //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {

@@ -47,7 +47,7 @@ class ContactInfosCrud extends Component
         $this->resetForm();
         session()->flash('message', 'Saved successfully.');
         LivewireAlert::title('Info saved')
-            ->text('Data has been succesfulle saved!')
+            ->text('Data has been successfully saved!')
             ->success()
             ->toast()
             ->position('top-end')

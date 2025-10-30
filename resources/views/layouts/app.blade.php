@@ -261,19 +261,14 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
                                 alt="Header Avatar">
-                            <span class="d-none d-sm-inline-block ml-1">Jamie D.</span>
+                            <span class="d-none d-sm-inline-block ml-1">{{ auth()->user()->name }}</span>
                             <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                href="javascript:void(0)">
-                                <span>Inbox</span>
-                                <span>
-                                    <span class="badge badge-pill badge-soft-primary">3</span>
-                                </span>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                href="javascript:void(0)">
+                                href="{{ route('admin.profile-edit') }}"
+                               wire:navigate
+                            >
                                 <span>Profile</span>
                                 <span>
                                     <span class="badge badge-pill badge-soft-danger">1</span>

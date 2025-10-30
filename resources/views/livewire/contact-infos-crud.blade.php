@@ -2,9 +2,14 @@
     <div class="container-fluid">
         <div class="card mb-3">
             <div class="card-body">
-                @if (session()->has('message'))
-                    <div class="alert alert-success">{{ session('message') }}</div>
-                @endif
+{{--                @if (session()->has('message'))--}}
+{{--                    <div class="alert alert-success">--}}
+{{--                        {{ session('message') }}--}}
+{{--                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+{{--                            <span aria-hidden="true">&times;</span>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
                 <form wire:submit.prevent="store">
                     <div class="form-row">
                         <div class="form-group col-md-4">
