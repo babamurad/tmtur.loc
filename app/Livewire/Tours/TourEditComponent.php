@@ -83,18 +83,21 @@ class TourEditComponent extends Component
 
         // 2. картинка
         if ($this->newimage) {
-            // старый файл
-            $old = $this->tour->media;
-            if ($old && Storage::exists($old->file_path)) {
-                Storage::delete($old->file_path);
+            /* 1. Удаляем старый файл -------------------- */
+            $old = $this->tour->media;          // Media модель
+            if ($old && $old->file_path) {
+                // удаляем именно с того диска, куда складываем новые файлы
+                Storage::disk('public_uploads')->delete($old->file_path);
             }
 
-            // новый файл
-            $path = $this->newimage->store('tours'); // вернёт "tours/hfjd7wL7KjBQuCeW.jpg"
+            /* 2. Сохраняем новый файл ------------------ */
+            $path = $this->newimage->store('tours', 'public_uploads'); // ← disk = public
+            // $path = "tours/hfjd7wL7KjBQuCeW.jpg"
+
             $this->tour->media()->updateOrCreate(
                 ['model_type' => Tour::class],
                 [
-                    'file_path' => $path,
+                    'file_path' => $path,      // ← относительный путь
                     'file_name' => $this->newimage->getClientOriginalName(),
                     'mime_type' => $this->newimage->getMimeType(),
                 ]

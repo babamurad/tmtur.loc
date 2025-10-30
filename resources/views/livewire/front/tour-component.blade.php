@@ -31,7 +31,7 @@
             <div class="row g-4">
                 <!-- Card 1 -->
                 @foreach($tours as $tour)
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 mb-2">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 @if($tour->media && !empty($tour->media->file_path) && file_exists(public_path('uploads/' . $tour->media->file_path)))
@@ -43,8 +43,8 @@
                                          alt="{{ $tour->title }} - Default image"
                                          class="card-img-top">
                                 @endif
-                                <span class="badge bg-danger position-absolute top-0 end-0 m-2"
-                                      aria-label="Popular tour">HIT</span>
+{{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2"--}}
+{{--                                      aria-label="Popular tour">HIT</span>--}}
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->title }}</h5>

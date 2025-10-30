@@ -32,17 +32,17 @@
                                     <span class="input-group-text">
                                         <i class="fas fa-search"></i>
                                     </span>
-                                    <input 
-                                        type="text" 
-                                        wire:model.live.debounce.300ms="search" 
-                                        class="form-control" 
+                                    <input
+                                        type="text"
+                                        wire:model.live.debounce.300ms="search"
+                                        class="form-control"
                                         placeholder="Search tours…"
                                     >
                                 </div>
                             </div>
-                            
 
-                            
+
+
 
                             {{-- можно сюда добавить фильтры или экспорт --}}
                                 <div class="col-md-6">
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -89,10 +89,10 @@
                                         </td>
                                         <td>
                                             <span class="font-weight-semibold">
-                                                @if($tour->media)
+                                                @if($tour->media && $tour->media->exists && $tour->media->file_path)
                                                     <img class="rounded" src="{{ asset('uploads/' . $tour->media->file_path) }}" alt="{{ $tour->title }}" height="50">
                                                 @else
-                                                    N/A    
+                                                    N/A
                                                 @endif
                                             </span>
                                         </td>
