@@ -19,7 +19,7 @@
         <p class="lead mb-4">{{ $carousel->description }}</p>
         <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
           <a href="#tours" class="btn btn-danger btn-lg">{{ $carousel->button_text }}</a>
-          <a href="#darwaza" class="btn btn-outline-light btn-lg">Все Туры</a>
+          <a href="#darwaza" class="btn btn-outline-light btn-lg">All Tours</a>
         </div>
       </div>
     </div>

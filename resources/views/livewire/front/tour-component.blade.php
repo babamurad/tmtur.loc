@@ -5,6 +5,7 @@
             <div class="row gy-4 align-items-center">
                 <div class="col-md-6 order-2 order-md-1">
                     {{ $selectedTour->description }}
+                    <br>
                     <a href="#tours" class="btn btn-danger mt-3">Book a tour to the Gates of Hell</a>
                 </div>
                 <div class="col-md-6 order-1 order-md-2">

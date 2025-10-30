@@ -39,6 +39,7 @@
               <li class="nav-item"><a class="nav-link" href="/#home">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="/#about">About Turkmenistan</a></li>
               <li class="nav-item"><a class="nav-link" href="/#tours">Tours</a></li>
+              <li class="nav-item"><a class="nav-link" href="/#visa">Visa</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
               <li class="nav-item"><a class="nav-link" href="/#darwaza">Darvaza</a></li>
               <li class="nav-item"><a class="nav-link" href="/#contact">Contact</a></li>
@@ -69,6 +70,7 @@
                     <li><a href="#home" class="text-white-50">Home</a></li>
                     <li><a href="#about" class="text-white-50">About Turkmenistan</a></li>
                     <li><a href="#tours" class="text-white-50">Tours</a></li>
+                    <li><a href="#visa" class="text-white-50">Visa</a></li>
                     <li><a href="#darwaza" class="text-white-50">Darvaza</a></li>
                     <li><a href="#contact" class="text-white-50">Contact</a></li>
                 </ul>
