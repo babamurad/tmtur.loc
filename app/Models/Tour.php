@@ -28,7 +28,7 @@ class Tour extends Model
         'tour_category_id' => 'integer'
     ];
 
-    public function tourCategory(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(TourCategory::class, 'tour_category_id');
     }
@@ -47,6 +47,18 @@ class Tour extends Model
     {
         return $this->hasOne(Media::class, 'model_id', 'id')
                     ->where('model_type', Tour::class);
+    }
+
+    public function getFirstMediaUrl($collectionName = 'default')
+    {
+        $media = $this->media;
+
+        if (!$media) {
+            return asset('images/default-tour.jpg'); // Путь к изображению по умолчанию
+        }
+
+        // Возвращаем URL к изображению
+        return asset('uploads/' . $media->file_path);
     }
 
     public function groupsOpen()

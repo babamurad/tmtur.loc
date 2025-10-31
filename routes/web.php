@@ -41,27 +41,6 @@ use App\Livewire\Reviews\ReviewEditComponent;
 // use App\Http\Livewire\RouteIndexComponent;
 // use App\Http\Livewire\RouteShowComponent;
 
-Route::get('/', HomeComponent::class)->name('home');
-//Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
-
-Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
-Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
-Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
-//Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');
-
-Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
-Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
-Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
-
-Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
-Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
-Route::post('/logout', function () {
-    Auth::logout();
-    session()->invalidate();
-    session()->regenerateToken();
-    return redirect('/');
-})->name('logout');
-
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
@@ -140,3 +119,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 //Route::middleware(['auth'])->group(function () {
 //    Route::get('/', HomeComponent::class);
 //});
+
+Route::get('/', HomeComponent::class)->name('home');
+//Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
+
+Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
+Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
+Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
+//Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');
+
+Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
+Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
+Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
+
+Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
+Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
+Route::post('/logout', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect('/');
+})->name('logout');

@@ -13,16 +13,19 @@ class TourIndexComponent extends Component
     use WithPagination;
 
     public $delId;
-    public $perPage = 8;
+    public $perPage = 12;
     public $search = '';
 
     public function render()
     {
-        $tours = Tour::with('tourCategory', 'media')
-            ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            })
+        // Обновляем запрос, чтобы использовать short_description вместо description
+        $tours = Tour::with('category', 'media') // Обновляем связь на 'category'
+        ->when($this->search, function ($query) {
+            $query->where('title', 'like', '%' . $this->search . '%')
+                // Ищем в short_description, если поле теперь хранит краткое описание
+                ->orWhere('short_description', 'like', '%' . $this->search . '%');
+            // Если вы храните изображения в другой таблице (например, media), добавьте JOIN или используйте отношения для поиска по названию файла
+        })
             ->orderBy('id', 'desc')
             ->paginate($this->perPage);
 
@@ -51,7 +54,7 @@ class TourIndexComponent extends Component
     public function updatedPerPage($value)
     {
         $this->resetPage();
-        $this->perPage = $value;        
+        $this->perPage = $value;
     }
 
     public function delete($id)
@@ -70,8 +73,8 @@ class TourIndexComponent extends Component
     public function tourDelete()
     {
         $tour = Tour::findOrFail($this->delId);
-        info("Deleting tour: " . $tour);
-        $tour->delete();
+        info("Deleting tour: " . $tour->title); // Лучше логировать название, чем объект
+        $tour->delete(); // Это каскадно удалит связанные записи в tour_itinerary_days, tour_inclusions, tour_accommodations и tour_groups (если настроено)
 
         LivewireAlert::title('Тур удален.')
             ->success()
