@@ -406,14 +406,14 @@
                                 <h5 class="mb-0">
                                     <a class="btn btn-link text-dark text-decoration-none d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq1" aria-expanded="true" aria-controls="faq1">
-                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
                                         <span>Do I need a visa to visit Turkmenistan?</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq1" class="collapse show" role="tabpanel" aria-labelledby="faq1Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Most foreigners require a visa. We will help with invitation and processing.</div>
                                 </div>
                             </div>
@@ -425,14 +425,14 @@
                                 <h5 class="mb-0">
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq2" aria-expanded="false" aria-controls="faq2">
-                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
                                         <span>When is the best time to visit Darvaza?</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq2" class="collapse" role="tabpanel" aria-labelledby="faq2Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div>
                                 </div>
                             </div>
@@ -444,14 +444,14 @@
                                 <h5 class="mb-0">
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq3" aria-expanded="false" aria-controls="faq3">
-                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
                                         <span>Is it safe to visit the Gates of Hell?</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq3" class="collapse" role="tabpanel" aria-labelledby="faq3Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div>
                                 </div>
                             </div>
@@ -463,14 +463,14 @@
                                 <h5 class="mb-0">
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq4" aria-expanded="false" aria-controls="faq4">
-                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
                                         <span>What should I bring on a tour to the Gates of Hell?</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq4" class="collapse" role="tabpanel" aria-labelledby="faq4Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div>
                                 </div>
                             </div>
@@ -482,14 +482,14 @@
                                 <h5 class="mb-0">
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq5" aria-expanded="false" aria-controls="faq5">
-                                        <i class="bx bx-help-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
                                         <span>Are there age restrictions?</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq5" class="collapse" role="tabpanel" aria-labelledby="faq5Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="bx bx-message-rounded-check text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
                                     <div>We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div>
                                 </div>
                             </div>
