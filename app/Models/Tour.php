@@ -56,4 +56,34 @@ class Tour extends Model
             ->where('starts_at', '>', now())
             ->orderBy('starts_at');
     }
+
+    // Связь: тур может иметь много дней итинерария
+    public function itineraryDays()
+    {
+        return $this->hasMany(TourItineraryDay::class)->orderBy('day_number');
+    }
+
+    // Связь: тур может иметь много включений
+    public function inclusions()
+    {
+        return $this->hasMany(TourInclusion::class);
+    }
+
+    // Связь: тур может иметь много вариантов аккомодации
+    public function accommodations()
+    {
+        return $this->hasMany(TourAccommodation::class);
+    }
+
+    // Связь: тур может иметь много групп
+    public function groups()
+    {
+        return $this->hasMany(TourGroup::class);
+    }
+
+    // Связь: тур может иметь много услуг через группы (опционально, если нужно через промежуточную таблицу)
+     public function services()
+     {
+         return $this->hasManyThrough(Service::class, TourGroup::class);
+     }
 }

@@ -8,40 +8,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TourGroup extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'tour_id',
         'starts_at',
         'max_people',
         'current_people',
         'price_cents',
-        'status'
+        'status',
     ];
 
-    protected $casts = [
-        'starts_at' => 'datetime',
-        'max_people' => 'integer',
-        'current_people' => 'integer',
-        'price_cents' => 'integer'
-    ];
-
-    public function tour(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function tour()
     {
         return $this->belongsTo(Tour::class);
     }
 
-    public function tourGroupServices(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(TourGroupService::class);
-    }
-
-    public function bookings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
 
-    public function freePlaces(): int
+    public function groupServices()
     {
-        return $this->max_people - $this->current_people -
-            $this->bookings()->whereIn('status', ['pending','confirmed'])->sum('people_count');
+        return $this->hasMany(TourGroupService::class);
     }
 }

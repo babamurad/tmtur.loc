@@ -77,7 +77,7 @@
                                        target="_blank"
                                        rel="noopener"
                                        class="btn btn-primary soc-btn mx-1 {{ $soc->btn_class }}">
-                                        <i class="fab fa-{{ Str::lower($soc->name) }}"></i>
+                                        <i class="{{ $soc->icon }}"></i>
                                     </a>
                                 @endforeach
                             </div>

@@ -57,11 +57,16 @@ class DatabaseSeeder extends Seeder
         // 3. услуги
         \App\Models\Service::factory(10)->create();
 
+
+
         Customer::factory(50)->create();
         Booking::factory(40)->create();
 
         // Запуск новых сидеров
         $this->call([
+            TourItineraryDaySeeder::class, // Затем дни итинерария
+            TourInclusionSeeder::class, // Затем включения
+            TourAccommodationSeeder::class, // Затем аккомодации
             GuideSeeder::class,
             RouteSeeder::class,
             CultureItemSeeder::class,

@@ -19,7 +19,7 @@ class ToursShow extends Component
 
     public function mount(Tour $tour)
     {
-        $this->tour = $tour->load('groupsOpen');
+        $this->tour = $tour->load('groupsOpen', 'tourCategory');
     }
 
     public function getAvailableServicesProperty()
@@ -57,6 +57,6 @@ class ToursShow extends Component
     public function render()
     {
         return view('livewire.front.tours-show')
-            ->layout('layouts.front-app');
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

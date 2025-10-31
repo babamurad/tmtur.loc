@@ -169,7 +169,7 @@
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->title }}</h5>
-                                <p class="card-text small">{!! Str::words(strip_tags($tour->description), 20, '...') !!}</p>
+                                <p class="card-text small">{!! Str::words(strip_tags($tour->short_description), 20, '...') !!}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
                                     <div><span class="fw-bold text-danger ms-2">{{ $tour->duration_days }} days</span></div>
                                     <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>

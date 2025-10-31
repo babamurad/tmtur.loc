@@ -237,11 +237,11 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 .btn-yt{ background:#ff0000 !important; }
 .btn-ws{ background:#29A71A !important; }
 
-.btn-fb:hover, .btn-fb:focus, .btn-fb:active{ background:#3b5998 !important; }
-.btn-tw:hover, .btn-tw:focus, .btn-tw:active{ background:#1da1f2 !important; }
-.btn-ig:hover, .btn-ig:focus, .btn-ig:active{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
-.btn-yt:hover, .btn-yt:focus, .btn-yt:active{ background:#ff0000 !important; }
-.btn-ws:hover, .btn-ws:focus, .btn-ws:active{ background:#29A71A !important; }
+.btn-fb { background-color: #1877f2; color: white; }
+.btn-ig { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); color: white; }
+.btn-yt { background-color: #ff0000; color: white; }
+.btn-ws { background-color: #25D366; color: white; }
+.btn-tw { background-color: #000000; color: white; } /* для X */
 
 /* Стрелка вниз (закрыт) → поворачивается вверх при открытии */
 /* FAQ Accordion Arrow — Font Awesome */
