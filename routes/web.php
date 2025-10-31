@@ -42,7 +42,13 @@ use App\Livewire\Reviews\ReviewEditComponent;
 // use App\Http\Livewire\RouteShowComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
-Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
+//Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
+
+Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
+Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
+Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
+//Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');
+
 Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
 Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
 Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
@@ -123,6 +129,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('contact-infos', ContactInfosCrud::class)->name('admin.contact-infos');
     Route::get('profile-edit', ProfileEdit::class)->name('admin.profile-edit');
+    Route::get('contact-messages', \App\Livewire\ContactMessagesTable::class)->name('admin.contact-messages-table');
+
 //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {

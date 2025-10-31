@@ -38,4 +38,10 @@ class TourGroup extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
+    public function freePlaces(): int
+    {
+        return $this->max_people - $this->current_people -
+            $this->bookings()->whereIn('status', ['pending','confirmed'])->sum('people_count');
+    }
 }

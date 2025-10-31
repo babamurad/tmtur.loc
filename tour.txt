@@ -106,9 +106,8 @@ chmod -R 755 storage bootstrap/cache
 php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
+php artisan route:clear
 
-Blanditiis repudiand
-livumoj@mailinator.com
 
 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
 
@@ -150,3 +149,6 @@ Contact Infos
 Куня-Ургенч
 
 https://blog.ostrovok.ru/top-10-dostoprimechatelnostej-turkmenistana/
+
+Doloremque accusamus
+quzu@mailinator.com

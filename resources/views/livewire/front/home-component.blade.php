@@ -64,7 +64,7 @@
             <h2 class="text-center mb-5">Why choose Turkmenistan?</h2>
             <div class="row g-4">
                 <!-- Card 1 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-fire fa-3x"></i></div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-archway fa-3x"></i></div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-horse fa-3x"></i></div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <!-- Card 4 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-umbrella-beach fa-3x"></i></div>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <!-- Card 5 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-utensils fa-3x"></i></div>
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <!-- Card 6 -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <div class="text-danger mb-3"><i class="fa-solid fa-spa fa-3x"></i></div>
@@ -157,7 +157,7 @@
             <div class="row g-4">
                 <!-- Card 1 -->
                 @foreach($tours as $tour)
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 mb-3">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 @if($tour->media)
@@ -169,14 +169,14 @@
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $tour->title }}</h5>
-                                <p class="card-text small">{{ $tour->description }}</p>
+                                <p class="card-text small">{!! Str::words(strip_tags($tour->description), 20, '...') !!}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
                                     <div><span class="fw-bold text-danger ms-2">{{ $tour->duration_days }} days</span></div>
                                     <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('tours.show', $tour->id) }}" class="btn btn-dark w-100 mt-2">Read more</a>
+                                <a href="{{ route('tours.show', $tour->slug) }}" class="btn btn-dark w-100 mt-2">Read more</a>
                             </div>
                         </div>
                     </div>
@@ -282,7 +282,7 @@
         <div class="container py-5">
             <h2 class="text-center mb-5">What our clients say</h2>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
@@ -310,7 +310,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">

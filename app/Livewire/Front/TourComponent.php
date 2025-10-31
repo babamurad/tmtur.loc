@@ -31,6 +31,7 @@ class TourComponent extends Component
     public function render()
     {
         $tours = Tour::with('tourCategory', 'media')->get();
+
         return view('livewire.front.tour-component', compact('tours'))
             ->layout('layouts.front-app');
     }

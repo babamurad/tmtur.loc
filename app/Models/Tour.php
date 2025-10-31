@@ -48,4 +48,12 @@ class Tour extends Model
         return $this->hasOne(Media::class, 'model_id', 'id')
                     ->where('model_type', Tour::class);
     }
+
+    public function groupsOpen()
+    {
+        return $this->hasMany(TourGroup::class)
+            ->where('status', 'open')
+            ->where('starts_at', '>', now())
+            ->orderBy('starts_at');
+    }
 }

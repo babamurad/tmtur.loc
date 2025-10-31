@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('tours.show', $tour->id) }}"
+                                <a href="{{ route('tours.show', $tour->slug) }}"
                                    class="btn btn-dark w-100 mt-2">
                                     Read more
                                 </a>

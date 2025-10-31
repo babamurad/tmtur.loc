@@ -227,7 +227,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     transform:translateY(-3px) scale(1.08); /* поднять + увеличить */
     box-shadow:0 8px 24px rgba(0,0,0,.5) !important;
     color:#fff !important;
-    background-color: inherit !important;
+    /*background-color: inherit !important;*/
 }
 
 /* цвета кнопок (остаются) */
@@ -265,4 +265,17 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 }
 .card-header .btn-link[aria-expanded="true"]::after {
     transform: rotate(180deg);
+}
+
+.soc-btn {
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.soc-btn i {
+    line-height: 1;      /* убираем лишний межстрочный интервал */
 }

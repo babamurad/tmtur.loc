@@ -71,6 +71,7 @@ class ContactFormComponent extends Component
 
         $this->resetForm();
         session()->flash('contact_success', 'Message sent. Thank you!');
+        $this->dispatch('messagesUpdated');
         $this->sending = false;
     }
 

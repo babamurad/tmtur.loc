@@ -47,7 +47,7 @@
                     <ul class="metismenu list-unstyled" id="side-menu">
                         <li class="menu-title">Menu</li>
                         <li>
-                            <a href="/" class="waves-effect"><i class='bx bx-home-smile'></i><span class="badge badge-pill badge-primary float-right">3</span><span>Dashboard</span></a>
+                            <a href="{{ route('dashboard') }}" class="waves-effect"><i class='bx bx-home-smile'></i><span>Dashboard</span></a>
                         </li>
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -74,6 +74,8 @@
                         <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-diamond"></i> Culture Items</a></li>
                         <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>
+
+                        @livewire('MessageNavComponent')
 
                         <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Contsact Infos</a></li>
 

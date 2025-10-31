@@ -70,18 +70,18 @@
                         @endforeach
 
                         <div>
-                            <div class="font-weight-bold mb-2">Follow us</div>
-                            <div class="d-flex">
+                            <div class="text-center mb-2 font-weight-bold">Follow us</div>
+                            <div class="d-flex justify-content-center flex-wrap">
                                 @foreach($socials as $soc)
-                                    <a href="{{ $soc->url }}" target="_blank" class="btn btn-lg {{ $soc->btn_class }} soc-btn mr-2">
-                                        @if($soc->icon)
-                                            <i class="bx {{ $soc->icon }}"></i>
-                                        @else
-                                            <i class="bx bxl-{{ Str::lower($soc->name) }}"></i>
-                                        @endif
+                                    <a href="{{ $soc->url }}"
+                                       target="_blank"
+                                       rel="noopener"
+                                       class="btn btn-primary soc-btn mx-1 {{ $soc->btn_class }}">
+                                        <i class="fab fa-{{ Str::lower($soc->name) }}"></i>
                                     </a>
                                 @endforeach
                             </div>
+                            
                         </div>
                     </div>
                 </div>
