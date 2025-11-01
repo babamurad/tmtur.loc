@@ -10,7 +10,8 @@ class HomeComponent extends Component
     public function render()
     {
         $tours = Tour::with('media')->orderBy('id', 'desc')->limit(3)->get();
-        return view('livewire.front.home-component', compact('tours'))
+        $fotos = \App\Models\TurkmenistanGallery::all();
+        return view('livewire.front.home-component', compact('tours', 'fotos'))
             ->layout('layouts.front-app');
     }
 }

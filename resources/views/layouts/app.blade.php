@@ -12,6 +12,8 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
+
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -23,7 +25,7 @@
     <!-- jQuery  -->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     @stack('scripts')
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+
 
     @livewireStyles
 </head>
@@ -71,8 +73,10 @@
                             <li><a href="{{ route('categories.index') }}"><i class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
                             <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
                             <li><a href="{{ route('reviews.index') }}"><i class="bx bx-chat"></i> Отзывы</a></li>
+                            <li><a href="{{ route('gallery.index') }}"><i class="bx bx-image-alt"></i> Галерея</a></li>
                         </ul>
                     </li>
+
 
                     <li><a href="{{ route('culture-items.index') }}"><i class="bx bx-diamond"></i> Culture Items</a></li>
                     <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Customers</a></li>

@@ -2,6 +2,9 @@
 
 use App\Livewire\ContactInfosCrud;
 use App\Livewire\Front\HomeComponent;
+use App\Livewire\Gallery\GalleryCreate;
+use App\Livewire\Gallery\GalleryEdit;
+use App\Livewire\Gallery\GalleryIndex;
 use App\Livewire\Posts\PostCreateComponent;
 use App\Livewire\Posts\PostEditComponent;
 use App\Livewire\Posts\PostIndexComponent;
@@ -110,8 +113,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('profile-edit', ProfileEdit::class)->name('admin.profile-edit');
     Route::get('contact-messages', \App\Livewire\ContactMessagesTable::class)->name('admin.contact-messages-table');
 
+    Route::prefix('gallery')->name('gallery.')->group(function () {
+      Route::get('/', GalleryIndex::class)->name('index');
+      Route::get('/create', GalleryCreate::class)->name('create');
+      Route::get('/edit/{id}', GalleryEdit::class)->name('edit');
+    });
+
 //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
+
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
 //    Route::get('/', HomeComponent::class);
 //});
