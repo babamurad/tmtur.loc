@@ -123,7 +123,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/', HomeComponent::class)->name('home');
 //Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
 
-Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
+Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('our-tours.show');
 Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
 Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
 //Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');

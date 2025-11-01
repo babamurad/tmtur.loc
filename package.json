@@ -15,7 +15,6 @@
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^4.6.2",
-        "sweetalert2": "^11.24.0",
-        "summernote": "^0.8.20"
+        "sweetalert2": "^11.26.3"
     }
 }

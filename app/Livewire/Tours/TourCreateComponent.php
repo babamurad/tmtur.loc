@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tours;
 
+
 use App\Models\Tour;
 use App\Models\TourCategory;
 use Livewire\Component;
@@ -16,13 +17,13 @@ use App\Models\TourAccommodation;
 
 class TourCreateComponent extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads; // Добавляем трейт
 
     // Основные поля тура
     public $title;
     public $slug;
     public $category_id;
-    public $short_description; // Переименованное поле
+    public $short_description = ''; // Инициализируем пустой строкой
     public $image = '';
     public $is_published = true;
     public $base_price_cents;
@@ -44,7 +45,7 @@ class TourCreateComponent extends Component
             'title' => 'required|min:3|max:255',
             'slug' => 'nullable|min:3|max:255|unique:tours,slug',
             'category_id' => 'required|exists:tour_categories,id',
-            'short_description' => 'nullable', // Теперь это краткое описание
+            'short_description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
@@ -53,11 +54,11 @@ class TourCreateComponent extends Component
             // Правила для дней итинерария
             'itinerary_days.*.day_number' => 'required|integer|min:1',
             'itinerary_days.*.title' => 'required|string|max:255',
-            'itinerary_days.*.description' => 'required|string',
+            'itinerary_days.*.description' => 'required|string', // Quill возвращает HTML
 
             // Правила для включений/невключений
             'inclusions.*.type' => 'required|in:included,not_included',
-            'inclusions.*.item' => 'required|string',
+            'inclusions.*.item' => 'required|string', // Если item будет содержать HTML, убедитесь, что валидация это учитывает, например, 'inclusions.*.item' => 'required|html'
 
             // Правила для аккомодаций
             'accommodations.*.location' => 'required|string|max:255',
@@ -85,7 +86,7 @@ class TourCreateComponent extends Component
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
             'title' => '',
-            'description' => ''
+            'description' => '' // Инициализируем пустой строкой
         ];
     }
 
@@ -132,28 +133,12 @@ class TourCreateComponent extends Component
         $imagePath = null;
         $imageName = null;
         if ($this->image) {
-            // 1. Генерируем имя файла
             $imageName = 'tours/' . Carbon::now()->timestamp . '.' . $this->image->extension();
-
-            // 2. Сохраняем файл на диск 'public_uploads'
-            // storeAs по умолчанию использует диск, указанный в конфиге как 'default'
-            // или вы можете указать его явно как второй параметр storeAs($path, 'public_uploads')
-            // или использовать Storage::disk('public_uploads')->put() / putFileAs()
-            // Используем putFileAs, передав имя файла
-            // putFileAs возвращает путь к файлу относительно корня диска
             $imagePath = Storage::disk('public_uploads')->putFileAs(
-                path: 'tours', // Подпапка внутри корня диска 'public_uploads' (public/uploads/)
-                file: $this->image, // Загруженный файл
-                name: Carbon::now()->timestamp . '.' . $this->image->extension() // Имя файла
+                path: 'tours',
+                file: $this->image,
+                name: Carbon::now()->timestamp . '.' . $this->image->extension()
             );
-
-            // $imagePath теперь содержит 'tours/1761944542.jpg'
-            // или просто имя файла, если putFileAs возвращает только имя. Проверим.
-            // putFileAs возвращает путь, который был передан в 'path' + '/' + имя файла.
-            // В нашем случае это 'tours/...' если файл был помещён в подпапку,
-            // или просто 'имяфайла.jpg', если в 'path' был пустой путь или имя файла.
-            // Мы указали 'tours', поэтому путь будет 'tours/1761944542.jpg'.
-            // Это именно то, что нам нужно для сохранения в базу и для asset().
         }
 
         // Создаем основной тур
@@ -164,7 +149,7 @@ class TourCreateComponent extends Component
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents,
             'duration_days' => $this->duration_days,
-            'short_description' => $this->short_description,
+            'short_description' => $this->short_description, // Используем новое поле
         ]);
 
         // Создаем связанные дни итинерария
@@ -173,7 +158,7 @@ class TourCreateComponent extends Component
                 'tour_id' => $tour->id,
                 'day_number' => $dayData['day_number'],
                 'title' => $dayData['title'],
-                'description' => $dayData['description'],
+                'description' => $dayData['description'], // HTML из Quill
             ]);
         }
 
@@ -182,7 +167,7 @@ class TourCreateComponent extends Component
             TourInclusion::create([
                 'tour_id' => $tour->id,
                 'type' => $incData['type'],
-                'item' => $incData['item'],
+                'item' => $incData['item'], // HTML из Quill (если используется)
             ]);
         }
 
@@ -201,12 +186,9 @@ class TourCreateComponent extends Component
         if ($imagePath) {
             Media::create([
                 'model_type' => Tour::class,
-                'model_id' => $tour->id,
-                // Сохраняем путь, который можно использовать с asset()
-                // asset() автоматически добавит префикс /uploads (из url диска public_uploads)
-                // Поэтому в базе должно быть 'tours/1761944542.jpg'
-                'file_path' => $imagePath, // <-- Теперь это 'tours/1761944542.jpg'
-                'file_name' => basename($imagePath), // Имя файла, например, '1761944542.jpg'
+                'model_id' => $tour->id, // Используем ID созданного тура
+                'file_path' => $imagePath,
+                'file_name' => $imageName,
                 'mime_type' => $this->image->getClientMimeType(),
             ]);
         }

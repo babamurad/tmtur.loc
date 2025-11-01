@@ -93,7 +93,7 @@
                                             @if($tour->getFirstMediaUrl())
                                                 <img src="{{ $tour->getFirstMediaUrl() }}" alt="{{ $tour->title }}" class="img-fluid rounded w-25">
                                             @else
-                                                 <img src="{{ asset('images/default-tour.jpg') }}" alt="Default image" class="img-fluid">
+                                                 <img src="{{ asset('assets/images/media/sm-5.jpg') }}" alt="Default image" class="img-fluid">
                                             @endif
                                         </span>
                                     </td>

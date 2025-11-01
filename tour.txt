@@ -152,3 +152,10 @@ https://blog.ostrovok.ru/top-10-dostoprimechatelnostej-turkmenistana/
 
 Doloremque accusamus
 quzu@mailinator.com
+
+Livewire-3 возвращает из методов не Illuminate\Http\RedirectResponse,
+а Illuminate\Http\RedirectResponse|Livewire\Features\SupportRedirects\Redirector.
+Вы же в type-hint указали только первый вариант.
+
+{{ route('tours.category', $tour->category->slug) }}
+{{ route('tours.category', $category->slug) }}

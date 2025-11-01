@@ -3,7 +3,7 @@
 namespace App\Livewire\Front;
 
 use Livewire\Component;
-use App\Models\{Tour,TourGroup,TourGroupService};
+use App\Models\{Category, Tour, TourCategory, TourGroup, TourGroupService};
 
 class ToursShow extends Component
 {
@@ -19,7 +19,7 @@ class ToursShow extends Component
 
     public function mount(Tour $tour)
     {
-        $this->tour = $tour->load('groupsOpen', 'tourCategory');
+        $this->tour = $tour->load('groupsOpen', 'category');
     }
 
     public function getAvailableServicesProperty()
@@ -56,7 +56,8 @@ class ToursShow extends Component
 
     public function render()
     {
-        return view('livewire.front.tours-show')
+        $categories = TourCategory::with('tours')->get();
+        return view('livewire.front.tours-show', compact('categories'))
             ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

@@ -12,12 +12,12 @@ class Tour extends Model
 
     protected $fillable = [
         'title',
-        'description',
-        'map_id',
+        'slug',
+        'tour_category_id',
+        'short_description', // <-- ДОЛЖНО быть
+        'is_published',
         'base_price_cents',
         'duration_days',
-        'slug',
-        'tour_category_id'
     ];
 
     protected $casts = [
@@ -54,7 +54,7 @@ class Tour extends Model
         $media = $this->media;
 
         if (!$media) {
-            return asset('images/default-tour.jpg'); // Путь к изображению по умолчанию
+            return asset('assets/images/media/no-image.jpg'); // Путь к изображению по умолчанию
         }
 
         // Возвращаем URL к изображению
