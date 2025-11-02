@@ -81,6 +81,7 @@
                                         <p><strong>Name:</strong> {{ $msg->name }}</p>
                                         <p><strong>Email:</strong> {{ $msg->email }}</p>
                                         <p><strong>Phone:</strong> {{ $msg->phone ?? '-' }}</p>
+                                        <p><strong>Date:</strong> {{ $msg->created_at->format('d.m.Y H:i') }}</p>
                                         <hr>
                                         <p>{{ $msg->message }}</p>
                                         <hr>

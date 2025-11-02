@@ -17,7 +17,9 @@ class MessageNavComponent extends Component
         <li wire:poll.5s>
             <a href="{{ route('admin.contact-messages-table') }}" class="waves-effect">
                 <i class='bx bx-envelope'></i>
+                @if($unreadCount > 0)
                 <span class="badge badge-pill badge-primary float-right">{$unreadCount}</span>
+                @endif
                 <span>Messages</span>
             </a>
         </li>

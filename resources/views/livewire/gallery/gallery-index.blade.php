@@ -65,7 +65,7 @@
                                 <tbody>
                                 @forelse($galleries as $photo)
                                     <tr>
-                                        <td>{{ $photo->id }}</td>
+                                        <td>{{ $photo->order }}</td>
 
                                         {{-- Превью --}}
                                         <td>
