@@ -379,20 +379,14 @@
         <div class="container py-5">
             <h2 class="text-center mb-5">Turkmenistan in photos</h2>
             <div class="row g-3 gallery-item align-items-stretch justify-content-center">
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/1.jpg') }}" class="img-fluid rounded shadow" alt="pic1"></div>--}}
                 @foreach($fotos as $foto)
                     <div class="col-6 col-md-3">
                         <img src="{{ asset($foto->getFullUrlAttribute()) }}" class="img-fluid rounded shadow" alt="{{ $foto->alt_text }}" title="{{ $foto->title }}">
                     </div>
                 @endforeach
-
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/3.jpg') }}" class="img-fluid rounded shadow" alt="pic3"></div>--}}
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/4.jpg') }}" class="img-fluid rounded shadow" alt="pic4"></div>--}}
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/6.webp') }}" class="img-fluid rounded shadow" alt="pic6"></div>--}}
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/7.webp') }}" class="img-fluid rounded shadow" alt="pic7"></div>--}}
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/8.webp') }}" class="img-fluid rounded shadow" alt="pic8"></div>--}}
-{{--                <div class="col-6 col-md-3"><img src="{{ asset('assets/images/tmfotos/5.jpg') }}" class="img-fluid rounded shadow" alt="pic8"></div>--}}
             </div>
+            <div class="text-center mt-3"><button class="btn btn-success">See all photos</button></div>
+
         </div>
     </section>
 
