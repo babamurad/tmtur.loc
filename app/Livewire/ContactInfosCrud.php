@@ -11,6 +11,7 @@ class ContactInfosCrud extends Component
 {
     use WithPagination;
     public $label, $type, $value, $icon, $is_active = 1, $sort_order = 0, $input_type, $url, $editId = null;
+    public $delId = null;
     protected $rules = [
         'label' => 'required|string',
         'type' => 'required|string',
@@ -45,7 +46,7 @@ class ContactInfosCrud extends Component
             ContactInfo::create($this->onlyFillable());
         }
         $this->resetForm();
-        session()->flash('message', 'Saved successfully.');
+
         LivewireAlert::title('Info saved')
             ->text('Data has been successfully saved!')
             ->success()
@@ -70,8 +71,25 @@ class ContactInfosCrud extends Component
 
     public function delete($id)
     {
-        ContactInfo::findOrFail($id)->delete();
-        session()->flash('message', 'Deleted.');
+        $this->delId = $id;
+        LivewireAlert::title('Удалить?')
+            ->text('Вы уверены, что хотите удалить информацию?')
+            ->timer(5000)
+            ->withConfirmButton('Да')
+            ->withCancelButton('Отмена')
+            ->onConfirm('deleteConfirm')
+            ->show(null, ['backdrop' => true]);
+
+    }
+
+    public function deleteConfirm()
+    {
+        ContactInfo::findOrFail($this->delId)->delete();
+        LivewireAlert::title('Информация удален.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 
     protected function onlyFillable()
