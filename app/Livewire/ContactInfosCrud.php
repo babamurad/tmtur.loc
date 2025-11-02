@@ -6,12 +6,14 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use App\Models\ContactInfo;
 use Livewire\WithPagination;
+use App\Support\SocialIcons;
 
 class ContactInfosCrud extends Component
 {
     use WithPagination;
     public $label, $type, $value, $icon, $is_active = 1, $sort_order = 0, $input_type, $url, $editId = null;
     public $delId = null;
+    public $activeTab;
     protected $rules = [
         'label' => 'required|string',
         'type' => 'required|string',
@@ -28,7 +30,8 @@ class ContactInfosCrud extends Component
     public function render()
     {
         $items = ContactInfo::orderBy('sort_order')->paginate(10);
-        return view('livewire.contact-infos-crud', compact('items'));
+        $icons = SocialIcons::all();
+        return view('livewire.contact-infos-crud', compact('items', 'icons'));
     }
 
     public function resetForm()
@@ -104,5 +107,15 @@ class ContactInfosCrud extends Component
             'input_type' => $this->input_type,
             'url' => $this->url,
         ];
+    }
+
+    public function selectActiveTab($tab)
+    {
+        $this->activeTab = $tab;
+    }
+
+    public function mount()
+    {
+        $this->activeTab = 'contact-tab';
     }
 }

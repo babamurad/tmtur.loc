@@ -157,5 +157,8 @@ Livewire-3 возвращает из методов не Illuminate\Http\Redirec
 а Illuminate\Http\RedirectResponse|Livewire\Features\SupportRedirects\Redirector.
 Вы же в type-hint указали только первый вариант.
 
-{{ route('tours.category', $tour->category->slug) }}
-{{ route('tours.category', $category->slug) }}
+Сделать icon и btn_class nullable enums (Laravel 11) → исключить опечатки.
+Добавить unique: social_links,name в правила, чтобы не дублировать «Facebook».
+Добавить wire:loading + wire:target="store" – блокировать кнопку «Save» на время запроса.
+Сделать sort_order drag-&-drop (Livewire + SortableJS) – заказчик любит «таскать» строки.
+Вынести табы в отдельный Blade-компонент – не дублировать {{ $activeTab === '...' ? 'active' : '' }}.
