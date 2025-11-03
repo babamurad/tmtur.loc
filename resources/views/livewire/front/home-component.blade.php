@@ -329,42 +329,57 @@
     </section>
 
     <!-- ========== Guides Section ========= -->
-    <section id="guides" class="py-5">
+    <section id="guides" class="py-3">
         <div class="container">
-            <h2 class="text-center section-title">Our guides</h2>
-            <div class="row">
-                @foreach($guides as $guide)
-                    <div class="col-md-4 mb-4">
-                        <div class="guide-card px-5 text-center">
-                            <img src="{{ asset('uploads/' . $guide->image) }}" class="guide-img" alt="{{ $guide->name }}" loading="lazy">
-                            <h4>{{ $guide->name }}</h4>
-                            <p class="px-5">{{ $guide->description }}</p>
-                            {{-- The @php block is no longer needed! --}}
+            <h2 class="text-center section-title mb-5">Our guides</h2>
 
-                            <div class="languages">
-                                {{-- Use the attribute directly in the loop --}}
-                                @forelse ($guide->languages as $language)
-                                    {{-- We use a conditional to assign the correct badge class --}}
-                                    @if ($language === 'ru')
-                                        <span class="badge badge-primary">{{ strtoupper($language) }}</span>
-                                    @elseif ($language === 'en')
-                                        <span class="badge badge-secondary">{{ strtoupper($language) }}</span>
-                                    @else
-                                        {{-- A default class for any other language --}}
-                                        <span class="badge badge-info">{{ strtoupper($language) }}</span>
-                                    @endif
-                                @empty
-                                    {{-- This message is shown if the $guide->languages array is empty --}}
-                                    <p>No languages specified.</p>
-                                @endforelse
+            <!-- карусель -->
+            <div id="guides-carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                <div class="carousel-inner">
+                    @foreach($guides->chunk(3) as $chunk)
+                        {{-- один слайд = 3 гида (на десктопе) --}}
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <div class="row no-gutters">
+                                @foreach($chunk as $guide)
+                                    <div class="col-12 col-md-4">
+                                        <div class="guide-card text-center mx-2">
+                                            <img src="{{ asset('uploads/'.$guide->image) }}"
+                                                 class="guide-img"
+                                                 alt="{{ $guide->name }}"
+                                                 loading="lazy">
+                                            <h5 class="mt-3">{{ $guide->name }}</h5>
+                                            <p class="small px-3">{{ $guide->description }}</p>
+
+                                            <div class="languages mb-3">
+                                                @forelse($guide->languages as $lang)
+                                                    <span class="badge badge-{{ $lang == 'ru' ? 'primary' : ($lang == 'en' ? 'secondary' : 'info') }}">
+                          {{ strtoupper($lang) }}
+                        </span>
+                                                @empty
+                                                    <span class="text-muted small">No languages</span>
+                                                @endforelse
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+
+                <!-- стрелки -->
+                <a class="carousel-control-prev" href="#guides-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#guides-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
     </section>
+
 
     <!-- ========== GALLERY ========== -->
     <section class="bg-light">

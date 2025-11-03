@@ -1,5 +1,5 @@
 <!-- ========== HERO-CAROUSEL ========== -->
-<section id="home" class="carousel slide carousel-fade" data-ride="carousel">
+<section id="home-carousel" class="carousel slide carousel-fade" data-ride="carousel">
     <!-- Индикаторы -->
     <ol class="carousel-indicators">
         @foreach($carousels as $carousel)

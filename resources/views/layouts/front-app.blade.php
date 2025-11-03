@@ -102,6 +102,11 @@
 <script src="{{ asset('js/mdb.min.js') }}"></script>
 
 <script>
+    // Animation init
+    new WOW().init();
+</script>
+
+<script>
     document.addEventListener('click', function (e) {
         // Проверяем, что кликнули по якорной ссылке
         if (e.target.matches('a[href^="#"]')) {

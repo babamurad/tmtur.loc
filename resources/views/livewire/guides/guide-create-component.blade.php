@@ -41,21 +41,44 @@
                                        wire:model.defer="specialization">
                             </div>
 
+                            {{-- список языков --}}
                             <div class="mb-3">
                                 <label>Языки *</label>
-                                <div>
-                                    @foreach($availableLangs as $code => $label)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox"
-                                                   id="lang{{ $code }}" value="{{ $code }}"
-                                                   wire:model="languages">
-                                            <label class="form-check-label" for="lang{{ $code }}">
-                                                {{ $label }}
+                                <div class="row g-2">
+                                    @foreach(App\Support\AvailableLanguages::all() as $code => $name)
+                                        <div class="col-6 col-md-2">
+                                            <label class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                       value="{{ $code }}" wire:model="languages">
+                                                <span>{{ $name }}</span>
+                                                <a href="#" wire:click.prevent="deleteLanguage('{{ $code }}')"
+                                                   class="ms-2 text-danger small"
+                                                   onclick="return confirm('Удалить язык?')">×</a>
                                             </label>
                                         </div>
                                     @endforeach
                                 </div>
                                 @error('languages') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
+
+                            {{-- добавить новый --}}
+                            <div class="border-top py-2">
+                                <h6>Добавить язык</h6>
+                                <div class="row g-2">
+                                    <div class="col-2">
+                                        <input type="text" class="form-control form-control-sm" placeholder="код (en)"
+                                               maxlength="2" wire:model="newCode">
+                                        @error('newCode') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control form-control-sm" placeholder="название"
+                                               wire:model="newName">
+                                        @error('newName') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-sm btn-success w-100" wire:click="addLanguage">+</button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="mb-3">
