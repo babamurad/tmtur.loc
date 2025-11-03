@@ -333,43 +333,35 @@
         <div class="container">
             <h2 class="text-center section-title">Our guides</h2>
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/guides/arslan.webp') }}" class="guide-img" alt="Arslan" loading="lazy">
-                        <h4>Meret</h4>
-                        <p class="px-5">Certified guide with 10 years of experience</p>
-                        <div class="languages">
-                            <span class="badge badge-primary">RU</span>
-                            <span class="badge badge-secondary">EN</span>
-                            <span class="badge badge-info">TM</span>
+                @foreach($guides as $guide)
+                    <div class="col-md-4 mb-4">
+                        <div class="guide-card px-5 text-center">
+                            <img src="{{ asset('uploads/' . $guide->image) }}" class="guide-img" alt="{{ $guide->name }}" loading="lazy">
+                            <h4>{{ $guide->name }}</h4>
+                            <p class="px-5">{{ $guide->description }}</p>
+                            {{-- The @php block is no longer needed! --}}
+
+                            <div class="languages">
+                                {{-- Use the attribute directly in the loop --}}
+                                @forelse ($guide->languages as $language)
+                                    {{-- We use a conditional to assign the correct badge class --}}
+                                    @if ($language === 'ru')
+                                        <span class="badge badge-primary">{{ strtoupper($language) }}</span>
+                                    @elseif ($language === 'en')
+                                        <span class="badge badge-secondary">{{ strtoupper($language) }}</span>
+                                    @else
+                                        {{-- A default class for any other language --}}
+                                        <span class="badge badge-info">{{ strtoupper($language) }}</span>
+                                    @endif
+                                @empty
+                                    {{-- This message is shown if the $guide->languages array is empty --}}
+                                    <p>No languages specified.</p>
+                                @endforelse
+                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/guides/ayna.webp') }}" class="guide-img" alt="Ayna" loading="lazy">
-                        <h4>Ayna</h4>
-                        <p class="px-5">Historian, Silk Road specialist</p>
-                        <div class="languages">
-                            <span class="badge badge-primary">RU</span>
-                            <span class="badge badge-secondary">EN</span>
-                            <span class="badge badge-info">TM</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="guide-card px-5 text-center">
-                        <img src="{{ asset('assets/images/guides/meret.webp') }}" class="guide-img" alt="Meret" loading="lazy">
-                        <h4>Arslan</h4>
-                        <p class="px-5">Expert in natural attractions</p>
-                        <div class="languages">
-                            <span class="badge badge-primary">RU</span>
-                            <span class="badge badge-secondary">EN</span>
-                            <span class="badge badge-info">TM</span>
-                            <span class="badge bg-warning">ES</span>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

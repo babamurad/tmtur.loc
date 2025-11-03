@@ -262,9 +262,16 @@
                 theme: 'snow',
                 modules: {
                     toolbar: [
-                        ['bold','italic','underline','strike'],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        ['link','clean']
+                        [{ 'font': [] }, { 'size': [] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'align': [] }],
+                        ['link', 'image', 'video'],
+                        ['clean']
                     ]
                 }
             });

@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "dasundev/livewire-quill-text-editor": "^1.0",
+        "intervention/image": "^3.11",
         "jantinnerezo/livewire-alert": "^4.0",
         "joelwmale/livewire-quill": "^5.0",
         "laravel/framework": "^12.0",
