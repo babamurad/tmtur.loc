@@ -3,7 +3,7 @@
     <div class="main-image mb-3 text-center">
         <img src="{{ 'uploads/' . ($images[$activeIndex]->file_path ?? '') }}"
              style="height: 40rem;"
-             class="img-fluid rounded" alt="Gallery image">
+             class="img-fluid rounded shadow-lg" alt="Gallery image">
     </div>
 
     <!-- Миниатюры (улучшенная карусель) -->

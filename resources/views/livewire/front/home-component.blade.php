@@ -369,29 +369,82 @@
                             <span class="badge bg-warning">ES</span>
                         </div>
                     </div>
-                </div>hh
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ========== GALLERY ========== -->
-    <section class="py-5 bg-light">
-        <div class="container py-5">
+    <section class="bg-light">
+        <div class="container pt-4">
             <h2 class="text-center mb-5">Turkmenistan in photos</h2>
+
             <div class="row g-3 gallery-item align-items-stretch justify-content-center">
                 @foreach($fotos as $foto)
-                    <div class="col-6 col-md-3 mb-2">
-                        <img src="{{ asset($foto->getFullUrlAttribute()) }}" class="img-fluid rounded shadow" alt="{{ $foto->alt_text }}" title="{{ $foto->title }}">
+                    <div class="col-6 col-md-3 mb-2" style="cursor: pointer;">
+                        <img src="{{ asset($foto->getFullUrlAttribute()) }}"
+                             class="img-fluid rounded shadow gallery-image"
+                             alt="{{ $foto->alt_text }}"
+                             title="{{ $foto->title }}"
+                             data-toggle="modal"
+                             data-target="#lightboxModal"
+                             data-img="{{ asset($foto->getFullUrlAttribute()) }}"
+                             data-title="{{ $foto->title }}">
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mt-3"><a href="{{ route('galley') }}" class="btn btn-success">See all photos</a></div>
 
+            <div class="text-center mt-3">
+                <a href="{{ route('galley') }}" class="btn btn-success">See all photos</a>
+            </div>
         </div>
+
+        <!-- ========== MODAL ========== -->
+        <div class="modal fade" id="lightboxModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content bg-transparent border-0">
+                    <div class="modal-body text-center p-0">
+                        <button type="button" class="close text-white position-absolute" style="right:10px;top:6px;z-index:1051;" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size:28px;">&times;</span>
+                        </button>
+
+                        <img id="lightboxImg" src="" class="img-fluid rounded shadow" alt="">
+                        <div id="lightboxTitle" class="text-center text-white mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
+    <!-- JS: обработчик должен быть подключён после jQuery + bootstrap.js -->
+    @push('scripts')
+        <script>
+            // jQuery обработчик Bootstrap4
+            $('#lightboxModal').on('show.bs.modal', function (event) {
+                var trigger = $(event.relatedTarget); // элемент, который открыл модал (картинка)
+                var imgSrc = trigger.data('img') || '';
+                var title = trigger.data('title') || '';
+
+                var modal = $(this);
+                modal.find('#lightboxImg').attr('src', imgSrc);
+                modal.find('#lightboxImg').attr('alt', title);
+                modal.find('#lightboxTitle').text(title);
+            });
+
+            // Подчищаем src при закрытии (опционально) — чтобы освободить память
+            $('#lightboxModal').on('hidden.bs.modal', function () {
+                $(this).find('#lightboxImg').attr('src', '');
+                $(this).find('#lightboxTitle').text('');
+            });
+        </script>
+    @endpush
+
+
+
+
     <!-- ========== FAQ (Bootstrap 4) ========== -->
-    <section class="py-5 bg-light">
+    <section class="py-3 bg-light">
         <div class="container py-5">
             <h2 class="text-center mb-5">Frequently asked questions</h2>
 

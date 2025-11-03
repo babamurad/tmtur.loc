@@ -1,5 +1,5 @@
-<section id="contact" class="py-5 bg-light">
-    <div class="container py-5">
+<section id="contact" class="bg-light">
+    <div class="container">
         <h2 class="text-center mb-5">Contact us</h2>
 
         <div class="row g-4">
@@ -88,5 +88,5 @@
             </div>
         </div>
     </div>
-    <section id="about" class="py-5"></section>
+    <section id="about" class="py-3"></section>
 </section>
