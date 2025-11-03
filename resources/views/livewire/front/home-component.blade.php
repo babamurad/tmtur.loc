@@ -369,7 +369,7 @@
                             <span class="badge bg-warning">ES</span>
                         </div>
                     </div>
-                </div>
+                </div>hh
             </div>
         </div>
     </section>
@@ -380,12 +380,12 @@
             <h2 class="text-center mb-5">Turkmenistan in photos</h2>
             <div class="row g-3 gallery-item align-items-stretch justify-content-center">
                 @foreach($fotos as $foto)
-                    <div class="col-6 col-md-3">
+                    <div class="col-6 col-md-3 mb-2">
                         <img src="{{ asset($foto->getFullUrlAttribute()) }}" class="img-fluid rounded shadow" alt="{{ $foto->alt_text }}" title="{{ $foto->title }}">
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mt-3"><button class="btn btn-success">See all photos</button></div>
+            <div class="text-center mt-3"><a href="{{ route('galley') }}" class="btn btn-success">See all photos</a></div>
 
         </div>
     </section>

@@ -142,6 +142,8 @@ Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
 Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
 Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
 
+Route::get('galley', \App\Livewire\Front\ProductGallery ::class)->name('galley');
+
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
 Route::post('/logout', function () {

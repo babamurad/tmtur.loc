@@ -56,24 +56,30 @@
 <footer class="bg-dark text-white py-4">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="d-flex align-items-center mb-2">
                     <i class="fa-solid fa-fire text-danger mr-2"></i><span class="font-weight-bold">TmTourism</span>
                 </div>
                 <p class="small mb-0">Your reliable guide to amazing Turkmenistan.</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="font-weight-bold mb-2">Quick links</div>
                 <ul class="list-unstyled small">
-                    <li><a href="#home" class="text-white-50">Home</a></li>
-                    <li><a href="#about" class="text-white-50">About Turkmenistan</a></li>
-                    <li><a href="#tours" class="text-white-50">Tours</a></li>
-                    <li><a href="#visa" class="text-white-50">Visa</a></li>
-                    <li><a href="#darwaza" class="text-white-50">Darvaza</a></li>
-                    <li><a href="#contact" class="text-white-50">Contact</a></li>
+                    <li><a href="/#home" class="text-white-50">Home</a></li>
+                    <li><a href="/#about" class="text-white-50">About Turkmenistan</a></li>
+                    <li><a href="/#tours" class="text-white-50">Tours</a></li>
+                    <li><a href="/#visa" class="text-white-50">Visa</a></li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="font-weight-bold mb-2">Quick links</div>
+                <ul class="list-unstyled small">
+                    <li><a href="/#darwaza" class="text-white-50">Darvaza</a></li>
+                    <li><a href="/#contact" class="text-white-50">Contact</a></li>
+                    <li><a href="{{ route('galley') }}" class="text-white-50">Galley</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
                 <div class="font-weight-bold mb-2">Subscribe to newsletter</div>
                 <form class="form-inline">
                     <input type="email" class="form-control form-control-sm mr-2" placeholder="Your email" required>
