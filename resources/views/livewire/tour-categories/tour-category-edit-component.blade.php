@@ -41,7 +41,7 @@
                                 <input type="text"
                                        id="slug"
                                        readonly
-                                       wire:model="slug"
+{{--                                       wire:model="slug"--}}
                                        class="form-control @error('slug') is-invalid @enderror"
                                        placeholder="e.g. city-tour-category">
                                 @error('slug')

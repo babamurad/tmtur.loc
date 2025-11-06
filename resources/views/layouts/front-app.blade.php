@@ -18,12 +18,17 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        body {
+            padding-top: 76px; /* примерная высота навбара */
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target="#mainNav">
 
 <!-- ========== НАВБАР ========== -->
-<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
   <div class="container">
     <a class="navbar-brand font-weight-bold" href="/#home">
       <i class="fa-solid fa-fire text-danger mr-2"></i>TmTourism
