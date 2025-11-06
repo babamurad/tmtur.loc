@@ -43,25 +43,25 @@ class TourGroupEditComponent extends Component
         $this->tourGroup = $tourGroup;
 
         // 1. обычные поля
-        $this->tour_id        = $tourGroup->tour_id;
-        $this->starts_at      = $tourGroup->starts_at->format('Y-m-d\TH:i');
-        $this->max_people     = $tourGroup->max_people;
-        $this->current_people = $tourGroup->current_people;
-        $this->price_cents    = $tourGroup->price_cents;
-        $this->status         = $tourGroup->status;
+        $this->tour_id        = $this->tourGroup->tour_id;
+        $this->starts_at      = $this->tourGroup->starts_at;
+        $this->max_people     = $this->tourGroup->max_people;
+        $this->current_people = $this->tourGroup->current_people;
+        $this->price_cents    = $this->tourGroup->price_cents;
+        $this->status         = $this->tourGroup->status;
 
         // 2. услуги
         $this->services = Service::orderBy('name')->get();
 
         foreach ($this->services as $s) {
             $id = (int)$s->id;
-            $pivot = $tourGroup->tourGroupServices()
-                ->where('service_id', $id)
-                ->first();
+//            $pivot = $tourGroup->tourGroupServices()
+//                ->where('service_id', $id)
+//                ->first();
 
-            $this->checked[$id] = (bool)$pivot;
-            $this->prices[$id]  = $pivot?->price_cents ?? $s->default_price_cents;
-            $this->details[$id] = $pivot?->details;
+//            $this->checked[$id] = (bool)$pivot;
+//            $this->prices[$id]  = $pivot?->price_cents ?? $s->default_price_cents;
+//            $this->details[$id] = $pivot?->details;
         }
     }
 

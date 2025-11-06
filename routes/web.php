@@ -144,6 +144,8 @@ Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.
 
 Route::get('galley', \App\Livewire\Front\ProductGallery ::class)->name('galley');
 
+Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
+
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
 Route::post('/logout', function () {

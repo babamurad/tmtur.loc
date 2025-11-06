@@ -67,8 +67,8 @@
                     @if($tour->inclusions && $tour->inclusions->count())
                         <div class="row text-center mb-3">
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2">Что включено</h6>
-                                <ul class="list-unstyled">
+                                <h6 class="text-uppercase text-muted mb-2 text-left">Что включено</h6>
+                                <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         <li class="mb-2">
                                             @if($item->type === 'included')
@@ -80,8 +80,8 @@
                                 </ul>
                             </div>
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2">Что не включено</h6>
-                                <ul class="list-unstyled">
+                                <h6 class="text-uppercase text-muted mb-2 text-left">Что не включено</h6>
+                                <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         <li class="mb-2">
                                             @if($item->type === 'not_included')

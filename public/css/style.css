@@ -19,9 +19,8 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 #home-carousel .carousel,
 #home-carousel .carousel-inner,
 #home-carousel .carousel-item {
-    height: 100vh;
+    height: 94vh;
 }
-
 
 .carousel-item:not(.active) {
   display: none !important;   /* Bootstrap сам переключает */

@@ -32,4 +32,9 @@ class TourGroup extends Model
     {
         return $this->hasMany(TourGroupService::class);
     }
+
+    public function TourGroup()
+    {
+        return $this->belongsToMany(TourGroup::class);
+    }
 }

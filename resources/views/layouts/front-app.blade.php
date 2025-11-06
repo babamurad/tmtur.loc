@@ -28,28 +28,7 @@
 <body data-spy="scroll" data-target="#mainNav">
 
 <!-- ========== НАВБАР ========== -->
-<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand font-weight-bold" href="/#home">
-      <i class="fa-solid fa-fire text-danger mr-2"></i>TmTourism
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="/#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#about">About Turkmenistan</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#tours">Tours</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#visa">Visa</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#darwaza">Darvaza</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+@livewire('front.navbar-component')
 
 @if (!isset($hideCarousel) || !$hideCarousel)
     @livewire('front.carousel-component')
