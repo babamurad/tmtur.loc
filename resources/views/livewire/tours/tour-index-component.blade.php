@@ -118,12 +118,12 @@
                                         <a href="{{ route('tours.edit', $tour->id) }}"
                                            class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                            data-toggle="tooltip" title="Edit">
-                                            {{--<i class="bx bx-pencil font-size-14"></i>--}} <!-- Заменим иконку -->
                                             <i class="fas fa-edit font-size-14"></i> <!-- Используем Font Awesome -->
                                         </a>
 
-                                        <button wire:click="delete({{ $tour->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
-                                            {{--<i class="bx bx-trash font-size-14"></i>--}} <!-- Заменим иконку -->
+                                        <button wire:click="delete({{ $tour->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                data-toggle="tooltip"
+                                                title="Delete">
                                             <i class="fas fa-trash-alt font-size-14"></i> <!-- Используем Font Awesome -->
                                         </button>
                                     </td>

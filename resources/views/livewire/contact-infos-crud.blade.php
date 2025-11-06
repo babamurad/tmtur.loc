@@ -31,7 +31,7 @@
                                wire:click="selectActiveTab('social_links-tab')"
                             >
                                 <i class="mdi mdi-account-circle d-lg-none d-block"></i>
-                                <span class="d-none d-lg-block">Ссылки на сойсети</span>
+                                <span class="d-none d-lg-block">Ссылки на соцсети</span>
                             </a>
                         </div>
                     </div> <!-- end col-->
