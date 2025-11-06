@@ -82,7 +82,7 @@
                                         <td>{{ $photo->title ?: 'Без названия' }}</td>
                                         <td>{{ $photo->location ?: '—' }}</td>
                                         <td>{{ $photo->photographer ?: '—' }}</td>
-                                        <td>{{ $photo->is_featured }}</td>
+                                        <td>{{ $photo->order }}</td>
 
                                         <td>
                                             <span class="badge badge-soft-{{ $photo->is_featured ? 'success' : 'secondary' }}">
