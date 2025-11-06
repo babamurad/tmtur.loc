@@ -87,7 +87,7 @@
 
                                         {{-- Кнопки действий --}}
                                         <td class="text-center">
-                                            <a href="{{ route('tour-categories.edit', $tourCategory) }}"
+                                            <a href="{{ route('tour-categories.edit', $tourCategory->id) }}"
                                                class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                                data-toggle="tooltip" title="Edit">
                                                 <i class="bx bx-pencil font-size-14"></i>

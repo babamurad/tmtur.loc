@@ -5,9 +5,11 @@ namespace App\Livewire\TourCategories;
 use App\Models\TourCategory;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class TourCategoryEditComponent extends Component
 {
+    use WithFileUploads;
     public $tourCategory;
     public $title;
     public $slug;
@@ -26,14 +28,15 @@ class TourCategoryEditComponent extends Component
         ];
     }
 
-    public function mount(TourCategory $tourCategory)
+    public function mount($id)
     {
-        $this->tourCategory = $tourCategory;
-        $this->title = $tourCategory->title;
-        $this->slug = $tourCategory->slug;
-        $this->content = $tourCategory->content;
-        $this->image = $tourCategory->image;
-        $this->is_published = $tourCategory->is_published;
+        $this->tourCategory = TourCategory::findOrFail($id);
+
+        $this->title = $this->tourCategory->title;
+        $this->slug = $this->tourCategory->slug;
+        $this->content = $this->tourCategory->content;
+        $this->image = $this->tourCategory->image;
+        $this->is_published = $this->tourCategory->is_published;
     }
 
     public function render()

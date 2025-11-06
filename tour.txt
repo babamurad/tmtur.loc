@@ -162,3 +162,7 @@ Livewire-3 возвращает из методов не Illuminate\Http\Redirec
 Добавить wire:loading + wire:target="store" – блокировать кнопку «Save» на время запроса.
 Сделать sort_order drag-&-drop (Livewire + SortableJS) – заказчик любит «таскать» строки.
 Вынести табы в отдельный Blade-компонент – не дублировать {{ $activeTab === '...' ? 'active' : '' }}.
+
+Карусль проблема
+Guides
+Tours - drop down 1. Categories 2. See all

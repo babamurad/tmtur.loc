@@ -28,7 +28,7 @@
                                        id="title"
                                        wire:model="title"
                                        class="form-control @error('title') is-invalid @enderror"
-                                       placeholder="e.g. City Tour Category"
+{{--                                       placeholder="e.g. City Tour Category"--}}
                                        wire:keyup="generateSlug">
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -40,6 +40,7 @@
                                 <label for="slug">Slug</label>
                                 <input type="text"
                                        id="slug"
+                                       readonly
                                        wire:model="slug"
                                        class="form-control @error('slug') is-invalid @enderror"
                                        placeholder="e.g. city-tour-category">
