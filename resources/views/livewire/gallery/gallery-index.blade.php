@@ -57,6 +57,7 @@
                                     <th>Название</th>
                                     <th>Местоположение</th>
                                     <th>Фотограф</th>
+                                    <th>Порядок</th>
                                     <th>Избранное</th>
                                     <th style="width: 120px" class="text-center">Действия</th>
                                 </tr>
@@ -81,11 +82,12 @@
                                         <td>{{ $photo->title ?: 'Без названия' }}</td>
                                         <td>{{ $photo->location ?: '—' }}</td>
                                         <td>{{ $photo->photographer ?: '—' }}</td>
+                                        <td>{{ $photo->is_featured }}</td>
 
                                         <td>
-                        <span class="badge badge-soft-{{ $photo->is_featured ? 'success' : 'secondary' }}">
-                          {{ $photo->is_featured ? 'Да' : 'Нет' }}
-                        </span>
+                                            <span class="badge badge-soft-{{ $photo->is_featured ? 'success' : 'secondary' }}">
+                                              {{ $photo->is_featured ? 'Да' : 'Нет' }}
+                                            </span>
                                         </td>
 
                                         <td class="text-center">
