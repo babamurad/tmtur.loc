@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-            padding-top: 76px; /* примерная высота навбара */
+            padding-top: 60px; /* примерная высота навбара */
         }
     </style>
 </head>
