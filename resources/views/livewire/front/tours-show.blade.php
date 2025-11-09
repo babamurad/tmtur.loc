@@ -1,4 +1,3 @@
-{{-- resources/views/tours/show.blade.php --}}
 <div class="container mt-5 pt-5">
     <div class="row">
         {{--  LEFT: TOUR DETAILS  --}}
@@ -102,9 +101,13 @@
         <span>
             Категория:
 {{--            {{ route('tours.category', $tour->category->slug) }}--}}
-            <a href="#">
-                {{ $tour->category->name }}
-            </a>
+
+                @forelse ($tour->categories as $category)
+                    <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }} </a>
+                @empty
+                    N/A
+                @endforelse
+
         </span>
                     <span>
             <i class="far fa-calendar mr-1"></i>
@@ -127,7 +130,7 @@
                     @foreach($categories as $category)
                         <li class="list-group-item list-group-item-action
                                    d-flex justify-content-between align-items-center">
-                            <a href="#"
+                            <a href="{{ route('tours.category.show', $category->slug) }}"
                                class="text-decoration-none text-dark">
                                 {{ $category->title }}
                             </a>

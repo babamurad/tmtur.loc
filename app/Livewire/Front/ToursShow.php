@@ -19,7 +19,7 @@ class ToursShow extends Component
 
     public function mount(Tour $tour)
     {
-        $this->tour = $tour->load('groupsOpen', 'category', 'itineraryDays', 'inclusions', 'accommodations');
+        $this->tour = $tour->load('groupsOpen', 'categories', 'itineraryDays', 'inclusions', 'accommodations');
     }
 
     public function getAvailableServicesProperty()

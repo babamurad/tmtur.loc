@@ -20,7 +20,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="toursDropdown">
                         @foreach($categories as $category)
-                            <a class="dropdown-item" href="#">{{ $category->title }}</a>
+                            <a class="dropdown-item" href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }}</a>
                         @endforeach
                         <a class="dropdown-item" href="#">All tours</a>
                     </div>

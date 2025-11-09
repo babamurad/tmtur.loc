@@ -22,6 +22,11 @@ class TourCategory extends Model
      */
     public function tours(): BelongsToMany
     {
-        return $this->belongsToMany(Tour::class, 'tour_tour_category');
+        return $this->belongsToMany(
+            Tour::class,
+            'tour_tour_category',   // ваша таблица
+            'tour_category_id',     // внешний ключ категории
+            'tour_id'               // внешний ключа тура
+        );
     }
 }

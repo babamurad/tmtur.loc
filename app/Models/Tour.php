@@ -39,8 +39,12 @@ class Tour extends Model
      */
     public function categories(): BelongsToMany
     {
-        // Предполагается, что промежуточная таблица называется 'tour_tour_category'
-        return $this->belongsToMany(TourCategory::class, 'tour_tour_category');
+        return $this->belongsToMany(
+            TourCategory::class,
+            'tour_tour_category',   // явно та же таблица
+            'tour_id',              // внешний ключ тура
+            'tour_category_id'      // внешний ключ категории
+        );
     }
 
     /**
