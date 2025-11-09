@@ -22,7 +22,7 @@ class TourCreateComponent extends Component
     // Основные поля тура
     public $title;
     public $slug;
-    public $category_id;
+    public $category_id = [];
     public $short_description = ''; // Инициализируем пустой строкой
     public $image = '';
     public $is_published = true;
@@ -44,7 +44,6 @@ class TourCreateComponent extends Component
             // Правила для основного тура
             'title' => 'required|min:3|max:255',
             'slug' => 'nullable|min:3|max:255|unique:tours,slug',
-            'category_id' => 'required|exists:tour_categories,id',
             'short_description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
@@ -65,6 +64,9 @@ class TourCreateComponent extends Component
             'accommodations.*.nights_count' => 'required|integer|min:1',
             'accommodations.*.standard_options' => 'nullable|string',
             'accommodations.*.comfort_options' => 'nullable|string',
+
+            'category_id' => 'required|array|min:1', // Должен быть массив, содержать минимум 1 элемент
+            'category_id.*' => 'integer|exists:tour_categories,id', // Каждый элемент должен быть int и существовать в таблице
         ];
     }
 
@@ -145,12 +147,16 @@ class TourCreateComponent extends Component
         $tour = Tour::create([
             'title' => $this->title,
             'slug' => $this->slug,
-            'tour_category_id' => $this->category_id,
+
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents,
             'duration_days' => $this->duration_days,
             'short_description' => $this->short_description, // Используем новое поле
         ]);
+
+        // ПРИКРЕПЛЯЕМ КАТЕГОРИИ
+        // Метод sync() удобен для "многие ко многим"
+        $tour->categories()->sync($this->category_id);
 
         // Создаем связанные дни итинерария
         foreach ($this->itinerary_days as $dayData) {

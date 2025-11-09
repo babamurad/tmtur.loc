@@ -19,7 +19,7 @@ class TourIndexComponent extends Component
     public function render()
     {
         // Обновляем запрос, чтобы использовать short_description вместо description
-        $tours = Tour::with('category', 'media') // Обновляем связь на 'category'
+        $tours = Tour::with('categories', 'media') // Обновляем связь на 'category'
         ->when($this->search, function ($query) {
             $query->where('title', 'like', '%' . $this->search . '%')
                 // Ищем в short_description, если поле теперь хранит краткое описание

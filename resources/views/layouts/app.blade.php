@@ -18,15 +18,13 @@
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 
-    @stack('quill-css') <!-- Стек для CSS Quill -->
-
-    <!-- jQuery  -->
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    @stack('scripts')
 
     @livewireStyles
+    @stack('quill-css')
+    @stack('scripts')
+    @stack('select2')
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -336,8 +334,10 @@
 <!-- Overlay-->
 <div class="menu-overlay"></div>
 
-
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+@stack('select2')
+
 <script src="{{ asset('assets/js/metismenu.min.js') }}"></script>
 <script src="{{ asset('assets/js/waves.js') }}"></script>
 <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
@@ -352,14 +352,14 @@
 <!-- Morris Custom Js-->
 <!-- <script src="{{ asset('assets/pages/morris-chart-demo.js') }}"></script> -->
 
-<!-- App js -->
-<script src="{{ asset('assets/js/theme.js') }}"></script>
+
 {{--<script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>--}}
 
 @stack('quill-js') <!-- Стек для JS Quill -->
 @livewireScripts
 @livewireAlertScripts
-
+<!-- App js -->
+<script src="{{ asset('assets/js/theme.js') }}"></script>
 </body>
 
 </html>

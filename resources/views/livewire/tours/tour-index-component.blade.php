@@ -98,9 +98,9 @@
                                         </span>
                                     </td>
                                     <td>
-                                            <span class="text-muted">
-                                                {{ $tour->category->title ?? 'N/A' }} <!-- Обновляем связь -->
-                                            </span>
+                                        <span class="badge badge-soft-secondary">
+                                            {!! $tour->categories->pluck('title')->implode(',<br>') !!}
+                                        </span>
                                     </td>
                                     <td>
                                             <span class="text-muted">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TourCategory extends Model
@@ -16,8 +17,11 @@ class TourCategory extends Model
         'is_published' => 'boolean'
     ];
 
-    public function tours(): HasMany
+    /**
+     * Отношение "многие ко многим" с турами.
+     */
+    public function tours(): BelongsToMany
     {
-        return $this->hasMany(Tour::class);
+        return $this->belongsToMany(Tour::class, 'tour_tour_category');
     }
 }

@@ -81,6 +81,27 @@
                                     </div>
                                 </div>
 
+                                <div class="col-sm-6">
+                                    <div class="form-group" wire:ignore>
+                                        <label>Категория<span class="text-danger">*</span></label>
+
+                                        <select class="form-control select2 @error('category_id') is-invalid @enderror"
+                                        wire:model.defer="category_id"
+                                        name="states[]"
+                                        multiple="multiple">
+                                            <option data-select2-id="3">Select</option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}">
+                                                    {{ $category->title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <!-- Short Description (Quill) -->
                                 <div class="col-md-12" wire:ignore>
                                     <div class="form-group">
@@ -93,102 +114,6 @@
                                 </div>
                             </div>
 
-                            <!-- Section: Itinerary Days -->
-                            <h5 class="card-title mb-4 mt-4">Программа тура</h5>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addItineraryDay">+ Добавить день</button>
-                                @foreach($itinerary_days as $index => $day)
-                                    <div class="card mb-2">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <span>День {{ $index + 1 }}</span>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">Удалить</button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <input type="number" wire:model.defer="itinerary_days.{{ $index }}.day_number" class="form-control" placeholder="№" min="1">
-                                                    @error("itinerary_days.{$index}.day_number") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input type="text" wire:model.defer="itinerary_days.{{ $index }}.title" class="form-control" placeholder="Заголовок дня">
-                                                    @error("itinerary_days.{$index}.title") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-12">
-                                                    <textarea wire:model.defer="itinerary_days.{{ $index }}.description" class="form-control" placeholder="Описание дня" rows="3"></textarea>
-                                                    @error("itinerary_days.{$index}.description") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <!-- Section: Inclusions -->
-                            <h5 class="card-title mb-4 mt-4">Что включено / не включено</h5>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addInclusion">+ Добавить пункт</button>
-                                @foreach($inclusions as $index => $inc)
-                                    <div class="card mb-2">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <span>Пункт {{ $index + 1 }}</span>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeInclusion({{ $index }})">Удалить</button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <select wire:model.defer="inclusions.{{ $index }}.type" class="form-control">
-                                                        <option value="included">Включено</option>
-                                                        <option value="not_included">Не включено</option>
-                                                    </select>
-                                                    @error("inclusions.{$index}.type") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <input type="text" wire:model.defer="inclusions.{{ $index }}.item" class="form-control" placeholder="Описание">
-                                                    @error("inclusions.{$index}.item") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <!-- Section: Accommodations -->
-                            <h5 class="card-title mb-4 mt-4">Размещение</h5>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addAccommodation">+ Добавить отель</button>
-                                @foreach($accommodations as $index => $acc)
-                                    <div class="card mb-2">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <span>Отель {{ $index + 1 }}</span>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">Удалить</button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" wire:model.defer="accommodations.{{ $index }}.location" class="form-control" placeholder="Локация">
-                                                    @error("accommodations.{$index}.location") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="number" wire:model.defer="accommodations.{{ $index }}.nights_count" class="form-control" placeholder="Кол-во ночей" min="1">
-                                                    @error("accommodations.{$index}.nights_count") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-6">
-                                                    <input type="text" wire:model.defer="accommodations.{{ $index }}.standard_options" class="form-control" placeholder="Стандарт">
-                                                    @error("accommodations.{$index}.standard_options") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" wire:model.defer="accommodations.{{ $index }}.comfort_options" class="form-control" placeholder="Комфорт">
-                                                    @error("accommodations.{$index}.comfort_options") <div class="text-danger">{{ $message }}</div> @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
 
                             <!-- Buttons -->
                             <div class="form-group mb-0">
@@ -243,11 +168,120 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Section: Itinerary Days -->
+                        <h5 class="card-title mb-4 mt-4">Программа тура</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addItineraryDay">+ Добавить день</button>
+                            @foreach($itinerary_days as $index => $day)
+                                <div class="card mb-2">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <span>День {{ $index + 1 }}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">Удалить</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <input type="number" wire:model.defer="itinerary_days.{{ $index }}.day_number" class="form-control" placeholder="№" min="1">
+                                                @error("itinerary_days.{$index}.day_number") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" wire:model.defer="itinerary_days.{{ $index }}.title" class="form-control" placeholder="Заголовок дня">
+                                                @error("itinerary_days.{$index}.title") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-12">
+                                                <textarea wire:model.defer="itinerary_days.{{ $index }}.description" class="form-control" placeholder="Описание дня" rows="3"></textarea>
+                                                @error("itinerary_days.{$index}.description") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Section: Inclusions -->
+                        <h5 class="card-title mb-4 mt-4">Что включено / не включено</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addInclusion">+ Добавить пункт</button>
+                            @foreach($inclusions as $index => $inc)
+                                <div class="card mb-2">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <span>Пункт {{ $index + 1 }}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeInclusion({{ $index }})">Удалить</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <select wire:model.defer="inclusions.{{ $index }}.type" class="form-control">
+                                                    <option value="included">Включено</option>
+                                                    <option value="not_included">Не включено</option>
+                                                </select>
+                                                @error("inclusions.{$index}.type") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" wire:model.defer="inclusions.{{ $index }}.item" class="form-control" placeholder="Описание">
+                                                @error("inclusions.{$index}.item") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Section: Accommodations -->
+                        <h5 class="card-title mb-4 mt-4">Размещение</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addAccommodation">+ Добавить отель</button>
+                            @foreach($accommodations as $index => $acc)
+                                <div class="card mb-2">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <span>Отель {{ $index + 1 }}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">Удалить</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.location" class="form-control" placeholder="Локация">
+                                                @error("accommodations.{$index}.location") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="number" wire:model.defer="accommodations.{{ $index }}.nights_count" class="form-control" placeholder="Кол-во ночей" min="1">
+                                                @error("accommodations.{$index}.nights_count") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.standard_options" class="form-control" placeholder="Стандарт">
+                                                @error("accommodations.{$index}.standard_options") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.comfort_options" class="form-control" placeholder="Комфорт">
+                                                @error("accommodations.{$index}.comfort_options") <div class="text-danger">{{ $message }}</div> @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
+@push('select2')
+        <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+        <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+{{--    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />--}}
+{{--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
+@endpush
 {{-- Quill CSS --}}
 @push('quill-css')
     <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
@@ -255,9 +289,24 @@
 
 {{-- Quill JS + инициализация --}}
 @push('quill-js')
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+            let select2 = $('.select2');
+            select2.select2();
+            select2.on('change', function (e) {
+                // console.log($(this).val);
+                let data = $(this).val() || [];
+                @this.set('category_id', data);
+            });
+        });
+    </script>
+
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             const editor = new Quill('#quill-editor-short-desc', {
                 theme: 'snow',
                 modules: {
@@ -278,6 +327,7 @@
 
             /* ставим то, что уже есть в компоненте */
             editor.root.innerHTML = @js($short_description);
+{{--            editor.root.innerHTML = {!! json_encode($short_description) !!};--}}
 
             /* при любом изменении сразу летит в Livewire */
             editor.on('text-change', () => {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tour extends Model
 {
@@ -13,8 +14,8 @@ class Tour extends Model
     protected $fillable = [
         'title',
         'slug',
-        'tour_category_id',
-        'short_description', // <-- ДОЛЖНО быть
+//        'tour_category_id',
+        'short_description',
         'is_published',
         'base_price_cents',
         'duration_days',
@@ -28,11 +29,23 @@ class Tour extends Model
         'tour_category_id' => 'integer'
     ];
 
-    public function category(): BelongsTo
+//    public function category(): BelongsTo
+//    {
+//        return $this->belongsTo(TourCategory::class, 'tour_category_id');
+//    }
+
+    /**
+     * Отношение "многие ко многим" с категориями.
+     */
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(TourCategory::class, 'tour_category_id');
+        // Предполагается, что промежуточная таблица называется 'tour_tour_category'
+        return $this->belongsToMany(TourCategory::class, 'tour_tour_category');
     }
 
+    /**
+     * Отношение "многие ко многим" с категориями.
+     */
     public function tourGroups(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TourGroup::class);
