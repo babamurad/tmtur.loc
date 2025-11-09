@@ -6,7 +6,7 @@
             <div class="row g-4">
                 @if($tours && $tours->count())
                 @foreach($tours as $tour)
-                    <div class="col-12 mb-3">
+                    <div class="col-sm-6 mb-3">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 <a href="{{ route('our-tours.show', $tour->slug) }}">
@@ -49,6 +49,7 @@
                     </div>
                 @endif
             </div>
+            {{ $tours->links('pagination::bootstrap-4') }}
         </div>
 
         {{--  RIGHT: SIDEBAR  --}}

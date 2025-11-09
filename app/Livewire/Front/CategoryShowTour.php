@@ -27,6 +27,7 @@ class CategoryShowTour extends Component
             'categories' => $categories,
             'category' => $this->category,
             'tours'    => $tours,
+//            'current'  => $this->category->slug,
         ])->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 
