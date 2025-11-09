@@ -4,6 +4,7 @@ namespace App\Livewire\Tours;
 
 use App\Models\Tour;
 use App\Models\TourCategory;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -223,7 +224,19 @@ class TourEditComponent extends Component
                 'mime_type'  => $this->newimage->getClientMimeType(),
             ]);
         }
+        LivewireAlert::title('Сохранение')
+            ->text('Изменения успешно сохранены.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
 
+    }
+
+    public function saveAndClose()
+    {
+        logger('saveAndClose');
+        $this->save();
         session()->flash('saved', [
             'title' => 'Тур обновлён!',
             'text'  => 'Все изменения сохранены.',

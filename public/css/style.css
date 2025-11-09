@@ -417,3 +417,8 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     #guides-carousel .carousel-control-prev { left: 5px; }
     #guides-carousel .carousel-control-next { right: 5px; }
 }
+
+.badge-primary a {
+    color: #fff !important;
+    text-decoration: none;
+}

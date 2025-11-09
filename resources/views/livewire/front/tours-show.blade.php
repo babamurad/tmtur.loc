@@ -103,7 +103,9 @@
 {{--            {{ route('tours.category', $tour->category->slug) }}--}}
 
                 @forelse ($tour->categories as $category)
-                    <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }} </a>
+                    <span class="badge badge-pill badge-primary text-white">
+                        <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }}</a>
+                    </span>
                 @empty
                     N/A
                 @endforelse

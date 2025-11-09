@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4">Детали тура</h5>
 
-                        <form wire:submit.prevent="save">
+                        <form wire:submit.prevent="saveAndClose">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -102,6 +102,10 @@
 
                             <div class="mt-4">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                    <span wire:loading.remove>Сохранить и закрыть</span>
+                                    <span wire:loading>Обновление...</span>
+                                </button>
+                                <button class="btn btn-success waves-effect waves-light" wire:click.prevent="save">
                                     <span wire:loading.remove>Сохранить изменения</span>
                                     <span wire:loading>Обновление...</span>
                                 </button>

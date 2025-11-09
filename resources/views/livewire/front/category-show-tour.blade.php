@@ -9,14 +9,18 @@
                     <div class="col-12 mb-3">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
-                                <img src="{{ $tour->media
+                                <a href="{{ route('our-tours.show', $tour->slug) }}">
+                                    <img src="{{ $tour->media
                         ? asset('uploads/'.$tour->media->file_path)
                         : asset('assets/images/tmfotos/default.jpg') }}"
-                                     class="card-img-top" alt="{{ $tour->title }}">
+                                         class="card-img-top" alt="{{ $tour->title }}">
+                                </a>
+
                             </div>
 
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $tour->title }}</h5>
+                                <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->title }}</h5></a>
+
                                 <p class="card-text small">
                                     {!! Str::words(strip_tags($tour->short_description), 20) !!}
                                 </p>
