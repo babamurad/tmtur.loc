@@ -67,7 +67,7 @@
                                         <span class="text-muted small">Show</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
                                                 style="width: auto;">
-                                            <option value="8">10</option>
+                                            <option value="8">8</option>
                                             <option value="15">15</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>

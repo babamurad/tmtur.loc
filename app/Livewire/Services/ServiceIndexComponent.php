@@ -11,12 +11,13 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class ServiceIndexComponent extends Component
 {
-    
+
     public $delId;
+    public $perPage = 8;
 
     public function render()
     {
-        $services = Service::orderBy('id', 'desc')->paginate(8);
+        $services = Service::orderBy('id', 'desc')->paginate($this->perPage);
         return view('livewire.services.service-index-component', [
             'services' => $services,
         ]);
@@ -39,8 +40,8 @@ class ServiceIndexComponent extends Component
     {
         info("Delete: " . $id);
         $this->delId = $id;
-        LivewireAlert::title('Удалить?') 
-            ->text('Вы уверены, что хотите удалить услугу?')  
+        LivewireAlert::title('Удалить?')
+            ->text('Вы уверены, что хотите удалить услугу?')
             ->timer(5000)
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
@@ -53,7 +54,7 @@ class ServiceIndexComponent extends Component
 
     public function serviceDelete()
     {
-        
+
         $service = Service::findOrFail($this->delId);
         info("Deleting service: " . $service);
         $service->delete();

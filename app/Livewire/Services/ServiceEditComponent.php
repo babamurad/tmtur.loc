@@ -19,7 +19,7 @@ class ServiceEditComponent extends Component
         return [
             'name'     => 'required|min:3|max:255',
             'type'     => 'required|in:' . ServiceType::ruleIn(),
-            'priceRub' => 'required|numeric|min:0.01',
+            'priceRub' => '|numeric|nullable',
         ];
     }
 
@@ -43,7 +43,7 @@ class ServiceEditComponent extends Component
         $this->service->update([
             'name'                => $this->name,
             'type'                => $this->type,
-            'default_price_cents' => (int) round($this->priceRub * 100),
+            'default_price_cents' => $this->priceRub ? (int) round($this->priceRub * 100) : 0,
         ]);
 
         session()->flash('saved', [

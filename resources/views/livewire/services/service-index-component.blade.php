@@ -51,10 +51,20 @@
                             </div>
 
                             {{-- можно сюда добавить фильтры или экспорт --}}
-                            <div class="col-md-6 text-md-right mt-2 mt-md-0">
-                                <span class="text-muted font-size-12">
-                                    Found: <strong>{{ $services->total() }}</strong>
-                                </span>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center justify-content-md-end gap-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="text-muted small">Show</span>
+                                        <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
+                                                style="width: auto;">
+                                            <option value="8">8</option>
+                                            <option value="15">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        <span class="text-muted small">of {{ $services->total() }} results</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>{{-- /.row --}}
 
@@ -86,8 +96,8 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="text-muted">
-                                                {{ $service->default_price_cents }}
+                                            <span class="text-muted badge badge-soft-success">
+                                                $ {{ $service->default_price_cents }}
                                             </span>
                                         </td>
 
@@ -116,11 +126,9 @@
                         </div>{{-- /.table-responsive --}}
 
                         {{-- 2.3 Пагинация --}}
-                        @if($services->hasPages())
                         <div class="pt-3">
-                            {{ $services->links('pagination::bootstrap-4') }}                        
+                            {{ $services->links('pagination::bootstrap-4') }}
                         </div>
-                        @endif
 
                     </div>{{-- /.card-body --}}
                 </div>{{-- /.card --}}

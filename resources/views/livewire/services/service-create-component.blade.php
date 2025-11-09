@@ -14,7 +14,7 @@
         </div>
 
         <div class="row">
-            
+
             <div class="col-lg-8 col-xl-6">
                 <div class="card">
                     <div class="card-body">
@@ -47,7 +47,7 @@
 
                             {{-- Price (cents → рубли) --}}
                             <div class="form-group">
-                                <label for="price">Default price, ₽ <span class="text-danger">*</span></label>
+                                <label for="price">Default price, $</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
@@ -56,7 +56,7 @@
                                            id="price"
                                            wire:model.defer="priceRub"
                                            class="form-control @error('default_price_cents') is-invalid @enderror"
-                                           placeholder="1 500.00"
+                                           placeholder="150.00"
                                            oninput="this.value = this.value.replace(/[^\d,.]/g,'').replace(',','.')">
                                 </div>
                                 @error('default_price_cents')
