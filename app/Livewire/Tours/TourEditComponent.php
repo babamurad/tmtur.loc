@@ -224,6 +224,7 @@ class TourEditComponent extends Component
                 'mime_type'  => $this->newimage->getClientMimeType(),
             ]);
         }
+
         LivewireAlert::title('Сохранение')
             ->text('Изменения успешно сохранены.')
             ->success()
@@ -235,7 +236,6 @@ class TourEditComponent extends Component
 
     public function saveAndClose()
     {
-        logger('saveAndClose');
         $this->save();
         session()->flash('saved', [
             'title' => 'Тур обновлён!',
