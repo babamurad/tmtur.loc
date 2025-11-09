@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\ContactInfosCrud;
+use App\Livewire\Front\CategoryIndex;
 use App\Livewire\Front\CategoryShowTour;
 use App\Livewire\Front\HomeComponent;
 use App\Livewire\Gallery\GalleryCreate;
@@ -136,6 +137,7 @@ Route::get('/', HomeComponent::class)->name('home');
 
 Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('our-tours.show');
 Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
+Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
 Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
 Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
@@ -151,6 +153,7 @@ Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
 
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');
+
 Route::post('/logout', function () {
     Auth::logout();
     session()->invalidate();

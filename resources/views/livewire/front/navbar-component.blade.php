@@ -22,7 +22,7 @@
                         @foreach($categories as $category)
                             <a class="dropdown-item" href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }}</a>
                         @endforeach
-                        <a class="dropdown-item" href="#">All tours</a>
+                        <a class="dropdown-item" href="{{ route('tours.category.index') }}">All tours</a>
                     </div>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('visa') }}" wire:navigate>Visa</a></li>
