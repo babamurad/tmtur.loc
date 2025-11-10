@@ -55,7 +55,7 @@ class TourCategoryEditComponent extends Component
 
         $this->tourCategory->update([
             'title' => $this->title,
-            'slug' => $this->slug,
+//            'slug' => $this->slug,
             'content' => $this->content,
             'image' => $this->image,
             'is_published' => $this->is_published,

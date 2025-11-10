@@ -59,9 +59,10 @@
                             </div>
 
                             <!-- content -->
-                            <div class="form-group">
+                            <div class="form-group" wire:ignore>
                                 <label>Содержание</label>
                                 <textarea rows="6"
+                                          id="quill-editor-short-desc"
                                           class="form-control @error('content') is-invalid @enderror"
                                           wire:model.defer="content"></textarea>
                                 @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -142,3 +143,43 @@
         </div>
     </div>
 </div>
+
+{{-- Quill CSS --}}
+@push('quill-css')
+    <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
+@endpush
+
+{{-- Quill JS + инициализация --}}
+@push('quill-js')
+    <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editor = new Quill('#quill-editor-short-desc', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'font': [] }, { 'size': [] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'align': [] }],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                }
+            });
+
+            /* начальное значение из модели */
+            editor.root.innerHTML = @js($content);
+
+            /* синхронизация с Livewire */
+            editor.on('text-change', () => {
+            @this.set('content', editor.root.innerHTML);
+            });
+        });
+    </script>
+@endpush
+

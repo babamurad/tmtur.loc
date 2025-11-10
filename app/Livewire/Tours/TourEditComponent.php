@@ -148,7 +148,7 @@ class TourEditComponent extends Component
 
         $this->tour->update([
             'title'             => $this->title,
-            'slug'              => $this->slug,
+//            'slug'              => $this->slug, не нужно редактировать slug
             'is_published'      => $this->is_published,
             'base_price_cents'  => $this->base_price_cents,
             'duration_days'     => $this->duration_days,
