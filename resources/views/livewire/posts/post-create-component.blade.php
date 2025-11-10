@@ -59,13 +59,14 @@
                             </div>
 
                             <!-- content -->
-                            <div class="form-group" wire:ignore>
-                                <label>Содержание</label>
-                                <textarea rows="6"
-                                          id="quill-editor-short-desc"
-                                          class="form-control @error('content') is-invalid @enderror"
-                                          wire:model.defer="content"></textarea>
-                                @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <div class="col-md-12" wire:ignore>
+                                <div class="form-group">
+                                    <label for="short_description">Краткое описание</label>
+                                    <div id="quill-editor-short-desc" style="height: 200px;"></div>
+                                    @error('content')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <!-- status -->

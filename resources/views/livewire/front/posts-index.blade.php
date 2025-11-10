@@ -10,7 +10,7 @@
                     @endif
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->title }}</h2>
-                        <p class="card-text">{{ Str::limit($post->content, 150) }}</p>
+                        <p class="card-text">{!! Str::limit($post->content, 150) !!}</p>
                         <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary">Читать далее</a>
                     </div>
                     <div class="card-footer text-muted">

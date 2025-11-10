@@ -53,7 +53,7 @@
                                                 </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('posts.edit', $p) }}"
+                                            <a href="{{ route('posts.edit', $p->id) }}"
                                                class="btn btn-sm btn-outline-primary">
                                                 <i class="bx bx-pencil"></i>
                                             </a>

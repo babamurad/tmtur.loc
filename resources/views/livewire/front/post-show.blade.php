@@ -51,7 +51,7 @@
                     <hr>
                     <!-- Grid row -->
                     <div class="row mx-md-4 px-4 mt-3">
-                        <p class="text-dark article">{{ $post->content }}</p>
+                        <p class="text-dark article">{!! $post->content !!}</p>
                     </div>
                     <!-- Grid row -->
                     <hr>
@@ -88,7 +88,7 @@
                             <!-- Author Data -->
                             <div class="col-12 col-sm-10">
                                 <p>
-                                    <strong>{{ $post->user->name ?? 'Неизвестно' }}</strong>
+                                    <strong><span>Author:</span> {{ $post->user->name ?? 'Admin' }}</strong>
                                 </p>
                                 <div class="personal-sm">
                                     <a class="me-2 text-primary">
@@ -156,9 +156,9 @@
                                                 <img src="{{ asset('uploads/' . $featuredPost->image) }}"
                                                 class="img-fluid" alt="{{ $featuredPost->title }}">
                                             </div>
-                                        </a>                                            
+                                        </a>
                                         @endif
-                                        
+
                                     </div>
                                 </div>
                                 <!-- Excerpt -->
