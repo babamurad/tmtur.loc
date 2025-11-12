@@ -25,7 +25,7 @@
                                     <div class="form-group">
                                         <label>Название <span class="text-danger">*</span></label>
                                         <input type="text" wire:model.debounce.300ms="title"
-{{--                                               wire:input="generateSlug"--}}
+                                               wire:input="generateSlug"
                                                class="form-control @error('title') is-invalid @enderror">
                                         @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -36,7 +36,7 @@
                                     <div class="form-group">
                                         <label>Slug (URL-адрес)</label>
                                         <input type="text" wire:model.defer="slug"
-
+                                        disabled
                                                class="form-control @error('slug') is-invalid @enderror">
                                         @error('slug')
                                         <div class="invalid-feedback">{{ $message }}</div>
