@@ -10,19 +10,19 @@
                     <p class="mb-4">The country boasts a rich cultural heritage rooted in centuries, when the Great Silk Road passed through these lands.</p>
                     <ul class="list-unstyled mb-4">
                         <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
                             <span>Over 300 sunny days a year</span>
                         </li>
                         <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
                             <span>Unique natural attractions</span>
                         </li>
                         <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
                             <span>Hospitable local people</span>
                         </li>
                         <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
                             <span>Rich history and culture</span>
                         </li>
                     </ul>
