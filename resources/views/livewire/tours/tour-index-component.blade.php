@@ -69,8 +69,8 @@
                             <thead class="thead-light">
                             <tr>
                                 <th style="width: 60px">#</th>
-                                <th>Image</th>
-                                <th>Title</th> <!-- Заголовок оставлен для будущего использования -->
+                                <th>Title</th>
+                                <th>Image</th> <!-- Заголовок оставлен для будущего использования -->
                                 <th>Category</th>
                                 <th>Base Price</th>
                                 <th>Duration (Days)</th>
@@ -84,7 +84,8 @@
                                     <td>{{ $tour->id }}</td>
                                     <td>
                                         <span class="font-weight-semibold">
-                                            {{ $tour->title }}
+                                            {{ $tour->title }}<br>
+                                            {{ $tour->slug }}
                                         </span>
 
                                     </td>

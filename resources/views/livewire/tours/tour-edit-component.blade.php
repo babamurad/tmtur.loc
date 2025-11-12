@@ -36,6 +36,7 @@
                                     <div class="form-group">
                                         <label>Slug (URL-адрес)</label>
                                         <input type="text" wire:model.defer="slug"
+
                                                class="form-control @error('slug') is-invalid @enderror">
                                         @error('slug')
                                         <div class="invalid-feedback">{{ $message }}</div>
