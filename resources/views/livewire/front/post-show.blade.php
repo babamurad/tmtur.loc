@@ -82,7 +82,7 @@
                         <div class="row">
                             <!-- Avatar -->
                             <div class="col-12 col-sm-2 mb-md-0 mb-3">
-                                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(26).jpg"
+                                <img src="{{ asset('img/placeholder_avatar.png') }}"
                                     class="img-fluid rounded-circle" alt="">
                             </div>
                             <!-- Author Data -->
