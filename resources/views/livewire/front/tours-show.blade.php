@@ -62,6 +62,7 @@
 {{--                    <i class="fas fa-times-circle text-danger mr-2"></i>
 
 --}}
+                    <p>Inlcusions: {{ $tour->inclusions }}</p>
                     {{--  БЛОК «ВКЛЮЧЕНО / НЕ ВКЛЮЧЕНО»  --}}
                     @if($tour->inclusions && $tour->inclusions->count())
                         <div class="row text-center mb-3">
@@ -92,8 +93,19 @@
                                 </ul>
                             </div>
                         </div>
-
                     @endif
+
+                    <p>itineraryDays: {{ $tour->itineraryDays }}</p>
+                    <ul>
+                        @foreach($tour->itineraryDays as $day)
+                            <li>
+                                <p>{{ $day->day_number }}</p>
+                                <p>{{ $day->title }}</p>
+                                <p>{{ $day->description }}</p>
+                            </li>
+                        @endforeach
+                    </ul>
+
                 </div>
 
                 {{--  ФУТЕР  --}}
