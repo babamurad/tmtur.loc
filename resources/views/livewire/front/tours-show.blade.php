@@ -94,15 +94,41 @@
                         </div>
                     @endif
 
-                    <ul>
-                        @foreach($tour->itineraryDays as $day)
-                            <li>
-                                <p>{{ $day->day_number }}</p>
-                                <p>{{ $day->title }}</p>
-                                <p>{{ $day->description }}</p>
-                            </li>
+                    {{-- Программа тура --}}
+
+                    <h3 class="mb-4">Tours programm</h3>
+
+                    <div class="accordion" id="itineraryAccordion">
+                        @foreach($tour->itineraryDays as $idx => $day)
+                            <div class="card">
+                                {{-- заголовок панели --}}
+                                <div class="card-header p-0" id="heading{{ $idx }}">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left d-flex justify-content-between align-items-center
+                                   text-decoration-none text-dark"
+                                                type="button"
+                                                data-toggle="collapse"
+                                                data-target="#collapse{{ $idx }}"
+                                                aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
+                                                aria-controls="collapse{{ $idx }}">
+                                            <span>Day {{ $day->day_number }}</span>
+                                            <span class="font-weight-normal">{{ $day->title }}</span>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                {{-- тело панели --}}
+                                <div id="collapse{{ $idx }}"
+                                     class="collapse {{ $idx === 0 ? 'show' : '' }}"
+                                     aria-labelledby="heading{{ $idx }}"
+                                     data-parent="#itineraryAccordion">
+                                    <div class="card-body">
+                                        {!! nl2br(e($day->description)) !!}
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
-                    </ul>
+                    </div>
 
                 </div>
 
