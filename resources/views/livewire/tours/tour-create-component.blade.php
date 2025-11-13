@@ -37,30 +37,14 @@
                                     </div>
                                 </div>
 
-                                <!-- Category -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="category_id">Категория <span class="text-danger">*</span></label>
-                                        <select wire:model.defer="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                                            <option value="">-- выберите категорию --</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
                                 <!-- Base Price -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="base_price_cents">Цена (в копейках) <span class="text-danger">*</span></label>
+                                        <label for="base_price_cents">Цена $ <span class="text-danger">*</span></label>
                                         <input type="number"
                                                wire:model.defer="base_price_cents"
                                                class="form-control @error('base_price_cents') is-invalid @enderror"
-                                               placeholder="например, 150000 (для 1500.00)">
+                                               placeholder="например 150">
                                         @error('base_price_cents')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
