@@ -96,8 +96,9 @@
 
                     {{-- Программа тура --}}
 
-                    <h3 class="mb-4">Tours programm</h3>
-
+                    <div class="card-header my-4">
+                    <h5>Tours programm</h5>
+                    </div>
                     <div class="accordion" id="itineraryAccordion">
                         @foreach($tour->itineraryDays as $idx => $day)
                             <div class="card">
@@ -130,6 +131,21 @@
                         @endforeach
                     </div>
 
+{{--                    accommodations--}}
+
+                        <div class="card-header mt-4">
+                            <h5 class="mb-0">Accommodations</h5>
+                        </div>
+
+                    @if($tour->accommodations)
+                        <ul>
+                            @foreach($tour->accommodations as $accommodation)
+                                <li>
+                                    {{ $accommodation->location }} ({{ $accommodation->nights_count }} nights)
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
 
                 {{--  ФУТЕР  --}}
