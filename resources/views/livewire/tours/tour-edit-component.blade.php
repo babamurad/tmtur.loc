@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-md-12">
-                                                <textarea wire:model.defer="itinerary_days.{{ $index }}.description" class="form-control" placeholder="Описание дня" rows="3"></textarea>
+                                                <textarea wire:model.defer="itinerary_days.{{ $index }}.description" class="form-control" placeholder="Описание дня" rows="10"></textarea>
                                                 @error("itinerary_days.{$index}.description") <div class="text-danger">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
