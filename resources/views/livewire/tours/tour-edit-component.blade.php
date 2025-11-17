@@ -1,6 +1,5 @@
 <div class="page-content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -18,7 +17,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">Детали тура</h5>
-
+                        @if ($errors->any())
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                         <form wire:submit.prevent="saveAndClose">
                             <div class="row">
                                 <div class="col-md-12">
@@ -45,7 +50,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="form-group" wire:ignore>
+                                    <div class="form-group mb-0" wire:ignore>
                                         <label for="category_ids_select2">Категории <span class="text-danger">*</span></label>
                                         <select id="category_ids_select2"
                                                 class="form-control select2 @error('category_id') is-invalid @enderror"
@@ -59,10 +64,10 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('category_id')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
                                     </div>
+                                    @error('category_id')
+                                    <div class="invalid-feedback d-block mt-0">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
 
@@ -93,10 +98,10 @@
                                         <div wire:ignore>
                                             <div id="quill-editor-short-desc" style="height: 250px;"></div>
                                         </div>
-                                        @error('short_description')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
+                                    @error('short_description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                             </div>
