@@ -149,8 +149,8 @@ class TourCreateComponent extends Component
             'slug' => $this->slug,
 
             'is_published' => $this->is_published,
-            'base_price_cents' => $this->base_price_cents,
-            'duration_days' => $this->duration_days,
+            'base_price_cents' => $this->base_price_cents ?? 0,
+            'duration_days' => $this->duration_days ?? 1,
             'short_description' => $this->short_description, // Используем новое поле
         ]);
 

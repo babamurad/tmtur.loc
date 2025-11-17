@@ -19,7 +19,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-4">Детали тура</h5>
-
+                        @if ($errors->any())
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                         <form wire:submit.prevent="save">
                             <div class="row">
                                 <!-- Title -->
@@ -66,7 +72,7 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <div class="form-group" wire:ignore>
+                                    <div class="form-group mb-0" wire:ignore>
                                         <label>Категория<span class="text-danger">*</span></label>
 
                                         <select class="form-control select2 @error('category_id') is-invalid @enderror"
@@ -84,6 +90,9 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    @error('category_id')
+                                    <div class="invalid-feedback d-block mt-0">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <!-- Short Description (Quill) -->
