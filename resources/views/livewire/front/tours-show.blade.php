@@ -112,8 +112,8 @@
                                                 data-target="#collapse{{ $idx }}"
                                                 aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
                                                 aria-controls="collapse{{ $idx }}">
-                                            <span>Day {{ $day->day_number }}</span>
-                                            <span class="font-weight-normal">{{ $day->title }}</span>
+                                            <span class="badge badge-light">Day {{ $day->day_number }}</span>
+                                            <span class="font-weight-normal ">{{ $day->title }}</span>
                                         </button>
                                     </h2>
                                 </div>
