@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
   <title>Туркменистан — Земля Огня и Тайн | TurkmenTravel</title>
@@ -15,12 +15,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Boxicons -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+{{--  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">--}}
 
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
             padding-top: 60px; /* примерная высота навбара */
+        }
+        .fa-fire {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        body.loading {
+            opacity: 0.7;
+            pointer-events: none;
+            cursor: wait;
         }
     </style>
 </head>
@@ -60,7 +72,7 @@
                 <ul class="list-unstyled small">
                     <li><a href="/#darwaza" class="text-white-50">Darvaza</a></li>
                     <li><a href="/#contact" class="text-white-50">Contact</a></li>
-                    <li><a href="{{ route('galley') }}" class="text-white-50">Galley</a></li>
+                    <li><a href="{{ route('galley') }}" class="text-white-50">Gallery</a></li>
                 </ul>
             </div>
             <div class="col-md-3">

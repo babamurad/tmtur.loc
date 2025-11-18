@@ -104,6 +104,7 @@
                                     @enderror
                                 </div>
 
+                                @livewire('translation-manager', ['model' => $tour, 'fields' => ['title','description']])
                             </div>
 
                             <div class="mt-4">

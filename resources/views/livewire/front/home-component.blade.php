@@ -79,7 +79,7 @@
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <a href="{{ route('our-tours.show', $tour->slug) }}">
-                                <h5 class="card-title">{{ $tour->title }}</h5>
+                                <h5 class="card-title">{{ $tour->tr('title') }}</h5>
                                 </a>
                                 <p class="card-text small">{!! Str::words(strip_tags($tour->short_description), 20, '...') !!}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">

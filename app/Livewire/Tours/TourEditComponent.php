@@ -89,6 +89,11 @@ class TourEditComponent extends Component
         $this->accommodations = $tour->accommodations->map(fn($item) => $item->toArray())->all();
     }
 
+    protected static function booted()
+    {
+        static::deleted(fn ($model) => $model->translations()->delete());
+    }
+
     public function generateSlug()
     {
         $this->slug = Str::slug($this->title);
