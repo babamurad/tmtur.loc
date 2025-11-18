@@ -68,15 +68,19 @@
                     <div class="col-md-6 col-lg-4 mb-3">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
+                                <a href="{{ route('our-tours.show', $tour->slug) }}">
                                 @if($tour->media)
                                     <img src="{{ asset('uploads/' . $tour->media->file_path) }}" class="card-img-top">
                                 @else
                                     <img src="{{ asset('assets/images/tmfotos/default.jpg') }}" class="card-img-top">
                                 @endif
-{{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>--}}
+                                </a>
+                                {{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>--}}
                             </div>
                             <div class="card-body d-flex flex-column">
+                                <a href="{{ route('our-tours.show', $tour->slug) }}">
                                 <h5 class="card-title">{{ $tour->title }}</h5>
+                                </a>
                                 <p class="card-text small">{!! Str::words(strip_tags($tour->short_description), 20, '...') !!}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
                                     <div><span class="fw-bold text-danger ms-2">{{ $tour->duration_days }} days</span></div>
