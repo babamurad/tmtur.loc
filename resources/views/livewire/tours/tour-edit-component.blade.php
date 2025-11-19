@@ -29,19 +29,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Название <span class="text-danger">*</span></label>
+                                        <span>Оригинал на русском языке</span>
                                         <input type="text" wire:model.debounce.300ms="title"
 {{--                                               wire:input="generateSlug"--}}
                                                class="form-control @error('title') is-invalid @enderror">
                                         @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Название <span class="text-danger">*</span></label>
-                                        <input type="text" wire:model.debounce.300ms="title" class="form-control">
-                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
 
