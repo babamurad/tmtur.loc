@@ -166,3 +166,15 @@ Livewire-3 возвращает из методов не Illuminate\Http\Redirec
 Карусль проблема
 Guides
 Tours - drop down 1. Categories 2. See all
+
+<div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Краткое описание</label>
+                                        <div wire:ignore>
+                                            <div id="quill-editor-short-desc" style="height: 250px;"></div>
+                                        </div>
+                                    </div>
+                                    @error('short_description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>

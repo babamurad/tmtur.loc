@@ -16,11 +16,11 @@
                 {{--  ТЕЛО  --}}
                 <div class="card-body">
                     {{--  ЗАГОЛОВОК  --}}
-                    <h1 class="card-title mb-3">{{ $tour->title }}</h1>
+                    <h1 class="card-title mb-3">{{ $tour->tr('title') }}</h1>
 
                     {{--  КОРОТКОЕ ОПИСАНИЕ  --}}
                     <div class="mb-4">
-                        {!! $tour->short_description !!}
+                        {!! $tour->tr('short_description') !!}
                     </div>
 
                     {{--  СЕТКА ИНФО-ПЛИТОК  --}}

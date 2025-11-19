@@ -21,6 +21,7 @@
 
 
     @livewireStyles
+
     @stack('quill-css')
     @stack('scripts')
     @stack('select2')
@@ -334,32 +335,25 @@
 <!-- Overlay-->
 <div class="menu-overlay"></div>
 
+<!-- 1. jQuery обязательно ПЕРВЫЙ -->
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-@stack('select2')
 
+<!-- 2. Bootstrap и плагины -->
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+
+<!-- 3. Ваши стеки -->
+@stack('select2')   <!-- только inline-скрипты, НЕ подключения файлов -->
+@stack('quill-js')
+
+<!-- 4. Остальное -->
 <script src="{{ asset('assets/js/metismenu.min.js') }}"></script>
 <script src="{{ asset('assets/js/waves.js') }}"></script>
 <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
+<script src="{{ asset('assets/js/theme.js') }}"></script>
 
-
-
-<!-- Morris Js-->
-<!-- <script src="{{ asset('plugins/morris-js/morris.min.js') }}"></script> -->
-<!-- Raphael Js-->
-<!-- <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script> -->
-
-<!-- Morris Custom Js-->
-<!-- <script src="{{ asset('assets/pages/morris-chart-demo.js') }}"></script> -->
-
-
-{{--<script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>--}}
-
-@stack('quill-js') <!-- Стек для JS Quill -->
 @livewireScripts
 @livewireAlertScripts
-<!-- App js -->
-<script src="{{ asset('assets/js/theme.js') }}"></script>
 </body>
 
 </html>

@@ -65,7 +65,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group mb-0" wire:ignore>
                                         <label for="category_ids_select2">Категории <span class="text-danger">*</span></label>
@@ -86,8 +85,6 @@
                                     <div class="invalid-feedback d-block mt-0">{{ $message }}</div>
                                     @enderror
                                 </div>
-
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Базовая цена, $ <span class="text-danger">*</span></label>
@@ -109,29 +106,26 @@
                                     </div>
                                 </div>
 
+                                {{-- fallback-язык = оригинал --}}
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Краткое описание</label>
-                                        <div wire:ignore>
-                                            <div id="quill-editor-short-desc" style="height: 250px;"></div>
-                                        </div>
+                                    <div class="form-group" wire:ignore>
+                                        <label>Краткое описание ({{ strtoupper(config('app.fallback_locale')) }})</label>
+
+                                        <div id="quill-editor-short-desc" style="height: 200px;"></div>
+
                                     </div>
-                                    @error('short_description')
+                                    @error("trans." . config('app.fallback_locale') . ".short_description")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
+                                {{-- остальные языки --}}
                                 @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
                                     <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Описание ({{ strtoupper($locale) }})</label>
-                                            <textarea
-                                                wire:model.defer="trans.{{ $locale }}.description"
-                                                class="form-control"
-                                                rows="4"
-                                                placeholder="Перевод описания на {{ $locale }}"></textarea>
-                                            @error("trans.$locale.description") <span class="text-danger">{{ $message }}</span> @enderror
-                                        </div>
+                                        <label>Краткое описание ({{ strtoupper($locale) }})</label>
+                                        <textarea wire:model.defer="trans.{{ $locale }}.short_description"
+                                                  class="form-control" rows="4"></textarea>
                                     </div>
                                 @endforeach
 
@@ -303,9 +297,15 @@
     </div>
 </div>
 
+{{-- Quill CSS --}}
+@push('quill-css')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
+@endpush
+
 {{-- Select2 CSS and JS Push --}}
 @push('select2')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script>
         // Инициализация Select2 и синхронизация с Livewire
@@ -319,7 +319,7 @@
             @this.set('category_id', data);
             });
 
-            // Обновление Select2 при изменении в Livewire (если нужно)
+            // Обновление Select2 при изменении в Livewire
             Livewire.hook('element.updated', (el, component) => {
                 if (el.id === 'category_ids_select2') {
                     $(el).select2();
@@ -329,41 +329,51 @@
     </script>
 @endpush
 
-{{-- Quill CSS --}}
-@push('quill-css')
-    <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
-@endpush
+
 
 {{-- Quill JS + инициализация --}}
 @push('quill-js')
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const editor = new Quill('#quill-editor-short-desc', {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        [{ 'font': [] }, { 'size': [] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
-                        [{ 'header': 1 }, { 'header': 2 }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'indent': '-1' }, { 'indent': '+1' }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
-                    ]
-                }
-            });
+            // Проверяем, существует ли элемент, чтобы избежать ошибок в консоли
+            var quillElement = document.getElementById('quill-editor-short-desc');
 
-            /* начальное значение из модели */
-            editor.root.innerHTML = @js($short_description);
+            if (quillElement) {
+                const editor = new Quill('#quill-editor-short-desc', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{ 'font': [] }, { 'size': [] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'script': 'sub'}, { 'script': 'super' }],
+                            [{ 'header': 1 }, { 'header': 2 }],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'align': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ]
+                    }
+                });
 
-            /* синхронизация с Livewire */
-            editor.on('text-change', () => {
-            @this.set('short_description', editor.root.innerHTML);
-            });
+                // Получаем начальные данные из PHP/Livewire
+                var content = @js($this->trans[config('app.fallback_locale')]['short_description'] ?? '');
+
+                // Вставляем контент в редактор
+                editor.root.innerHTML = content;
+
+                // Слушаем изменения и отправляем их в Livewire
+                editor.on('text-change', function () {
+                    // Получаем HTML содержимое
+                    var html = editor.root.innerHTML;
+                    // Обновляем свойство в компоненте Livewire
+                @this.set('trans.{{ config('app.fallback_locale') }}.short_description', html);
+                });
+            } else {
+                console.error('Элемент #quill-editor-short-desc не найден!');
+            }
         });
     </script>
 @endpush

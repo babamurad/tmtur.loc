@@ -28,7 +28,7 @@ class TourEditComponent extends Component
     public bool $is_published     = true;
     public ?int $base_price_cents = null;
     public ?int $duration_days    = null;
-    public string $short_description = '';
+
 
     /* Изображение */
     public $newimage = null;   // временное новое изображение
@@ -52,7 +52,6 @@ class TourEditComponent extends Component
             'is_published'         => 'boolean',
             'base_price_cents'     => 'required|integer|min:0',
             'duration_days'        => 'required|integer|min:1',
-            'short_description'    => 'nullable|string',
             'newimage'             => 'nullable|image|max:2048',
 
             'itinerary_days'              => 'nullable|array',
@@ -73,7 +72,7 @@ class TourEditComponent extends Component
         /* переводы */
         foreach (config('app.available_locales') as $l) {
             $rules["trans.$l.title"]       = 'nullable|string|max:255';
-            $rules["trans.$l.description"] = 'nullable|string';
+            $rules["trans.$l.short_description"] = 'nullable|string';
         }
 
         return $rules;
@@ -89,7 +88,6 @@ class TourEditComponent extends Component
         $this->is_published      = $tour->is_published;
         $this->base_price_cents  = $tour->base_price_cents;
         $this->duration_days     = $tour->duration_days;
-        $this->short_description = $tour->short_description ?? '';
 
         $this->category_id = $tour->categories->pluck('id')->toArray();
         $this->image = $tour->media ? asset('uploads/'.$tour->media->file_path) : null;
@@ -100,7 +98,7 @@ class TourEditComponent extends Component
 
         foreach (config('app.available_locales') as $locale) {
             $this->trans[$locale]['title']       = $this->tour->tr('title', $locale);
-            $this->trans[$locale]['description'] = $this->tour->tr('description', $locale);
+            $this->trans[$locale]['short_description'] = $this->tour->tr('short_description', $locale);
         }
     }
 
@@ -161,20 +159,26 @@ class TourEditComponent extends Component
     {
         $this->validate();
 
+        // 1. только технические / не-переводимые поля
+        // обновляем оригинал значением fallback-языка
+        $fallbackLocale = config('app.fallback_locale');
         $this->tour->update([
-            'title'             => $this->title,
-//            'slug'              => $this->slug, не нужно редактировать slug
+            'title'             => $this->trans[$fallbackLocale]['title'],
+            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
             'is_published'      => $this->is_published,
             'base_price_cents'  => $this->base_price_cents,
             'duration_days'     => $this->duration_days,
-            'short_description' => $this->short_description,
         ]);
 
+        // сохраняем переводы (включая fallback – на всякий случай)
         foreach ($this->trans as $locale => $fields) {
             foreach ($fields as $field => $value) {
                 $this->tour->setTr($field, $locale, $value);
             }
         }
+
+        // 3. сброс кэша
+        $this->tour->flushTrCache();
 
         $this->tour->categories()->sync($this->category_id);
 
