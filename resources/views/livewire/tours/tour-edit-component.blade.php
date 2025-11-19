@@ -39,6 +39,29 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label>Название <span class="text-danger">*</span></label>
+                                        <input type="text" wire:model.debounce.300ms="title" class="form-control">
+                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    </div>
+                                </div>
+
+                                {{-- ПЕРЕВОДЫ title --}}
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Название ({{ strtoupper($locale) }})<span class="text-danger">*</span></label>
+                                            <input type="text"
+                                                   wire:model.defer="trans.{{ $locale }}.title"
+                                                   class="form-control"
+                                                   placeholder="Перевод на {{ $locale }}">
+                                            @error("trans.$locale.title") <span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>Slug (URL-адрес)</label>
                                         <input type="text" wire:model.defer="slug"
                                         disabled
@@ -104,7 +127,20 @@
                                     @enderror
                                 </div>
 
-                                @livewire('translation-manager', ['model' => $tour, 'fields' => ['title','description']])
+                                @foreach(config('app.available_locales') as $locale)
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Описание ({{ strtoupper($locale) }})</label>
+                                            <textarea
+                                                wire:model.defer="trans.{{ $locale }}.description"
+                                                class="form-control"
+                                                rows="4"
+                                                placeholder="Перевод описания на {{ $locale }}"></textarea>
+                                            @error("trans.$locale.description") <span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                @endforeach
+
                             </div>
 
                             <div class="mt-4">

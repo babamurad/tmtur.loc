@@ -38,11 +38,13 @@ class TourEditComponent extends Component
     public array $itinerary_days  = [];
     public array $inclusions      = [];
     public array $accommodations  = [];
+    /* мультиязычные значения */
+    public array $trans = [];   // [ru][title], [en][title] …
 
     /* Правила */
     protected function rules(): array
     {
-        return [
+        $rules = [
             'title'                => 'required|min:3|max:255',
             'slug'                 => 'nullable|min:3|max:255|unique:tours,slug,'.$this->tour->id,
             'category_id'          => 'required|array|min:1',
@@ -67,6 +69,14 @@ class TourEditComponent extends Component
             'accommodations.*.standard_options' => 'nullable|string',
             'accommodations.*.comfort_options'  => 'nullable|string',
         ];
+
+        /* переводы */
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"]       = 'nullable|string|max:255';
+            $rules["trans.$l.description"] = 'nullable|string';
+        }
+
+        return $rules;
     }
 
     public function mount(int $id)
@@ -87,11 +97,11 @@ class TourEditComponent extends Component
         $this->itinerary_days = $tour->itineraryDays->map(fn($item) => $item->toArray())->all();
         $this->inclusions = $tour->inclusions->map(fn($item) => $item->toArray())->all();
         $this->accommodations = $tour->accommodations->map(fn($item) => $item->toArray())->all();
-    }
 
-    protected static function booted()
-    {
-        static::deleted(fn ($model) => $model->translations()->delete());
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title']       = $this->tour->tr('title', $locale);
+            $this->trans[$locale]['description'] = $this->tour->tr('description', $locale);
+        }
     }
 
     public function generateSlug()
@@ -159,6 +169,12 @@ class TourEditComponent extends Component
             'duration_days'     => $this->duration_days,
             'short_description' => $this->short_description,
         ]);
+
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $this->tour->setTr($field, $locale, $value);
+            }
+        }
 
         $this->tour->categories()->sync($this->category_id);
 

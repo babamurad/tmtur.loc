@@ -36,6 +36,11 @@ class Tour extends Model
 //        return $this->belongsTo(TourCategory::class, 'tour_category_id');
 //    }
 
+    protected static function booted()
+    {
+        static::deleted(fn ($model) => $model->translations()->delete());
+    }
+
     /**
      * Отношение "многие ко многим" с категориями.
      */
