@@ -78,6 +78,14 @@ class TourEditComponent extends Component
         return $rules;
     }
 
+    protected $listeners = ['quillUpdated' => 'updateQuillField'];
+
+    public function updateQuillField($data)
+    {
+        data_set($this, $data['field'], $data['value']);
+    }
+
+
     public function mount(int $id)
     {
         $tour = Tour::findOrFail($id);

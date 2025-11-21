@@ -336,10 +336,10 @@
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Проверяем, существует ли элемент, чтобы избежать ошибок в консоли
             var quillElement = document.getElementById('quill-editor-short-desc');
 
             if (quillElement) {
+
                 const editor = new Quill('#quill-editor-short-desc', {
                     theme: 'snow',
                     modules: {
@@ -358,22 +358,22 @@
                     }
                 });
 
-                // Получаем начальные данные из PHP/Livewire
-                var content = @js($this->trans[config('app.fallback_locale')]['short_description'] ?? '');
+                // загружаем стартовый контент
+                editor.root.innerHTML = @js($this->trans[config('app.fallback_locale')]['short_description'] ?? '');
 
-                // Вставляем контент в редактор
-                editor.root.innerHTML = content;
-
-                // Слушаем изменения и отправляем их в Livewire
+                // отправляем Livewire данные
                 editor.on('text-change', function () {
-                    // Получаем HTML содержимое
                     var html = editor.root.innerHTML;
-                    // Обновляем свойство в компоненте Livewire
-                @this.set('trans.{{ config('app.fallback_locale') }}.short_description', html);
+                    Livewire.dispatch('quillUpdated', {
+                        field: 'trans.{{ config('app.fallback_locale') }}.short_description',
+                        value: html
+                    });
                 });
+
             } else {
                 console.error('Элемент #quill-editor-short-desc не найден!');
             }
         });
     </script>
+
 @endpush

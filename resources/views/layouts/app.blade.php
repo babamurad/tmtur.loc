@@ -24,7 +24,6 @@
 
     @stack('quill-css')
     @stack('scripts')
-    @stack('select2')
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
@@ -343,7 +342,7 @@
 <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 
 <!-- 3. Ваши стеки -->
-@stack('select2')   <!-- только inline-скрипты, НЕ подключения файлов -->
+@stack('select2')
 @stack('quill-js')
 
 <!-- 4. Остальное -->
