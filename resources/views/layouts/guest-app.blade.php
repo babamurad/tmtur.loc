@@ -12,12 +12,14 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+
+
 
     @livewireScripts
 </head>
@@ -43,7 +45,6 @@
 
 <!-- App js -->
 <script src="{{ asset('assets/js/theme.js') }}"></script>
-<script src="{{ asset('build/assets/app-B198yBSb.js') }}" defer></script>
 </body>
 
 </html>
