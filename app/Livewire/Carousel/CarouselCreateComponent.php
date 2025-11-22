@@ -19,10 +19,11 @@ class CarouselCreateComponent extends Component
     public $button_link;
     public $sort_order = 0;
     public $is_active = true;
+    public array $trans = [];
 
     protected function rules()
     {
-        return [
+        $rules = [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
             'image' => 'required|image|max:2048', // 2MB Max
@@ -31,6 +32,23 @@ class CarouselCreateComponent extends Component
             'sort_order' => 'required|integer|min:0',
             'is_active' => 'boolean',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.description"] = 'nullable|string|max:1000';
+            $rules["trans.$l.button_text"] = 'nullable|string|max:255';
+        }
+
+        return $rules;
+    }
+
+    public function mount()
+    {
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = '';
+            $this->trans[$locale]['description'] = '';
+            $this->trans[$locale]['button_text'] = '';
+        }
     }
 
     public function render()
@@ -48,7 +66,7 @@ class CarouselCreateComponent extends Component
             $imagePath = $this->image->storeAs($imageName); // Store in public/uploads/carousel
         }
 
-        CarouselSlide::create([
+        $carouselSlide = CarouselSlide::create([
             'title' => $this->title,
             'description' => $this->description,
             'image' => $imageName, // Save only the file name
@@ -57,6 +75,18 @@ class CarouselCreateComponent extends Component
             'sort_order' => $this->sort_order,
             'is_active' => $this->is_active,
         ]);
+
+        // Save translations
+        $fallbackLocale = config('app.fallback_locale');
+        $this->trans[$fallbackLocale]['title'] = $this->title;
+        $this->trans[$fallbackLocale]['description'] = $this->description;
+        $this->trans[$fallbackLocale]['button_text'] = $this->button_text;
+
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $carouselSlide->setTr($field, $locale, $value);
+            }
+        }
 
         session()->flash('saved', [
             'title' => 'Слайд карусели создан!',

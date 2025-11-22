@@ -84,14 +84,14 @@
                                 <a href="{{ route('our-tours.show', $tour->slug) }}">
                                 <h5 class="card-title">{{ $tour->tr('title') }}</h5>
                                 </a>
-                                <p class="card-text small">{!! Str::words(strip_tags($tour->short_description), 20, '...') !!}</p>
+                                <p class="card-text small">{!! Str::words(strip_tags($tour->tr('short_description')), 20, '...') !!}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
                                     <div><span class="fw-bold text-danger ms-2">{{ $tour->duration_days }} days</span></div>
                                     <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('our-tours.show', $tour) }}" class="btn btn-dark w-100 mt-2">Read more</a>
+                                <a href="{{ route('our-tours.show', $tour) }}" class="btn btn-dark w-100 mt-2">{{__('messages.read_more')}}</a>
                             </div>
                         </div>
                     </div>

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CarouselSlide extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
     protected $fillable = [
         'title',
@@ -23,6 +24,11 @@ class CarouselSlide extends Model
         'is_active' => 'boolean',
         'sort_order' => 'integer'
     ];
+
+    /**
+     * Поля, доступные для перевода
+     */
+    public $fields = ['title', 'description', 'button_text'];
 
     /**
      * Scope для получения только активных слайдов

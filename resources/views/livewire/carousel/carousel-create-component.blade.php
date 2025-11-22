@@ -22,37 +22,72 @@
                         <form wire:submit.prevent="save">
                             {{-- Title --}}
                             <div class="form-group">
-                                <label for="title">Title <span class="text-danger">*</span></label>
+                                <label for="title">Title ({{ strtoupper(config('app.fallback_locale')) }}) <span class="text-danger">*</span></label>
                                 <input type="text"
                                     id="title"
                                     wire:model.defer="title"
                                     class="form-control @error('title') is-invalid @enderror"
-                                    placeholder="e.g. Amazing Destinations">
+                                    placeholder="Title in ru">
                                 @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
+                            @foreach(config('app.available_locales') as $locale)
+                                @continue($locale === config('app.fallback_locale'))
+                                <div class="form-group">
+                                    <label>Title ({{ strtoupper($locale) }})</label>
+                                    <input type="text"
+                                           wire:model.defer="trans.{{ $locale }}.title"
+                                           class="form-control"
+                                           placeholder="Title in {{ $locale }}">
+                                    @error("trans.$locale.title") <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            @endforeach
+
                             {{-- Description --}}
                             <div class="form-group">
-                                <label for="description">Description</label>
+                                <label for="description">Description ({{ strtoupper(config('app.fallback_locale')) }})</label>
                                 <textarea id="description"
                                           wire:model.defer="description"
                                           class="form-control @error('description') is-invalid @enderror"
-                                          placeholder="e.g. Discover the world with us"></textarea>
+                                          placeholder="Description in ru"></textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
+                            @foreach(config('app.available_locales') as $locale)
+                                @continue($locale === config('app.fallback_locale'))
+                                <div class="form-group">
+                                    <label>Description ({{ strtoupper($locale) }})</label>
+                                    <textarea wire:model.defer="trans.{{ $locale }}.description"
+                                              class="form-control"
+                                              placeholder="Description in {{ $locale }}"></textarea>
+                                    @error("trans.$locale.description") <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            @endforeach
+
                             {{-- Button Text --}}
                             <div class="form-group">
-                                <label for="button_text">Button Text</label>
+                                <label for="button_text">Button Text ({{ strtoupper(config('app.fallback_locale')) }})</label>
                                 <input type="text"
                                     id="button_text"
                                     wire:model.defer="button_text"
                                     class="form-control @error('button_text') is-invalid @enderror"
-                                    placeholder="e.g. Learn More">
+                                    placeholder="Button text in ru">
                                 @error('button_text') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
+
+                            @foreach(config('app.available_locales') as $locale)
+                                @continue($locale === config('app.fallback_locale'))
+                                <div class="form-group">
+                                    <label>Button Text ({{ strtoupper($locale) }})</label>
+                                    <input type="text"
+                                           wire:model.defer="trans.{{ $locale }}.button_text"
+                                           class="form-control"
+                                           placeholder="Button text in {{ $locale }}">
+                                    @error("trans.$locale.button_text") <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            @endforeach
 
                             {{-- Button Link --}}
                             <div class="form-group">
@@ -61,7 +96,7 @@
                                     id="button_link"
                                     wire:model.defer="button_link"
                                     class="form-control @error('button_link') is-invalid @enderror"
-                                    placeholder="e.g. /tours">
+                                    placeholder="Button link">
                                 @error('button_link') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
