@@ -38,6 +38,9 @@ class TourCreateComponent extends Component
     // Поля для аккомодаций (массив для хранения вариантов)
     public $accommodations = [];
 
+    /* мультиязычные значения */
+    public array $trans = [];   // [ru][title], [en][title] …
+
     protected function rules()
     {
         return [
@@ -68,6 +71,29 @@ class TourCreateComponent extends Component
             'category_id' => 'required|array|min:1', // Должен быть массив, содержать минимум 1 элемент
             'category_id.*' => 'integer|exists:tour_categories,id', // Каждый элемент должен быть int и существовать в таблице
         ];
+
+        /* переводы */
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"]       = 'nullable|string|max:255';
+            $rules["trans.$l.short_description"] = 'nullable|string';
+        }
+
+        return $rules;
+    }
+
+    public function mount()
+    {
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = '';
+            $this->trans[$locale]['short_description'] = '';
+        }
+    }
+
+    protected $listeners = ['quillUpdated' => 'updateQuillField'];
+
+    public function updateQuillField($data)
+    {
+        data_set($this, $data['field'], $data['value']);
     }
 
     public function render()
@@ -78,9 +104,9 @@ class TourCreateComponent extends Component
         ]);
     }
 
-    public function generateSlug()
+    public function updatedTitle($value)
     {
-        $this->slug = Str::slug($this->title, language: 'ru');
+        $this->slug = Str::slug($value, language: 'ru');
     }
 
     public function addItineraryDay()
@@ -151,8 +177,18 @@ class TourCreateComponent extends Component
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents ?? 0,
             'duration_days' => $this->duration_days ?? 1,
-            'short_description' => $this->short_description, // Используем новое поле
+            'short_description' => $this->trans[config('app.fallback_locale')]['short_description'] ?? '',
         ]);
+
+        // сохраняем переводы
+        $fallbackLocale = config('app.fallback_locale');
+        $this->trans[$fallbackLocale]['title'] = $this->title;
+
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $tour->setTr($field, $locale, $value);
+            }
+        }
 
         // ПРИКРЕПЛЯЕМ КАТЕГОРИИ
         // Метод sync() удобен для "многие ко многим"

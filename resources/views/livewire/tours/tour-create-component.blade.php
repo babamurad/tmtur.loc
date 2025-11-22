@@ -28,20 +28,33 @@
                         @endif
                         <form wire:submit.prevent="save">
                             <div class="row">
-                                <!-- Title -->
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="title">Название <span class="text-danger">*</span></label>
-                                        <input type="text"
-                                               id="title"
-                                               wire:model.debounce.300ms="title"
-                                               wire:input="generateSlug"
-                                               class="form-control @error('title') is-invalid @enderror"
-                                               placeholder="например, Обзорная экскурсия">
-                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                        <label>Название <span class="text-danger">*</span></label>
+                                        <span>Оригинал на русском языке</span>
+                                        <input type="text" wire:model.debounce.300ms="title"
+                                               class="form-control @error('title') is-invalid @enderror">
+                                        @error('title')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                         <small class="form-text text-muted">Slug: {{ $slug }}</small>
                                     </div>
                                 </div>
+
+                                {{-- ПЕРЕВОДЫ title --}}
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Название ({{ strtoupper($locale) }})<span class="text-danger">*</span></label>
+                                            <input type="text"
+                                                   wire:model.defer="trans.{{ $locale }}.title"
+                                                   class="form-control"
+                                                   placeholder="Перевод на {{ $locale }}">
+                                            @error("trans.$locale.title") <span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                @endforeach
 
                                 <!-- Base Price -->
                                 <div class="col-md-6">
@@ -95,16 +108,26 @@
                                     @enderror
                                 </div>
 
-                                <!-- Short Description (Quill) -->
-                                <div class="col-md-12" wire:ignore>
+                                {{-- fallback-язык = оригинал --}}
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="short_description">Краткое описание</label>
-                                        <div id="quill-editor-short-desc" style="height: 200px;"></div>
-                                        @error('short_description')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
+                                        <label>Краткое описание ({{ strtoupper(config('app.fallback_locale')) }})</label>
+                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.short_description" />
+
                                     </div>
+                                    @error("trans." . config('app.fallback_locale') . ".short_description")
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+
+                                {{-- остальные языки --}}
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
+                                    <div class="col-md-12">
+                                        <label>Краткое описание ({{ strtoupper($locale) }})</label>
+                                        <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
+                                    </div>
+                                @endforeach
                             </div>
 
 
@@ -297,35 +320,5 @@
 
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
 
-            const editor = new Quill('#quill-editor-short-desc', {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        [{ 'font': [] }, { 'size': [] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
-                        [{ 'header': 1 }, { 'header': 2 }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'indent': '-1' }, { 'indent': '+1' }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
-                    ]
-                }
-            });
-
-            /* ставим то, что уже есть в компоненте */
-            editor.root.innerHTML = @js($short_description);
-{{--            editor.root.innerHTML = {!! json_encode($short_description) !!};--}}
-
-            /* при любом изменении сразу летит в Livewire */
-            editor.on('text-change', () => {
-            @this.set('short_description', editor.root.innerHTML);
-            });
-        });
-    </script>
 @endpush
