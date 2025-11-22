@@ -55,24 +55,37 @@ class TourEditComponent extends Component
             'newimage'             => 'nullable|image|max:2048',
 
             'itinerary_days'              => 'nullable|array',
-            'itinerary_days.*.title'      => 'required|string|max:255',
-            'itinerary_days.*.description'=> 'nullable|string',
+            'itinerary_days.*.day_number' => 'required|integer|min:1',
 
             'inclusions'                  => 'nullable|array',
             'inclusions.*.type'           => 'required|in:included,not_included',
-            'inclusions.*.item'           => 'required|string',
 
             'accommodations'              => 'nullable|array',
-            'accommodations.*.location'   => 'required|string|max:255',
             'accommodations.*.nights_count' => 'required|integer|min:1',
-            'accommodations.*.standard_options' => 'nullable|string',
-            'accommodations.*.comfort_options'  => 'nullable|string',
         ];
 
-        /* переводы */
+        /* переводы для основного тура */
         foreach (config('app.available_locales') as $l) {
             $rules["trans.$l.title"]       = 'nullable|string|max:255';
             $rules["trans.$l.short_description"] = 'nullable|string';
+        }
+
+        /* переводы для дней итинерария */
+        foreach (config('app.available_locales') as $l) {
+            $rules["itinerary_days.*.trans.$l.title"] = 'required|string|max:255';
+            $rules["itinerary_days.*.trans.$l.description"] = 'nullable|string';
+        }
+
+        /* переводы для включений */
+        foreach (config('app.available_locales') as $l) {
+            $rules["inclusions.*.trans.$l.item"] = 'required|string';
+        }
+
+        /* переводы для размещения */
+        foreach (config('app.available_locales') as $l) {
+            $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255';
+            $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
+            $rules["accommodations.*.trans.$l.comfort_options"] = 'nullable|string';
         }
 
         return $rules;
@@ -100,9 +113,53 @@ class TourEditComponent extends Component
         $this->category_id = $tour->categories->pluck('id')->toArray();
         $this->image = $tour->media ? asset('uploads/'.$tour->media->file_path) : null;
 
-        $this->itinerary_days = $tour->itineraryDays->map(fn($item) => $item->toArray())->all();
-        $this->inclusions = $tour->inclusions->map(fn($item) => $item->toArray())->all();
-        $this->accommodations = $tour->accommodations->map(fn($item) => $item->toArray())->all();
+        // Загружаем дни итинерария с переводами
+        $this->itinerary_days = $tour->itineraryDays->map(function($item) {
+            $trans = [];
+            foreach (config('app.available_locales') as $locale) {
+                $trans[$locale] = [
+                    'title' => $item->tr('title', $locale),
+                    'description' => $item->tr('description', $locale),
+                ];
+            }
+            return [
+                'id' => $item->id,
+                'day_number' => $item->day_number,
+                'trans' => $trans
+            ];
+        })->all();
+
+        // Загружаем включения с переводами
+        $this->inclusions = $tour->inclusions->map(function($item) {
+            $trans = [];
+            foreach (config('app.available_locales') as $locale) {
+                $trans[$locale] = [
+                    'item' => $item->tr('item', $locale),
+                ];
+            }
+            return [
+                'id' => $item->id,
+                'type' => $item->type,
+                'trans' => $trans
+            ];
+        })->all();
+
+        // Загружаем размещение с переводами
+        $this->accommodations = $tour->accommodations->map(function($item) {
+            $trans = [];
+            foreach (config('app.available_locales') as $locale) {
+                $trans[$locale] = [
+                    'location' => $item->tr('location', $locale),
+                    'standard_options' => $item->tr('standard_options', $locale),
+                    'comfort_options' => $item->tr('comfort_options', $locale),
+                ];
+            }
+            return [
+                'id' => $item->id,
+                'nights_count' => $item->nights_count,
+                'trans' => $trans
+            ];
+        })->all();
 
         foreach (config('app.available_locales') as $locale) {
             $this->trans[$locale]['title']       = $this->tour->tr('title', $locale);
@@ -118,10 +175,17 @@ class TourEditComponent extends Component
     // === Методы для Itinerary Days ===
     public function addItineraryDay()
     {
+        $trans = [];
+        foreach (config('app.available_locales') as $locale) {
+            $trans[$locale] = [
+                'title' => '',
+                'description' => ''
+            ];
+        }
+        
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
-            'title' => '',
-            'description' => ''
+            'trans' => $trans
         ];
     }
 
@@ -134,9 +198,16 @@ class TourEditComponent extends Component
     // === Методы для Inclusions ===
     public function addInclusion()
     {
+        $trans = [];
+        foreach (config('app.available_locales') as $locale) {
+            $trans[$locale] = [
+                'item' => ''
+            ];
+        }
+        
         $this->inclusions[] = [
             'type' => 'included',
-            'item' => ''
+            'trans' => $trans
         ];
     }
 
@@ -149,11 +220,18 @@ class TourEditComponent extends Component
     // === Методы для Accommodations ===
     public function addAccommodation()
     {
+        $trans = [];
+        foreach (config('app.available_locales') as $locale) {
+            $trans[$locale] = [
+                'location' => '',
+                'standard_options' => '',
+                'comfort_options' => ''
+            ];
+        }
+        
         $this->accommodations[] = [
-            'location' => '',
             'nights_count' => 1,
-            'standard_options' => '',
-            'comfort_options' => ''
+            'trans' => $trans
         ];
     }
 
@@ -193,14 +271,23 @@ class TourEditComponent extends Component
         // Itinerary
         $keepDays = [];
         foreach ($this->itinerary_days as $dayData) {
+            $fallbackLocale = config('app.fallback_locale');
             $day = TourItineraryDay::updateOrCreate(
                 ['id' => $dayData['id'] ?? null, 'tour_id' => $this->tour->id],
                 [
                     'day_number' => $dayData['day_number'],
-                    'title' => $dayData['title'],
-                    'description' => $dayData['description'],
+                    'title' => $dayData['trans'][$fallbackLocale]['title'] ?? '',
+                    'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
                 ]
             );
+            
+            // Сохраняем переводы
+            foreach ($dayData['trans'] as $locale => $fields) {
+                foreach ($fields as $field => $value) {
+                    $day->setTr($field, $locale, $value);
+                }
+            }
+            
             $keepDays[] = $day->id;
         }
         TourItineraryDay::where('tour_id', $this->tour->id)
@@ -209,13 +296,22 @@ class TourEditComponent extends Component
         // Inclusions
         $keepInc = [];
         foreach ($this->inclusions as $incData) {
+            $fallbackLocale = config('app.fallback_locale');
             $inc = TourInclusion::updateOrCreate(
                 ['id' => $incData['id'] ?? null, 'tour_id' => $this->tour->id],
                 [
                     'type' => $incData['type'],
-                    'item' => $incData['item'],
+                    'item' => $incData['trans'][$fallbackLocale]['item'] ?? '',
                 ]
             );
+            
+            // Сохраняем переводы
+            foreach ($incData['trans'] as $locale => $fields) {
+                foreach ($fields as $field => $value) {
+                    $inc->setTr($field, $locale, $value);
+                }
+            }
+            
             $keepInc[] = $inc->id;
         }
         TourInclusion::where('tour_id', $this->tour->id)
@@ -224,15 +320,24 @@ class TourEditComponent extends Component
         // Accommodations
         $keepAcc = [];
         foreach ($this->accommodations as $a) {
+            $fallbackLocale = config('app.fallback_locale');
             $acc = TourAccommodation::updateOrCreate(
                 ['id' => $a['id'] ?? null, 'tour_id' => $this->tour->id],
                 [
-                    'location'         => $a['location'],
                     'nights_count'     => $a['nights_count'],
-                    'standard_options' => $a['standard_options'],
-                    'comfort_options'  => $a['comfort_options'],
+                    'location'         => $a['trans'][$fallbackLocale]['location'] ?? '',
+                    'standard_options' => $a['trans'][$fallbackLocale]['standard_options'] ?? '',
+                    'comfort_options'  => $a['trans'][$fallbackLocale]['comfort_options'] ?? '',
                 ]
             );
+            
+            // Сохраняем переводы
+            foreach ($a['trans'] as $locale => $fields) {
+                foreach ($fields as $field => $value) {
+                    $acc->setTr($field, $locale, $value);
+                }
+            }
+            
             $keepAcc[] = $acc->id;
         }
         TourAccommodation::where('tour_id', $this->tour->id)

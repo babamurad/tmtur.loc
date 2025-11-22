@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Translatable;
 
 class TourAccommodation extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
+
+    public $fields = ['location', 'standard_options', 'comfort_options'];
 
     protected $fillable = [
         'tour_id',

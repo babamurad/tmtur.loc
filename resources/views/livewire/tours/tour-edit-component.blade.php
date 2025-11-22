@@ -1,5 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -12,68 +13,141 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-8 col-xl-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Детали тура</h5>
-                        @if ($errors->any())
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li class="text-danger">{{ $error }}</li>
+        <form wire:submit.prevent="saveAndClose">
+            <div class="row">
+                {{-- Main Content Column --}}
+                <div class="col-lg-8">
+                    {{-- Multilingual Content Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                Основная информация
+                            </h5>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            {{-- Language Tabs --}}
+                            <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#lang-{{ config('app.fallback_locale') }}" role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                        <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                    </a>
+                                </li>
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                            <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
-                        @endif
-                        <form wire:submit.prevent="saveAndClose">
-                            <div class="row">
-                                <div class="col-md-12">
+
+                            {{-- Tab Content --}}
+                            <div class="tab-content">
+                                {{-- Default Language Tab --}}
+                                <div class="tab-pane active" id="lang-{{ config('app.fallback_locale') }}" role="tabpanel">
                                     <div class="form-group">
-                                        <label>Название <span class="text-danger">*</span></label>
-                                        <span>Оригинал на русском языке</span>
-                                        <input type="text" wire:model.debounce.300ms="title"
-{{--                                               wire:input="generateSlug"--}}
-                                               class="form-control @error('title') is-invalid @enderror">
-                                        @error('title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <label for="title">Название <span class="text-danger">*</span></label>
+                                        <input type="text"
+                                            id="title"
+                                            wire:model.debounce.300ms="title"
+                                            class="form-control @error('title') is-invalid @enderror"
+                                            placeholder="Введите название тура">
+                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                        <small class="form-text text-muted">Slug: {{ $slug }}</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Краткое описание</label>
+                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.short_description" />
+                                        @error("trans." . config('app.fallback_locale') . ".short_description")
+                                        <span class="text-danger small">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
 
-                                {{-- ПЕРЕВОДЫ title --}}
+                                {{-- Other Language Tabs --}}
                                 @foreach(config('app.available_locales') as $locale)
                                     @continue($locale === config('app.fallback_locale'))
-                                    <div class="col-md-12">
+                                    <div class="tab-pane" id="lang-{{ $locale }}" role="tabpanel">
                                         <div class="form-group">
-                                            <label>Название ({{ strtoupper($locale) }})<span class="text-danger">*</span></label>
+                                            <label>Название <span class="text-danger">*</span></label>
                                             <input type="text"
                                                    wire:model.defer="trans.{{ $locale }}.title"
                                                    class="form-control"
-                                                   placeholder="Перевод на {{ $locale }}">
-                                            @error("trans.$locale.title") <span class="text-danger">{{ $message }}</span> @enderror
+                                                   placeholder="Название на {{ strtoupper($locale) }}">
+                                            @error("trans.$locale.title") <span class="text-danger small">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Краткое описание</label>
+                                            <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
+                                            @error("trans.$locale.short_description")
+                                            <span class="text-danger small">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 @endforeach
+                            </div>
+                        </div>
+                    </div>
 
-                                <div class="col-md-12">
+                    {{-- Tour Details Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-info-circle font-size-18 align-middle mr-1 text-primary"></i>
+                                Детали тура
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Slug (URL-адрес)</label>
-                                        <input type="text" wire:model.defer="slug"
-                                        disabled
-                                               class="form-control @error('slug') is-invalid @enderror">
-                                        @error('slug')
+                                        <label for="base_price_cents">Цена $ <span class="text-danger">*</span></label>
+                                        <input type="number"
+                                               id="base_price_cents"
+                                               wire:model.defer="base_price_cents"
+                                               class="form-control @error('base_price_cents') is-invalid @enderror"
+                                               placeholder="150">
+                                        @error('base_price_cents')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-0" wire:ignore>
-                                        <label for="category_ids_select2">Категории <span class="text-danger">*</span></label>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="duration_days">Длительность (дней) <span class="text-danger">*</span></label>
+                                        <input type="number"
+                                               id="duration_days"
+                                               wire:model.defer="duration_days"
+                                               class="form-control @error('duration_days') is-invalid @enderror"
+                                               placeholder="5">
+                                        @error('duration_days')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group" wire:ignore>
+                                        <label for="category_ids_select2">Категория <span class="text-danger">*</span></label>
                                         <select id="category_ids_select2"
                                                 class="form-control select2 @error('category_id') is-invalid @enderror"
                                                 name="category_id[]"
                                                 multiple="multiple">
                                             @foreach($categories as $category)
-                                                {{-- Проверяем, есть ли ID категории в массиве $category_id --}}
                                                 <option value="{{ $category->id }}"
                                                         @if(in_array($category->id, $category_id)) selected @endif>
                                                     {{ $category->title }}
@@ -82,207 +156,347 @@
                                         </select>
                                     </div>
                                     @error('category_id')
-                                    <div class="invalid-feedback d-block mt-0">{{ $message }}</div>
+                                    <div class="text-danger small">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Базовая цена, $ <span class="text-danger">*</span></label>
-                                        <input type="number" wire:model.defer="base_price_cents"
-                                               class="form-control @error('base_price_cents') is-invalid @enderror">
-                                        @error('base_price_cents')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Длительность, дней <span class="text-danger">*</span></label>
-                                        <input type="number" wire:model.defer="duration_days"
-                                               class="form-control @error('duration_days') is-invalid @enderror">
-                                        @error('duration_days')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                {{-- fallback-язык = оригинал --}}
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Краткое описание ({{ strtoupper(config('app.fallback_locale')) }})</label>
-                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.short_description" />
-
-                                    </div>
-                                    @error("trans." . config('app.fallback_locale') . ".short_description")
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                {{-- остальные языки --}}
-                                @foreach(config('app.available_locales') as $locale)
-                                    @continue($locale === config('app.fallback_locale'))
-                                    <div class="col-md-12">
-                                        <label>Краткое описание ({{ strtoupper($locale) }})</label>
-                                        <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
-                                    </div>
-                                @endforeach
-
-                            </div>
-
-                            <div class="mt-4">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                    <span wire:loading.remove>Сохранить и закрыть</span>
-                                    <span wire:loading>Обновление...</span>
-                                </button>
-                                <button class="btn btn-success waves-effect waves-light" wire:click.prevent="save">
-                                    <span wire:loading.remove>Сохранить изменения</span>
-                                    <span wire:loading>Обновление...</span>
-                                </button>
-                                <a href="{{ route('tours.index') }}" class="btn btn-secondary ml-2">Отмена</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Медиа и Статус</h5>
-
-                        {{-- СТАРЫЙ БЛОК БЫЛ ЗАМЕНЕН НА ЭТОТ НОВЫЙ БЛОК --}}
-                        <div class="form-group">
-                            <label for="newimage">Изображение</label>
-
-                            @if ($image && !$newimage)
-                                <div class="mb-3">
-                                    <img src="{{ $image }}" alt="Текущее изображение" class="img-fluid rounded">
-                                </div>
-                            @endif
-
-                            <div class="custom-file">
-                                <input type="file"
-                                       class="custom-file-input @error('newimage') is-invalid @enderror"
-                                       id="newimage"
-                                       wire:model="newimage" {{-- Используем wire:model без .defer для превью --}}
-                                       accept="image/*">
-
-                                <label class="custom-file-label" for="newimage">
-                                    {{-- Динамический текст: Имя нового файла, если он выбран --}}
-                                    {{ $newimage ? $newimage->getClientOriginalName() : 'Выберите файл' }}
-                                </label>
-                                @error('newimage') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-
-                            @if ($newimage)
-                                <p class="mt-2">Предпросмотр нового файла:</p>
-                                <img src="{{ $newimage->temporaryUrl() }}" class="img-fluid rounded mb-3">
-                            @endif
-                        </div>
-                        {{-- КОНЕЦ ИСПРАВЛЕННОГО БЛОКА --}}
-
-                        <div class="form-group mt-3">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="is_published"
-                                       wire:model.defer="is_published">
-                                <label class="custom-control-label" for="is_published">Опубликовано</label>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Section: Itinerary Days -->
-                        <h5 class="card-title mb-4 mt-4">Программа тура</h5>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addItineraryDay">+ Добавить день</button>
+
+                    {{-- Itinerary Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-list-ul font-size-18 align-middle mr-1 text-primary"></i>
+                                Программа тура
+                            </h5>
+                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addItineraryDay">
+                                <i class="bx bx-plus"></i> Добавить день
+                            </button>
+                            
                             @foreach($itinerary_days as $index => $day)
-                                <div class="card mb-2">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <span>День {{ $index + 1 }}</span>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">Удалить</button>
+                                <div class="card border mb-2">
+                                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                        <strong>День {{ $index + 1 }}</strong>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input type="number" wire:model.defer="itinerary_days.{{ $index }}.day_number" class="form-control" placeholder="№" min="1">
-                                                @error("itinerary_days.{$index}.day_number") <div class="text-danger">{{ $message }}</div> @enderror
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="text" wire:model.defer="itinerary_days.{{ $index }}.title" class="form-control" placeholder="Заголовок дня">
-                                                @error("itinerary_days.{$index}.title") <div class="text-danger">{{ $message }}</div> @enderror
+                                        <div class="row mb-2">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Номер дня</label>
+                                                <input type="number" 
+                                                       wire:model.defer="itinerary_days.{{ $index }}.day_number" 
+                                                       class="form-control form-control-sm" 
+                                                       placeholder="№" 
+                                                       min="1">
+                                                @error("itinerary_days.{$index}.day_number") 
+                                                <div class="text-danger small">{{ $message }}</div> 
+                                                @enderror
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-12">
-                                                <textarea wire:model.defer="itinerary_days.{{ $index }}.description" class="form-control" placeholder="Описание дня" rows="10"></textarea>
-                                                @error("itinerary_days.{$index}.description") <div class="text-danger">{{ $message }}</div> @enderror
+
+                                        {{-- Language Tabs --}}
+                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
+                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                                </a>
+                                            </li>
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ $locale }}" role="tab">
+                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        {{-- Tab Content --}}
+                                        <div class="tab-content">
+                                            {{-- Default Language Tab --}}
+                                            <div class="tab-pane active" id="edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
+                                                <div class="form-group">
+                                                    <label>Заголовок <span class="text-danger">*</span></label>
+                                                    <input type="text" 
+                                                           wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.title" 
+                                                           class="form-control form-control-sm" 
+                                                           placeholder="Заголовок дня">
+                                                    @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".title") 
+                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Описание</label>
+                                                    <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.description" 
+                                                              class="form-control form-control-sm" 
+                                                              placeholder="Описание дня" 
+                                                              rows="3"></textarea>
+                                                    @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".description") 
+                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
                                             </div>
+
+                                            {{-- Other Language Tabs --}}
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <div class="tab-pane" id="edit-day-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
+                                                    <div class="form-group">
+                                                        <label>Заголовок <span class="text-danger">*</span></label>
+                                                        <input type="text" 
+                                                               wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.title" 
+                                                               class="form-control form-control-sm" 
+                                                               placeholder="Заголовок на {{ strtoupper($locale) }}">
+                                                        @error("itinerary_days.{$index}.trans.{$locale}.title") 
+                                                        <div class="text-danger small">{{ $message }}</div> 
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Описание</label>
+                                                        <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.description" 
+                                                                  class="form-control form-control-sm" 
+                                                                  placeholder="Описание на {{ strtoupper($locale) }}" 
+                                                                  rows="3"></textarea>
+                                                        @error("itinerary_days.{$index}.trans.{$locale}.description") 
+                                                        <div class="text-danger small">{{ $message }}</div> 
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+                    </div>
 
-                        <!-- Section: Inclusions -->
-                        <h5 class="card-title mb-4 mt-4">Что включено / не включено</h5>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addInclusion">+ Добавить пункт</button>
+                    {{-- Inclusions Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-check-circle font-size-18 align-middle mr-1 text-primary"></i>
+                                Что включено / не включено
+                            </h5>
+                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addInclusion">
+                                <i class="bx bx-plus"></i> Добавить пункт
+                            </button>
+                            
                             @foreach($inclusions as $index => $inc)
-                                <div class="card mb-2">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <span>Пункт {{ $index + 1 }}</span>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeInclusion({{ $index }})">Удалить</button>
+                                <div class="card border mb-2">
+                                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                        <strong>Пункт {{ $index + 1 }}</strong>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeInclusion({{ $index }})">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <select wire:model.defer="inclusions.{{ $index }}.type" class="form-control">
+                                        <div class="row mb-2">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Тип</label>
+                                                <select wire:model.defer="inclusions.{{ $index }}.type" class="form-control form-control-sm">
                                                     <option value="included">Включено</option>
                                                     <option value="not_included">Не включено</option>
                                                 </select>
-                                                @error("inclusions.{$index}.type") <div class="text-danger">{{ $message }}</div> @enderror
+                                                @error("inclusions.{$index}.type") 
+                                                <div class="text-danger small">{{ $message }}</div> 
+                                                @enderror
                                             </div>
-                                            <div class="col-md-8">
-                                                <input type="text" wire:model.defer="inclusions.{{ $index }}.item" class="form-control" placeholder="Описание">
-                                                @error("inclusions.{$index}.item") <div class="text-danger">{{ $message }}</div> @enderror
+                                        </div>
+
+                                        {{-- Language Tabs --}}
+                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#edit-inc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
+                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                                </a>
+                                            </li>
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#edit-inc-{{ $index }}-lang-{{ $locale }}" role="tab">
+                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        {{-- Tab Content --}}
+                                        <div class="tab-content">
+                                            {{-- Default Language Tab --}}
+                                            <div class="tab-pane active" id="edit-inc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
+                                                <div class="form-group">
+                                                    <label>Описание <span class="text-danger">*</span></label>
+                                                    <input type="text" 
+                                                           wire:model.defer="inclusions.{{ $index }}.trans.{{ config('app.fallback_locale') }}.item" 
+                                                           class="form-control form-control-sm" 
+                                                           placeholder="Описание">
+                                                    @error("inclusions.{$index}.trans.".config('app.fallback_locale').".item") 
+                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
                                             </div>
+
+                                            {{-- Other Language Tabs --}}
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <div class="tab-pane" id="edit-inc-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
+                                                    <div class="form-group">
+                                                        <label>Описание <span class="text-danger">*</span></label>
+                                                        <input type="text" 
+                                                               wire:model.defer="inclusions.{{ $index }}.trans.{{ $locale }}.item" 
+                                                               class="form-control form-control-sm" 
+                                                               placeholder="Описание на {{ strtoupper($locale) }}">
+                                                        @error("inclusions.{$index}.trans.{$locale}.item") 
+                                                        <div class="text-danger small">{{ $message }}</div> 
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
+                    </div>
 
-                        <!-- Section: Accommodations -->
-                        <h5 class="card-title mb-4 mt-4">Размещение</h5>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-sm btn-outline-success mb-2" wire:click="addAccommodation">+ Добавить отель</button>
+                    {{-- Accommodations Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-hotel font-size-18 align-middle mr-1 text-primary"></i>
+                                Размещение
+                            </h5>
+                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addAccommodation">
+                                <i class="bx bx-plus"></i> Добавить отель
+                            </button>
+                            
                             @foreach($accommodations as $index => $acc)
-                                <div class="card mb-2">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <span>Отель {{ $index + 1 }}</span>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">Удалить</button>
+                                <div class="card border mb-2">
+                                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                        <strong>Отель {{ $index + 1 }}</strong>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.location" class="form-control" placeholder="Локация">
-                                                @error("accommodations.{$index}.location") <div class="text-danger">{{ $message }}</div> @enderror
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="number" wire:model.defer="accommodations.{{ $index }}.nights_count" class="form-control" placeholder="Кол-во ночей" min="1">
-                                                @error("accommodations.{$index}.nights_count") <div class="text-danger">{{ $message }}</div> @enderror
+                                        <div class="row mb-2">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Количество ночей <span class="text-danger">*</span></label>
+                                                <input type="number" 
+                                                       wire:model.defer="accommodations.{{ $index }}.nights_count" 
+                                                       class="form-control form-control-sm" 
+                                                       placeholder="Кол-во ночей" 
+                                                       min="1">
+                                                @error("accommodations.{$index}.nights_count") 
+                                                <div class="text-danger small">{{ $message }}</div> 
+                                                @enderror
                                             </div>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-md-6">
-                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.standard_options" class="form-control" placeholder="Стандарт">
-                                                @error("accommodations.{$index}.standard_options") <div class="text-danger">{{ $message }}</div> @enderror
+
+                                        {{-- Language Tabs --}}
+                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#edit-acc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
+                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                                </a>
+                                            </li>
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#edit-acc-{{ $index }}-lang-{{ $locale }}" role="tab">
+                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        {{-- Tab Content --}}
+                                        <div class="tab-content">
+                                            {{-- Default Language Tab --}}
+                                            <div class="tab-pane active" id="edit-acc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
+                                                <div class="form-group">
+                                                    <label>Локация <span class="text-danger">*</span></label>
+                                                    <input type="text" 
+                                                           wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.location" 
+                                                           class="form-control form-control-sm" 
+                                                           placeholder="Локация">
+                                                    @error("accommodations.{$index}.trans.".config('app.fallback_locale').".location") 
+                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Стандарт</label>
+                                                            <input type="text" 
+                                                                   wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.standard_options" 
+                                                                   class="form-control form-control-sm" 
+                                                                   placeholder="Стандарт">
+                                                            @error("accommodations.{$index}.trans.".config('app.fallback_locale').".standard_options") 
+                                                            <div class="text-danger small">{{ $message }}</div> 
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Комфорт</label>
+                                                            <input type="text" 
+                                                                   wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.comfort_options" 
+                                                                   class="form-control form-control-sm" 
+                                                                   placeholder="Комфорт">
+                                                            @error("accommodations.{$index}.trans.".config('app.fallback_locale').".comfort_options") 
+                                                            <div class="text-danger small">{{ $message }}</div> 
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <input type="text" wire:model.defer="accommodations.{{ $index }}.comfort_options" class="form-control" placeholder="Комфорт">
-                                                @error("accommodations.{$index}.comfort_options") <div class="text-danger">{{ $message }}</div> @enderror
-                                            </div>
+
+                                            {{-- Other Language Tabs --}}
+                                            @foreach(config('app.available_locales') as $locale)
+                                                @continue($locale === config('app.fallback_locale'))
+                                                <div class="tab-pane" id="edit-acc-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
+                                                    <div class="form-group">
+                                                        <label>Локация <span class="text-danger">*</span></label>
+                                                        <input type="text" 
+                                                               wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.location" 
+                                                               class="form-control form-control-sm" 
+                                                               placeholder="Локация на {{ strtoupper($locale) }}">
+                                                        @error("accommodations.{$index}.trans.{$locale}.location") 
+                                                        <div class="text-danger small">{{ $message }}</div> 
+                                                        @enderror
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Стандарт</label>
+                                                                <input type="text" 
+                                                                       wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.standard_options" 
+                                                                       class="form-control form-control-sm" 
+                                                                       placeholder="Стандарт на {{ strtoupper($locale) }}">
+                                                                @error("accommodations.{$index}.trans.{$locale}.standard_options") 
+                                                                <div class="text-danger small">{{ $message }}</div> 
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Комфорт</label>
+                                                                <input type="text" 
+                                                                       wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.comfort_options" 
+                                                                       class="form-control form-control-sm" 
+                                                                       placeholder="Комфорт на {{ strtoupper($locale) }}">
+                                                                @error("accommodations.{$index}.trans.{$locale}.comfort_options") 
+                                                                <div class="text-danger small">{{ $message }}</div> 
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -290,33 +504,122 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Sidebar Column --}}
+                <div class="col-lg-4">
+                    {{-- Image Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
+                                Изображение
+                            </h5>
+                            
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file"
+                                        class="custom-file-input @error('newimage') is-invalid @enderror"
+                                        id="newimage"
+                                        wire:model="newimage"
+                                        accept="image/*">
+                                    <label class="custom-file-label" for="newimage">
+                                        @if ($newimage)
+                                            {{ $newimage->getClientOriginalName() }}
+                                        @else
+                                            Выберите файл
+                                        @endif
+                                    </label>
+                                    @error('newimage')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            @if ($newimage)
+                                <div class="mt-3">
+                                    <p class="text-muted mb-2"><small>Новое изображение:</small></p>
+                                    <img src="{{ $newimage->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="Preview">
+                                </div>
+                            @elseif ($image)
+                                <div class="mt-3">
+                                    <p class="text-muted mb-2"><small>Текущее изображение:</small></p>
+                                    <img src="{{ $image }}" class="img-fluid rounded shadow-sm" alt="Current image">
+                                </div>
+                            @else
+                                <div class="mt-3 text-center p-4 bg-light rounded">
+                                    <i class="bx bx-image-add font-size-48 text-muted"></i>
+                                    <p class="text-muted mb-0 mt-2">Изображение не выбрано</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- Settings Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-cog font-size-18 align-middle mr-1 text-primary"></i>
+                                Настройки
+                            </h5>
+
+                            <div class="form-group mb-0">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox"
+                                        class="custom-control-input"
+                                        id="is_published"
+                                        wire:model.defer="is_published">
+                                    <label class="custom-control-label" for="is_published">
+                                        <strong>Опубликовано</strong>
+                                        <br>
+                                        <small class="text-muted">Показывать тур на сайте</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Action Buttons --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="submit"
+                                    class="btn btn-primary btn-block waves-effect waves-light">
+                                <i class="bx bx-save font-size-16 align-middle mr-1"></i>
+                                <span wire:loading.remove>Сохранить и закрыть</span>
+                                <span wire:loading>Обновление...</span>
+                            </button>
+                            <button type="button"
+                                    wire:click.prevent="save"
+                                    class="btn btn-success btn-block waves-effect waves-light mt-2">
+                                <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
+                                <span wire:loading.remove>Сохранить</span>
+                                <span wire:loading>Обновление...</span>
+                            </button>
+                            <a href="{{ route('tours.index') }}"
+                               class="btn btn-secondary btn-block waves-effect waves-light mt-2">
+                                <i class="bx bx-x font-size-16 align-middle mr-1"></i>
+                                Отмена
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
-{{-- Quill CSS --}}
-@push('quill-css')
-    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-@endpush
-
-{{-- Select2 CSS and JS Push --}}
 @push('select2')
-
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script>
-        // Инициализация Select2 и синхронизация с Livewire
         $(document).ready(function() {
             let select2 = $('#category_ids_select2');
             select2.select2();
 
-            // Отправляем выбранные значения в Livewire при изменении
             select2.on('change', function (e) {
                 let data = $(this).val() || [];
-            @this.set('category_id', data);
+                @this.set('category_id', data);
             });
 
-            // Обновление Select2 при изменении в Livewire
             Livewire.hook('element.updated', (el, component) => {
                 if (el.id === 'category_ids_select2') {
                     $(el).select2();
@@ -326,7 +629,10 @@
     </script>
 @endpush
 
+@push('quill-css')
+    <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
+@endpush
 
-
-{{-- Quill JS + инициализация --}}
-
+@push('quill-js')
+    <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
+@endpush

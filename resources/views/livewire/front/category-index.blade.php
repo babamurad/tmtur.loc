@@ -2,7 +2,7 @@
     <div class="row">
         {{--  LEFT: TOUR DETAILS  --}}
         <div class="col-md-8">
-            <h2 class="text-center mb-5">All Tours</h2>
+            <h2 class="text-center mb-5">{{__('messages.all_tours')}}</h2>
             <div class="row g-4">
                 @if($tours && $tours->count())
                     @foreach($tours as $tour)
@@ -26,7 +26,7 @@
                                     </p>
 
                                     <div class="d-flex justify-content-between align-items-center mt-auto">
-                                        <span class="fw-bold text-danger">{{ $tour->duration_days }} days</span>
+                                        <span class="fw-bold text-danger">{{ $tour->duration_days }} {{ __('messages.days_label') }}</span>
                                         <span class="text-warning">
                         @for($i = 0; $i < 5; $i++)
                                                 <i class="fa-solid fa-star"></i>
@@ -37,7 +37,7 @@
 
                                 <div class="card-footer">
                                     <a href="{{ route('our-tours.show', $tour->slug) }}"
-                                       class="btn btn-dark w-100">Read more</a>
+                                       class="btn btn-dark w-100">{{ __('messages.read_more') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                 @else
                     {{-- пагинация --}}
                     <div class="col-12">
-                        <p class="text-muted">В данной категории нет туров.</p>
+                        <p class="text-muted">{{ __('messages.no_tours_in_category') }}</p>
                     </div>
                 @endif
             </div>

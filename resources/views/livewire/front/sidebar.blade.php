@@ -1,7 +1,7 @@
 <div class="col-md-4">
     {{--  CATEGORIES WIDGET  --}}
     <section class="section mb-5">
-        <h4 class="fw-bold mt-2"><strong>КАТЕГОРИИ</strong></h4>
+        <h4 class="fw-bold mt-2"><strong>{{ __('messages.categories') }}</strong></h4>
         <hr class="border-danger border-2 opacity-75">
         <ul class="list-group shadow-1-strong mt-4">
             @foreach($categories as $category)
@@ -12,14 +12,14 @@
                         {{ $category->tr('title') }}
                     </a>
                     <span class="badge bg-danger rounded-pill">
-                                {{ $category->tours->count() ?? 0 }}
+                                {{ \App\Models\Tour::where('is_published', true)->where('category_id', $category->id)->count() }}
                             </span>
                 </li>
             @endforeach
             <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <a class="text-decoration-none text-dark" href="{{ route('tours.category.index') }}">All Tours</a>
+                <a class="text-decoration-none text-dark" href="{{ route('tours.category.index') }}">{{ __('messages.all_tours') }}</a>
                 <span class="badge bg-danger rounded-pill">
-                                {{ $category->tours->count() ?? 0 }}
+                                {{ \App\Models\Tour::where('is_published', true)->count() }}
                         </span>
             </li>
         </ul>
@@ -27,7 +27,7 @@
 
     {{--  POPULAR TOURS WIDGET  --}}
     <section class="section widget-content">
-        <h4 class="fw-bold pt-2"><strong>ПОПУЛЯРНЫЕ ТУРЫ</strong></h4>
+        <h4 class="fw-bold pt-2"><strong>{{ __('messages.popular_tours') }}</strong></h4>
         <hr class="border-danger border-2 opacity-75 mb-4">
 
         <div class="card card-body pb-0">
@@ -44,7 +44,7 @@
                                                 ? asset('uploads/'.$popular->media->file_path)
                                                 : asset('assets/images/tmfotos/default.jpg') }}"
                                      class="img-fluid rounded"
-                                     alt="{{ $popular->title }}">
+                                     alt="{{ $popular->tr('title') }}">
                             </a>
                         </div>
 
@@ -53,7 +53,7 @@
                             <h6 class="mt-0 mb-1">
                                 <a href="{{ route('our-tours.show', $popular->slug) }}"
                                    class="text-dark">
-                                    <strong>{{ \Illuminate\Support\Str::limit($popular->title, 50) }}</strong>
+                                    <strong>{{ \Illuminate\Support\Str::limit($popular->tr('title'), 50) }}</strong>
                                 </a>
                             </h6>
                             <small class="text-muted">

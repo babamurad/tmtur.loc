@@ -32,7 +32,7 @@
                                 <div class="h5 mb-0">
                                     {{ $tour->itineraryDays ? $tour->itineraryDays->count() : 0 }}
                                 </div>
-                                <small class="text-muted">дней</small>
+                                <small class="text-muted">{{ __('messages.days_label') }}</small>
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
                                 <div class="h5 mb-0">
                                     {{ $tour->groupsOpen ? $tour->groupsOpen->count() : 0 }}
                                 </div>
-                                <small class="text-muted">групп</small>
+                                <small class="text-muted">{{ __('messages.groups') }}</small>
                             </div>
                         </div>
 
@@ -54,7 +54,7 @@
                                 <div class="h5 mb-0">
                                     {{ $tour->accommodations ? $tour->accommodations->count() : 0 }}
                                 </div>
-                                <small class="text-muted">вариантов</small>
+                                <small class="text-muted">{{ __('messages.options') }}</small>
                             </div>
                         </div>
                     </div>
@@ -66,26 +66,26 @@
                     @if($tour->inclusions && $tour->inclusions->count())
                         <div class="row text-center mb-3">
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">Что включено</h6>
+                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}</h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         <li class="mb-2">
                                             @if($item->type === 'included')
                                                 <i class="fas fa-check-circle text-success mr-2"></i>
-                                                {{ $item->item }}
+                                                {{ $item->tr('item') }}
                                             @endif
                                         </li>
                                     @endforeach
                                 </ul>
                             </div>
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">Что не включено</h6>
+                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_not_included') }}</h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         <li class="mb-2">
                                             @if($item->type === 'not_included')
                                                 <i class="fas fa-times-circle text-danger mr-2"></i>
-                                                {{ $item->item }}
+                                                {{ $item->tr('item') }}
                                             @endif
                                         </li>
                                     @endforeach
@@ -97,7 +97,7 @@
                     {{-- Программа тура --}}
 
                     <div class="card-header my-4">
-                    <h5>Tours programm</h5>
+                    <h5>{{ __('messages.tour_program') }}</h5>
                     </div>
                     <div class="accordion" id="itineraryAccordion">
                         @foreach($tour->itineraryDays as $idx => $day)
@@ -112,8 +112,8 @@
                                                 data-target="#collapse{{ $idx }}"
                                                 aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
                                                 aria-controls="collapse{{ $idx }}">
-                                            <span class="badge badge-light">Day {{ $day->day_number }}</span>
-                                            <span class="font-weight-normal ">{{ $day->title }}</span>
+                                            <span class="badge badge-light">{{ __('messages.day') }} {{ $day->day_number }}</span>
+                                            <span class="font-weight-normal ">{{ $day->tr('title') }}</span>
                                         </button>
                                     </h2>
                                 </div>
@@ -124,7 +124,7 @@
                                      aria-labelledby="heading{{ $idx }}"
                                      data-parent="#itineraryAccordion">
                                     <div class="card-body">
-                                        {!! nl2br(e($day->description)) !!}
+                                        {!! nl2br(e($day->tr('description'))) !!}
                                     </div>
                                 </div>
                             </div>
@@ -134,14 +134,20 @@
 {{--                    accommodations--}}
 
                         <div class="card-header mt-4">
-                            <h5 class="mb-0">Accommodations</h5>
+                            <h5 class="mb-0">{{ __('messages.accommodations') }}</h5>
                         </div>
 
                     @if($tour->accommodations)
                         <ul>
                             @foreach($tour->accommodations as $accommodation)
                                 <li>
-                                    {{ $accommodation->location }} ({{ $accommodation->nights_count }} nights)
+                                    {{ $accommodation->tr('location') }} ({{ $accommodation->nights_count }} {{ __('messages.nights') }})
+                                    @if($accommodation->tr('standard_options'))
+                                        <br><small class="text-muted">{{ __('messages.standard') }}: {{ $accommodation->tr('standard_options') }}</small>
+                                    @endif
+                                    @if($accommodation->tr('comfort_options'))
+                                        <br><small class="text-muted">{{ __('messages.comfort') }}: {{ $accommodation->tr('comfort_options') }}</small>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
@@ -151,12 +157,12 @@
                 {{--  ФУТЕР  --}}
                 <div class="card-footer bg-light text-muted d-flex justify-content-between">
         <span>
-            Категория:
+            {{ __('messages.category') }}:
 {{--            {{ route('tours.category', $tour->category->slug) }}--}}
 
                 @forelse ($tour->categories as $category)
                     <span class="badge badge-pill badge-primary text-white">
-                        <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->title }}</a>
+                        <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->tr('title') }}</a>
                     </span>
                 @empty
                     N/A

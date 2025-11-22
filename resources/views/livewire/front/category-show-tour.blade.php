@@ -27,7 +27,7 @@
                                 </p>
 
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <span class="fw-bold text-danger">{{ $tour->tr('duration_days') }} days</span>
+                                    <span class="fw-bold text-danger">{{ $tour->tr('duration_days') }} {{ __('messages.days_label') }}</span>
                                     <span class="text-warning">
                         @for($i = 0; $i < 5; $i++)
                                             <i class="fa-solid fa-star"></i>
@@ -38,7 +38,7 @@
 
                             <div class="card-footer">
                                 <a href="{{ route('our-tours.show', $tour->slug) }}"
-                                   class="btn btn-dark w-100">Read more</a>
+                                   class="btn btn-dark w-100">{{ __('messages.read_more') }}</a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 @else
                     {{-- пагинация --}}
                     <div class="col-12">
-                        <p class="text-muted">В данной категории нет туров.</p>
+                        <p class="text-muted">{{ __('messages.no_tours_in_category') }}</p>
                     </div>
                 @endif
             </div>
