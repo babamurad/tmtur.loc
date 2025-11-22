@@ -108,10 +108,9 @@
 
                                 {{-- fallback-язык = оригинал --}}
                                 <div class="col-md-12">
-                                    <div class="form-group" wire:ignore>
+                                    <div class="form-group">
                                         <label>Краткое описание ({{ strtoupper(config('app.fallback_locale')) }})</label>
-
-                                        <div id="quill-editor-short-desc" style="height: 200px;"></div>
+                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.short_description" />
 
                                     </div>
                                     @error("trans." . config('app.fallback_locale') . ".short_description")
@@ -124,8 +123,7 @@
                                     @continue($locale === config('app.fallback_locale'))
                                     <div class="col-md-12">
                                         <label>Краткое описание ({{ strtoupper($locale) }})</label>
-                                        <textarea wire:model.defer="trans.{{ $locale }}.short_description"
-                                                  class="form-control" rows="4"></textarea>
+                                        <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
                                     </div>
                                 @endforeach
 
@@ -300,7 +298,6 @@
 {{-- Quill CSS --}}
 @push('quill-css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link href="{{ asset('vendor/livewire-quill/quill.snow.min.css') }}" rel="stylesheet">
 @endpush
 
 {{-- Select2 CSS and JS Push --}}
@@ -332,48 +329,4 @@
 
 
 {{-- Quill JS + инициализация --}}
-@push('quill-js')
-    <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var quillElement = document.getElementById('quill-editor-short-desc');
 
-            if (quillElement) {
-
-                const editor = new Quill('#quill-editor-short-desc', {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: [
-                            [{ 'font': [] }, { 'size': [] }],
-                            ['bold', 'italic', 'underline', 'strike'],
-                            [{ 'color': [] }, { 'background': [] }],
-                            [{ 'script': 'sub'}, { 'script': 'super' }],
-                            [{ 'header': 1 }, { 'header': 2 }],
-                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                            [{ 'indent': '-1' }, { 'indent': '+1' }],
-                            [{ 'align': [] }],
-                            ['link', 'image', 'video'],
-                            ['clean']
-                        ]
-                    }
-                });
-
-                // загружаем стартовый контент
-                editor.root.innerHTML = @js($this->trans[config('app.fallback_locale')]['short_description'] ?? '');
-
-                // отправляем Livewire данные
-                editor.on('text-change', function () {
-                    var html = editor.root.innerHTML;
-                    Livewire.dispatch('quillUpdated', {
-                        field: 'trans.{{ config('app.fallback_locale') }}.short_description',
-                        value: html
-                    });
-                });
-
-            } else {
-                console.error('Элемент #quill-editor-short-desc не найден!');
-            }
-        });
-    </script>
-
-@endpush
