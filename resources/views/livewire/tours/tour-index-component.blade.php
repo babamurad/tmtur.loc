@@ -71,6 +71,7 @@
                                 <th style="width: 60px">#</th>
                                 <th>Title</th>
                                 <th>Image</th> <!-- Заголовок оставлен для будущего использования -->
+                                <th>Publish</th>
                                 <th>Category</th>
                                 <th>Base Price</th>
                                 <th>Duration (Days)</th>
@@ -97,6 +98,13 @@
                                                  <img src="{{ asset('assets/images/media/sm-5.jpg') }}" alt="Default image" class="img-fluid">
                                             @endif
                                         </span>
+                                    </td>
+                                    <td>
+                                        @if($tour->is_published)
+                                            <span class="badge badge-soft-success">Published</span>
+                                        @else
+                                            <span class="badge badge-soft-danger">Not Published</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <span class="badge badge-soft-secondary">

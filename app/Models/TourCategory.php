@@ -13,6 +13,10 @@ class TourCategory extends Model
 
     protected $fillable = ['title', 'slug', 'content', 'image', 'is_published'];
 
+    use \App\Models\Traits\Translatable;
+
+    public $fields = ['title', 'content'];
+
     protected $casts = [
         'is_published' => 'boolean'
     ];

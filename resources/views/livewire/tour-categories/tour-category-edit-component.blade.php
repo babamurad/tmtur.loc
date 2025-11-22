@@ -21,19 +21,26 @@
                         <h5 class="card-title mb-4">Tour Category details</h5>
 
                         <form wire:submit.prevent="save">
-                            {{-- Title --}}
-                            <div class="form-group">
-                                <label for="title">Title <span class="text-danger">*</span></label>
-                                <input type="text"
-                                       id="title"
-                                       wire:model="title"
-                                       class="form-control @error('title') is-invalid @enderror"
-{{--                                       placeholder="e.g. City Tour Category"--}}
-                                       wire:keyup="generateSlug">
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            {{-- Title Fields --}}
+                            @foreach(config('app.available_locales') as $locale)
+                                <div class="form-group">
+                                    <label for="title_{{ $locale }}">Title ({{ strtoupper($locale) }})
+                                        @if($locale === config('app.fallback_locale')) <span class="text-danger">*</span> @endif
+                                    </label>
+                                    <input type="text"
+                                           id="title_{{ $locale }}"
+                                           @if($locale === config('app.fallback_locale'))
+                                               wire:model="trans.{{ $locale }}.title"
+                                               wire:keyup="generateSlug"
+                                           @else
+                                               wire:model.defer="trans.{{ $locale }}.title"
+                                           @endif
+                                           class="form-control @error("trans.$locale.title") is-invalid @enderror">
+                                    @error("trans.$locale.title")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             {{-- Slug --}}
                             <div class="form-group">
@@ -49,17 +56,16 @@
                                 @enderror
                             </div>
 
-                            {{-- Content --}}
-                            <div class="form-group">
-                                <label for="content">Content</label>
-                                <textarea id="content"
-                                          wire:model="content"
-                                          class="form-control @error('content') is-invalid @enderror"
-                                          placeholder="e.g. Description of the tour category"></textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            {{-- Content Fields --}}
+                            @foreach(config('app.available_locales') as $locale)
+                                <div class="form-group">
+                                    <label>Content ({{ strtoupper($locale) }})</label>
+                                    <x-quill wire:model.defer="trans.{{ $locale }}.content" />
+                                    @error("trans.$locale.content")
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             {{-- Image --}}
                             <div class="form-group">

@@ -2,7 +2,8 @@
     <div class="row">
         {{--  LEFT: TOUR DETAILS  --}}
         <div class="col-md-8">
-            <h2 class="text-center mb-5">{{ $category->title }}</h2>
+            <h2 class="text-center mb-5">{{ $category->tr('title') }}</h2>
+            <div class="text-center mb-1">{!! $category->tr('content') !!}</div>
             <div class="row g-4">
                 @if($tours && $tours->count())
                 @foreach($tours as $tour)
