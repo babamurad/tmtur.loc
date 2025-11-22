@@ -2,19 +2,30 @@ html {
     scroll-behavior: smooth;
 }
 
-.navbar.mb-3, .navbar.mb-4 { margin-bottom: 0 !important; }
+.navbar.mb-3,
+.navbar.mb-4 {
+    margin-bottom: 0 !important;
+}
 
 .navbar {
-  margin-bottom: 0 !important; /* убираем нижний отступ Bootstrap */
+    margin-bottom: 0 !important;
+    /* убираем нижний отступ Bootstrap */
 }
 
 /* следующий элемент после navbar = карусель, поднимаем её вверх */
-.navbar + section {             /* если у вас <section id="home" …> идёт сразу после nav */
-  margin-top: -1px;             /* «прилипание» к навбару (1 px надёжнее 0) */
+.navbar+section {
+    /* если у вас <section id="home" …> идёт сразу после nav */
+    margin-top: -1px;
+    /* «прилипание» к навбару (1 px надёжнее 0) */
 }
 
 /* --------- Full-screen carousel --------- */
-html, body { height: 100%; }                /* чтобы 100vh работала на iOS */
+html,
+body {
+    height: 100%;
+}
+
+/* чтобы 100vh работала на iOS */
 
 #home-carousel .carousel,
 #home-carousel .carousel-inner,
@@ -23,43 +34,51 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 }
 
 .carousel-item:not(.active) {
-  display: none !important;   /* Bootstrap сам переключает */
+    display: none !important;
+    /* Bootstrap сам переключает */
 }
 
 .carousel-item {
-  display: flex !important;
-  flex-direction: column;
-  background-size: cover;
-  background-position: center;
+    display: flex !important;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
 }
 
 /* 3. Расположение внутри слайда */
 .carousel-caption {
-  margin: auto 0;                           /* центр по вертикали */
-  padding: 2vh 3vw;
-  background: rgba(0,0,0,.55);
-  border-radius: .5rem;
-  max-height: 70vh;
-  overflow-y: auto;
+    margin: auto 0;
+    /* центр по вертикали */
+    padding: 2vh 3vw;
+    background: rgba(0, 0, 0, .55);
+    border-radius: .5rem;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .carousel-indicators {
-  margin: auto 0 2vh 0;                     /* прижать к низу слайда */
- /*  position: relative;                       убираем absolute, чтобы не вылезать */
-  z-index: 3;
+    margin: auto 0 2vh 0;
+    /* прижать к низу слайда */
+    /*  position: relative;                       убираем absolute, чтобы не вылезать */
+    z-index: 3;
 }
 
 /* стрелки чуть крупнее (по желанию) */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 3rem;
-  height: 3rem;
+    width: 3rem;
+    height: 3rem;
 }
 
 /* 4. Мелкий экран: уменьшаем текст */
 @media (max-height: 600px) {
-  .carousel-caption h1 { font-size: 6vh; }
-  .carousel-caption .lead { font-size: 2.5vh; }
+    .carousel-caption h1 {
+        font-size: 6vh;
+    }
+
+    .carousel-caption .lead {
+        font-size: 2.5vh;
+    }
 }
 
 .guide-img {
@@ -100,160 +119,240 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 }
 
 /* ====== FAQ с иконками ====== */
-.section-title{ font-weight:600; letter-spacing:.5px; }
-
-.accordion-btn{
-    width:100%;
-    padding:1.1rem 1.25rem;
-    font-size:1.05rem;
-    font-weight:500;
-    color:#212529;
-    text-decoration:none;
-    border-radius:.45rem;
-    display:flex;
-    align-items:center;
-    gap:.75rem;                      /* расстояние иконка→текст */
-    transition:background .25s;
+.section-title {
+    font-weight: 600;
+    letter-spacing: .5px;
 }
-.accordion-btn:hover,
-.accordion-btn:focus{ text-decoration:none; background:#f8f9fa; }
 
-.accordion-btn:not(.collapsed){
-    background:#fff;
-    box-shadow:0 .125rem .25rem rgba(0,0,0,.05);
+.accordion-btn {
+    width: 100%;
+    padding: 1.1rem 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #212529;
+    text-decoration: none;
+    border-radius: .45rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    /* расстояние иконка→текст */
+    transition: background .25s;
+}
+
+.accordion-btn:hover,
+.accordion-btn:focus {
+    text-decoration: none;
+    background: #f8f9fa;
+}
+
+.accordion-btn:not(.collapsed) {
+    background: #fff;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .05);
 }
 
 /* иконка справа «плюс/минус» */
-.accordion-btn .toggle-icon{
-    margin-left:auto;               /* прижать вправо */
-    font-size:1.25rem;
-    color:#0d6efd;
-    transition:transform .3s;
+.accordion-btn .toggle-icon {
+    margin-left: auto;
+    /* прижать вправо */
+    font-size: 1.25rem;
+    color: #0d6efd;
+    transition: transform .3s;
 }
-.accordion-btn:not(.collapsed) .toggle-icon{ transform:rotate(45deg); }
+
+.accordion-btn:not(.collapsed) .toggle-icon {
+    transform: rotate(45deg);
+}
 
 /* иконки вопроса и ответа */
-.q-icon{ color:#0d6efd; font-size:1.3rem; }
-.a-icon{ color:#28a745; font-size:1.2rem; }
+.q-icon {
+    color: #0d6efd;
+    font-size: 1.3rem;
+}
+
+.a-icon {
+    color: #28a745;
+    font-size: 1.2rem;
+}
 
 /* оформление раскрытого блока */
-.answer-wrap{
-    display:flex;
-    gap:.75rem;
-    padding:1.25rem 1.5rem;
-    background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius:0 0 .45rem .45rem;
+.answer-wrap {
+    display: flex;
+    gap: .75rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 0 0 .45rem .45rem;
 }
 
 /* ---------- Contacts «mdb-style» ---------- */
 .contact-card,
-.form-card{
-    border:none;
-    border-radius:.75rem;
-    box-shadow:0 .125rem .5rem rgba(0,0,0,.08);
-    transition:box-shadow .25s, transform .25s;
+.form-card {
+    border: none;
+    border-radius: .75rem;
+    box-shadow: 0 .125rem .5rem rgba(0, 0, 0, .08);
+    transition: box-shadow .25s, transform .25s;
 }
+
 .contact-card:hover,
-.form-card:hover{
-    box-shadow:0 .5rem 1.5rem rgba(0,0,0,.12);
-    transform:translateY(-2px);
+.form-card:hover {
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
 }
 
 /* кружочки-иконки */
-.contact-icon{
-    width:44px;
-    height:44px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    background:linear-gradient(135deg, #ff416c, #ff4b2b);
-    color:#fff;
-    font-size:1.1rem;
-    flex-shrink:0;
+.contact-icon {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
 /* кнопка «Send message» */
-.btn-send{
-    border:none;
-    border-radius:.5rem;
-    padding:.65rem;
-    font-weight:500;
-    color:#fff;
-    background:linear-gradient(135deg, #232526, #414345);
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
-    transition:box-shadow .25s;
+.btn-send {
+    border: none;
+    border-radius: .5rem;
+    padding: .65rem;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(135deg, #232526, #414345);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    transition: box-shadow .25s;
 }
-.btn-send:hover{
-    box-shadow:0 6px 20px rgba(0,0,0,.25);
-    color:#fff;
+
+.btn-send:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
+    color: #fff;
 }
 
 /* круглые цветные соц-кнопки */
-.soc-btn{
-    width:44px;
-    height:44px;
-    padding:0;
-    border-radius:50%;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff !important;
-    transition:box-shadow .25s;
+.soc-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff !important;
+    transition: box-shadow .25s;
 }
-.soc-btn:hover{ box-shadow:0 4px 12px rgba(0,0,0,.25); }
 
-.btn-fb{ background:#3b5998; }
-.btn-tw{ background:#1da1f2; }
-.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-.btn-yt{ background:#ff0000; }
-.btn-ws{ background: #29A71A;}
+.soc-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+
+.btn-fb {
+    background: #3b5998;
+}
+
+.btn-tw {
+    background: #1da1f2;
+}
+
+.btn-ig {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.btn-yt {
+    background: #ff0000;
+}
+
+.btn-ws {
+    background: #29A71A;
+}
 
 /* ------ соц-кнопки: никакого светлого ховера BS5 ------ */
-.soc-btn{
-    width:44px;
-    height:44px;
-    padding:0;
-    border-radius:50%;
-    color:#fff !important;
-    border:none !important;
-    outline:none !important;               /* убираем рамку фокуса BS5 */
-    transition:transform .25s, box-shadow .25s;
-    -webkit-tap-highlight-color: transparent; /* убираем подсветку на мобильных */
+.soc-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    color: #fff !important;
+    border: none !important;
+    outline: none !important;
+    /* убираем рамку фокуса BS5 */
+    transition: transform .25s, box-shadow .25s;
+    -webkit-tap-highlight-color: transparent;
+    /* убираем подсветку на мобильных */
 }
+
 .soc-btn:hover,
 .soc-btn:focus,
-.soc-btn:active{
-    transform:translateY(-3px) scale(1.08); /* поднять + увеличить */
-    box-shadow:0 8px 24px rgba(0,0,0,.5) !important;
-    color:#fff !important;
+.soc-btn:active {
+    transform: translateY(-3px) scale(1.08);
+    /* поднять + увеличить */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .5) !important;
+    color: #fff !important;
     /*background-color: inherit !important;*/
 }
 
 /* цвета кнопок (остаются) */
-.btn-fb{ background:#3b5998 !important; }
-.btn-tw{ background:#1da1f2 !important; }
-.btn-ig{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
-.btn-yt{ background:#ff0000 !important; }
-.btn-ws{ background:#29A71A !important; }
+.btn-fb {
+    background: #3b5998 !important;
+}
 
-.btn-fb { background-color: #1877f2; color: white; }
-.btn-ig { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); color: white; }
-.btn-yt { background-color: #ff0000; color: white; }
-.btn-ws { background-color: #25D366; color: white; }
-.btn-tw { background-color: #000000; color: white; } /* для X */
+.btn-tw {
+    background: #1da1f2 !important;
+}
+
+.btn-ig {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important;
+}
+
+.btn-yt {
+    background: #ff0000 !important;
+}
+
+.btn-ws {
+    background: #29A71A !important;
+}
+
+.btn-fb {
+    background-color: #1877f2;
+    color: white;
+}
+
+.btn-ig {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    color: white;
+}
+
+.btn-yt {
+    background-color: #ff0000;
+    color: white;
+}
+
+.btn-ws {
+    background-color: #25D366;
+    color: white;
+}
+
+.btn-tw {
+    background-color: #000000;
+    color: white;
+}
+
+/* для X */
 
 /* Стрелка вниз (закрыт) → поворачивается вверх при открытии */
 /* FAQ Accordion Arrow — Font Awesome */
 .card-header .btn-link {
     position: relative;
-    display: block; /* или оставьте как есть, если используете d-flex */
+    display: block;
+    /* или оставьте как есть, если используете d-flex */
 }
 
 .card-header .btn-link::after {
-    font-family: "Font Awesome 6 Free"; /* или "Font Awesome 5 Free" */
+    font-family: "Font Awesome 6 Free";
+    /* или "Font Awesome 5 Free" */
     font-weight: 900;
-    content: "\f107"; /* fa-angle-down */
+    content: "\f107";
+    /* fa-angle-down */
     transition: transform 0.35s ease;
     margin-left: 8px;
 }
@@ -275,17 +374,53 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     justify-content: center;
     border-radius: 50%;
 }
+
 .soc-btn i {
-    line-height: 1;      /* убираем лишний межстрочный интервал */
+    line-height: 1;
+    /* убираем лишний межстрочный интервал */
 }
 
-.thumb-slider{position:relative;overflow:hidden}
-.thumb-slider .thumb-wrapper{display:flex;transition:transform .3s ease}
-.thumb-slider .thumb-item{flex:0 0 16.66667%;max-width:16.66667%;padding:0 2px}
-@media (max-width:768px){.thumb-slider .thumb-item{flex:0 0 25%;max-width:25%}}
-.thumb-slider .btn-nav{position:absolute;top:0;bottom:0;width:30px;background:rgba(0,0,0,.4);color:#fff;border:none;z-index:2}
-.thumb-slider .btn-nav.prev{left:0}
-.thumb-slider .btn-nav.next{right:0}
+.thumb-slider {
+    position: relative;
+    overflow: hidden
+}
+
+.thumb-slider .thumb-wrapper {
+    display: flex;
+    transition: transform .3s ease
+}
+
+.thumb-slider .thumb-item {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+    padding: 0 2px
+}
+
+@media (max-width:768px) {
+    .thumb-slider .thumb-item {
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+}
+
+.thumb-slider .btn-nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: rgba(0, 0, 0, .4);
+    color: #fff;
+    border: none;
+    z-index: 2
+}
+
+.thumb-slider .btn-nav.prev {
+    left: 0
+}
+
+.thumb-slider .btn-nav.next {
+    right: 0
+}
 
 /*.thumb-nav-btn{*/
 /*    border: 0;*/
@@ -302,7 +437,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 0 8px rgba(0,0,0,0.25);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
     transition: 0.2s;
 }
 
@@ -319,6 +454,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 #room-carousel .carousel-item {
     transition: transform .6s ease;
 }
+
 #room-carousel .carousel-item .row {
     margin: 0;
 }
@@ -340,7 +476,7 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 #guides-carousel .guide-card {
     background: #fff;
     border-radius: .75rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
     padding: 1.5rem 1rem;
     height: 100%;
 }
@@ -373,14 +509,16 @@ html, body { height: 100%; }                /* чтобы 100vh работала
 /* внутренняя обёртка = высота текущего активного слайда */
 #guides-carousel .carousel-inner {
     display: flex;
-    align-items: flex-start;   /* сверху */
+    align-items: flex-start;
+    /* сверху */
 }
 
 /* слайды переключаются transform-ом, а не opacity */
 #guides-carousel .carousel-item {
     transition: transform .6s ease-in-out;
     backface-visibility: hidden;
-    opacity: 1 !important;     /* гасим встроенный fade */
+    opacity: 1 !important;
+    /* гасим встроенный fade */
 }
 
 #guides-carousel .carousel-item:not(.active) {
@@ -390,9 +528,11 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     width: 100%;
     transform: translateX(100%);
 }
+
 #guides-carousel .carousel-item.prev {
     transform: translateX(-100%);
 }
+
 #guides-carousel .carousel-item.next {
     transform: translateX(100%);
 }
@@ -403,22 +543,58 @@ html, body { height: 100%; }                /* чтобы 100vh работала
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    bottom: auto;          /* сброс дефолта */
+    bottom: auto;
+    /* сброс дефолта */
     width: 44px;
     height: 44px;
-    background: rgba(0,0,0,.5);
+    background: rgba(0, 0, 0, .5);
     border-radius: 50%;
     opacity: .9;
 }
-#guides-carousel .carousel-control-prev { left: -55px; }
-#guides-carousel .carousel-control-next { right: -55px; }
+
+#guides-carousel .carousel-control-prev {
+    left: -55px;
+}
+
+#guides-carousel .carousel-control-next {
+    right: -55px;
+}
 
 @media (max-width: 767px) {
-    #guides-carousel .carousel-control-prev { left: 5px; }
-    #guides-carousel .carousel-control-next { right: 5px; }
+    #guides-carousel .carousel-control-prev {
+        left: 5px;
+    }
+
+    #guides-carousel .carousel-control-next {
+        right: 5px;
+    }
 }
 
 .badge-primary a {
     color: #fff !important;
     text-decoration: none;
+}
+
+.btn.btn-sm {
+    padding: .4rem .6rem;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #a6c !important;
+}
+
+.dropdown-menu {
+    /* color: #212529; */
+    min-width: 5rem;
+}
+
+
+.dropdown .dropdown-menu .dropdown-item:hover,
+.dropleft .dropdown-menu .dropdown-item:hover,
+.dropright .dropdown-menu .dropdown-item:hover,
+.dropup .dropdown-menu .dropdown-item:hover {
+    background-color: #a6c !important;
 }
