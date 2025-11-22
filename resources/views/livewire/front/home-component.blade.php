@@ -1,37 +1,40 @@
 <div>
     <!-- ========== ABOUT TURKMENISTAN ========== -->
-    <section id="about" class="py-5 bg-white">
-        <div class="container px-4">
-            <h2 class="text-center mb-5 fs-2 fw-bold text-dark">Turkmenistan is a land of contrasts.</h2>
-            <div class="row align-items-center g-5">
-                <!-- Текстовая часть -->
-                <div class="col-md-6">
-                    <p class="mb-4">Turkmenistan is a unique country where ancient traditions meet modernity, and endless deserts neighbor luxurious marble cities.</p>
-                    <p class="mb-4">The country boasts a rich cultural heritage rooted in centuries, when the Great Silk Road passed through these lands.</p>
-                    <ul class="list-unstyled mb-4">
-                        <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                            <span>Over 300 sunny days a year</span>
-                        </li>
-                        <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                            <span>Unique natural attractions</span>
-                        </li>
-                        <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                            <span>Hospitable local people</span>
-                        </li>
-                        <li class="d-flex align-items-start mb-2">
-                            <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                            <span>Rich history and culture</span>
-                        </li>
-                    </ul>
-                    <a href="#contact" class="btn btn-dark px-4 py-2 rounded-pill">Contact us</a>
-                </div>
+<section id="about" class="py-5 bg-white">
+    <div class="container px-4">
+        <h2 class="text-center mb-5 fs-2 fw-bold text-dark">{{ __('about.title') }}</h2>
 
-                <!-- Изображения -->
-                <div class="col-md-6">
-                    <div class="row g-3">
+        <div class="row align-items-center g-5">
+            {{-- Текстовая часть --}}
+            <div class="col-md-6">
+                <p class="mb-4">{{ __('about.lead1') }}</p>
+                <p class="mb-4">{{ __('about.lead2') }}</p>
+
+                <ul class="list-unstyled mb-4">
+                    <li class="d-flex align-items-start mb-2">
+                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                        <span>{{ __('about.sunny') }}</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-2">
+                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                        <span>{{ __('about.nature') }}</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-2">
+                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                        <span>{{ __('about.hospitable') }}</span>
+                    </li>
+                    <li class="d-flex align-items-start mb-2">
+                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
+                        <span>{{ __('about.history') }}</span>
+                    </li>
+                </ul>
+
+                <a href="#contact" class="btn btn-dark px-4 py-2 rounded-pill">{{ __('about.btn') }}</a>
+            </div>
+
+            {{-- Изображения --}}
+            <div class="col-md-6">
+                <div class="row g-3">
                         <div class="col-6">
                             <div class="overflow-hidden rounded shadow-sm">
                                 <img src="{{ asset('assets/images/tmfotos/i (4).webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
@@ -52,16 +55,16 @@
                                 <img src="{{ asset('assets/images/tmfotos/i (1).webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- ========== TOURS ========== -->
     <section id="tours" class="py-5 bg-light">
         <div class="container py-5">
-            <h2 class="text-center mb-5">Our popular tours</h2>
+            <h2 class="text-center mb-5">{{ __('about.popular_tours') }}</h2>
             <div class="row g-4">
                 <!-- Card 1 -->
                 @foreach($tours as $tour)
@@ -104,7 +107,7 @@
     <!-- ========== GALLERY ========== -->
     <section class="bg-light">
         <div class="container pt-4">
-            <h2 class="text-center mb-5">Turkmenistan in photos</h2>
+            <h2 class="text-center mb-5">{{ __('about.photos_title') }}</h2>
 
             <div class="row g-3 gallery-item align-items-stretch justify-content-center">
                 @foreach($fotos as $foto)
@@ -122,7 +125,7 @@
             </div>
 
             <div class="text-center mt-3">
-                <a href="{{ route('galley') }}" class="btn btn-success">See all photos</a>
+                <a href="{{ route('galley') }}" class="btn btn-success">{{ __('about.see_all_photos') }}</a>
             </div>
         </div>
 
@@ -173,7 +176,7 @@
     <!-- ========== FAQ (Bootstrap 4) ========== -->
     <section class="py-3 bg-light">
         <div class="container py-5">
-            <h2 class="text-center mb-5">Frequently asked questions</h2>
+            <h2 class="text-center mb-5">{{ __('faq.faq_title') }}</h2>
 
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -186,14 +189,14 @@
                                     <a class="btn btn-link text-dark text-decoration-none d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq1" aria-expanded="true" aria-controls="faq1">
                                         <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                        <span>Do I need a visa to visit Turkmenistan?</span>
+                                        <span>{{ __('faq.visa_question') }}</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq1" class="collapse show" role="tabpanel" aria-labelledby="faq1Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
                                     <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                    <div>Most foreigners require a visa. We will help with invitation and processing.</div>
+                                    <div>{{ __('faq.visa_answer') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -205,14 +208,14 @@
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq2" aria-expanded="false" aria-controls="faq2">
                                         <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                        <span>When is the best time to visit Darvaza?</span>
+                                        <span>{{__('faq.darvaza_time')}}</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq2" class="collapse" role="tabpanel" aria-labelledby="faq2Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
                                     <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                    <div>March–May and September–November offer comfortable temperatures. Summer reaches +50°C, winter nights are cold.</div>
+                                    <div>{{__('faq.darvaza_answer')}}</div>
                                 </div>
                             </div>
                         </div>
@@ -224,14 +227,14 @@
                                     <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
                                        data-toggle="collapse" href="#faq3" aria-expanded="false" aria-controls="faq3">
                                         <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                        <span>Is it safe to visit the Gates of Hell?</span>
+                                        <span>{{__('faq.hell_safe_q')}}</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq3" class="collapse" role="tabpanel" aria-labelledby="faq3Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
                                     <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                    <div>Yes, if you follow the rules explained by your guide. Visitors do not approach the crater closely.</div>
+                                    <div>{{__('faq.hell_safe_a')}}</div>
                                 </div>
                             </div>
                         </div>
@@ -240,17 +243,18 @@
                         <div class="card mb-2 border-0 shadow-sm">
                             <div class="card-header bg-white" role="tab" id="faq4Head">
                                 <h5 class="mb-0">
-                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
-                                       data-toggle="collapse" href="#faq4" aria-expanded="false" aria-controls="faq4">
-                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                        <span>What should I bring on a tour to the Gates of Hell?</span>
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100"
+                                    data-toggle="collapse" href="#faq4" aria-expanded="false" aria-controls="faq4">
+                                        <i class="fas fa-question-circle text-primary me-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>{{ __('faq.hell_what_bring_q') }}</span>
                                     </a>
                                 </h5>
                             </div>
+
                             <div id="faq4" class="collapse" role="tabpanel" aria-labelledby="faq4Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                    <div>Comfortable shoes, warm clothes (nights are cold), hat, SPF cream, camera, water. Tents and food are provided.</div>
+                                    <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <div>{{ __('faq.hell_what_bring_a') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -259,17 +263,17 @@
                         <div class="card mb-2 border-0 shadow-sm">
                             <div class="card-header bg-white" role="tab" id="faq5Head">
                                 <h5 class="mb-0">
-                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100 collapsed"
-                                       data-toggle="collapse" href="#faq5" aria-expanded="false" aria-controls="faq5">
-                                        <i class="fas fa-question-circle text-primary mr-3" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                        <span>Are there age restrictions?</span>
+                                    <a class="btn btn-link text-dark text-decoration-none collapsed d-flex align-items-center justify-content-between w-100"
+                                    data-toggle="collapse" href="#faq5" aria-expanded="false" aria-controls="faq5">
+                                        <i class="fas fa-question-circle text-primary me-3" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                        <span>{{ __('faq.age_q') }}</span>
                                     </a>
                                 </h5>
                             </div>
                             <div id="faq5" class="collapse" role="tabpanel" aria-labelledby="faq5Head" data-parent="#faqAccordion">
                                 <div class="card-body d-flex">
-                                    <i class="fas fa-check-circle text-success mr-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
-                                    <div>We do not recommend Darvaza for children under 10. Seniors should assess their physical ability.</div>
+                                    <i class="fas fa-check-circle text-success me-3 mt-1" style="font-size: 1.25rem; min-width: 24px;"></i>
+                                    <div>{{ __('faq.age_a') }}</div>
                                 </div>
                             </div>
                         </div>

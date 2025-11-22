@@ -16,31 +16,8 @@
         <div class="row">
 
             <div class="col-lg-8 col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Tour Category details</h5>
-
-                        <form wire:submit.prevent="save">
-                            {{-- Title --}}
-                            <div class="form-group">
-                                <label for="title">Title <span class="text-danger">*</span></label>
-                                <input type="text"
-                                       id="title"
-                                       wire:model.defer="title"
-                                       class="form-control @error('title') is-invalid @enderror"
-                                       placeholder="e.g. City Tour Category"
-                                       wire:keyup="generateSlug">
-                                @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            {{-- Slug --}}
-                            <div class="form-group">
-                                <label for="slug">Slug</label>
-                                <input type="text"
                                        id="slug"
-                                       wire:model.defer="slug"
+                                       readonly
                                        class="form-control @error('slug') is-invalid @enderror"
                                        placeholder="e.g. city-tour-category">
                                 @error('slug')
@@ -48,24 +25,23 @@
                                 @enderror
                             </div>
 
-                            {{-- Content --}}
-                            <div class="form-group">
-                                <label for="content">Content</label>
-                                <textarea id="content"
-                                          wire:model.defer="content"
-                                          class="form-control @error('content') is-invalid @enderror"
-                                          placeholder="e.g. Description of the tour category"></textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            {{-- Content Fields --}}
+                            @foreach(config('app.available_locales') as $locale)
+                                <div class="form-group">
+                                    <label>Content ({{ strtoupper($locale) }})</label>
+                                    <x-quill wire:model.defer="trans.{{ $locale }}.content" />
+                                    @error("trans.$locale.content")
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endforeach
 
                             {{-- Image --}}
                             <div class="form-group">
                                 <label for="image">Image</label>
                                 <input type="file"
                                        id="image"
-                                       wire:model.defer="image"
+                                       wire:model="image"
                                        class="form-control @error('image') is-invalid @enderror">
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -78,7 +54,7 @@
                                     <input type="checkbox"
                                            class="custom-control-input"
                                            id="is_published"
-                                           wire:model.defer="is_published">
+                                           wire:model="is_published">
                                     <label class="custom-control-label" for="is_published">Is Published</label>
                                 </div>
                             </div>
