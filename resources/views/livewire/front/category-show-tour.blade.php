@@ -19,14 +19,14 @@
                             </div>
 
                             <div class="card-body d-flex flex-column">
-                                <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->title }}</h5></a>
+                                <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->tr('title') }}</h5></a>
 
                                 <p class="card-text small">
-                                    {!! Str::words(strip_tags($tour->short_description), 20) !!}
+                                    {!! Str::words(strip_tags($tour->tr('short_description')), 20) !!}
                                 </p>
 
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <span class="fw-bold text-danger">{{ $tour->duration_days }} days</span>
+                                    <span class="fw-bold text-danger">{{ $tour->tr('duration_days') }} days</span>
                                     <span class="text-warning">
                         @for($i = 0; $i < 5; $i++)
                                             <i class="fa-solid fa-star"></i>

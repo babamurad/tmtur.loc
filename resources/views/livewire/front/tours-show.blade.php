@@ -19,7 +19,7 @@
                     <h1 class="card-title mb-3">{{ $tour->tr('title') }}</h1>
 
                     {{--  КОРОТКОЕ ОПИСАНИЕ  --}}
-                    <div class="mb-4">
+                    <div class="mb-4 short_description">
                         {!! $tour->tr('short_description') !!}
                     </div>
 

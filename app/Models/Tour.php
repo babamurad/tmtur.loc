@@ -13,6 +13,8 @@ class Tour extends Model
     use HasFactory;
     use Translatable;
 
+    public $fields = ['title', 'short_description'];
+
     protected $fillable = [
         'title',
         'slug',

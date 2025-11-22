@@ -2,7 +2,7 @@
     <div class="row">
         {{--  LEFT: TOUR DETAILS  --}}
         <div class="col-md-8">
-            <h2 class="text-center mb-5">All Categories</h2>
+            <h2 class="text-center mb-5">All Tours</h2>
             <div class="row g-4">
                 @if($tours && $tours->count())
                     @foreach($tours as $tour)
@@ -19,10 +19,10 @@
                                 </div>
 
                                 <div class="card-body d-flex flex-column">
-                                    <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->title }}</h5></a>
+                                    <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->tr('title') }}</h5></a>
 
                                     <p class="card-text small">
-                                        {!! Str::words(strip_tags($tour->short_description), 20) !!}
+                                        {!! Str::words(strip_tags($tour->tr('short_description')), 20) !!}
                                     </p>
 
                                     <div class="d-flex justify-content-between align-items-center mt-auto">
