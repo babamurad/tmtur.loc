@@ -23,7 +23,7 @@
                         <form wire:submit.prevent="save">
                             {{-- Name --}}
                             <div class="form-group">
-                                <label for="name">Name <span class="text-danger">*</span></label>
+                                <label for="name">Name ({{ strtoupper(config('app.fallback_locale')) }}) <span class="text-danger">*</span></label>
                                 <input type="text"
                                        id="name"
                                        wire:model="name"
@@ -33,6 +33,18 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            @foreach(config('app.available_locales') as $locale)
+                                @continue($locale === config('app.fallback_locale'))
+                                <div class="form-group">
+                                    <label>Name ({{ strtoupper($locale) }})</label>
+                                    <input type="text"
+                                           wire:model="trans.{{ $locale }}.name"
+                                           class="form-control"
+                                           placeholder="Name in {{ $locale }}">
+                                    @error("trans.$locale.name") <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            @endforeach
 
                             {{-- Type --}}
                             <select wire:model="type" class="form-control @error('type') is-invalid @enderror">

@@ -11,14 +11,28 @@ class ServiceCreateComponent extends Component
     public $name;
     public $type;
     public $priceRub;
+    public array $trans = [];
 
     protected function rules()
     {
-        return [
+        $rules = [
             'name'     => 'required|min:3|max:255',
             'type'     => 'required|in:' . ServiceType::ruleIn(),
             'priceRub' => 'numeric|nullable',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.name"] = 'nullable|string|max:255';
+        }
+
+        return $rules;
+    }
+
+    public function mount()
+    {
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['name'] = '';
+        }
     }
 
     public function render()
@@ -30,11 +44,21 @@ class ServiceCreateComponent extends Component
     {
         $this->validate();
 
-        Service::create([
+        $service = Service::create([
             'name'                => $this->name,
             'type'                => $this->type,
             'default_price_cents' => $this->priceRub ? (int) round($this->priceRub * 100) : 0,
         ]);
+
+        // Save translations
+        $fallbackLocale = config('app.fallback_locale');
+        $this->trans[$fallbackLocale]['name'] = $this->name;
+
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $service->setTr($field, $locale, $value);
+            }
+        }
 
         session()->flash('saved', [
         'title' => 'Услуга создана!',

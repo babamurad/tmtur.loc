@@ -16,6 +16,36 @@
         <div class="row">
 
             <div class="col-lg-8 col-xl-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Create Tour Category</h5>
+
+                        <form wire:submit.prevent="save">
+                            {{-- Title Fields --}}
+                            @foreach(config('app.available_locales') as $locale)
+                                <div class="form-group">
+                                    <label for="title_{{ $locale }}">Title ({{ strtoupper($locale) }})
+                                        @if($locale === config('app.fallback_locale')) <span class="text-danger">*</span> @endif
+                                    </label>
+                                    <input type="text"
+                                           id="title_{{ $locale }}"
+                                           @if($locale === config('app.fallback_locale'))
+                                               wire:model="trans.{{ $locale }}.title"
+                                               wire:keyup="generateSlug"
+                                           @else
+                                               wire:model.defer="trans.{{ $locale }}.title"
+                                           @endif
+                                           class="form-control @error("trans.$locale.title") is-invalid @enderror">
+                                    @error("trans.$locale.title")
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            @endforeach
+
+                            {{-- Slug --}}
+                            <div class="form-group">
+                                <label for="slug">Slug</label>
+                                <input type="text"
                                        id="slug"
                                        readonly
                                        class="form-control @error('slug') is-invalid @enderror"

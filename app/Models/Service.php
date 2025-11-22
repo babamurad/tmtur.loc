@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\ServiceType;
+use App\Models\Traits\Translatable;
 
 class Service extends Model
 {
     use HasFactory;
+    use Translatable;
+
+    public $fields = ['name'];
 
     protected $fillable = [
         'name',
