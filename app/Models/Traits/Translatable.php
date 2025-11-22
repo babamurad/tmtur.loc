@@ -51,10 +51,7 @@ trait Translatable
      */
     public function translations()
     {
-        return Translation::where([
-            'translatable_type' => static::class,
-            'translatable_id'   => $this->id,
-        ])->get();
+        return $this->morphMany(Translation::class, 'translatable');
     }
 
     public function flushTrCache(): void

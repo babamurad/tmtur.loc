@@ -70,7 +70,6 @@
                             <tr>
                                 <th style="width: 60px">#</th>
                                 <th>Title</th>
-                                <th>Image</th> <!-- Заголовок оставлен для будущего использования -->
                                 <th>Publish</th>
                                 <th>Category</th>
                                 <th>Base Price</th>
@@ -83,22 +82,30 @@
                             @forelse($tours as $tour)
                                 <tr>
                                     <td>{{ $tour->id }}</td>
-                                    <td>
-                                        <span class="font-weight-semibold">
-                                            {{ $tour->title }}<br>
-                                            {{ $tour->slug }}
-                                        </span>
+                                    <td style="width: 20%;">
+                                        <div>
+                                            <a href="{{ route('tours.edit', $tour->id) }}">
+                                                @if($tour->getFirstMediaUrl())
+                                                    <img src="{{ $tour->getFirstMediaUrl() }}" 
+                                                        alt="{{ $tour->title }}" 
+                                                        class="img-fluid rounded mb-2" 
+                                                        style="width: 150px; height: auto;">
+                                                @else
+                                                    <img src="{{ asset('assets/images/media/sm-5.jpg') }}" 
+                                                        alt="Default image" 
+                                                        class="img-fluid rounded mb-2"
+                                                        style="width: 150px; height: auto;">
+                                                @endif
+                                            </a>
+                                        </div>
 
+                                        <div style="white-space: normal; word-break: break-word; max-width: 100%;">
+                                            <a href="{{ route('tours.edit', $tour->id) }}">
+                                                {{ $tour->title }}
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
-                                         <span class="font-weight-semibold">
-                                            @if($tour->getFirstMediaUrl())
-                                                <img src="{{ $tour->getFirstMediaUrl() }}" alt="{{ $tour->title }}" class="img-fluid rounded w-25">
-                                            @else
-                                                 <img src="{{ asset('assets/images/media/sm-5.jpg') }}" alt="Default image" class="img-fluid">
-                                            @endif
-                                        </span>
-                                    </td>
+
                                     <td>
                                         @if($tour->is_published)
                                             <span class="badge badge-soft-success">Published</span>
@@ -113,12 +120,12 @@
                                     </td>
                                     <td>
                                             <span class="text-muted">
-                                                {{ number_format($tour->base_price_cents / 100, 2) }}
+                                                ${{ number_format($tour->base_price_cents, 2) }}
                                             </span>
                                     </td>
                                     <td>
                                             <span class="text-muted">
-                                                {{ $tour->duration_days }}
+                                                {{ $tour->duration_days }} дней
                                             </span>
                                     </td>
 
