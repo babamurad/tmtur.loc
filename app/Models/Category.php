@@ -8,6 +8,10 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
 
+    use \App\Models\Traits\Translatable;
+
+    public $fields = ['title', 'content'];
+
     protected $fillable = [
         'title',
         'slug',
@@ -25,6 +29,7 @@ class Category extends Model
         });
 
         static::deleting(function ($category) {
+            $category->translations()->delete();
             $category->posts()->each(function ($post) {
                 $post->delete();
             });

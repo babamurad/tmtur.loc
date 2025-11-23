@@ -52,9 +52,9 @@
                                         <td>{{ $cat->id }}</td>
                                         <td>
                                             <a href="{{ route('categories.edit', $cat->id) }}">
-                                                <img src="{{ asset($cat->image_url) }}" alt="{{ $cat->title }}"
+                                                <img src="{{ asset($cat->image_url) }}" alt="{{ $cat->tr('title') }}"
                                                     style="height:32px;" class="rounded me-2"/>
-                                                <span class="ml-2">{{ $cat->title }}</span>
+                                                <span class="ml-2">{{ $cat->tr('title') }}</span>
                                             </a>
                                         </td>
 

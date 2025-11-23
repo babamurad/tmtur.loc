@@ -8,6 +8,10 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
+    use \App\Models\Traits\Translatable;
+
+    public $fields = ['title', 'content'];
+
     protected $fillable = [
         'title', 'slug', 'category_id', 'content', 'image', 'status', 'published_at', 'views'
     ];
@@ -25,6 +29,10 @@ class Post extends Model
             if (empty($post->slug)) {
                 $post->slug = Str::slug($post->title);
             }
+        });
+
+        static::deleting(function ($post) {
+            $post->translations()->delete();
         });
     }
 

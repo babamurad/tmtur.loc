@@ -17,15 +17,24 @@ class CategoryEditComponent extends Component
     public bool $is_published;
     public $newImage;
 
+    public array $trans = [];
+
     protected function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required|string|max:255|unique:categories,title,' . $this->category->id,
             'slug'  => 'nullable|string|max:255|unique:categories,slug,' . $this->category->id,
             'content' => 'nullable|string',
             'newImage' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.content"] = 'nullable|string';
+        }
+
+        return $rules;
     }
 
     public function mount($id): void
@@ -35,6 +44,11 @@ class CategoryEditComponent extends Component
         $this->slug = $this->category->slug;
         $this->content = $this->category->content;
         $this->is_published = (bool)$this->category->is_published;
+
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = $this->category->tr('title', $locale);
+            $this->trans[$locale]['content'] = $this->category->tr('content', $locale);
+        }
     }
 
     public function updatedTitle($value): void
@@ -44,6 +58,10 @@ class CategoryEditComponent extends Component
 
     public function save(): void
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title;
+        $this->trans[$fallback]['content'] = $this->content;
+
         $this->validate();
 
         if ($this->newImage) {
@@ -57,6 +75,12 @@ class CategoryEditComponent extends Component
             'content' => $this->content,
             'is_published' => $this->is_published,
         ]);
+
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $this->category->setTr($field, $locale, $value);
+            }
+        }
 
         session()->flash('success', 'Категория обновлена.');
         $this->redirectRoute('categories.index');

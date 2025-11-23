@@ -19,11 +19,19 @@ class PostCreateComponent extends Component
     public bool $status = true;
     public string $published_at = '';
     public $image;
+    public array $trans = [];
     public int $uploadProgress = 0;
+
+    protected $listeners = ['quillUpdated' => 'updateQuillField', 'upload:progress' => 'updateUploadProgress'];
+
+    public function updateQuillField($data)
+    {
+        data_set($this, $data['field'], $data['value']);
+    }
 
     protected function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required|string|max:255|unique:posts',
             'slug'  => 'nullable|string|max:255|unique:posts',
             'category_id' => 'required|exists:categories,id',
@@ -32,6 +40,13 @@ class PostCreateComponent extends Component
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|max:2048',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.content"] = 'nullable|string';
+        }
+
+        return $rules;
     }
 
     public function updatedTitle($v): void
@@ -42,9 +57,11 @@ class PostCreateComponent extends Component
     public function mount()
     {
         $this->published_at = now()->format('Y-m-d\TH:i');
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = '';
+            $this->trans[$locale]['content'] = '';
+        }
     }
-
-    protected $listeners = ['upload:progress' => 'updateUploadProgress'];
 
     public function updateUploadProgress($p)
     {
@@ -53,6 +70,13 @@ class PostCreateComponent extends Component
 
     public function save()
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title;
+        // Content might be updated via quill listener, ensure it's synced if needed,
+        // but usually we bind directly to trans.ru.content in blade.
+        // However, for the main 'content' field in DB, we use the fallback.
+        $this->content = $this->trans[$fallback]['content'] ?? '';
+
         \Log::info('Начало создания поста', ['title' => $this->title]);
 
         try {
@@ -92,6 +116,13 @@ class PostCreateComponent extends Component
 
             if (!$saved) {
                 throw new \Exception('Не удалось сохранить пост в базу данных');
+            }
+
+            // Сохраняем переводы
+            foreach ($this->trans as $locale => $fields) {
+                foreach ($fields as $field => $value) {
+                    $post->setTr($field, $locale, $value);
+                }
             }
 
             \Log::info('Пост успешно создан', [

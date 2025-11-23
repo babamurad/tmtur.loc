@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Create Carousel Slide</h4>
+                    <h4 class="mb-0 font-size-18">Создать слайд карусели</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('carousels.index') }}">Carousel Slides</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item"><a href="{{ route('carousels.index') }}">Слайды карусели</a></li>
+                        <li class="breadcrumb-item active">Создать</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">
                                 <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
-                                Content
+                                Контент
                             </h5>
 
                             {{-- Language Tabs --}}
@@ -49,32 +49,32 @@
                                 {{-- Default Language Tab --}}
                                 <div class="tab-pane active" id="lang-{{ config('app.fallback_locale') }}" role="tabpanel">
                                     <div class="form-group">
-                                        <label for="title">Title <span class="text-danger">*</span></label>
+                                        <label for="title">Заголовок <span class="text-danger">*</span></label>
                                         <input type="text"
                                             id="title"
                                             wire:model.defer="title"
                                             class="form-control @error('title') is-invalid @enderror"
-                                            placeholder="e.g. Amazing Destinations">
+                                            placeholder="Например: Удивительные места">
                                         @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="description">Description</label>
+                                        <label for="description">Описание</label>
                                         <textarea id="description"
                                                   wire:model.defer="description"
                                                   class="form-control @error('description') is-invalid @enderror"
                                                   rows="3"
-                                                  placeholder="e.g. Discover the world with us"></textarea>
+                                                  placeholder="Например: Откройте мир с нами"></textarea>
                                         @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="button_text">Button Text</label>
+                                        <label for="button_text">Текст кнопки</label>
                                         <input type="text"
                                             id="button_text"
                                             wire:model.defer="button_text"
                                             class="form-control @error('button_text') is-invalid @enderror"
-                                            placeholder="e.g. Learn More">
+                                            placeholder="Например: Узнать больше">
                                         @error('button_text') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
@@ -84,29 +84,29 @@
                                     @continue($locale === config('app.fallback_locale'))
                                     <div class="tab-pane" id="lang-{{ $locale }}" role="tabpanel">
                                         <div class="form-group">
-                                            <label>Title</label>
+                                            <label>Заголовок</label>
                                             <input type="text"
                                                    wire:model.defer="trans.{{ $locale }}.title"
                                                    class="form-control"
-                                                   placeholder="Title in {{ strtoupper($locale) }}">
+                                                   placeholder="Заголовок на {{ strtoupper($locale) }}">
                                             @error("trans.$locale.title") <span class="text-danger small">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Description</label>
+                                            <label>Описание</label>
                                             <textarea wire:model.defer="trans.{{ $locale }}.description"
                                                       class="form-control"
                                                       rows="3"
-                                                      placeholder="Description in {{ strtoupper($locale) }}"></textarea>
+                                                      placeholder="Описание на {{ strtoupper($locale) }}"></textarea>
                                             @error("trans.$locale.description") <span class="text-danger small">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Button Text</label>
+                                            <label>Текст кнопки</label>
                                             <input type="text"
                                                    wire:model.defer="trans.{{ $locale }}.button_text"
                                                    class="form-control"
-                                                   placeholder="Button text in {{ strtoupper($locale) }}">
+                                                   placeholder="Текст кнопки на {{ strtoupper($locale) }}">
                                             @error("trans.$locale.button_text") <span class="text-danger small">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">
                                 <i class="bx bx-link font-size-18 align-middle mr-1 text-primary"></i>
-                                Button Link
+                                Ссылка кнопки
                             </h5>
                             <div class="form-group mb-0">
                                 <label for="button_link">URL</label>
@@ -130,7 +130,7 @@
                                     class="form-control @error('button_link') is-invalid @enderror"
                                     placeholder="e.g. /tours or https://example.com">
                                 @error('button_link') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                <small class="form-text text-muted">Leave empty if no button link is needed</small>
+                                <small class="form-text text-muted">Оставьте пустым, если ссылка не нужна</small>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">
                                 <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
-                                Image <span class="text-danger">*</span>
+                                Изображение <span class="text-danger">*</span>
                             </h5>
                             
                             <div class="form-group">
@@ -157,7 +157,7 @@
                                         @if ($image)
                                             {{ $image->getClientOriginalName() }}
                                         @else
-                                            Choose image
+                                            Выберите изображение
                                         @endif
                                     </label>
                                     @error('image')
@@ -168,13 +168,13 @@
 
                             @if ($image)
                                 <div class="mt-3">
-                                    <p class="text-muted mb-2"><small>Image Preview:</small></p>
+                                    <p class="text-muted mb-2"><small>Предпросмотр:</small></p>
                                     <img src="{{ $image->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="Image preview">
                                 </div>
                             @else
                                 <div class="mt-3 text-center p-4 bg-light rounded">
                                     <i class="bx bx-image-add font-size-48 text-muted"></i>
-                                    <p class="text-muted mb-0 mt-2">No image selected</p>
+                                    <p class="text-muted mb-0 mt-2">Изображение не выбрано</p>
                                 </div>
                             @endif
                         </div>
@@ -185,13 +185,13 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">
                                 <i class="bx bx-cog font-size-18 align-middle mr-1 text-primary"></i>
-                                Settings
+                                Настройки
                             </h5>
 
                             <div class="form-group">
                                 <label for="sort_order">
-                                    Sort Order <span class="text-danger">*</span>
-                                    <i class="bx bx-info-circle text-muted" data-toggle="tooltip" title="Lower numbers appear first"></i>
+                                    Порядок сортировки <span class="text-danger">*</span>
+                                    <i class="bx bx-info-circle text-muted" data-toggle="tooltip" title="Меньшие числа отображаются первыми"></i>
                                 </label>
                                 <input type="number"
                                     id="sort_order"
@@ -208,9 +208,9 @@
                                         id="is_active"
                                         wire:model.defer="is_active">
                                     <label class="custom-control-label" for="is_active">
-                                        <strong>Active</strong>
+                                        <strong>Активен</strong>
                                         <br>
-                                        <small class="text-muted">Show this slide on the website</small>
+                                        <small class="text-muted">Показывать этот слайд на сайте</small>
                                     </label>
                                 </div>
                             </div>
@@ -223,12 +223,12 @@
                             <button type="submit"
                                     class="btn btn-success btn-block waves-effect waves-light">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                Create Slide
+                                Создать слайд
                             </button>
                             <a href="{{ route('carousels.index') }}"
                                class="btn btn-secondary btn-block waves-effect waves-light mt-2">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
-                                Cancel
+                                Отмена
                             </a>
                         </div>
                     </div>

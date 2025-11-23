@@ -24,14 +24,58 @@
                         <form wire:submit.prevent="save">
                             @csrf
 
-                            <!-- title -->
+                            <!-- Мультиязычные поля -->
                             <div class="form-group">
-                                <label>Заголовок <span class="text-danger">*</span></label>
-                                <input type="text"
-                                       class="form-control @error('title') is-invalid @enderror"
-                                       wire:model.debounce.300ms="title"
-                                       placeholder="Например: Мой первый пост">
-                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                <label>Переводы <span class="text-danger">*</span></label>
+                                <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                                    @foreach(config('app.available_locales') as $index => $locale)
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $index === 0 ? 'active' : '' }}" 
+                                               data-toggle="tab" 
+                                               href="#lang-{{ $locale }}" 
+                                               role="tab">
+                                                {{ strtoupper($locale) }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+
+                                <div class="tab-content p-3 border border-top-0">
+                                    @foreach(config('app.available_locales') as $index => $locale)
+                                        <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" 
+                                             id="lang-{{ $locale }}" 
+                                             role="tabpanel">
+                                            
+                                            <!-- Title -->
+                                            <div class="form-group">
+                                                <label>Заголовок ({{ strtoupper($locale) }}) 
+                                                    @if($locale === config('app.fallback_locale'))
+                                                        <span class="text-danger">*</span>
+                                                    @endif
+                                                </label>
+                                                <input type="text" 
+                                                       class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
+                                                       wire:model.debounce.300ms="trans.{{ $locale }}.title"
+                                                       @if($locale === config('app.fallback_locale'))
+                                                           wire:model.debounce.300ms="title"
+                                                       @endif
+                                                       placeholder="Введите заголовок">
+                                                @error('trans.'.$locale.'.title') 
+                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                @enderror
+                                            </div>
+
+                                            <!-- Content -->
+                                            <div class="form-group" wire:ignore>
+                                                <label>Контент ({{ strtoupper($locale) }})</label>
+                                                <div id="quill-editor-{{ $locale }}" style="height: 200px;"></div>
+                                                @error('trans.'.$locale.'.content')
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
 
                             <!-- slug -->
@@ -56,17 +100,6 @@
                                     @endforeach
                                 </select>
                                 @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-
-                            <!-- content -->
-                            <div class="col-md-12" wire:ignore>
-                                <div class="form-group">
-                                    <label for="short_description">Краткое описание</label>
-                                    <div id="quill-editor-short-desc" style="height: 200px;"></div>
-                                    @error('content')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
 
                             <!-- status -->
@@ -155,30 +188,38 @@
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const editor = new Quill('#quill-editor-short-desc', {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        [{ 'font': [] }, { 'size': [] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'script': 'sub'}, { 'script': 'super' }],
-                        [{ 'header': 1 }, { 'header': 2 }],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'indent': '-1' }, { 'indent': '+1' }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
-                    ]
-                }
-            });
+            const locales = @json(config('app.available_locales'));
+            const editors = {};
 
-            /* начальное значение из модели */
-            editor.root.innerHTML = @js($content);
+            locales.forEach(locale => {
+                const editor = new Quill(`#quill-editor-${locale}`, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{ 'font': [] }, { 'size': [] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'script': 'sub'}, { 'script': 'super' }],
+                            [{ 'header': 1 }, { 'header': 2 }],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'align': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ]
+                    }
+                });
 
-            /* синхронизация с Livewire */
-            editor.on('text-change', () => {
-            @this.set('content', editor.root.innerHTML);
+                // Начальное значение из модели
+                const initialContent = @this.get(`trans.${locale}.content`) || '';
+                editor.root.innerHTML = initialContent;
+
+                // Синхронизация с Livewire
+                editor.on('text-change', () => {
+                    @this.set(`trans.${locale}.content`, editor.root.innerHTML);
+                });
+
+                editors[locale] = editor;
             });
         });
     </script>

@@ -15,18 +15,26 @@ class PostEditComponent extends Component
     public string $title;
     public string $slug;
     public int $category_id;
-    public string $content;
     public bool $status;
     public string $published_at;
     public $newImage;
     public string $currentImage = '';
     public int $uploadProgress = 0;
+    public array $trans = [];
 
-    protected $listeners = ['upload:progress' => 'updateUploadProgress'];
+    protected $listeners = [
+        'upload:progress' => 'updateUploadProgress',
+        'quillUpdated' => 'updateQuillField'
+    ];
 
     public function updateUploadProgress($progress)
     {
         $this->uploadProgress = $progress;
+    }
+
+    public function updateQuillField($data)
+    {
+        data_set($this, $data['field'], $data['value']);
     }
 
     public function updatedTitle($value)
@@ -36,15 +44,21 @@ class PostEditComponent extends Component
 
     protected function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required|string|max:255|unique:posts,title,' . $this->post->id,
             'slug' => 'nullable|string|max:255|unique:posts,slug,' . $this->post->id,
             'category_id' => 'required|exists:categories,id',
-            'content' => 'nullable|string',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
             'newImage' => 'nullable|image|max:2048',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.content"] = 'nullable|string';
+        }
+
+        return $rules;
     }
 
     public function mount($id)
@@ -53,21 +67,29 @@ class PostEditComponent extends Component
         $this->title = $this->post->title;
         $this->slug = $this->post->slug;
         $this->category_id = $this->post->category_id;
-        $this->content = $this->post->content ?? '';
         $this->status = (bool)$this->post->status;
         $this->published_at = $this->post->published_at->format('Y-m-d\TH:i');
         $this->currentImage = $this->post->image;
+
+        // Загружаем переводы
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = $this->post->tr('title', $locale);
+            $this->trans[$locale]['content'] = $this->post->tr('content', $locale);
+        }
     }
 
     public function save()
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title;
+
         $this->validate();
 
         $data = [
-            'title' => $this->title,
+            'title' => $this->trans[$fallback]['title'],
             'slug' => $this->slug ?: \Illuminate\Support\Str::slug($this->title),
             'category_id' => $this->category_id,
-            'content' => $this->content,
+            'content' => $this->trans[$fallback]['content'] ?? '',
             'status' => $this->status,
             'published_at' => $this->published_at,
         ];
@@ -86,9 +108,17 @@ class PostEditComponent extends Component
         // Обновляем запись
         $this->post->update($data);
 
+        // Сохраняем переводы
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $this->post->setTr($field, $locale, $value);
+            }
+        }
+
         session()->flash('saved', ['title' => 'Пост сохранён!', 'text' => 'Изменения сохранились!']);
         return redirect()->route('posts.index');
     }
+
     public function render()
     {
         return view('livewire.posts.post-edit-component', [

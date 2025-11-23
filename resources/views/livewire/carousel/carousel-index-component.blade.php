@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Carousel Slides</h4>
+                    <h4 class="mb-0 font-size-18">Слайды карусели</h4>
 
                     <a href="{{ route('carousels.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
-                        Create
+                        Создать
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                                         type="text"
                                         wire:model.live.debounce.300ms="search"
                                         class="form-control"
-                                        placeholder="Search carousel slides…"
+                                        placeholder="Поиск слайдов..."
                                     >
                                 </div>
                             </div>
@@ -44,14 +44,14 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="text-muted small">Show</span>
+                                        <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage" style="width: auto;">
                                             <option value="8">8</option>
                                             <option value="15">15</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                         </select>
-                                        <span class="text-muted small">of {{ $carouselSlides->total() }} results</span>
+                                        <span class="text-muted small">из {{ $carouselSlides->total() }} результатов</span>
                                     </div>
                                 </div>
                             </div>
@@ -63,12 +63,12 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="width: 60px">#</th>
-                                        <th>Image</th>
-                                        <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Sort Order</th>
-                                        <th>Active</th>
-                                        <th style="width: 120px" class="text-center">Actions</th>
+                                        <th>Изображение</th>
+                                        <th>Заголовок</th>
+                                        <th>Описание</th>
+                                        <th>Порядок</th>
+                                        <th>Активен</th>
+                                        <th style="width: 120px" class="text-center">Действия</th>
                                     </tr>
                                 </thead>
 
@@ -100,9 +100,9 @@
                                         </td>
                                         <td>
                                             @if($slide->is_active)
-                                                <span class="badge badge-soft-success font-size-12">Active</span>
+                                                <span class="badge badge-soft-success font-size-12">Активен</span>
                                             @else
-                                                <span class="badge badge-soft-danger font-size-12">Inactive</span>
+                                                <span class="badge badge-soft-danger font-size-12">Неактивен</span>
                                             @endif
                                         </td>
 
@@ -110,7 +110,7 @@
                                         <td class="text-center">
                                             <a href="{{ route('carousels.edit', $slide->id) }}"
                                                class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Edit">
+                                               data-toggle="tooltip" title="Редактировать">
                                                 <i class="bx bx-pencil font-size-14"></i>
                                             </a>
 
@@ -122,7 +122,7 @@
                                     @empty
                                     <tr>
                                         <td colspan="7" class="text-center text-muted py-4">
-                                            No carousel slides found.
+                                            Слайды не найдены.
                                         </td>
                                     </tr>
                                     @endforelse

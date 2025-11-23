@@ -22,14 +22,65 @@
                         <h5 class="card-title mb-4">Основные данные</h5>
 
                         <form wire:submit.prevent="save">
-                            <!-- title -->
-                            <div class="form-group">
-                                <label>Название <span class="text-danger">*</span></label>
-                                <input type="text"
-                                       class="form-control @error('title') is-invalid @enderror"
-                                       wire:model="title"
-                                       placeholder="Например: Городские туры">
-                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                            <!-- Tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                @foreach(config('app.available_locales') as $locale)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $loop->first ? 'active' : '' }}"
+                                           data-toggle="tab"
+                                           href="#tab-{{ $locale }}"
+                                           role="tab">
+                                            {{ strtoupper($locale) }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                            <div class="tab-content mt-3 mb-3">
+                                @foreach(config('app.available_locales') as $locale)
+                                    <div class="tab-pane {{ $loop->first ? 'active' : '' }}"
+                                         id="tab-{{ $locale }}"
+                                         role="tabpanel">
+
+                                        @if($locale === config('app.fallback_locale'))
+                                            <!-- title (main) -->
+                                            <div class="form-group">
+                                                <label>Название ({{ strtoupper($locale) }}) <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                       class="form-control @error('title') is-invalid @enderror"
+                                                       wire:model.live="title"
+                                                       placeholder="Например: Городские туры">
+                                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                            </div>
+
+                                            <!-- content (main) -->
+                                            <div class="form-group">
+                                                <label>Описание ({{ strtoupper($locale) }})</label>
+                                                <textarea rows="4"
+                                                          class="form-control @error('content') is-invalid @enderror"
+                                                          wire:model="content"></textarea>
+                                                @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                            </div>
+                                        @else
+                                            <!-- title (trans) -->
+                                            <div class="form-group">
+                                                <label>Название ({{ strtoupper($locale) }})</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       wire:model="trans.{{ $locale }}.title">
+                                            </div>
+
+                                            <!-- content (trans) -->
+                                            <div class="form-group">
+                                                <label>Описание ({{ strtoupper($locale) }})</label>
+                                                <textarea rows="4"
+                                                          class="form-control"
+                                                          wire:model="trans.{{ $locale }}.content"></textarea>
+                                            </div>
+                                        @endif
+                                    </div>
+                                @endforeach
                             </div>
 
                             <!-- slug -->
@@ -39,17 +90,9 @@
                                        class="form-control @error('slug') is-invalid @enderror"
                                        readonly
                                        wire:model="slug"
+                                       disabled
                                        placeholder="auto-generate если пусто">
                                 @error('slug') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-
-                            <!-- content -->
-                            <div class="form-group">
-                                <label>Описание</label>
-                                <textarea rows="4"
-                                          class="form-control @error('content') is-invalid @enderror"
-                                          wire:model="content"></textarea>
-                                @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- image -->
