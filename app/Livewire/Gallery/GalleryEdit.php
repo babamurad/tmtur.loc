@@ -14,30 +14,35 @@ class GalleryEdit extends Component
     public TurkmenistanGallery $photo; // текущая запись
 
     /* редактируемые поля */
-    public string $title        = '';
-    public string $description  = '';
-    public string $location     = '';
-    public string $photographer = '';
-    public string $alt_text     = '';
-    public int    $order        = 0;
-    public bool   $is_featured  = false;
+    public string $title = '';
+    public int    $order = 0;
+    public bool   $is_featured = false;
 
     /* новый файл (если пользователь загрузит) */
     public $newPhoto = null;
 
+    /* мультиязычные значения */
+    public array $trans = [];
+
     /* правила */
     protected function rules(): array
     {
-        return [
-            'title'        => 'required|min:3|max:255',
-            'description'  => 'nullable|string',
-            'location'     => 'nullable|string|max:255',
-            'photographer' => 'nullable|string|max:255',
-            'alt_text'     => 'nullable|string|max:255',
-            'order'        => 'integer|min:0',
-            'is_featured'  => 'boolean',
-            'newPhoto'     => 'nullable|image|max:2048',
+        $rules = [
+            'title' => 'required|min:3|max:255',
+            'order' => 'integer|min:0',
+            'is_featured' => 'boolean',
+            'newPhoto' => 'nullable|image|max:2048',
         ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.description"] = 'nullable|string';
+            $rules["trans.$l.location"] = 'nullable|string|max:255';
+            $rules["trans.$l.photographer"] = 'nullable|string|max:255';
+            $rules["trans.$l.alt_text"] = 'nullable|string|max:255';
+        }
+
+        return $rules;
     }
 
     /* загружаем данные */
@@ -45,18 +50,26 @@ class GalleryEdit extends Component
     {
         $this->photo = TurkmenistanGallery::findOrFail($id);
 
-        $this->title        = $this->photo->title;
-        $this->description  = $this->photo->description ?? '';
-        $this->location     = $this->photo->location ?? '';
-        $this->photographer = $this->photo->photographer ?? '';
-        $this->alt_text     = $this->photo->alt_text ?? '';
-        $this->order        = $this->photo->order;
-        $this->is_featured  = $this->photo->is_featured;
+        $this->title = $this->photo->title;
+        $this->order = $this->photo->order;
+        $this->is_featured = $this->photo->is_featured;
+
+        // Загружаем переводы
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['title'] = $this->photo->tr('title', $locale);
+            $this->trans[$locale]['description'] = $this->photo->tr('description', $locale);
+            $this->trans[$locale]['location'] = $this->photo->tr('location', $locale);
+            $this->trans[$locale]['photographer'] = $this->photo->tr('photographer', $locale);
+            $this->trans[$locale]['alt_text'] = $this->photo->tr('alt_text', $locale);
+        }
     }
 
     /* сохранение */
     public function save()
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title;
+
         $this->validate();
 
         /* если загружен новый файл – заменяем */
@@ -81,14 +94,21 @@ class GalleryEdit extends Component
 
         /* обновляем остальные поля */
         $this->photo->update([
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'location'     => $this->location,
-            'photographer' => $this->photographer,
-            'alt_text'     => $this->alt_text,
+            'title'        => $this->trans[$fallback]['title'],
+            'description'  => $this->trans[$fallback]['description'] ?? '',
+            'location'     => $this->trans[$fallback]['location'] ?? '',
+            'photographer' => $this->trans[$fallback]['photographer'] ?? '',
+            'alt_text'     => $this->trans[$fallback]['alt_text'] ?? '',
             'order'        => $this->order,
             'is_featured'  => $this->is_featured,
         ]);
+
+        // Сохраняем переводы
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $this->photo->setTr($field, $locale, $value);
+            }
+        }
 
         session()->flash('saved', ['title' => 'Фото обновлено!', 'text' => '']);
         return redirect()->route('gallery.index');

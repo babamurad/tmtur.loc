@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class TurkmenistanGallery extends Model
 {
     use HasFactory;
+    use \App\Models\Traits\Translatable;
+
+    public $fields = ['title', 'description', 'location', 'photographer', 'alt_text'];
 
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'file_path',
         'file_name',
@@ -22,6 +26,13 @@ class TurkmenistanGallery extends Model
         'location',
         'photographer',
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($gallery) {
+            $gallery->translations()->delete();
+        });
+    }
 
     // Аксессор для получения полного URL
     public function getFullUrlAttribute()

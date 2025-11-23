@@ -15,139 +15,215 @@
             </div>
         </div>
 
-        {{-- Форма --}}
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title mb-4">Информация о фото</h5>
+        <form wire:submit.prevent="save">
+            <div class="row">
+                {{-- Main Content Column --}}
+                <div class="col-lg-8">
+                    {{-- Multilingual Content Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                Информация о фото
+                            </h5>
 
-                        <form wire:submit.prevent="save">
-                            <div class="row">
-                                {{-- Title --}}
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Название <span class="text-danger">*</span></label>
-                                        <input type="text" wire:model="title"
-                                               class="form-control @error('title') is-invalid @enderror">
-                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
+                            {{-- Language Tabs --}}
+                            <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
+                                @foreach(config('app.available_locales') as $index => $locale)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" 
+                                           data-toggle="tab" 
+                                           href="#lang-{{ $locale }}" 
+                                           role="tab">
+                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                                {{-- Description --}}
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Описание</label>
-                                        <textarea wire:model="description"
-                                                  class="form-control @error('description') is-invalid @enderror"
-                                                  rows="3"></textarea>
-                                        @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
+                            {{-- Tab Content --}}
+                            <div class="tab-content">
+                                @foreach(config('app.available_locales') as $index => $locale)
+                                    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" 
+                                         id="lang-{{ $locale }}" 
+                                         role="tabpanel">
+                                        
+                                        <!-- Title -->
+                                        <div class="form-group">
+                                            <label>Название ({{ strtoupper($locale) }}) 
+                                                @if($locale === config('app.fallback_locale'))
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
+                                            <input type="text" 
+                                                   class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
+                                                   wire:model.defer="trans.{{ $locale }}.title"
+                                                   @if($locale === config('app.fallback_locale'))
+                                                       wire:model.defer="title"
+                                                   @endif
+                                                   placeholder="Введите название">
+                                            @error('trans.'.$locale.'.title') 
+                                                <div class="invalid-feedback">{{ $message }}</div> 
+                                            @enderror
+                                        </div>
 
-                                {{-- Location --}}
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Местоположение</label>
-                                        <input type="text" wire:model="location"
-                                               class="form-control @error('location') is-invalid @enderror">
-                                        @error('location') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
+                                        <!-- Description -->
+                                        <div class="form-group">
+                                            <label>Описание ({{ strtoupper($locale) }})</label>
+                                            <x-quill wire:model.defer="trans.{{ $locale }}.description" />
+                                            @error('trans.'.$locale.'.description')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
-                                {{-- Photographer --}}
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Фотограф</label>
-                                        <input type="text" wire:model="photographer"
-                                               class="form-control @error('photographer') is-invalid @enderror">
-                                        @error('photographer') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
+                                        <!-- Location -->
+                                        <div class="form-group">
+                                            <label>Местоположение ({{ strtoupper($locale) }})</label>
+                                            <input type="text" 
+                                                   class="form-control @error('trans.'.$locale.'.location') is-invalid @enderror"
+                                                   wire:model.defer="trans.{{ $locale }}.location"
+                                                   placeholder="Например: Ашхабад">
+                                            @error('trans.'.$locale.'.location') 
+                                                <div class="invalid-feedback">{{ $message }}</div> 
+                                            @enderror
+                                        </div>
 
-                                {{-- Alt text --}}
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Alt-текст</label>
-                                        <input type="text" wire:model="alt_text"
-                                               class="form-control @error('alt_text') is-invalid @enderror">
-                                        @error('alt_text') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <!-- Photographer -->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Фотограф ({{ strtoupper($locale) }})</label>
+                                                    <input type="text" 
+                                                           class="form-control @error('trans.'.$locale.'.photographer') is-invalid @enderror"
+                                                           wire:model.defer="trans.{{ $locale }}.photographer"
+                                                           placeholder="Имя фотографа">
+                                                    @error('trans.'.$locale.'.photographer') 
+                                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
+                                            </div>
 
-                                {{-- Order --}}
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Порядок</label>
-                                        <input type="number" wire:model="order" min="0"
-                                               class="form-control @error('order') is-invalid @enderror">
-                                        @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                    </div>
-                                </div>
-
-                                {{-- Featured --}}
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="d-block">&nbsp;</label>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="is_featured"
-                                                   wire:model="is_featured">
-                                            <label class="custom-control-label" for="is_featured">Избранное</label>
+                                            <!-- Alt Text -->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Alt-текст ({{ strtoupper($locale) }})</label>
+                                                    <input type="text" 
+                                                           class="form-control @error('trans.'.$locale.'.alt_text') is-invalid @enderror"
+                                                           wire:model.defer="trans.{{ $locale }}.alt_text"
+                                                           placeholder="Описание для SEO">
+                                                    @error('trans.'.$locale.'.alt_text') 
+                                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Sidebar Column --}}
+                <div class="col-lg-4">
+                    {{-- Image Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
+                                Изображение
+                            </h5>
+                            
+                            <div class="form-group">
+                                <label>Заменить файл</label>
+                                <div class="custom-file">
+                                    <input type="file"
+                                           class="custom-file-input @error('newPhoto') is-invalid @enderror"
+                                           id="newPhoto"
+                                           wire:model="newPhoto"
+                                           accept="image/*">
+                                    <label class="custom-file-label" for="newPhoto">
+                                        {{ $newPhoto ? $newPhoto->getClientOriginalName() : 'Выберите файл' }}
+                                    </label>
+                                    @error('newPhoto') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                             </div>
 
-                            {{-- Buttons --}}
-                            <div class="form-group mb-0 mt-4">
-                                <button type="submit" class="btn btn-success waves-effect waves-light mr-2">
-                                    <i class="fas fa-save font-size-16 align-middle mr-1"></i>Сохранить
-                                </button>
-                                <a href="{{ route('gallery.index') }}" class="btn btn-secondary waves-effect waves-light">
-                                    <i class="fas fa-times font-size-16 align-middle mr-1"></i>Отмена
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Правая колонка: файл + превью --}}
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Заменить файл</label>
-                            <div class="custom-file">
-                                <input type="file"
-                                       class="custom-file-input @error('newPhoto') is-invalid @enderror"
-                                       id="newPhoto"
-                                       wire:model="newPhoto"
-                                       accept="image/*">
-                                <label class="custom-file-label" for="newPhoto">
-                                    {{ $newPhoto ? $newPhoto->getClientOriginalName() : 'Выберите файл' }}
-                                </label>
-                                @error('newPhoto') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-
-                        {{-- Превью текущего файла --}}
-                        <div class="position-relative mb-3" style="height:200px;">
-                            <div wire:loading.remove wire:target="newPhoto">
-                                @if($newPhoto)
+                            {{-- Превью нового файла --}}
+                            @if($newPhoto)
+                                <div class="mt-3">
+                                    <p class="text-muted mb-2"><small>Новое изображение:</small></p>
                                     <img src="{{ $newPhoto->temporaryUrl() }}"
-                                         class="img-fluid rounded"
-                                         style="max-height:200px;object-fit:cover;" alt="Превью">
-                                @else
+                                         class="img-fluid rounded shadow-sm"
+                                         style="max-height:200px;object-fit:cover;" alt="Новое">
+                                </div>
+                            @endif
+
+                            {{-- Текущее изображение --}}
+                            @if($photo->file_path)
+                                <div class="mt-3">
+                                    <p class="text-muted mb-2"><small>Текущее изображение:</small></p>
                                     <img src="{{ asset('uploads/'.$photo->file_path) }}"
-                                         class="img-fluid rounded"
+                                         class="img-fluid rounded shadow-sm"
                                          style="max-height:200px;object-fit:cover;" alt="Текущее">
-                                @endif
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- Settings Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-cog font-size-18 align-middle mr-1 text-primary"></i>
+                                Настройки
+                            </h5>
+
+                            <!-- Order -->
+                            <div class="form-group">
+                                <label>Порядок</label>
+                                <input type="number" 
+                                       wire:model.defer="order"
+                                       class="form-control @error('order') is-invalid @enderror" 
+                                       min="0">
+                                @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
+
+                            <!-- Featured -->
+                            <div class="form-group mb-0">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" 
+                                           class="custom-control-input" 
+                                           id="is_featured"
+                                           wire:model.defer="is_featured">
+                                    <label class="custom-control-label" for="is_featured">
+                                        <strong>Избранное</strong>
+                                        <br>
+                                        <small class="text-muted">Показывать в избранном</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Action Buttons --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <button type="submit"
+                                    class="btn btn-success btn-block waves-effect waves-light">
+                                <i class="fas fa-save font-size-16 align-middle mr-1"></i>
+                                Сохранить
+                            </button>
+                            <a href="{{ route('gallery.index') }}"
+                               class="btn btn-secondary btn-block waves-effect waves-light mt-2">
+                                <i class="fas fa-times font-size-16 align-middle mr-1"></i>
+                                Отмена
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

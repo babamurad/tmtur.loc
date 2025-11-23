@@ -79,7 +79,11 @@
                                             @endif
                                         </td>
 
-                                        <td>{{ $photo->title ?: 'Без названия' }}</td>
+                                        <td>
+                                            <a href="{{ route('gallery.edit', $photo->id) }}">
+                                            {{ $photo->title ?: 'Без названия' }}
+                                            </a>
+                                        </td>
                                         <td>{{ $photo->location ?: '—' }}</td>
                                         <td>{{ $photo->photographer ?: '—' }}</td>
                                         <td>{{ $photo->order }}</td>
