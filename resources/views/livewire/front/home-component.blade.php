@@ -114,12 +114,15 @@
                     <div class="col-6 col-md-3 mb-2" style="cursor: pointer;">
                         <img src="{{ asset($foto->getFullUrlAttribute()) }}"
                              class="img-fluid rounded shadow gallery-image"
-                             alt="{{ $foto->alt_text }}"
-                             title="{{ $foto->title }}"
+                             alt="{{ $foto->tr('alt_text') }}"
+                             title="{{ $foto->tr('title') }}"
                              data-toggle="modal"
                              data-target="#lightboxModal"
                              data-img="{{ asset($foto->getFullUrlAttribute()) }}"
-                             data-title="{{ $foto->title }}">
+                             data-title="{{ $foto->tr('title') }}"
+                             data-location="{{ $foto->tr('location') }}"
+                             data-photographer="{{ $foto->tr('photographer') }}"
+                             data-description="{{ strip_tags($foto->tr('description')) }}">
                     </div>
                 @endforeach
             </div>
@@ -132,14 +135,38 @@
         <!-- ========== MODAL ========== -->
         <div class="modal fade" id="lightboxModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content bg-transparent border-0">
-                    <div class="modal-body text-center p-0">
-                        <button type="button" class="close text-white position-absolute" style="right:10px;top:6px;z-index:1051;" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="font-size:28px;">&times;</span>
+                <div class="modal-content bg-dark border-0">
+                    <div class="modal-body p-0">
+                        <button type="button" class="close text-white position-absolute" style="right:15px;top:10px;z-index:1051;" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="font-size:32px;">&times;</span>
                         </button>
 
-                        <img id="lightboxImg" src="" class="img-fluid rounded shadow" alt="">
-                        <div id="lightboxTitle" class="text-center text-white mt-2"></div>
+                        <!-- Image -->
+                        <img id="lightboxImg" src="" class="img-fluid w-100" alt="" style="max-height: 70vh; object-fit: contain;">
+                        
+                        <!-- Photo Information -->
+                        <div class="p-4 text-white">
+                            <h4 id="lightboxTitle" class="mb-3 font-weight-bold"></h4>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6" id="lightboxLocationWrapper">
+                                    <p class="mb-1">
+                                        <i class="fas fa-map-marker-alt text-danger mr-2"></i>
+                                        <span id="lightboxLocation" class="text-white-50"></span>
+                                    </p>
+                                </div>
+                                <div class="col-md-6" id="lightboxPhotographerWrapper">
+                                    <p class="mb-1">
+                                        <i class="fas fa-camera text-primary mr-2"></i>
+                                        <span id="lightboxPhotographer" class="text-white-50"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div id="lightboxDescriptionWrapper">
+                                <p id="lightboxDescription" class="text-white-50 mb-0"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,20 +179,54 @@
         <script>
             // jQuery обработчик Bootstrap4
             $('#lightboxModal').on('show.bs.modal', function (event) {
-                var trigger = $(event.relatedTarget); // элемент, который открыл модал (картинка)
+                var trigger = $(event.relatedTarget);
                 var imgSrc = trigger.data('img') || '';
                 var title = trigger.data('title') || '';
+                var location = trigger.data('location') || '';
+                var photographer = trigger.data('photographer') || '';
+                var description = trigger.data('description') || '';
 
                 var modal = $(this);
+                
+                // Set image
                 modal.find('#lightboxImg').attr('src', imgSrc);
                 modal.find('#lightboxImg').attr('alt', title);
+                
+                // Set title
                 modal.find('#lightboxTitle').text(title);
+                
+                // Set location (hide if empty)
+                if (location) {
+                    modal.find('#lightboxLocation').text(location);
+                    modal.find('#lightboxLocationWrapper').show();
+                } else {
+                    modal.find('#lightboxLocationWrapper').hide();
+                }
+                
+                // Set photographer (hide if empty)
+                if (photographer) {
+                    modal.find('#lightboxPhotographer').text(photographer);
+                    modal.find('#lightboxPhotographerWrapper').show();
+                } else {
+                    modal.find('#lightboxPhotographerWrapper').hide();
+                }
+                
+                // Set description (hide if empty)
+                if (description) {
+                    modal.find('#lightboxDescription').text(description);
+                    modal.find('#lightboxDescriptionWrapper').show();
+                } else {
+                    modal.find('#lightboxDescriptionWrapper').hide();
+                }
             });
 
-            // Подчищаем src при закрытии (опционально) — чтобы освободить память
+            // Подчищаем при закрытии
             $('#lightboxModal').on('hidden.bs.modal', function () {
                 $(this).find('#lightboxImg').attr('src', '');
                 $(this).find('#lightboxTitle').text('');
+                $(this).find('#lightboxLocation').text('');
+                $(this).find('#lightboxPhotographer').text('');
+                $(this).find('#lightboxDescription').text('');
             });
         </script>
     @endpush
