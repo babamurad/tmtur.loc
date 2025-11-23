@@ -20,4 +20,12 @@ return [
     'popular_tours' => 'POPULAR TOURS',
     'all_tours'   => 'All Tours',
     'no_tours_in_category' => 'There are no tours in this category.',
+    'contact_us' => 'Contact us',
+    'your_name' => 'Your name',
+    'your_email' => 'Your email',
+    'your_phone' => 'Your phone',
+    'your_message' => 'Your message',
+    'send_message' => 'Send message',
+    'our_contacts' => 'Our contacts',
+    'follow_us' => 'Follow us',
 ];

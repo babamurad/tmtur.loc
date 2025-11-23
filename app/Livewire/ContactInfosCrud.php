@@ -14,16 +14,27 @@ class ContactInfosCrud extends Component
     public $label, $type, $value, $icon, $is_active = 1, $sort_order = 0, $input_type, $url, $editId = null;
     public $delId = null;
     public $activeTab;
-    protected $rules = [
-        'label' => 'required|string',
-        'type' => 'required|string',
-        'value' => 'nullable|string',
-        'icon' => 'nullable|string',
-        'is_active' => 'boolean',
-        'sort_order' => 'integer',
-        'input_type' => 'nullable|string',
-        'url' => 'nullable|url',
-    ];
+    public $trans = [];
+    protected function rules()
+    {
+        $rules = [
+            'label' => 'nullable|string', // теперь берется из trans
+            'type' => 'required|string',
+            'value' => 'nullable|string', // теперь берется из trans
+            'icon' => 'nullable|string',
+            'is_active' => 'boolean',
+            'sort_order' => 'integer',
+            'input_type' => 'nullable|string',
+            'url' => 'nullable|url',
+        ];
+
+        foreach (config('app.available_locales') as $l) {
+            $rules["trans.$l.label"] = 'nullable|string|max:255';
+            $rules["trans.$l.value"] = 'nullable|string';
+        }
+
+        return $rules;
+    }
 
     protected $listeners = ['editContact'];
 
@@ -36,18 +47,45 @@ class ContactInfosCrud extends Component
 
     public function resetForm()
     {
-        $this->reset(['label','type','value','icon','is_active','sort_order','input_type','url','editId']);
+        $this->reset(['label','type','value','icon','is_active','sort_order','input_type','url','editId', 'trans']);
         $this->is_active = 1; $this->sort_order = 0;
+        $this->initTrans();
+    }
+
+    public function initTrans()
+    {
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale] = [
+                'label' => '',
+                'value' => '',
+            ];
+        }
     }
 
     public function store()
     {
+        // Заполняем основные поля из fallback локали
+        $fallback = config('app.fallback_locale');
+        $this->label = $this->trans[$fallback]['label'] ?? '';
+        $this->value = $this->trans[$fallback]['value'] ?? '';
+
         $this->validate();
+
         if ($this->editId) {
-            ContactInfo::find($this->editId)->update($this->onlyFillable());
+            $item = ContactInfo::find($this->editId);
+            $item->update($this->onlyFillable());
         } else {
-            ContactInfo::create($this->onlyFillable());
+            $item = ContactInfo::create($this->onlyFillable());
         }
+
+        // Сохраняем переводы
+        foreach ($this->trans as $locale => $fields) {
+            foreach ($fields as $field => $value) {
+                $item->setTr($field, $locale, $value);
+            }
+        }
+        $item->flushTrCache();
+
         $this->resetForm();
 
         LivewireAlert::title('Info saved')
@@ -70,6 +108,12 @@ class ContactInfosCrud extends Component
         $this->sort_order = $item->sort_order;
         $this->input_type = $item->input_type;
         $this->url = $item->url;
+
+        // Загружаем переводы
+        foreach (config('app.available_locales') as $locale) {
+            $this->trans[$locale]['label'] = $item->tr('label', $locale);
+            $this->trans[$locale]['value'] = $item->tr('value', $locale);
+        }
     }
 
     public function delete($id)
@@ -117,5 +161,6 @@ class ContactInfosCrud extends Component
     public function mount()
     {
         $this->activeTab = 'contact-tab';
+        $this->initTrans();
     }
 }

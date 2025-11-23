@@ -20,4 +20,12 @@ return [
     'popular_tours' => 'ПОПУЛЯРНЫЕ ТУРЫ',
     'all_tours'   => 'Все туры',
     'no_tours_in_category' => 'В данной категории нет туров.',
+    'contact_us' => 'Свяжитесь с нами',
+    'your_name' => 'Ваше имя',
+    'your_email' => 'Ваш email',
+    'your_phone' => 'Ваш телефон',
+    'your_message' => 'Ваше сообщение',
+    'send_message' => 'Отправить сообщение',
+    'our_contacts' => 'Наши контакты',
+    'follow_us' => 'Подписывайтесь на нас',
 ];

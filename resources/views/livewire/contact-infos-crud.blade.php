@@ -48,18 +48,51 @@
                                                     <input type="text" wire:model.defer="type" class="form-control" placeholder="type (address, phone)" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Label</label>
-                                                    <input type="text" wire:model.defer="label" class="form-control" required>
-                                                </div>
-                                                <div class="form-group col-md-4">
                                                     <label>Icon (bx ...)</label>
                                                     <input type="text" wire:model.defer="icon" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Value</label>
-                                                <textarea wire:model.defer="value" class="form-control" rows="3"></textarea>
+                                            <div class="card border mb-3">
+                                                <div class="card-header p-0 border-bottom-0">
+                                                    <ul class="nav nav-tabs" id="langTab" role="tablist">
+                                                        @foreach(config('app.available_locales') as $locale)
+                                                            <li class="nav-item">
+                                                                <a class="nav-link {{ $loop->first ? 'active' : '' }}"
+                                                                   id="lang-{{ $locale }}-tab"
+                                                                   data-toggle="tab"
+                                                                   href="#lang-{{ $locale }}"
+                                                                   role="tab"
+                                                                   aria-controls="lang-{{ $locale }}"
+                                                                   aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                                                    {{ strtoupper($locale) }}
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="tab-content" id="langTabContent">
+                                                        @foreach(config('app.available_locales') as $locale)
+                                                            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+                                                                 id="lang-{{ $locale }}"
+                                                                 role="tabpanel"
+                                                                 aria-labelledby="lang-{{ $locale }}-tab">
+
+                                                                <div class="form-group">
+                                                                    <label>Label ({{ strtoupper($locale) }})</label>
+                                                                    <input type="text" wire:model.defer="trans.{{ $locale }}.label" class="form-control">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Value ({{ strtoupper($locale) }})</label>
+                                                                    <textarea wire:model.defer="trans.{{ $locale }}.value" class="form-control" rows="3"></textarea>
+                                                                </div>
+
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="form-row">
@@ -104,9 +137,9 @@
                                             <tbody>
                                             @foreach($items as $it)
                                                 <tr>
-                                                    <td>{{ $it->label }}</td>
+                                                    <td>{{ $it->tr('label') }}</td>
                                                     <td>{{ $it->type }}</td>
-                                                    <td style="white-space:pre-wrap;">{{ $it->value }}</td>
+                                                    <td style="white-space:pre-wrap;">{{ $it->tr('value') }}</td>
                                                     <td><i class="bx {{ $it->icon }}"></i> {{ $it->icon }}</td>
                                                     <td>{{ $it->sort_order }}</td>
                                                     <td>{{ $it->is_active ? 'Yes' : 'No' }}</td>

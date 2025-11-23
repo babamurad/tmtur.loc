@@ -20,4 +20,12 @@ return [
     'popular_tours' => '인기 투어',
     'all_tours'   => '모든 투어',
     'no_tours_in_category' => '이 카테고리에는 투어가 없습니다.',
+    'contact_us' => '문의하기',
+    'your_name' => '이름',
+    'your_email' => '이메일',
+    'your_phone' => '전화번호',
+    'your_message' => '메시지',
+    'send_message' => '메시지 보내기',
+    'our_contacts' => '연락처',
+    'follow_us' => '팔로우',
 ];
