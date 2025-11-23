@@ -29,13 +29,23 @@
 
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
-                                @foreach(config('app.available_locales') as $index => $locale)
+                                <li class="nav-item">
+                                    <a class="nav-link active" 
+                                       data-toggle="tab" 
+                                       href="#lang-{{ config('app.fallback_locale') }}" 
+                                       role="tab">
+                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                        <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                    </a>
+                                </li>
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
                                     <li class="nav-item">
-                                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" 
+                                        <a class="nav-link" 
                                            data-toggle="tab" 
                                            href="#lang-{{ $locale }}" 
                                            role="tab">
-                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
                                         </a>
                                     </li>
@@ -44,22 +54,89 @@
 
                             {{-- Tab Content --}}
                             <div class="tab-content">
-                                @foreach(config('app.available_locales') as $index => $locale)
-                                    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" 
+                                {{-- Default Language Tab --}}
+                                <div class="tab-pane active" 
+                                     id="lang-{{ config('app.fallback_locale') }}" 
+                                     role="tabpanel">
+                                    
+                                    <!-- Title -->
+                                    <div class="form-group">
+                                        <label>Название <span class="text-danger">*</span></label>
+                                        <input type="text" 
+                                               class="form-control @error('title') is-invalid @enderror"
+                                               wire:model.defer="title"
+                                               placeholder="Введите название">
+                                        @error('title') 
+                                            <div class="invalid-feedback">{{ $message }}</div> 
+                                        @enderror
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="form-group">
+                                        <label>Описание</label>
+                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.description" />
+                                        @error('trans.'.config('app.fallback_locale').'.description')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Location -->
+                                    <div class="form-group">
+                                        <label>Местоположение</label>
+                                        <input type="text" 
+                                               class="form-control @error('trans.'.config('app.fallback_locale').'.location') is-invalid @enderror"
+                                               wire:model.defer="trans.{{ config('app.fallback_locale') }}.location"
+                                               placeholder="Например: Ашхабад">
+                                        @error('trans.'.config('app.fallback_locale').'.location') 
+                                            <div class="invalid-feedback">{{ $message }}</div> 
+                                        @enderror
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- Photographer -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Фотограф</label>
+                                                <input type="text" 
+                                                       class="form-control @error('trans.'.config('app.fallback_locale').'.photographer') is-invalid @enderror"
+                                                       wire:model.defer="trans.{{ config('app.fallback_locale') }}.photographer"
+                                                       placeholder="Имя фотографа">
+                                                @error('trans.'.config('app.fallback_locale').'.photographer') 
+                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Alt Text -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Alt-текст</label>
+                                                <input type="text" 
+                                                       class="form-control @error('trans.'.config('app.fallback_locale').'.alt_text') is-invalid @enderror"
+                                                       wire:model.defer="trans.{{ config('app.fallback_locale') }}.alt_text"
+                                                       placeholder="Описание для SEO">
+                                                @error('trans.'.config('app.fallback_locale').'.alt_text') 
+                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Other Language Tabs --}}
+                                @foreach(config('app.available_locales') as $locale)
+                                    @continue($locale === config('app.fallback_locale'))
+                                    <div class="tab-pane" 
                                          id="lang-{{ $locale }}" 
                                          role="tabpanel">
                                         
                                         <!-- Title -->
                                         <div class="form-group">
-                                            <label>Название ({{ strtoupper($locale) }}) 
-                                                @if($locale === config('app.fallback_locale'))
-                                                    <span class="text-danger">*</span>
-                                                @endif
-                                            </label>
+                                            <label>Название</label>
                                             <input type="text" 
                                                    class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
                                                    wire:model.defer="trans.{{ $locale }}.title"
-                                                   placeholder="Введите название">
+                                                   placeholder="Название на {{ strtoupper($locale) }}">
                                             @error('trans.'.$locale.'.title') 
                                                 <div class="invalid-feedback">{{ $message }}</div> 
                                             @enderror
@@ -67,7 +144,7 @@
 
                                         <!-- Description -->
                                         <div class="form-group">
-                                            <label>Описание ({{ strtoupper($locale) }})</label>
+                                            <label>Описание</label>
                                             <x-quill wire:model.defer="trans.{{ $locale }}.description" />
                                             @error('trans.'.$locale.'.description')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -76,7 +153,7 @@
 
                                         <!-- Location -->
                                         <div class="form-group">
-                                            <label>Местоположение ({{ strtoupper($locale) }})</label>
+                                            <label>Местоположение</label>
                                             <input type="text" 
                                                    class="form-control @error('trans.'.$locale.'.location') is-invalid @enderror"
                                                    wire:model.defer="trans.{{ $locale }}.location"
@@ -90,7 +167,7 @@
                                             <!-- Photographer -->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Фотограф ({{ strtoupper($locale) }})</label>
+                                                    <label>Фотограф</label>
                                                     <input type="text" 
                                                            class="form-control @error('trans.'.$locale.'.photographer') is-invalid @enderror"
                                                            wire:model.defer="trans.{{ $locale }}.photographer"
@@ -104,7 +181,7 @@
                                             <!-- Alt Text -->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Alt-текст ({{ strtoupper($locale) }})</label>
+                                                    <label>Alt-текст</label>
                                                     <input type="text" 
                                                            class="form-control @error('trans.'.$locale.'.alt_text') is-invalid @enderror"
                                                            wire:model.defer="trans.{{ $locale }}.alt_text"
