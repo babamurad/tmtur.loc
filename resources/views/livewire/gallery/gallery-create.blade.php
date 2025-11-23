@@ -59,9 +59,6 @@
                                             <input type="text" 
                                                    class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
                                                    wire:model.defer="trans.{{ $locale }}.title"
-                                                   @if($locale === config('app.fallback_locale'))
-                                                       wire:model.defer="title"
-                                                   @endif
                                                    placeholder="Введите название">
                                             @error('trans.'.$locale.'.title') 
                                                 <div class="invalid-feedback">{{ $message }}</div> 
