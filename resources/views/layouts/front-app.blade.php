@@ -1,6 +1,20 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C5C6D1TJJW');
+    </script>
+
+<!-- Start cookieyes banner --> 
+ <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js"></script> 
+ <!-- End cookieyes banner -->
+  
   <meta charset="utf-8">
   <title>{{ __('layout.meta_title') }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
