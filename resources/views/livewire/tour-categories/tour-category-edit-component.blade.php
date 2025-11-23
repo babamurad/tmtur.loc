@@ -9,7 +9,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Tour Category Details</h4>
+                        <h4 class="card-title mb-4">Детали категории тура</h4>
 
                         <form wire:submit.prevent="save">
                             
@@ -36,7 +36,7 @@
                                         
                                         {{-- Title --}}
                                         <div class="form-group">
-                                            <label for="title_{{ $locale }}">Title ({{ strtoupper($locale) }})</label>
+                                            <label for="title_{{ $locale }}">Заголовок ({{ strtoupper($locale) }})</label>
                                             <input type="text"
                                                    id="title_{{ $locale }}"
                                                    @if($locale === config('app.fallback_locale'))
@@ -53,7 +53,7 @@
 
                                         {{-- Content --}}
                                         <div class="form-group">
-                                            <label>Content ({{ strtoupper($locale) }})</label>
+                                            <label>Содержание ({{ strtoupper($locale) }})</label>
                                             <x-quill wire:model.defer="trans.{{ $locale }}.content" />
                                             @error("trans.$locale.content")
                                                 <div class="text-danger">{{ $message }}</div>
@@ -71,11 +71,11 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Settings</h4>
+                        <h4 class="card-title mb-4">Настройки</h4>
 
                         {{-- Image --}}
                         <div class="form-group">
-                            <label for="image">Image</label>
+                            <label for="image">Изображение</label>
                             <input type="file"
                                    id="image"
                                    wire:model="image"
@@ -98,7 +98,7 @@
                                    readonly
                                    class="form-control @error('slug') is-invalid @enderror"
                                    wire:model="slug"
-                                   placeholder="Auto-generated">
+                                   placeholder="Автоматически создается">
                             @error('slug')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -111,7 +111,7 @@
                                        class="custom-control-input"
                                        id="is_published"
                                        wire:model="is_published">
-                                <label class="custom-control-label" for="is_published">Is Published</label>
+                                <label class="custom-control-label" for="is_published">Опубликовано</label>
                             </div>
                         </div>
 
@@ -122,12 +122,12 @@
                             <button type="button" wire:click="save"
                                     class="btn btn-success waves-effect waves-light mr-2">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                Save
+                                Сохранить
                             </button>
                             <a href="{{ route('tour-categories.index') }}"
                                class="btn btn-secondary waves-effect waves-light">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
-                                Cancel
+                                Отмена
                             </a>
                         </div>
 
