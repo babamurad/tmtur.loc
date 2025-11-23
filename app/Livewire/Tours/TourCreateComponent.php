@@ -189,6 +189,9 @@ class TourCreateComponent extends Component
 
     public function save()
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title; // ✅ синхронизация
+
         $this->validate();
 
         $imagePath = null;
