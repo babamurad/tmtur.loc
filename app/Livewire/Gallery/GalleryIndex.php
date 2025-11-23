@@ -5,17 +5,31 @@ namespace App\Livewire\Gallery;
 use App\Models\TurkmenistanGallery;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class GalleryIndex extends Component
 {
     use WithPagination;
 
+    public $delId;
     public $perPage = 12; // Количество изображений на странице
     public $search = '';
     public $filterFeatured = false;
     public $filterLocation = '';
 
     protected $queryString = ['search', 'filterFeatured', 'filterLocation'];
+
+    public function mount()
+    {
+        if (session()->has('saved')) {
+            LivewireAlert::alert('success', session('saved.title'), [
+                'position' => 'top-end',
+                'timer' => 3000,
+                'toast' => true,
+                'text' => session('saved.text') ?? '',
+            ]);
+        }
+    }
 
     public function render()
     {
@@ -71,5 +85,38 @@ class GalleryIndex extends Component
     public function updatedPerPage()
     {
         $this->resetPage();
+    }
+
+    public function delete($id)
+    {
+        $this->delId = $id;
+        
+        $this->delId = $id;
+        LivewireAlert::title('Удалить?')
+            ->text('Вы уверены, что хотите удалить тур?')
+            ->timer(5000)
+            ->withConfirmButton('Да')
+            ->withCancelButton('Отмена')
+            ->onConfirm('photoDelete')
+            ->show(null, ['backdrop' => true]);
+    }
+
+    public function photoDelete()
+    {
+        $photo = TurkmenistanGallery::findOrFail($this->delId);
+        
+        // Удаляем файл изображения
+        if ($photo->file_path && file_exists(public_path('uploads/' . $photo->file_path))) {
+            unlink(public_path('uploads/' . $photo->file_path));
+        }
+        
+        // Удаляем запись из БД (вместе с переводами благодаря модели)
+        $photo->delete();
+
+        LivewireAlert::title('Фотография удалена!')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 }
