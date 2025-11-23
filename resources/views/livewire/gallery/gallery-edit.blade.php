@@ -137,11 +137,11 @@
                                 @if($newPhoto)
                                     <img src="{{ $newPhoto->temporaryUrl() }}"
                                          class="img-fluid rounded"
-                                         style="max-height:200px;object-fit:cover;" alt="Preview">
+                                         style="max-height:200px;object-fit:cover;" alt="Превью">
                                 @else
                                     <img src="{{ asset('uploads/'.$photo->file_path) }}"
                                          class="img-fluid rounded"
-                                         style="max-height:200px;object-fit:cover;" alt="Current">
+                                         style="max-height:200px;object-fit:cover;" alt="Текущее">
                                 @endif
                             </div>
                         </div>

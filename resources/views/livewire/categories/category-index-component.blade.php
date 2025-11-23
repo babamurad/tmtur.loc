@@ -51,10 +51,13 @@
                                     <tr>
                                         <td>{{ $cat->id }}</td>
                                         <td>
-                                            <img src="{{ $cat->image_url }}" alt="{{ $cat->title }}"
-                                                 style="height:32px;" class="rounded me-2"/>
-                                            {{ $cat->title }}
+                                            <a href="{{ route('categories.edit', $cat->id) }}">
+                                                <img src="{{ asset($cat->image_url) }}" alt="{{ $cat->title }}"
+                                                    style="height:32px;" class="rounded me-2"/>
+                                                <span class="ml-2">{{ $cat->title }}</span>
+                                            </a>
                                         </td>
+
                                         <td>
                                                 <span
                                                     class="badge badge-{{ $cat->is_published?'success':'secondary' }}">
