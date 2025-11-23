@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Services</h4>
+                    <h4 class="mb-0 font-size-18">Услуги</h4>
 
                     <a href="{{ route('services.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
-                        Create
+                        Создать
                     </a>
                 </div>
             </div>
@@ -39,11 +39,11 @@
                                                name="search"
                                                value="{{ request('search') }}"
                                                class="form-control"
-                                               placeholder="Search services…"
-                                               aria-label="Search">
+                                               placeholder="Поиск услуг…"
+                                               aria-label="Поиск">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" type="submit">
-                                                Find
+                                                Найти
                                             </button>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="text-muted small">Show</span>
+                                        <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
                                                 style="width: auto;">
                                             <option value="8">8</option>
@@ -62,7 +62,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                         </select>
-                                        <span class="text-muted small">of {{ $services->total() }} results</span>
+                                        <span class="text-muted small">из {{ $services->total() }} результатов</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,10 +74,10 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="width: 60px">#</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Price</th>
-                                        <th style="width: 120px" class="text-center">Actions</th>
+                                        <th>Название</th>
+                                        <th>Тип</th>
+                                        <th>Цена</th>
+                                        <th style="width: 120px" class="text-center">Действия</th>
                                     </tr>
                                 </thead>
 
@@ -105,7 +105,7 @@
                                         <td class="text-center">
                                             <a href="{{ route('services.edit', $service) }}"
                                                class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Edit">
+                                               data-toggle="tooltip" title="Редактировать">
                                                 <i class="bx bx-pencil font-size-14"></i>
                                             </a>
 
@@ -117,7 +117,7 @@
                                     @empty
                                     <tr>
                                         <td colspan="4" class="text-center text-muted py-4">
-                                            No services found.
+                                            Услуги не найдены.
                                         </td>
                                     </tr>
                                     @endforelse

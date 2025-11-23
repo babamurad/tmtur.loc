@@ -1,3 +1,3 @@
 <div>
-    <h1>Create Culture Item</h1>
+    <h1>Создать элемент культуры</h1>
 </div>

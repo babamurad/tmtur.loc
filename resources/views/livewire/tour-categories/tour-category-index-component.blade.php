@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Tour Categories</h4>
+                    <h4 class="mb-0 font-size-18">Категории туров</h4>
 
                     <a href="{{ route('tour-categories.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
-                        Create
+                        Создать
                     </a>
                 </div>
             </div>
@@ -39,11 +39,11 @@
                                                name="search"
                                                value="{{ request('search') }}"
                                                class="form-control"
-                                               placeholder="Search tour categories…"
-                                               aria-label="Search">
+                                               placeholder="Поиск категорий туров…"
+                                               aria-label="Поиск">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" type="submit">
-                                                Find
+                                                Найти
                                             </button>
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                             {{-- можно сюда добавить фильтры или экспорт --}}
                             <div class="col-md-6 text-md-right mt-2 mt-md-0">
                                 <span class="text-muted font-size-12">
-                                    Found: <strong>{{ $tourCategories->total() }}</strong>
+                                    Найдено: <strong>{{ $tourCategories->total() }}</strong>
                                 </span>
                             </div>
                         </div>{{-- /.row --}}
@@ -64,9 +64,9 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="width: 60px">#</th>
-                                        <th>Title</th>
+                                        <th>Название</th>
                                         <th>Slug</th>
-                                        <th style="width: 120px" class="text-center">Actions</th>
+                                        <th style="width: 120px" class="text-center">Действия</th>
                                     </tr>
                                 </thead>
 
@@ -91,7 +91,7 @@
                                         <td class="text-center">
                                             <a href="{{ route('tour-categories.edit', $tourCategory->id) }}"
                                                class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Edit">
+                                               data-toggle="tooltip" title="Редактировать">
                                                 <i class="bx bx-pencil font-size-14"></i>
                                             </a>
 
@@ -103,7 +103,7 @@
                                     @empty
                                     <tr>
                                         <td colspan="4" class="text-center text-muted py-4">
-                                            No tour categories found.
+                                            Категории туров не найдены.
                                         </td>
                                     </tr>
                                     @endforelse

@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Create Service</h4>
+                    <h4 class="mb-0 font-size-18">Создать услугу</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('services.index') }}">Services</a></li>
-                        <li class="breadcrumb-item active">Create</li>
+                        <li class="breadcrumb-item"><a href="{{ route('services.index') }}">Услуги</a></li>
+                        <li class="breadcrumb-item active">Создание</li>
                     </ol>
                 </div>
             </div>
@@ -18,17 +18,17 @@
             <div class="col-lg-8 col-xl-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">Service details</h5>
+                        <h5 class="card-title mb-4">Детали услуги</h5>
 
                         <form wire:submit.prevent="save">
                             {{-- Name --}}
                             <div class="form-group">
-                                <label for="name">Name ({{ strtoupper(config('app.fallback_locale')) }}) <span class="text-danger">*</span></label>
+                                <label for="name">Название ({{ strtoupper(config('app.fallback_locale')) }}) <span class="text-danger">*</span></label>
                                 <input type="text"
                                        id="name"
                                        wire:model.defer="name"
                                        class="form-control @error('name') is-invalid @enderror"
-                                       placeholder="e.g. City Tour">
+                                       placeholder="например, Экскурсия по городу">
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -37,18 +37,18 @@
                             @foreach(config('app.available_locales') as $locale)
                                 @continue($locale === config('app.fallback_locale'))
                                 <div class="form-group">
-                                    <label>Name ({{ strtoupper($locale) }})</label>
+                                    <label>Название ({{ strtoupper($locale) }})</label>
                                     <input type="text"
                                            wire:model.defer="trans.{{ $locale }}.name"
                                            class="form-control"
-                                           placeholder="Name in {{ $locale }}">
+                                           placeholder="Название на {{ $locale }}">
                                     @error("trans.$locale.name") <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             @endforeach
 
                             {{-- Type --}}
                             <select wire:model.defer="type" class="form-control @error('type') is-invalid @enderror">
-                                <option value="">-- Choose type --</option>
+                                <option value="">-- Выберите тип --</option>
                                 @foreach (App\Enums\ServiceType::options() as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
                                 @endforeach
@@ -59,7 +59,7 @@
 
                             {{-- Price (cents → рубли) --}}
                             <div class="form-group">
-                                <label for="price">Default price, $</label>
+                                <label for="price">Цена по умолчанию, $</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
@@ -81,12 +81,12 @@
                                 <button type="submit"
                                         class="btn btn-success waves-effect waves-light mr-2">
                                     <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                    Save
+                                    Сохранить
                                 </button>
                                 <a href="{{ route('services.index') }}"
                                    class="btn btn-secondary waves-effect waves-light">
                                     <i class="bx bx-x font-size-16 align-middle mr-1"></i>
-                                    Cancel
+                                    Отмена
                                 </a>
                             </div>
                         </form>

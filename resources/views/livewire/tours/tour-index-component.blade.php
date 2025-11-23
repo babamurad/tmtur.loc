@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Tours</h4>
+                    <h4 class="mb-0 font-size-18">Туры</h4>
 
                     <a href="{{ route('tours.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="fas fa-plus-circle font-size-16 align-middle mr-1"></i>
-                        Create
+                        Создать
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                                         type="text"
                                         wire:model.live.debounce.300ms="search"
                                         class="form-control"
-                                        placeholder="Search tours…"
+                                        placeholder="Поиск туров…"
                                     >
                                 </div>
                             </div>
@@ -48,14 +48,14 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="text-muted small">Show</span>
+                                        <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage" style="width: auto;">
                                             <option value="12">12</option>
                                             <option value="20">20</option>
                                             <option value="30">30</option>
                                             <option value="50">50</option>
                                         </select>
-                                        <span class="text-muted small">of {{ $tours->total() }} results</span>
+                                        <span class="text-muted small">из {{ $tours->total() }} результатов</span>
                                     </div>
                                 </div>
                             </div>
@@ -69,12 +69,12 @@
                             <thead class="thead-light">
                             <tr>
                                 <th style="width: 60px">#</th>
-                                <th>Title</th>
-                                <th>Publish</th>
-                                <th>Category</th>
-                                <th>Base Price</th>
-                                <th>Duration (Days)</th>
-                                <th style="width: 120px" class="text-center">Actions</th>
+                                <th>Название</th>
+                                <th>Статус</th>
+                                <th>Категория</th>
+                                <th>Базовая цена</th>
+                                <th>Длительность (дней)</th>
+                                <th style="width: 120px" class="text-center">Действия</th>
                             </tr>
                             </thead>
 
@@ -92,7 +92,7 @@
                                                         style="width: 150px; height: auto;">
                                                 @else
                                                     <img src="{{ asset('assets/images/media/sm-5.jpg') }}" 
-                                                        alt="Default image" 
+                                                        alt="Изображение по умолчанию" 
                                                         class="img-fluid rounded mb-2"
                                                         style="width: 150px; height: auto;">
                                                 @endif
@@ -108,9 +108,9 @@
 
                                     <td>
                                         @if($tour->is_published)
-                                            <span class="badge badge-soft-success">Published</span>
+                                            <span class="badge badge-soft-success">Опубликовано</span>
                                         @else
-                                            <span class="badge badge-soft-danger">Not Published</span>
+                                            <span class="badge badge-soft-danger">Не опубликовано</span>
                                         @endif
                                     </td>
                                     <td>
@@ -133,13 +133,13 @@
                                     <td class="text-center">
                                         <a href="{{ route('tours.edit', $tour->id) }}"
                                            class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                           data-toggle="tooltip" title="Edit">
+                                           data-toggle="tooltip" title="Редактировать">
                                             <i class="fas fa-edit font-size-14"></i> <!-- Используем Font Awesome -->
                                         </a>
 
                                         <button wire:click="delete({{ $tour->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light"
                                                 data-toggle="tooltip"
-                                                title="Delete">
+                                                title="Удалить">
                                             <i class="fas fa-trash-alt font-size-14"></i> <!-- Используем Font Awesome -->
                                         </button>
                                     </td>
@@ -147,7 +147,7 @@
                             @empty
                                 <tr>
                                     <td colspan="7" class="text-center text-muted py-4"> <!-- Обновлено colspan -->
-                                        No tours found.
+                                        Туры не найдены.
                                     </td>
                                 </tr>
                             @endforelse

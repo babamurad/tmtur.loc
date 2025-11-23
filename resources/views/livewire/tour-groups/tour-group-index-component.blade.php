@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Tour Groups</h4>
+                    <h4 class="mb-0 font-size-18">Группы туров</h4>
 
                     <a href="{{ route('tour-groups.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
-                        Create
+                        Создать
                     </a>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                         wire:model.live.debounce.300ms="search"
                                         id="searchInput"
                                         class="form-control"
-                                        placeholder="Search tour groups…"
+                                        placeholder="Поиск групп туров…"
                                     >
                                     <!-- Кнопка очистки -->
                                     @if($search)
@@ -64,7 +64,7 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="text-muted small">Show</span>
+                                        <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
                                                 style="width: auto;">
                                             <option value="8">8</option>
@@ -72,7 +72,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                         </select>
-                                        <span class="text-muted small">of {{ $tourGroups->total() }} results</span>
+                                        <span class="text-muted small">из {{ $tourGroups->total() }} результатов</span>
                                     </div>
                                 </div>
                             </div>
@@ -88,13 +88,13 @@
                             <thead class="thead-light">
                             <tr>
                                 <th style="width: 60px">#</th>
-                                <th>Tour</th>
-                                <th>Starts At</th>
-                                <th>Max People</th>
-                                <th>Current <br> People</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th style="width: 120px" class="text-center">Actions</th>
+                                <th>Тур</th>
+                                <th>Начало</th>
+                                <th>Макс. людей</th>
+                                <th>Текущее <br> кол-во</th>
+                                <th>Цена</th>
+                                <th>Статус</th>
+                                <th style="width: 120px" class="text-center">Действия</th>
                             </tr>
                             </thead>
 
@@ -155,7 +155,7 @@
                                     <td class="text-center">
                                         <a href="{{ route('tour-groups.edit', $tourGroup) }}"
                                            class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                           data-toggle="tooltip" title="Edit">
+                                           data-toggle="tooltip" title="Редактировать">
                                             <i class="bx bx-pencil font-size-14"></i>
                                         </a>
 
@@ -168,7 +168,7 @@
                             @empty
                                 <tr>
                                     <td colspan="8" class="text-center text-muted py-4">
-                                        No tour groups found.
+                                        Группы туров не найдены.
                                     </td>
                                 </tr>
                             @endforelse

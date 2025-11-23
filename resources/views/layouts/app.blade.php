@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TmTourism - Admin & Dashboard</title>
+    <title>TmTourism - Админ и Дашборд</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="MyraStudio" name="author" />
@@ -48,9 +48,9 @@
             <div id="sidebar-menu">
                 <!-- Left Menu Start -->
                 <ul class="metismenu list-unstyled" id="side-menu">
-                    <li class="menu-title">Menu</li>
+                    <li class="menu-title">Меню</li>
                     <li>
-                        <a href="{{ route('dashboard') }}" class="waves-effect"><i class='bx bx-home-smile'></i><span>Dashboard</span></a>
+                        <a href="{{ route('dashboard') }}" class="waves-effect"><i class='bx bx-home-smile'></i><span>Дашборд</span></a>
                     </li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -76,13 +76,13 @@
                     </li>
 
 
-                    <li><a href="#"><i class="bx bx-diamond"></i> Culture Items</a></li>
-                    <li><a href="#"><i class="bx bx-user"></i> Customers</a></li>
-                    <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Guides</a></li>
+                    <li><a href="#"><i class="bx bx-diamond"></i> Элементы культуры</a></li>
+                    <li><a href="#"><i class="bx bx-user"></i> Клиенты</a></li>
+                    <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
 
                     @livewire('MessageNavComponent')
 
-                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Contsact Infos</a></li>
+                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контактная информация</a></li>
 
 
 
@@ -105,29 +105,29 @@
                 <div class="dropdown d-none d-sm-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="mdi mdi-plus"></i> Create New
+                        <i class="mdi mdi-plus"></i> Создать
                         <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                     </button>
                     <div class="dropdown-menu">
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            Application
+                            Приложение
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            Software
+                            ПО
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            EMS System
+                            Система EMS
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            CRM App
+                            CRM Приложение
                         </a>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                         <form class="p-3">
                             <div class="form-group m-0">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search ..."
+                                    <input type="text" class="form-control" placeholder="Поиск ..."
                                            aria-label="Recipient's username">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit"><i
@@ -159,40 +159,7 @@
                     </div>
                 </div>
 
-                <div class="dropdown d-inline-block">
-                    <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="" src="{{ asset('assets/images/flags/us.jpg') }}" alt="Header Language" height="16">
-                        <span class="d-none d-sm-inline-block ml-1">English</span>
-                        <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('assets/images/flags/spain.jpg') }}" alt="user-image" class="mr-1" height="12">
-                            <span class="align-middle">Spanish</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('assets/images/flags/germany.jpg') }}" alt="user-image" class="mr-1" height="12">
-                            <span class="align-middle">German</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('assets/images/flags/italy.jpg') }}" alt="user-image" class="mr-1" height="12">
-                            <span class="align-middle">Italian</span>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="{{ asset('assets/images/flags/russia.jpg') }}" alt="user-image" class="mr-1" height="12">
-                            <span class="align-middle">Russian</span>
-                        </a>
-                    </div>
-                </div>
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon waves-effect pr-4"
@@ -206,10 +173,10 @@
                         <div class="p-3">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h6 class="m-0"> Notifications </h6>
+                                    <h6 class="m-0"> Уведомления </h6>
                                 </div>
                                 <div class="col-auto">
-                                    <a href="#!" class="small font-weight-bold"> View All</a>
+                                    <a href="#!" class="small font-weight-bold"> Смотреть все</a>
                                 </div>
                             </div>
                         </div>
@@ -257,7 +224,7 @@
                         </div>
                         <div class="p-2">
                             <a class="btn btn-sm btn-link btn-block text-center font-size-14" href="javascript:void(0)">
-                                Load More.. <i class="mdi mdi-arrow-right ml-1"></i>
+                                Загрузить еще.. <i class="mdi mdi-arrow-right ml-1"></i>
                             </a>
                         </div>
                     </div>
@@ -276,23 +243,23 @@
                            href="{{ route('admin.profile-edit') }}"
                            wire:navigate
                         >
-                            <span>Profile</span>
+                            <span>Профиль</span>
                             <span>
                                     <span class="badge badge-pill badge-soft-danger">1</span>
                                 </span>
                         </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
                            href="javascript:void(0)">
-                            Settings
+                            Настройки
                         </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
                            href="javascript:void(0)">
-                            <span>Lock Account</span>
+                            <span>Блокировка экрана</span>
                         </a>
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
                             <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between border-0 bg-transparent">
-                                <span>Log Out</span>
+                                <span>Выйти</span>
                             </button>
                         </form>
                     </div>
@@ -319,7 +286,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-right d-none d-sm-block">
-                            Design & Develop by Bobo
+                            Дизайн и разработка: Bobo
                         </div>
                     </div>
                 </div>

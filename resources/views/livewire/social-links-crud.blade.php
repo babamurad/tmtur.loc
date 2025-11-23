@@ -6,7 +6,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label>Name</label>
+                        <label>Название</label>
                         <input type="text" wire:model.defer="name" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
@@ -14,12 +14,12 @@
                         <input type="url" wire:model.defer="url" class="form-control" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Sort</label>
+                        <label>Сортировка</label>
                         <input type="number" wire:model.defer="sort_order" class="form-control">
                     </div>
                     <div class="form-group col-md-2 align-self-end">
                         <button class="btn btn-primary btn-block" type="submit">
-                            {{ $editId ? 'Update' : 'Save' }}
+                            {{ $editId ? 'Обновить' : 'Сохранить' }}
                         </button>
                     </div>
                 </div>
@@ -27,18 +27,18 @@
                 <div class="form-row">
 
                     <div class="form-group col-md-4">
-                        <label>Icon</label>
+                        <label>Иконка</label>
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle btn-block text-left"
                                     data-toggle="dropdown">
                                 @if($icon)
                                     {!! $icons[$icon] !!}
                                 @else
-                                    Choose icon
+                                    Выберите иконку
                                 @endif
                             </button>
                             <div class="dropdown-menu w-100" style="max-height:220px;overflow:auto">
-                                <a class="dropdown-item" href="#" wire:click.prevent="$set('icon','')">— none —</a>
+                                <a class="dropdown-item" href="#" wire:click.prevent="$set('icon','')">— нет —</a>
                                 @foreach($icons as $class => $html)
                                     <a class="dropdown-item d-flex align-items-center" href="#"
                                        wire:click.prevent="$set('icon','{{ $class }}')">
@@ -52,14 +52,14 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>Button CSS class</label>
+                        <label>CSS класс кнопки</label>
                         <input type="text" wire:model.defer="btn_class" class="form-control" placeholder="btn-fb">
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Active?</label>
+                        <label>Активен?</label>
                         <select wire:model.defer="is_active" class="form-control">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
+                            <option value="1">Да</option>
+                            <option value="0">Нет</option>
                         </select>
                     </div>
                 </div>
@@ -73,12 +73,12 @@
             <table class="table mb-0">
                 <thead class="thead-light">
                 <tr>
-                    <th>Name</th>
+                    <th>Название</th>
                     <th>URL</th>
-                    <th>Icon</th>
-                    <th>CSS-Class</th>
-                    <th>Order</th>
-                    <th>Active</th>
+                    <th>Иконка</th>
+                    <th>CSS-класс</th>
+                    <th>Порядок</th>
+                    <th>Активен</th>
                     <th width="120"></th>
                 </tr>
                 </thead>
@@ -90,14 +90,14 @@
                         <td><i class="{{$sl->icon}}"></i> {!! $sl->icon !!}</td>
                         <td><code>{{ $sl->btn_class }}</code></td>
                         <td>{{ $sl->sort_order }}</td>
-                        <td>{{ $sl->is_active ? 'Yes' : 'No' }}</td>
+                        <td>{{ $sl->is_active ? 'Да' : 'Нет' }}</td>
                         <td>
-                            <button class="btn btn-sm btn-secondary" wire:click="edit({{ $sl->id }})">Edit</button>
-                            <button class="btn btn-sm btn-danger" wire:click="delete({{ $sl->id }})">Del</button>
+                            <button class="btn btn-sm btn-secondary" wire:click="edit({{ $sl->id }})">Ред.</button>
+                            <button class="btn btn-sm btn-danger" wire:click="delete({{ $sl->id }})">Уд.</button>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center">No links yet</td></tr>
+                    <tr><td colspan="7" class="text-center">Нет ссылок</td></tr>
                 @endforelse
                 </tbody>
             </table>

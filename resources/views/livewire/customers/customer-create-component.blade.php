@@ -1,3 +1,3 @@
 <div>
-    <h1>Create Customer</h1>
+    <h1>Создать клиента</h1>
 </div>

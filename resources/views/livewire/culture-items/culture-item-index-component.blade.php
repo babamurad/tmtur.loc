@@ -1,3 +1,3 @@
 <div>
-    <h1>Culture Items</h1>
+    <h1>Элементы культуры</h1>
 </div>

@@ -6,8 +6,8 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Редактировать группу туров</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('tour-groups.index') }}">Tour Groups</a></li>
-                        <li class="breadcrumb-item active">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ route('tour-groups.index') }}">Группы туров</a></li>
+                        <li class="breadcrumb-item active">Редактирование</li>
                     </ol>
                 </div>
             </div>
@@ -24,9 +24,9 @@
                             @csrf
                             <!-- Tour -->
                             <div class="form-group">
-                                <label>Tour <span class="text-danger">*</span></label>
+                                <label>Тур <span class="text-danger">*</span></label>
                                 <select wire:model.defer="tour_id" class="form-control @error('tour_id') is-invalid @enderror">
-                                    <option value="">-- Choose tour --</option>
+                                    <option value="">-- Выберите тур --</option>
                                     @foreach($tours as $tour)
                                         <option value="{{ $tour->id }}">{{ $tour->title }}</option>
                                     @endforeach
@@ -36,40 +36,40 @@
 
                             <!-- Starts At -->
                             <div class="form-group">
-                                <label>Starts At <span class="text-danger">*</span></label>
+                                <label>Начало <span class="text-danger">*</span></label>
                                 <input type="datetime-local" wire:model.defer="starts_at" class="form-control @error('starts_at') is-invalid @enderror">
                                 @error('starts_at') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Max People -->
                             <div class="form-group">
-                                <label>Max People <span class="text-danger">*</span></label>
+                                <label>Макс. людей <span class="text-danger">*</span></label>
                                 <input type="number" min="1" wire:model.defer="max_people" class="form-control @error('max_people') is-invalid @enderror">
                                 @error('max_people') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Current People -->
                             <div class="form-group">
-                                <label>Current People</label>
+                                <label>Текущее кол-во</label>
                                 <input type="number" min="0" wire:model.defer="current_people" class="form-control @error('current_people') is-invalid @enderror">
                                 @error('current_people') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Price -->
                             <div class="form-group">
-                                <label>Price (cents) <span class="text-danger">*</span></label>
+                                <label>Цена (центы) <span class="text-danger">*</span></label>
                                 <input type="number" min="0" wire:model.defer="price_cents" class="form-control @error('price_cents') is-invalid @enderror">
                                 @error('price_cents') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Status -->
                             <div class="form-group">
-                                <label>Status <span class="text-danger">*</span></label>
+                                <label>Статус <span class="text-danger">*</span></label>
                                 <select wire:model.defer="status" class="form-control @error('status') is-invalid @enderror">
-                                    <option value="draft">Draft</option>
-                                    <option value="open">Open</option>
-                                    <option value="closed">Closed</option>
-                                    <option value="cancelled">Cancelled</option>
+                                    <option value="draft">Черновик</option>
+                                    <option value="open">Открыто</option>
+                                    <option value="closed">Закрыто</option>
+                                    <option value="cancelled">Отменено</option>
                                 </select>
                                 @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
@@ -77,10 +77,10 @@
                             <!-- Buttons -->
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn btn-success">
-                                    <i class="bx bx-check-double"></i> Save
+                                    <i class="bx bx-check-double"></i> Сохранить
                                 </button>
                                 <a href="{{ route('tour-groups.index') }}" class="btn btn-secondary ml-2">
-                                    <i class="bx bx-x"></i> Cancel
+                                    <i class="bx bx-x"></i> Отмена
                                 </a>
                             </div>
                         </form>

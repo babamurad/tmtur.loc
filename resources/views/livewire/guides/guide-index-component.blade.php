@@ -31,14 +31,14 @@
 
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
-                                    <span class="text-muted small px-1">Show</span>
+                                    <span class="text-muted small px-1">Показать</span>
                                     <select class="form-select form-select-sm" wire:model.live="perPage" style="width: auto;">
                                         <option value="8">8</option>
                                         <option value="15">15</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                     </select>
-                                    <span class="text-muted small px-1">of {{ $guides->total() }} results</span>
+                                    <span class="text-muted small px-1">из {{ $guides->total() }} результатов</span>
                                 </div>
                             </div>
                         </div>

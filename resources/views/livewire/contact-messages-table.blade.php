@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Contact messages</h5>
+                <h5 class="mb-0">Сообщения</h5>
 
                 {{-- поиск --}}
                 <div>
                     <input wire:model.debounce.300ms="search" type="text" class="form-control form-control-sm"
-                           placeholder="Search…" style="max-width:220px">
+                           placeholder="Поиск…" style="max-width:220px">
                 </div>
             </div>
 
@@ -17,18 +17,18 @@
                     <tr>
                         <th style="width:50px">#</th>
                         <th wire:click="sortBy('name')" class="cursor-pointer">
-                            Name
+                            Имя
                             @include('livewire.partials.sort-icon', ['field' => 'name'])
                         </th>
                         <th>Email</th>
-                        <th>Phone</th>
-                        <th>Message</th>
+                        <th>Телефон</th>
+                        <th>Сообщение</th>
                         <th wire:click="sortBy('created_at')" class="cursor-pointer">
-                            Received
+                            Получено
                             @include('livewire.partials.sort-icon', ['field' => 'created_at'])
                         </th>
-                        <th class="text-center">Read</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center">Прочитано</th>
+                        <th class="text-center">Действия</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,21 +47,21 @@
                             <td>{{ $msg->created_at->format('d.m.Y H:i') }}</td>
                             <td class="text-center">
                                 @if($msg->is_read)
-                                    <span class="badge badge-success">read</span>
+                                    <span class="badge badge-success">прочитано</span>
                                 @else
-                                    <span class="badge badge-warning">new</span>
+                                    <span class="badge badge-warning">новое</span>
                                 @endif
                             </td>
                             <td class="text-center">
                                 @if(!$msg->is_read)
                                     <button class="btn btn-sm btn-outline-success"
                                             wire:click="markAsRead({{ $msg->id }})">
-                                        Mark read
+                                        Прочитать
                                     </button>
                                 @else
                                     <button class="btn btn-sm btn-outline-secondary"
                                             wire:click="markAsUnread({{ $msg->id }})">
-                                        Mark unread
+                                        Не прочитано
                                     </button>
                                 @endif
                             </td>
@@ -72,16 +72,16 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Message #{{ $msg->id }}</h5>
+                                        <h5 class="modal-title">Сообщение #{{ $msg->id }}</h5>
                                         <button type="button" class="close" data-dismiss="modal">
                                             <span>&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><strong>Name:</strong> {{ $msg->name }}</p>
+                                        <p><strong>Имя:</strong> {{ $msg->name }}</p>
                                         <p><strong>Email:</strong> {{ $msg->email }}</p>
-                                        <p><strong>Phone:</strong> {{ $msg->phone ?? '-' }}</p>
-                                        <p><strong>Date:</strong> {{ $msg->created_at->format('d.m.Y H:i') }}</p>
+                                        <p><strong>Телефон:</strong> {{ $msg->phone ?? '-' }}</p>
+                                        <p><strong>Дата:</strong> {{ $msg->created_at->format('d.m.Y H:i') }}</p>
                                         <hr>
                                         <p>{{ $msg->message }}</p>
                                         <hr>
@@ -90,14 +90,14 @@
                                         </small>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted">No messages yet</td>
+                            <td colspan="8" class="text-center text-muted">Сообщений пока нет</td>
                         </tr>
                     @endforelse
                     </tbody>

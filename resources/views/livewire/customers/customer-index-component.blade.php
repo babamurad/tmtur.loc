@@ -1,3 +1,3 @@
 <div>
-    <h1>Customers</h1>
+    <h1>Клиенты</h1>
 </div>

@@ -20,7 +20,7 @@ class MessageNavComponent extends Component
                 @if($unreadCount > 0)
                 <span class="badge badge-pill badge-primary float-right">{$unreadCount}</span>
                 @endif
-                <span>Messages</span>
+                <span>Сообщения</span>
             </a>
         </li>
         HTML;

@@ -3,7 +3,7 @@
         <div class="card card-animate">
             <div class="card-body">
 
-                <h4 class="card-title">Конакты</h4>
+                <h4 class="card-title">Контакты</h4>
                 <p class="card-subtitle mb-4">Общая контактная информация.</p>
 
                 <div class="row">
@@ -44,11 +44,11 @@
                                         <form wire:submit.prevent="store">
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Type</label>
-                                                    <input type="text" wire:model.defer="type" class="form-control" placeholder="type (address, phone)" required>
+                                                    <label>Тип</label>
+                                                    <input type="text" wire:model.defer="type" class="form-control" placeholder="тип (address, phone)" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Icon (bx ...)</label>
+                                                    <label>Иконка (bx ...)</label>
                                                     <input type="text" wire:model.defer="icon" class="form-control">
                                                 </div>
                                             </div>
@@ -80,12 +80,12 @@
                                                                  aria-labelledby="lang-{{ $locale }}-tab">
 
                                                                 <div class="form-group">
-                                                                    <label>Label ({{ strtoupper($locale) }})</label>
+                                                                    <label>Метка ({{ strtoupper($locale) }})</label>
                                                                     <input type="text" wire:model.defer="trans.{{ $locale }}.label" class="form-control">
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label>Value ({{ strtoupper($locale) }})</label>
+                                                                    <label>Значение ({{ strtoupper($locale) }})</label>
                                                                     <textarea wire:model.defer="trans.{{ $locale }}.value" class="form-control" rows="3"></textarea>
                                                                 </div>
 
@@ -97,28 +97,28 @@
 
                                             <div class="form-row">
                                                 <div class="form-group col-md-3">
-                                                    <label>Input type</label>
+                                                    <label>Тип поля</label>
                                                     <select wire:model.defer="input_type" class="form-control">
-                                                        <option value="">text</option>
-                                                        <option value="text">text</option>
-                                                        <option value="textarea">textarea</option>
+                                                        <option value="">текст</option>
+                                                        <option value="text">текст</option>
+                                                        <option value="textarea">текстовая область</option>
                                                         <option value="email">email</option>
                                                         <option value="url">url</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <label>Sort order</label>
+                                                    <label>Сортировка</label>
                                                     <input type="number" wire:model.defer="sort_order" class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <label>Is active</label>
+                                                    <label>Активен</label>
                                                     <select wire:model.defer="is_active" class="form-control">
-                                                        <option value="1">Yes</option>
-                                                        <option value="0">No</option>
+                                                        <option value="1">Да</option>
+                                                        <option value="0">Нет</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-2 align-self-end">
-                                                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+                                                    <button class="btn btn-primary btn-block" type="submit">Сохранить</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -131,7 +131,7 @@
                                         <table class="table mb-0">
                                             <thead class="thead-light">
                                             <tr>
-                                                <th>Label</th><th>Type</th><th>Value</th><th>Icon</th><th>Order</th><th>Active</th><th></th>
+                                                <th>Метка</th><th>Тип</th><th>Значение</th><th>Иконка</th><th>Порядок</th><th>Активен</th><th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -142,10 +142,10 @@
                                                     <td style="white-space:pre-wrap;">{{ $it->tr('value') }}</td>
                                                     <td><i class="bx {{ $it->icon }}"></i> {{ $it->icon }}</td>
                                                     <td>{{ $it->sort_order }}</td>
-                                                    <td>{{ $it->is_active ? 'Yes' : 'No' }}</td>
+                                                    <td>{{ $it->is_active ? 'Да' : 'Нет' }}</td>
                                                     <td>
-                                                        <button class="btn btn-sm btn-secondary" wire:click="editContact({{ $it->id }})">Edit</button>
-                                                        <button class="btn btn-sm btn-danger" wire:click="delete({{ $it->id }})">Delete</button>
+                                                        <button class="btn btn-sm btn-secondary" wire:click="editContact({{ $it->id }})">Ред.</button>
+                                                        <button class="btn btn-sm btn-danger" wire:click="delete({{ $it->id }})">Уд.</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
