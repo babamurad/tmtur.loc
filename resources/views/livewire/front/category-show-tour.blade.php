@@ -20,7 +20,9 @@
                             </div>
 
                             <div class="card-body d-flex flex-column">
-                                <a href="{{ route('our-tours.show', $tour->slug) }}"><h5 class="card-title">{{ $tour->tr('title') }}</h5></a>
+                                <a href="{{ route('our-tours.show', $tour->slug) }}">
+                                    <h5 class="card-title">{{ $tour->tr('title') }}</h5>
+                                </a>
 
                                 <p class="card-text small">
                                     {!! Str::words(strip_tags($tour->tr('short_description')), 20) !!}

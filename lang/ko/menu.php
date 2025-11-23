@@ -1,4 +1,5 @@
 <?php
+
 return [
     'home'      => '홈',
     'about'     => '투르크메니스탄 소개',
@@ -7,4 +8,6 @@ return [
     'visa'      => '비자',
     'blog'      => '블로그',
     'contact'   => '연락처',
+    'darwaza'   => '다르바자',
+    'gallery'   => '갤러리',
 ];

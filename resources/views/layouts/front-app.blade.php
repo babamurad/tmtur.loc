@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
-  <title>Туркменистан — Земля Огня и Тайн | TurkmenTravel</title>
+  <title>{{ __('layout.meta_title') }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
@@ -57,29 +57,29 @@
                 <div class="d-flex align-items-center mb-2">
                     <i class="fa-solid fa-fire text-danger mr-2"></i><span class="font-weight-bold">TmTourism</span>
                 </div>
-                <p class="small mb-0">Your reliable guide to amazing Turkmenistan.</p>
+                <p class="small mb-0">{{ __('layout.footer_description') }}</p>
             </div>
             <div class="col-md-3">
-                <div class="font-weight-bold mb-2">Quick links</div>
+                <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div>
                 <ul class="list-unstyled small">
-                    <li><a href="/#home" class="text-white-50">Home</a></li>
-                    <li><a href="/#about" class="text-white-50">About Turkmenistan</a></li>
-                    <li><a href="/#tours" class="text-white-50">Tours</a></li>
-                    <li><a href="/#visa" class="text-white-50">Visa</a></li>
+                    <li><a href="/#home" class="text-white-50">{{ __('menu.home') }}</a></li>
+                    <li><a href="/#about" class="text-white-50">{{ __('menu.about') }}</a></li>
+                    <li><a href="/#tours" class="text-white-50">{{ __('menu.tours') }}</a></li>
+                    <li><a href="/#visa" class="text-white-50">{{ __('menu.visa') }}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <div class="font-weight-bold mb-2">Quick links</div>
+                <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div>
                 <ul class="list-unstyled small">
-                    <li><a href="/#darwaza" class="text-white-50">Darvaza</a></li>
-                    <li><a href="/#contact" class="text-white-50">Contact</a></li>
-                    <li><a href="{{ route('galley') }}" class="text-white-50">Gallery</a></li>
+                    <li><a href="/#darwaza" class="text-white-50">{{ __('menu.darwaza') }}</a></li>
+                    <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
+                    <li><a href="{{ route('galley') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
-                <div class="font-weight-bold mb-2">Subscribe to newsletter</div>
+                <div class="font-weight-bold mb-2">{{ __('layout.subscribe_newsletter') }}</div>
                 <form class="form-inline">
-                    <input type="email" class="form-control form-control-sm mr-2" placeholder="Your email" required>
+                    <input type="email" class="form-control form-control-sm mr-2" placeholder="{{ __('layout.your_email') }}" required>
                     <button type="submit" class="btn btn-sm btn-danger">
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
@@ -87,7 +87,7 @@
             </div>
         </div>
         <hr class="my-3 bg-white">
-        <div class="text-center small text-white-50">&copy; 2025 TmTourism. All rights reserved.</div>
+        <div class="text-center small text-white-50">&copy; 2025 {{ __('layout.copyright') }}</div>
     </div>
 </footer>
 

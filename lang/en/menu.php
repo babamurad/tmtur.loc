@@ -8,4 +8,6 @@ return [
     'visa' => 'Visa',
     'blog' => 'Blog',
     'contact' => 'Contact',
+    'darwaza' => 'Darvaza',
+    'gallery' => 'Gallery',
 ];

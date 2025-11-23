@@ -243,6 +243,9 @@ class TourEditComponent extends Component
 
     public function save()
     {
+        $fallback = config('app.fallback_locale');
+        $this->trans[$fallback]['title'] = $this->title;
+        
         $this->validate();
 
         // 1. только технические / не-переводимые поля
