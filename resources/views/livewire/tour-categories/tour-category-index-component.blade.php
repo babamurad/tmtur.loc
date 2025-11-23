@@ -75,9 +75,11 @@
                                     <tr>
                                         <td>{{ $tourCategory->id }}</td>
                                         <td>
-                                            <span class="font-weight-semibold">
-                                                {{ $tourCategory->title }}
-                                            </span>
+                                            <a href="{{ route('tour-categories.edit', $tourCategory->id) }}">
+                                                <span class="font-weight-semibold">
+                                                    {{ $tourCategory->title }}
+                                                </span>
+                                            </a>
                                         </td>
                                         <td>
                                             <span class="text-muted">
