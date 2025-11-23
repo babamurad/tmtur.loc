@@ -22,9 +22,6 @@ use App\Livewire\Guides\GuideCreateComponent;
 use App\Livewire\Carousel\CarouselIndexComponent;
 use App\Livewire\Carousel\CarouselCreateComponent;
 use App\Livewire\Carousel\CarouselEditComponent;
-use App\Livewire\ContactInfos\ContactInfoIndexComponent;
-use App\Livewire\ContactInfos\ContactInfoCreateComponent;
-use App\Livewire\ContactInfos\ContactInfoEditComponent;
 use App\Livewire\Bookings\BookingIndexComponent;
 use App\Livewire\Bookings\BookingCreateComponent;
 use App\Livewire\Bookings\BookingEditComponent;
@@ -56,10 +53,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('carousels', CarouselIndexComponent::class)->name('carousels.index');
     Route::get('carousels/create', CarouselCreateComponent::class)->name('carousels.create');
     Route::get('carousels/edit/{id}', CarouselEditComponent::class)->name('carousels.edit');
-
-    Route::get('contact-infos', ContactInfoIndexComponent::class)->name('contact-infos.index');
-    Route::get('contact-infos/create', ContactInfoCreateComponent::class)->name('contact-infos.create');
-    Route::get('contact-infos/edit/{id}', ContactInfoEditComponent::class)->name('contact-infos.edit');
 
     Route::get('bookings', BookingIndexComponent::class)->name('bookings.index');
     Route::get('bookings/create', BookingCreateComponent::class)->name('bookings.create');
