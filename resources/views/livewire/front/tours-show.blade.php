@@ -262,11 +262,11 @@
                                              class="d-block w-100" 
                                              alt="{{ $media->file_name }}"
                                              style="max-height: 80vh; object-fit: contain;">
-                                        @if($media->file_name)
+                                        <!-- @if($media->file_name)
                                             <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
                                                 <p class="mb-0">{{ $media->file_name }}</p>
                                             </div>
-                                        @endif
+                                        @endif -->
                                     </div>
                                 @endforeach
                             </div>

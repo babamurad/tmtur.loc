@@ -566,6 +566,25 @@
                                 </div>
                             @endif
                             
+                            {{-- Upload Progress Indicator --}}
+                            <div wire:loading wire:target="newImages" class="mb-3">
+                                <div class="alert alert-info mb-2">
+                                    <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i>
+                                    <strong>Загрузка изображений...</strong>
+                                    <p class="mb-0 mt-1"><small>Пожалуйста, подождите. Не закрывайте страницу и не нажимайте другие кнопки.</small></p>
+                                </div>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                                         role="progressbar" 
+                                         style="width: 100%"
+                                         aria-valuenow="100" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        <span class="font-weight-bold">Обработка файлов...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             {{-- Upload New Images --}}
                             <div class="form-group">
                                 <label>Загрузить новые изображения</label>
@@ -575,7 +594,9 @@
                                         id="newImages"
                                         wire:model="newImages"
                                         accept="image/*"
-                                        multiple>
+                                        multiple
+                                        wire:loading.attr="disabled"
+                                        wire:target="newImages">
                                     <label class="custom-file-label" for="newImages">
                                         @if ($newImages && count($newImages) > 0)
                                             Выбрано файлов: {{ count($newImages) }}
@@ -645,20 +666,30 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="submit"
-                                    class="btn btn-primary btn-block waves-effect waves-light">
+                                    class="btn btn-primary btn-block waves-effect waves-light"
+                                    wire:loading.attr="disabled"
+                                    wire:target="newImages">
                                 <i class="bx bx-save font-size-16 align-middle mr-1"></i>
-                                <span wire:loading.remove>Сохранить и закрыть</span>
-                                <span wire:loading>Обновление...</span>
+                                <span wire:loading.remove wire:target="newImages">Сохранить и закрыть</span>
+                                <span wire:loading wire:target="newImages">
+                                    <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
                             </button>
                             <button type="button"
                                     wire:click.prevent="save"
-                                    class="btn btn-success btn-block waves-effect waves-light mt-2">
+                                    class="btn btn-success btn-block waves-effect waves-light mt-2"
+                                    wire:loading.attr="disabled"
+                                    wire:target="newImages">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                <span wire:loading.remove>Сохранить</span>
-                                <span wire:loading>Обновление...</span>
+                                <span wire:loading.remove wire:target="newImages">Сохранить</span>
+                                <span wire:loading wire:target="newImages">
+                                    <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
                             </button>
                             <a href="{{ route('tours.index') }}"
-                               class="btn btn-secondary btn-block waves-effect waves-light mt-2">
+                               class="btn btn-secondary btn-block waves-effect waves-light mt-2"
+                               wire:loading.attr="disabled"
+                               wire:target="newImages">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                 Отмена
                             </a>

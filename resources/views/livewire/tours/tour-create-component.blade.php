@@ -515,6 +515,25 @@
                                 Галерея изображений
                             </h5>
                             
+                            {{-- Upload Progress Indicator --}}
+                            <div wire:loading wire:target="images" class="mb-3">
+                                <div class="alert alert-info mb-2">
+                                    <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i>
+                                    <strong>Загрузка изображений...</strong>
+                                    <p class="mb-0 mt-1"><small>Пожалуйста, подождите. Не закрывайте страницу и не нажимайте другие кнопки.</small></p>
+                                </div>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+                                         role="progressbar" 
+                                         style="width: 100%"
+                                         aria-valuenow="100" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        <span class="font-weight-bold">Обработка файлов...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="form-group">
                                 <label>Выберите изображения</label>
                                 <div class="custom-file">
@@ -523,7 +542,9 @@
                                         id="images"
                                         wire:model="images"
                                         accept="image/*"
-                                        multiple>
+                                        multiple
+                                        wire:loading.attr="disabled"
+                                        wire:target="images">
                                     <label class="custom-file-label" for="images">
                                         @if ($images && count($images) > 0)
                                             Выбрано файлов: {{ count($images) }}
@@ -600,12 +621,19 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="submit"
-                                    class="btn btn-success btn-block waves-effect waves-light">
+                                    class="btn btn-success btn-block waves-effect waves-light"
+                                    wire:loading.attr="disabled"
+                                    wire:target="images">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                Сохранить
+                                <span wire:loading.remove wire:target="images">Сохранить</span>
+                                <span wire:loading wire:target="images">
+                                    <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
                             </button>
                             <a href="{{ route('tours.index') }}"
-                               class="btn btn-secondary btn-block waves-effect waves-light mt-2">
+                               class="btn btn-secondary btn-block waves-effect waves-light mt-2"
+                               wire:loading.attr="disabled"
+                               wire:target="images">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                 Отмена
                             </a>
