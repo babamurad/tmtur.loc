@@ -7,28 +7,33 @@ use Spatie\Sitemap\SitemapGenerator;
 
 class GenerateSitemap extends Command
 {
-    // Имя команды, которой будете пользоваться
-    protected $signsture = 'sitemap:generate';
-    protected $description = 'Generate sitemap.xml';
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:generate-sitemap';
+    protected $signature = 'sitemap:generate';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate sitemap.xml for the site';
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info('Generating sitemap...');
 
-        // В .env у вас должен быть APP_URL=https://tmtourism.com
+        // В .env у тебя должен быть APP_URL=https://tmtourism.com
         $baseUrl = config('app.url');
 
-        // sitemap будет лежать в public/sitemap.xml
-        SitemapGenerator::create($baseUrl)->writeToFile(public_path('sitemap.xml'));
+        // Sitemap будет лежать в public/sitemap.xml
+        SitemapGenerator::create($baseUrl)
+            ->writeToFile(public_path('sitemap.xml'));
 
         $this->info('Sitemap generated: ' . public_path('sitemap.xml'));
 
