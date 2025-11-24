@@ -21,6 +21,8 @@ class PostShow extends Component
 
         return view('livewire.front.post-show', [
             'categories' => $categories,
-        ])->layout('layouts.front-app', ['hideCarousel' => true]);
+        ])
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.post_show', ['post' => $this->post->tr('title')]));
     }
 }

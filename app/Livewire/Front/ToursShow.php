@@ -59,6 +59,7 @@ class ToursShow extends Component
         // dd($this->tour->tr('title'));
         $categories = TourCategory::with('tours')->get();
         return view('livewire.front.tours-show', compact('categories'))
-            ->layout('layouts.front-app', ['hideCarousel' => true]);
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.tour_show', ['tour' => $this->tour->tr('title')]));
     }
 }

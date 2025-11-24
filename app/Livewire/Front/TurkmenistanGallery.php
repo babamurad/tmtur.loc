@@ -8,6 +8,8 @@ class TurkmenistanGallery extends Component
 {
     public function render()
     {
-        return view('livewire.front.turkmenistan-gallery');
+        return view('livewire.front.turkmenistan-gallery')
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.gallery'));
     }
 }

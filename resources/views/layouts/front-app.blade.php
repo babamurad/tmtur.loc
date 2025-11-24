@@ -29,7 +29,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
  
   <meta charset="utf-8">
-  <title>{{ __('layout.meta_title') }}</title>
+  <title>{{ $title ?? __('layout.meta_title') }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
@@ -100,7 +100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <ul class="list-unstyled small">
                     <li><a href="/#darwaza" class="text-white-50">{{ __('menu.darwaza') }}</a></li>
                     <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
-                    <li><a href="{{ route('galley') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
+                    <li><a href="{{ route('galley') }}" class="text-white-50" wire:navigate>{{ __('menu.gallery') }}</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -128,6 +128,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
     // Animation init
     new WOW().init();
+</script>
+
+<script>
+    // Функция для инициализации Bootstrap компонентов
+    function initBootstrapComponents() {
+        // Реинициализация всех dropdown элементов
+        $('.dropdown-toggle').dropdown();
+        
+        // Реинициализация WOW анимаций
+        if (typeof WOW !== 'undefined') {
+            new WOW().init();
+        }
+        
+        // Закрытие мобильного меню при клике на ссылку
+        $('.navbar-collapse a').on('click', function(e) {
+            // Не закрывать для dropdown toggle
+            if (!$(this).hasClass('dropdown-toggle')) {
+                var navbar = $('.navbar-collapse');
+                if (navbar.hasClass('show')) {
+                    navbar.collapse('hide');
+                }
+            }
+        });
+    }
+
+    // Инициализация при первой загрузке страницы
+    $(document).ready(function() {
+        initBootstrapComponents();
+    });
+
+    // Реинициализация после навигации Livewire
+    document.addEventListener('livewire:navigated', function () {
+        initBootstrapComponents();
+    });
 </script>
 
 <script>

@@ -82,6 +82,8 @@ class ContactFormComponent extends Component
 
     public function render()
     {
-        return view('livewire.front.contact-form-component');
+        return view('livewire.front.contact-form-component')
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.contact'));
     }
 }

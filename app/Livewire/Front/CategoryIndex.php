@@ -16,6 +16,7 @@ class CategoryIndex extends Component
         $categories = TourCategory::all();
         $tours = Tour::where('is_published', true)->with('media')->paginate(4);
         return view('livewire.front.category-index', compact('tours', 'categories'))
-            ->layout('layouts.front-app', ['hideCarousel' => true]);
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.tours'));
     }
 }

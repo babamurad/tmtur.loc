@@ -33,9 +33,20 @@ class PostsIndex extends Component
 
         $categories = Category::withCount('posts')->where('is_published', true)->get();
 
+        // Определяем title
+        $title = __('titles.blog');
+        if ($this->categorySlug) {
+            $category = Category::where('slug', $this->categorySlug)->first();
+            if ($category) {
+                $title = __('titles.category_blog', ['category' => $category->tr('name')]);
+            }
+        }
+
         return view('livewire.front.posts-index', [
             'posts' => $posts,
             'categories' => $categories,
-        ])->layout('layouts.front-app', ['hideCarousel' => true]);
+        ])
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title($title);
     }
 }

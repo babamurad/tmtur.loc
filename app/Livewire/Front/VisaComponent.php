@@ -8,6 +8,8 @@ class VisaComponent extends Component
 {
     public function render()
     {
-        return view('livewire.front.visa-component')->layout('layouts.front-app', ['hideCarousel' => true]);
+        return view('livewire.front.visa-component')
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.visa'));
     }
 }

@@ -34,14 +34,16 @@
                     <div class="dropdown-menu" aria-labelledby="toursDropdown">
                         @foreach($categories as $category)
                             <a class="dropdown-item"
-                               href="{{ route('tours.category.show', $category->slug) }}">
+                               href="{{ route('tours.category.show', $category->slug) }}"
+                               wire:navigate>
                                 {{ $category->tr('title') }}
                             </a>
                         @endforeach
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item"
-                           href="{{ route('tours.category.index') }}">
+                           href="{{ route('tours.category.index') }}"
+                           wire:navigate>
                             {{ __('menu.all_tours') }}
                         </a>
                     </div>
@@ -52,7 +54,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('blog.index') }}">{{ __('menu.blog') }}</a>
+                    <a class="nav-link" href="{{ route('blog.index') }}" wire:navigate>{{ __('menu.blog') }}</a>
                 </li>
 
                 <li class="nav-item">

@@ -53,6 +53,8 @@ class CartComponent extends Component
     {
         return view('livewire.front.cart-component', [
             'rows' => collect(session('cart', [])),
-        ])->layout('layouts.front-app');
+        ])
+            ->layout('layouts.front-app')
+            ->title(__('titles.cart'));
     }
 }

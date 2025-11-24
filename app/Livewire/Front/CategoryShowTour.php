@@ -28,7 +28,9 @@ class CategoryShowTour extends Component
             'category' => $this->category,
             'tours'    => $tours,
 //            'current'  => $this->category->slug,
-        ])->layout('layouts.front-app', ['hideCarousel' => true]);
+        ])
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.category_tours', ['category' => $this->category->tr('title')]));
     }
 
     public function mount(string $slug)

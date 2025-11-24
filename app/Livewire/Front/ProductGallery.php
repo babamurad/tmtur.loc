@@ -23,6 +23,7 @@ class ProductGallery extends Component
     public function render()
     {
         return view('livewire.front.product-gallery')
-            ->layout('layouts.front-app', ['hideCarousel' => true]);
+            ->layout('layouts.front-app', ['hideCarousel' => true])
+            ->title(__('titles.gallery'));
     }
 }
