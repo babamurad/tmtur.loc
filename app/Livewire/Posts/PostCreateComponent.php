@@ -71,10 +71,9 @@ class PostCreateComponent extends Component
     public function save()
     {
         $fallback = config('app.fallback_locale');
-        $this->trans[$fallback]['title'] = $this->title;
-        // Content might be updated via quill listener, ensure it's synced if needed,
-        // but usually we bind directly to trans.ru.content in blade.
-        // However, for the main 'content' field in DB, we use the fallback.
+        
+        // Sync fallback locale data from trans array to main model fields
+        $this->title = $this->trans[$fallback]['title'] ?? '';
         $this->content = $this->trans[$fallback]['content'] ?? '';
 
         \Log::info('Начало создания поста', ['title' => $this->title]);

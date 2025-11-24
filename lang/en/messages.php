@@ -28,4 +28,14 @@ return [
     'send_message' => 'Send message',
     'our_contacts' => 'Our contacts',
     'follow_us' => 'Follow us',
+
+    // Blog
+    'author' => 'Author:',
+    'unknown' => 'Unknown',
+    'views' => 'Views',
+    'share_post' => 'Share this post:',
+    'posts_list' => 'Posts List',
+    'published' => 'Published',
+    'in_category' => 'in category',
+    'popular_posts' => 'POPULAR POSTS',
 ];

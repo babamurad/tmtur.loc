@@ -28,4 +28,14 @@ return [
     'send_message' => '메시지 보내기',
     'our_contacts' => '연락처',
     'follow_us' => '팔로우',
+
+    // Blog
+    'author' => '저자:',
+    'unknown' => '알 수 없음',
+    'views' => '조회수',
+    'share_post' => '이 게시물 공유:',
+    'posts_list' => '게시물 목록',
+    'published' => '게시됨',
+    'in_category' => '카테고리',
+    'popular_posts' => '인기 게시물',
 ];

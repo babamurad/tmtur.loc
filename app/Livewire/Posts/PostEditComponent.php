@@ -81,15 +81,18 @@ class PostEditComponent extends Component
     public function save()
     {
         $fallback = config('app.fallback_locale');
-        $this->trans[$fallback]['title'] = $this->title;
+        
+        // Sync fallback locale data from trans array to main model fields
+        $this->title = $this->trans[$fallback]['title'] ?? $this->title;
+        $this->content = $this->trans[$fallback]['content'] ?? '';
 
         $this->validate();
 
         $data = [
-            'title' => $this->trans[$fallback]['title'],
+            'title' => $this->title,
             'slug' => $this->slug ?: \Illuminate\Support\Str::slug($this->title),
             'category_id' => $this->category_id,
-            'content' => $this->trans[$fallback]['content'] ?? '',
+            'content' => $this->content,
             'status' => $this->status,
             'published_at' => $this->published_at,
         ];

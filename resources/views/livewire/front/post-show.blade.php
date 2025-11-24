@@ -8,18 +8,18 @@
                 <div class="card card-body mb-5">
                     <div class="post-data mb-4">
                         <p class="font-small text-secondary mb-1">
-                            <strong>Автор:</strong> {{ $post->user->name ?? 'Неизвестно' }}</p>
+                            <strong>{{ __('messages.author') }}</strong> {{ $post->user->name ?? __('messages.unknown') }}</p>
                         <p class="font-small text-secondary">
                             <i class="far fa-clock"></i> {{ $post->published_at->format('d/m/Y в H:i') }}</p>
                     </div>
                     <!-- Title -->
                     <h2 class="fw-bold mt-3">
-                        <strong>{{ $post->title }}</strong>
+                        <strong>{{ $post->tr('title') }}</strong>
                     </h2>
                     <hr class="border-danger border-2 opacity-75">
                     @if ($post->image)
                         <img src="{{ asset('uploads/' . $post->image) }}" class="img-fluid rounded shadow-1-strong"
-                            alt="{{ $post->title }}">
+                            alt="{{ $post->tr('title') }}">
                     @endif
                     <!-- Grid row -->
                     <div class="row">
@@ -27,7 +27,7 @@
                         <div class="col-md-6 mt-4">
                             <h5 class="fw-bold text-dark">
                                 <i class="far fa-eye me-3 text-dark"></i>
-                                <strong>{{ $post->views ?? 0 }}</strong> Просмотров</h5>
+                                <strong>{{ $post->views ?? 0 }}</strong> {{ __('messages.views') }}</h5>
                         </div>
                         <!-- Grid column -->
                         <!-- Grid column -->
@@ -51,7 +51,7 @@
                     <hr>
                     <!-- Grid row -->
                     <div class="row mx-md-4 px-4 mt-3">
-                        <p class="text-dark article">{!! $post->content !!}</p>
+                        <p class="text-dark article">{!! $post->tr('content') !!}</p>
                     </div>
                     <!-- Grid row -->
                     <hr>
@@ -60,7 +60,7 @@
                         <!-- Grid column -->
                         <div class="col-md-12 text-center">
                             <h4 class="text-center fw-bold text-dark mt-3 mb-3">
-                                <strong>Поделиться этим постом: </strong>
+                                <strong>{{ __('messages.share_post') }}</strong>
                             </h4>
                             <button type="button" class="btn btn-primary btn-sm me-2">
                                 <i class="fab fa-facebook-f me-1"></i> Facebook</button>
@@ -88,7 +88,7 @@
                             <!-- Author Data -->
                             <div class="col-12 col-sm-10">
                                 <p>
-                                    <strong><span>Author:</span> {{ $post->user->name ?? 'Admin' }}</strong>
+                                    <strong><span>{{ __('messages.author') }}</span> {{ $post->user->name ?? 'Admin' }}</strong>
                                 </p>
                                 <div class="personal-sm">
                                     <a class="me-2 text-primary">
@@ -121,7 +121,7 @@
             <!-- Section: Categories -->
             <section class="section mb-5">
                 <h4 class="fw-bold mt-2">
-                    <strong>КАТЕГОРИИ</strong>
+                    <strong>{{ __('messages.categories') }}</strong>
                 </h4>
                 <hr class="border-danger border-2 opacity-75">
                 <ul class="list-group shadow-1-strong mt-4">
@@ -138,7 +138,7 @@
             <section class="section widget-content">
                 <!-- Heading -->
                 <h4 class="fw-bold pt-2">
-                    <strong>ПОПУЛЯРНЫЕ ПОСТЫ</strong>
+                    <strong>{{ __('messages.popular_posts') }}</strong>
                 </h4>
                 <hr class="border-danger border-2 opacity-75 mb-4">
                 <!-- Card -->
@@ -154,7 +154,7 @@
                                         <a href="{{ route('blog.show', $featuredPost->slug) }}">
                                             <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
                                                 <img src="{{ asset('uploads/' . $featuredPost->image) }}"
-                                                class="img-fluid" alt="{{ $featuredPost->title }}">
+                                                class="img-fluid" alt="{{ $featuredPost->tr('title') }}">
                                             </div>
                                         </a>
                                         @endif
@@ -165,7 +165,7 @@
                                 <div class="col-8">
                                     <h6 class="mt-0 mb-3">
                                         <a href="{{ route('blog.show', $featuredPost->slug) }}">
-                                            <strong>{{ Str::limit($featuredPost->title, 50) }}</strong>
+                                            <strong>{{ Str::limit($featuredPost->tr('title'), 50) }}</strong>
                                         </a>
                                     </h6>
                                     <div class="post-data">

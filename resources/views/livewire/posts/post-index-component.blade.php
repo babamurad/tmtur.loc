@@ -45,7 +45,11 @@
                                             <img src="{{ $p->image_url }}" alt="{{ $p->title }}"
                                                  style="height:40px;" class="rounded">
                                         </td>
-                                        <td>{{ $p->title }}</td>
+                                        <td>
+                                            <a href="{{ route('posts.edit', $p->id) }}">
+                                                {{ $p->title }}
+                                            </a>
+                                        </td>
                                         <td>{{ $p->category->title ?? '-' }}</td>
                                         <td>
                                                 <span class="badge badge-{{ $p->status ? 'success' : 'secondary' }}">

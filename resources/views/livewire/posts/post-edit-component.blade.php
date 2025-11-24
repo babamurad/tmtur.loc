@@ -45,7 +45,8 @@
                                 @foreach(config('app.available_locales') as $index => $locale)
                                     <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" 
                                          id="lang-{{ $locale }}" 
-                                         role="tabpanel">
+                                         role="tabpanel"
+                                         wire:key="lang-tab-{{ $locale }}">
                                         
                                         <!-- Title -->
                                         <div class="form-group">
@@ -57,9 +58,6 @@
                                             <input type="text" 
                                                    class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
                                                    wire:model.debounce.500ms="trans.{{ $locale }}.title"
-                                                   @if($locale === config('app.fallback_locale'))
-                                                       wire:model.debounce.500ms="title"
-                                                   @endif
                                                    placeholder="Введите заголовок">
                                             @error('trans.'.$locale.'.title') 
                                                 <div class="invalid-feedback">{{ $message }}</div> 

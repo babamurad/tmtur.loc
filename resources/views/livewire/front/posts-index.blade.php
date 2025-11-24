@@ -2,19 +2,19 @@
     <div class="row">
         <div class="col-md-8">
             <!-- Посты будут здесь -->
-            <h1>Список постов</h1>
+            <h1>{{ __('messages.posts_list') }}</h1>
             @foreach ($posts as $post)
                 <div class="card mb-4">
                     @if ($post->image)
                         <img src="{{ asset('uploads/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
                     @endif
                     <div class="card-body">
-                        <h2 class="card-title">{{ $post->title }}</h2>
-                        <p class="card-text">{!! Str::limit($post->content, 150) !!}</p>
-                        <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary">Читать далее</a>
+                        <h2 class="card-title">{{ $post->tr('title') }}</h2>
+                        <p class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</p>
+                        <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary">{{ __('messages.read_more') }}</a>
                     </div>
                     <div class="card-footer text-muted">
-                        Опубликовано {{ $post->created_at->diffForHumans() }} в категории <a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->title }}</a>
+                        {{ __('messages.published') }} {{ $post->created_at->diffForHumans() }} {{ __('messages.in_category') }} <a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->title }}</a>
                         <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
             <!-- Сайдбар с категориями -->
             <section class="section mb-5">
                 <h4 class="fw-bold mt-2">
-                    <strong>КАТЕГОРИИ</strong>
+                    <strong>{{ __('messages.categories') }}</strong>
                 </h4>
                 <hr class="border-danger border-2 opacity-75">
                 <ul class="list-group shadow-1-strong mt-4">
@@ -43,7 +43,7 @@
             <section class="section widget-content">
                 <!-- Heading -->
                 <h4 class="fw-bold pt-2">
-                    <strong>ПОПУЛЯРНЫЕ ПОСТЫ</strong>
+                    <strong>{{ __('messages.popular_posts') }}</strong>
                 </h4>
                 <hr class="border-danger border-2 opacity-75 mb-4">
                 <!-- Card -->
@@ -59,7 +59,7 @@
                                         <a href="{{ route('blog.show', $featuredPost->slug) }}">
                                             <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
                                                 <img src="{{ asset('uploads/' . $featuredPost->image) }}"
-                                                class="img-fluid" alt="{{ $featuredPost->title }}">
+                                                class="img-fluid" alt="{{ $featuredPost->tr('title') }}">
                                             </div>
                                         </a>
                                         @endif
@@ -69,7 +69,7 @@
                                 <div class="col-8">
                                     <h6 class="mt-0 mb-3">
                                         <a href="{{ route('blog.show', $featuredPost->slug) }}">
-                                            <strong>{{ Str::limit($featuredPost->title, 50) }}</strong>
+                                            <strong>{{ Str::limit($featuredPost->tr('title'), 50) }}</strong>
                                         </a>
                                     </h6>
                                     <div class="post-data">
