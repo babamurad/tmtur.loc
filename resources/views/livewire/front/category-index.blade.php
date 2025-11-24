@@ -10,10 +10,9 @@
                             <div class="card h-100 shadow">
                                 <div class="position-relative">
                                     <a href="{{ route('our-tours.show', $tour->slug) }}">
-                                        <img src="{{ $tour->media
-                        ? asset('uploads/'.$tour->media->file_path)
-                        : asset('assets/images/tmfotos/default.jpg') }}"
-                                             class="card-img-top" alt="{{ $tour->title }}">
+                                        <img src="{{ $tour->first_media_url }}"
+                                             class="card-img-top" 
+                                             alt="{{ $tour->tr('title') }}">
                                     </a>
 
                                 </div>

@@ -30,9 +30,10 @@ class TourEditComponent extends Component
     public ?int $duration_days    = null;
 
 
-    /* Изображение */
-    public $newimage = null;   // временное новое изображение
-    public $image    = null;   // текущее сохранённое
+    /* Изображения */
+    public $newImages = [];        // новые загружаемые изображения
+    public $existingImages = [];   // текущие изображения из БД
+    public $imagesToDelete = [];   // ID изображений для удаления
 
     /* Динамические массивы */
     public array $itinerary_days  = [];
@@ -52,7 +53,8 @@ class TourEditComponent extends Component
             'is_published'         => 'boolean',
             'base_price_cents'     => 'required|integer|min:0',
             'duration_days'        => 'required|integer|min:1',
-            'newimage'             => 'nullable|image|max:2048',
+            'newImages'            => 'nullable|array',
+            'newImages.*'          => 'nullable|image|max:2048',
 
             'itinerary_days'              => 'nullable|array',
             'itinerary_days.*.day_number' => 'required|integer|min:1',
@@ -111,7 +113,17 @@ class TourEditComponent extends Component
         $this->duration_days     = $tour->duration_days;
 
         $this->category_id = $tour->categories->pluck('id')->toArray();
-        $this->image = $tour->media ? asset('uploads/'.$tour->media->file_path) : null;
+        
+        // Загружаем существующие изображения
+        $this->existingImages = $tour->orderedMedia->map(function($media) {
+            return [
+                'id' => $media->id,
+                'url' => asset('uploads/' . $media->file_path),
+                'file_path' => $media->file_path,
+                'file_name' => $media->file_name,
+                'order' => $media->order,
+            ];
+        })->toArray();
 
         // Загружаем дни итинерария с переводами
         $this->itinerary_days = $tour->itineraryDays->map(function($item) {
@@ -241,6 +253,69 @@ class TourEditComponent extends Component
         $this->accommodations = array_values($this->accommodations);
     }
 
+    // === Методы для управления галереей ===
+    public function makeMain($mediaId)
+    {
+        $media = Media::where('model_type', Tour::class)
+                      ->where('model_id', $this->tour->id)
+                      ->findOrFail($mediaId);
+
+        // Сдвигаем все на +1, что были до выбранной
+        $this->tour->media()->where('order', '<', $media->order)->increment('order');
+
+        // Ставим выбранную на 0
+        $media->update(['order' => 0]);
+
+        // Перезагружаем список
+        $this->existingImages = $this->tour->fresh()->orderedMedia->map(function($media) {
+            return [
+                'id' => $media->id,
+                'url' => asset('uploads/' . $media->file_path),
+                'file_path' => $media->file_path,
+                'file_name' => $media->file_name,
+                'order' => $media->order,
+            ];
+        })->toArray();
+
+        LivewireAlert::title('Главное изображение')
+            ->text('Изображение установлено как главное.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    public function deleteImage($mediaId)
+    {
+        $this->imagesToDelete[] = $mediaId;
+        
+        // Удаляем из отображаемого списка
+        $this->existingImages = array_filter($this->existingImages, function($img) use ($mediaId) {
+            return $img['id'] !== $mediaId;
+        });
+        $this->existingImages = array_values($this->existingImages);
+    }
+
+    public function undoDelete($mediaId)
+    {
+        $this->imagesToDelete = array_filter($this->imagesToDelete, function($id) use ($mediaId) {
+            return $id !== $mediaId;
+        });
+        
+        // Перезагружаем список
+        $this->existingImages = $this->tour->fresh()->orderedMedia
+            ->whereNotIn('id', $this->imagesToDelete)
+            ->map(function($media) {
+                return [
+                    'id' => $media->id,
+                    'url' => asset('uploads/' . $media->file_path),
+                    'file_path' => $media->file_path,
+                    'file_name' => $media->file_name,
+                    'order' => $media->order,
+                ];
+            })->toArray();
+    }
+
     public function save()
     {
         $fallback = config('app.fallback_locale');
@@ -346,24 +421,40 @@ class TourEditComponent extends Component
         TourAccommodation::where('tour_id', $this->tour->id)
             ->whereNotIn('id', $keepAcc)->delete();
 
-        // Image
-        if ($this->newimage) {
-            if ($old = $this->tour->media) {
-                Storage::disk('public_uploads')->delete($old->file_path);
-                $old->delete();
+        // Image - удаление помеченных
+        foreach ($this->imagesToDelete as $mediaId) {
+            $media = Media::find($mediaId);
+            if ($media) {
+                Storage::disk('public_uploads')->delete($media->file_path);
+                $media->delete();
             }
+        }
 
-            $path = Storage::disk('public_uploads')
-                ->putFileAs('tours', $this->newimage,
-                    Carbon::now()->timestamp.'.'.$this->newimage->extension());
+        // Загрузка новых изображений
+        if ($this->newImages && count($this->newImages) > 0) {
+            $orderBase = $this->tour->media()->max('order') + 1;
+            
+            foreach ($this->newImages as $idx => $file) {
+                $path = Storage::disk('public_uploads')->putFileAs(
+                    'tours/' . $this->tour->id,
+                    $file,
+                    $file->hashName()
+                );
 
-            Media::create([
-                'model_type' => Tour::class,
-                'model_id'   => $this->tour->id,
-                'file_path'  => $path,
-                'file_name'  => $this->newimage->getClientOriginalName(),
-                'mime_type'  => $this->newimage->getClientMimeType(),
-            ]);
+                Media::create([
+                    'model_type' => Tour::class,
+                    'model_id'   => $this->tour->id,
+                    'file_path'  => $path,
+                    'file_name'  => $file->getClientOriginalName(),
+                    'mime_type'  => $file->getClientMimeType(),
+                    'order'      => $orderBase + $idx,
+                ]);
+            }
+        }
+
+        // Если у тура нет картинки с order = 0 – делаем первую главной
+        if ($this->tour->media()->where('order', 0)->doesntExist()) {
+            $this->tour->media()->oldest('id')->limit(1)->update(['order' => 0]);
         }
 
         LivewireAlert::title('Сохранение')

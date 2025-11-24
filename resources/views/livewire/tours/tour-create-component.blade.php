@@ -507,43 +507,66 @@
 
                 {{-- Sidebar Column --}}
                 <div class="col-lg-4">
-                    {{-- Image Section --}}
+                    {{-- Image Gallery Section --}}
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-3">
-                                <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
-                                Изображение
+                                <i class="bx bx-images font-size-18 align-middle mr-1 text-primary"></i>
+                                Галерея изображений
                             </h5>
                             
                             <div class="form-group">
+                                <label>Выберите изображения</label>
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('image') is-invalid @enderror"
-                                        id="image"
-                                        wire:model="image"
-                                        accept="image/*">
-                                    <label class="custom-file-label" for="image">
-                                        @if ($image)
-                                            {{ $image->getClientOriginalName() }}
+                                        class="custom-file-input @error('images.*') is-invalid @enderror"
+                                        id="images"
+                                        wire:model="images"
+                                        accept="image/*"
+                                        multiple>
+                                    <label class="custom-file-label" for="images">
+                                        @if ($images && count($images) > 0)
+                                            Выбрано файлов: {{ count($images) }}
                                         @else
-                                            Выберите файл
+                                            Выберите файлы
                                         @endif
                                     </label>
-                                    @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @error('images.*')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <small class="form-text text-muted">
+                                    Первое изображение будет главным. Можно выбрать несколько файлов.
+                                </small>
                             </div>
 
-                            @if ($image)
+                            @if ($images && count($images) > 0)
                                 <div class="mt-3">
-                                    <p class="text-muted mb-2"><small>Предпросмотр:</small></p>
-                                    <img src="{{ $image->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="Preview">
+                                    <p class="text-muted mb-2"><small>Предпросмотр ({{ count($images) }} изображений):</small></p>
+                                    <div class="row">
+                                        @foreach($images as $index => $image)
+                                            <div class="col-6 col-md-4 mb-3">
+                                                <div class="position-relative">
+                                                    <img src="{{ $image->temporaryUrl() }}" 
+                                                         class="img-fluid rounded shadow-sm {{ $index === 0 ? 'border border-primary border-3' : '' }}" 
+                                                         alt="Preview {{ $index + 1 }}">
+                                                    @if($index === 0)
+                                                        <span class="badge badge-primary position-absolute" style="top: 5px; left: 5px;">
+                                                            <i class="bx bx-star"></i> Главное
+                                                        </span>
+                                                    @endif
+                                                    <small class="d-block text-center mt-1 text-muted">
+                                                        {{ $index + 1 }}. {{ Str::limit($image->getClientOriginalName(), 20) }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @else
                                 <div class="mt-3 text-center p-4 bg-light rounded">
                                     <i class="bx bx-image-add font-size-48 text-muted"></i>
-                                    <p class="text-muted mb-0 mt-2">Изображение не выбрано</p>
+                                    <p class="text-muted mb-0 mt-2">Изображения не выбраны</p>
                                 </div>
                             @endif
                         </div>

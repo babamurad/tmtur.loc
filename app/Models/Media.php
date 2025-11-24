@@ -12,11 +12,16 @@ class Media extends Model
         'file_path',
         'file_name',
         'mime_type',
-         'order_column',
+        'order',
     ];
     public function model()
     {
         return $this->morphTo();
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
     }
 
     public function getUrlAttribute(): string

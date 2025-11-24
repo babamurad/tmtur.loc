@@ -72,11 +72,9 @@
                         <div class="card h-100 shadow">
                             <div class="position-relative">
                                 <a href="{{ route('our-tours.show', $tour->slug) }}">
-                                @if($tour->media)
-                                    <img src="{{ asset('uploads/' . $tour->media->file_path) }}" class="card-img-top">
-                                @else
-                                    <img src="{{ asset('assets/images/tmfotos/default.jpg') }}" class="card-img-top">
-                                @endif
+                                    <img src="{{ $tour->first_media_url }}" 
+                                         class="card-img-top"
+                                         alt="{{ $tour->tr('title') }}">
                                 </a>
                                 {{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>--}}
                             </div>

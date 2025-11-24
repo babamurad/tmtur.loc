@@ -68,16 +68,24 @@ class Tour extends Model
     {
         return $this->hasMany(Review::class);
     }
-    // Tour
+    // Tour - все медиафайлы
     public function media()
     {
-        return $this->hasOne(Media::class, 'model_id', 'id')
+        return $this->hasMany(Media::class, 'model_id', 'id')
                     ->where('model_type', Tour::class);
+    }
+
+    // Медиафайлы, отсортированные по order
+    public function orderedMedia()
+    {
+        return $this->hasMany(Media::class, 'model_id', 'id')
+                    ->where('model_type', Tour::class)
+                    ->orderBy('order');
     }
 
     public function getFirstMediaUrl($collectionName = 'default')
     {
-        $media = $this->media;
+        $media = $this->orderedMedia()->first();
 
         if (!$media) {
             return asset('assets/images/media/no-image.jpg'); // Путь к изображению по умолчанию
@@ -85,6 +93,15 @@ class Tour extends Model
 
         // Возвращаем URL к изображению
         return asset('uploads/' . $media->file_path);
+    }
+
+    // Accessor для удобного использования в Blade
+    public function getFirstMediaUrlAttribute(): string
+    {
+        $img = $this->orderedMedia()->first();
+        return $img
+            ? asset('uploads/' . $img->file_path)
+            : asset('assets/images/media/no-image.jpg');
     }
 
     public function groupsOpen()

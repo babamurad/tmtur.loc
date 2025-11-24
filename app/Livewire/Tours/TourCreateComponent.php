@@ -24,7 +24,7 @@ class TourCreateComponent extends Component
     public $slug;
     public $category_id = [];
     public $short_description = ''; // Инициализируем пустой строкой
-    public $image = '';
+    public $images = []; // Массив для множественной загрузки
     public $is_published = true;
     public $base_price_cents;
     public $duration_days;
@@ -48,7 +48,8 @@ class TourCreateComponent extends Component
             'title' => 'required|min:3|max:255',
             'slug' => 'nullable|min:3|max:255|unique:tours,slug',
             'short_description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
@@ -194,17 +195,6 @@ class TourCreateComponent extends Component
 
         $this->validate();
 
-        $imagePath = null;
-        $imageName = null;
-        if ($this->image) {
-            $imageName = 'tours/' . Carbon::now()->timestamp . '.' . $this->image->extension();
-            $imagePath = Storage::disk('public_uploads')->putFileAs(
-                path: 'tours',
-                file: $this->image,
-                name: Carbon::now()->timestamp . '.' . $this->image->extension()
-            );
-        }
-
         // Создаем основной тур
         $tour = Tour::create([
             'title' => $this->title,
@@ -284,15 +274,24 @@ class TourCreateComponent extends Component
             }
         }
 
-        // Сохранение изображения (пример с отдельной таблицей Media)
-        if ($imagePath) {
-            Media::create([
-                'model_type' => Tour::class,
-                'model_id' => $tour->id, // Используем ID созданного тура
-                'file_path' => $imagePath,
-                'file_name' => $imageName,
-                'mime_type' => $this->image->getClientMimeType(),
-            ]);
+        // Сохранение изображений (множественная загрузка)
+        if ($this->images && count($this->images) > 0) {
+            foreach ($this->images as $idx => $file) {
+                $path = Storage::disk('public_uploads')->putFileAs(
+                    'tours/' . $tour->id,
+                    $file,
+                    $file->hashName()
+                );
+
+                Media::create([
+                    'model_type' => Tour::class,
+                    'model_id'   => $tour->id,
+                    'file_path'  => $path,
+                    'file_name'  => $file->getClientOriginalName(),
+                    'mime_type'  => $file->getClientMimeType(),
+                    'order'      => $idx, // Порядок загрузки
+                ]);
+            }
         }
 
         session()->flash('saved', [

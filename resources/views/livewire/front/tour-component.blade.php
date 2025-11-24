@@ -10,11 +10,7 @@
                 </div>
                 <div class="col-md-6 order-1 order-md-2">
                     <div class="position-relative">
-                        @if($selectedTour->media)
-                            <img class="img-fluid rounded" src="{{ asset('uploads' . '/' . $selectedTour->media->file_path) }}">
-                        @else
-                            <img class="img-fluid rounded" src="{{ asset('assets/images/tmfotos/default.jpg') }}">
-                        @endif
+                        <img class="img-fluid rounded" src="{{ $selectedTour->first_media_url }}" alt="{{ $selectedTour->title }}">
                         <div class="position-absolute bottom-0 start-0 p-3 text-white">
                             <h5 class="mb-0">“You have to see it with your own eyes!”</h5>
                             <small>— Mark, traveler from Germany</small>
@@ -34,15 +30,9 @@
                     <div class="col-md-6 col-lg-4 mb-2">
                         <div class="card h-100 shadow">
                             <div class="position-relative">
-                                @if($tour->media && !empty($tour->media->file_path) && file_exists(public_path('uploads/' . $tour->media->file_path)))
-                                    <img src="{{ asset('uploads/' . $tour->media->file_path) }}"
-                                         alt="{{ $tour->title }}"
-                                         class="card-img-top">
-                                @else
-                                    <img src="{{ asset('assets/images/tmfotos/default.jpg') }}"
-                                         alt="{{ $tour->title }} - Default image"
-                                         class="card-img-top">
-                                @endif
+                                <img src="{{ $tour->first_media_url }}"
+                                     alt="{{ $tour->title }}"
+                                     class="card-img-top">
 {{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2"--}}
 {{--                                      aria-label="Popular tour">HIT</span>--}}
                             </div>

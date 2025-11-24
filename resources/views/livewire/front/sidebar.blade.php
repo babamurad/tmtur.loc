@@ -37,12 +37,9 @@
                               ->get() as $popular)
                 <div class="single-post mb-3">
                     <div class="row">
-                        {{--  thumb  --}}
                         <div class="col-4">
                             <a href="{{ route('our-tours.show', $popular->slug) }}">
-                                <img src="{{ $popular->media
-                                                ? asset('uploads/'.$popular->media->file_path)
-                                                : asset('assets/images/tmfotos/default.jpg') }}"
+                                <img src="{{ $popular->first_media_url }}"
                                      class="img-fluid rounded"
                                      alt="{{ $popular->tr('title') }}">
                             </a>

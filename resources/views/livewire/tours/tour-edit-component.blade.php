@@ -507,48 +507,111 @@
 
                 {{-- Sidebar Column --}}
                 <div class="col-lg-4">
-                    {{-- Image Section --}}
+                    {{-- Image Gallery Section --}}
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title mb-3">
-                                <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
-                                Изображение
+                                <i class="bx bx-images font-size-18 align-middle mr-1 text-primary"></i>
+                                Галерея изображений
                             </h5>
                             
+                            {{-- Existing Images --}}
+                            @if(count($existingImages) > 0)
+                                <div class="mb-4">
+                                    <label class="d-block mb-2">Текущие изображения ({{ count($existingImages) }})</label>
+                                    <div class="row">
+                                        @foreach($existingImages as $img)
+                                            <div class="col-6 col-md-4 mb-3">
+                                                <div class="position-relative">
+                                                    <img src="{{ $img['url'] }}" 
+                                                         class="img-fluid rounded shadow-sm {{ $img['order'] === 0 ? 'border border-primary border-3' : '' }}" 
+                                                         alt="{{ $img['file_name'] }}">
+                                                    
+                                                    @if($img['order'] === 0)
+                                                        <span class="badge badge-primary position-absolute" style="top: 5px; left: 5px;">
+                                                            <i class="bx bx-star"></i> Главное
+                                                        </span>
+                                                    @endif
+                                                    
+                                                    <div class="position-absolute" style="top: 5px; right: 5px;">
+                                                        <button type="button" 
+                                                                wire:click="deleteImage({{ $img['id'] }})"
+                                                                class="btn btn-danger btn-sm"
+                                                                title="Удалить">
+                                                            <i class="bx bx-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                    
+                                                    <div class="mt-2">
+                                                        @if($img['order'] !== 0)
+                                                            <button type="button" 
+                                                                    wire:click="makeMain({{ $img['id'] }})"
+                                                                    class="btn btn-outline-primary btn-sm btn-block">
+                                                                <i class="bx bx-star"></i> Сделать главным
+                                                            </button>
+                                                        @endif
+                                                        <small class="d-block text-center mt-1 text-muted">
+                                                            {{ Str::limit($img['file_name'], 20) }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <hr>
+                            @else
+                                <div class="alert alert-info">
+                                    <i class="bx bx-info-circle"></i> У тура пока нет изображений
+                                </div>
+                            @endif
+                            
+                            {{-- Upload New Images --}}
                             <div class="form-group">
+                                <label>Загрузить новые изображения</label>
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('newimage') is-invalid @enderror"
-                                        id="newimage"
-                                        wire:model="newimage"
-                                        accept="image/*">
-                                    <label class="custom-file-label" for="newimage">
-                                        @if ($newimage)
-                                            {{ $newimage->getClientOriginalName() }}
+                                        class="custom-file-input @error('newImages.*') is-invalid @enderror"
+                                        id="newImages"
+                                        wire:model="newImages"
+                                        accept="image/*"
+                                        multiple>
+                                    <label class="custom-file-label" for="newImages">
+                                        @if ($newImages && count($newImages) > 0)
+                                            Выбрано файлов: {{ count($newImages) }}
                                         @else
-                                            Выберите файл
+                                            Выберите файлы
                                         @endif
                                     </label>
-                                    @error('newimage')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @error('newImages.*')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <small class="form-text text-muted">
+                                    Новые изображения будут добавлены в конец галереи
+                                </small>
                             </div>
 
-                            @if ($newimage)
+                            @if ($newImages && count($newImages) > 0)
                                 <div class="mt-3">
-                                    <p class="text-muted mb-2"><small>Новое изображение:</small></p>
-                                    <img src="{{ $newimage->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="Preview">
-                                </div>
-                            @elseif ($image)
-                                <div class="mt-3">
-                                    <p class="text-muted mb-2"><small>Текущее изображение:</small></p>
-                                    <img src="{{ $image }}" class="img-fluid rounded shadow-sm" alt="Current image">
-                                </div>
-                            @else
-                                <div class="mt-3 text-center p-4 bg-light rounded">
-                                    <i class="bx bx-image-add font-size-48 text-muted"></i>
-                                    <p class="text-muted mb-0 mt-2">Изображение не выбрано</p>
+                                    <p class="text-muted mb-2"><small>Предпросмотр новых ({{ count($newImages) }}):</small></p>
+                                    <div class="row">
+                                        @foreach($newImages as $index => $image)
+                                            <div class="col-6 col-md-4 mb-3">
+                                                <div class="position-relative">
+                                                    <img src="{{ $image->temporaryUrl() }}" 
+                                                         class="img-fluid rounded shadow-sm" 
+                                                         alt="New {{ $index + 1 }}">
+                                                    <span class="badge badge-success position-absolute" style="top: 5px; left: 5px;">
+                                                        <i class="bx bx-plus"></i> Новое
+                                                    </span>
+                                                    <small class="d-block text-center mt-1 text-muted">
+                                                        {{ Str::limit($image->getClientOriginalName(), 20) }}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endif
                         </div>
