@@ -36,7 +36,8 @@
                     <strong>{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
                 </small>
                 <small class="text-success d-block">
-                    <i class="fas fa-dollar-sign"></i> 
+                    <i class="fas fa-dollar-sign"></i>
+                    {{ __('messages.price') ?? 'Цена' }}  
                     {{ __('messages.from') ?? 'от' }} 
                     <strong>${{ number_format($minPrice, 2) }}</strong>
                 </small>
