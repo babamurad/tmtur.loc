@@ -105,9 +105,93 @@
                         </div>
                     </div>
 
-{{--                    <i class="fas fa-times-circle text-danger mr-2"></i>
+                    {{-- ДОСТУПНЫЕ ГРУППЫ И ДАТЫ --}}
+                    @if($tour->groupsOpen && $tour->groupsOpen->count() > 0)
+                        <div class="card mb-4 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-calendar-check"></i>
+                                    {{ __('messages.available_dates') ?? 'Доступные даты отправления' }}
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    @foreach($tour->groupsOpen as $group)
+                                        <div class="list-group-item">
+                                            <div class="row align-items-center">
+                                                {{-- Дата отправления --}}
+                                                <div class="col-md-3 mb-2 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                                                        <div>
+                                                            <strong class="d-block">{{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y') }}</strong>
+                                                            <small class="text-muted">{{ \Carbon\Carbon::parse($group->starts_at)->format('H:i') }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
---}}
+                                                {{-- Свободные места --}}
+                                                <div class="col-md-3 mb-2 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-users text-info mr-2"></i>
+                                                        <div>
+                                                            @php
+                                                                $available = $group->max_people - $group->current_people;
+                                                                $percentage = ($available / $group->max_people) * 100;
+                                                            @endphp
+                                                            <span class="badge badge-{{ $percentage > 50 ? 'success' : ($percentage > 20 ? 'warning' : 'danger') }}">
+                                                                {{ $available }} / {{ $group->max_people }} {{ __('messages.seats') ?? 'мест' }}
+                                                            </span>
+                                                            <small class="d-block text-muted">{{ __('messages.available') ?? 'свободно' }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {{-- Цена --}}
+                                                <div class="col-md-3 mb-2 mb-md-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-dollar-sign text-success mr-2"></i>
+                                                        <div>
+                                                            <strong class="text-success d-block" style="font-size: 1.25rem;">
+                                                                {{ number_format($group->price_cents / 100, 2) }}
+                                                            </strong>
+                                                            <small class="text-muted">{{ __('messages.per_person') ?? 'за человека' }}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {{-- Кнопка бронирования --}}
+                                                <div class="col-md-3">
+                                                    @if($available > 0)
+                                                        <a href="#"
+                                                           class="btn btn-sm btn-primary btn-block">
+                                                            <i class="fas fa-ticket-alt mr-1"></i>
+                                                            {{ __('messages.book_now') ?? 'Забронировать' }}
+                                                        </a>
+                                                    @else
+                                                        <button class="btn btn-secondary btn-block" disabled>
+                                                            <i class="fas fa-times-circle mr-1"></i>
+                                                            {{ __('messages.sold_out') ?? 'Мест нет' }}
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted small">
+                                <i class="fas fa-info-circle"></i>
+                                {{ __('messages.booking_info') ?? 'Выберите удобную дату и забронируйте место в группе' }}
+                            </div>
+                        </div>
+                    @else
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            {{ __('messages.no_available_groups') ?? 'В данный момент нет доступных дат для этого тура. Свяжитесь с нами для индивидуального тура.' }}
+                        </div>
+                    @endif
+
                     {{--  БЛОК «ВКЛЮЧЕНО / НЕ ВКЛЮЧЕНО»  --}}
                     @if($tour->inclusions && $tour->inclusions->count())
                         <div class="row text-center mb-3">

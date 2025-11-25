@@ -112,7 +112,7 @@
                                 Детали тура
                             </h5>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="base_price_cents">Цена $ <span class="text-danger">*</span></label>
                                         <input type="number"
@@ -126,7 +126,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="duration_days">Длительность (дней) <span class="text-danger">*</span></label>
                                         <input type="number"
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group" wire:ignore>
                                         <label for="category_ids_select2">Категория <span class="text-danger">*</span></label>
                                         <select id="category_ids_select2"

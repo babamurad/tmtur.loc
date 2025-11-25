@@ -38,4 +38,18 @@ return [
     'published' => 'Published',
     'in_category' => 'in category',
     'popular_posts' => 'POPULAR POSTS',
+    
+    // Tour Groups
+    'available_dates' => 'Available Departure Dates',
+    'available' => 'Available',
+    'seats' => 'seats',
+    'per_person' => 'per person',
+    'book_now' => 'Book Now',
+    'sold_out' => 'Sold Out',
+    'booking_info' => 'Choose a convenient date and book your spot in the group',
+    'no_available_groups' => 'There are currently no available dates for this tour. Contact us for a private tour.',
+    'next_departure' => 'Next departure',
+    'from' => 'from',
+    'price' => 'Price',
+    'photos' => 'photos',
 ];

@@ -11,11 +11,25 @@ class CategoryIndex extends Component
 {
     use WithPagination;
 
+    public string $view = 'grid';
+
+    public function setView(string $view)
+    {
+        $this->view = $view;
+    }
+
     public function render()
     {
         $categories = TourCategory::all();
-        $tours = Tour::where('is_published', true)->with('media')->paginate(4);
-        return view('livewire.front.category-index', compact('tours', 'categories'))
+        $tours = Tour::where('is_published', true)
+            ->with(['media', 'groupsOpen'])
+            ->paginate(4);
+
+        return view('livewire.front.category-index', [
+            'tours' => $tours,
+            'categories' => $categories,
+            'view' => $this->view,
+        ])
             ->layout('layouts.front-app', ['hideCarousel' => true])
             ->title(__('titles.tours'));
     }
