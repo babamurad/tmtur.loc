@@ -45,7 +45,7 @@
                                     <i class="fas fa-dollar-sign text-success"></i> 
                                     {{ __('messages.price') ?? 'Цена' }}
                                 </small>
-                                <strong class="text-success">${{ number_format($minPrice / 100, 2) }}</strong>
+                                <strong class="text-success">${{ number_format($minPrice, 2) }}</strong>
                             </div>
                         </div>
                     </div>

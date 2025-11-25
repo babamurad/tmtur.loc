@@ -38,7 +38,7 @@
                 <small class="text-success d-block">
                     <i class="fas fa-dollar-sign"></i> 
                     {{ __('messages.from') ?? 'от' }} 
-                    <strong>${{ number_format($minPrice / 100, 2) }}</strong>
+                    <strong>${{ number_format($minPrice, 2) }}</strong>
                 </small>
             </div>
         @endif
