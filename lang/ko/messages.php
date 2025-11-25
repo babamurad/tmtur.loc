@@ -38,4 +38,18 @@ return [
     'published' => '게시됨',
     'in_category' => '카테고리',
     'popular_posts' => '인기 게시물',
+    
+    // Tour Groups
+    'available_dates' => '출발 가능 날짜',
+    'available' => '예약 가능',
+    'seats' => '좌석',
+    'per_person' => '1인당',
+    'book_now' => '지금 예약',
+    'sold_out' => '매진',
+    'booking_info' => '편리한 날짜를 선택하고 그룹에서 자리를 예약하세요',
+    'no_available_groups' => '현재 이 투어에 대한 예약 가능한 날짜가 없습니다. 개인 투어를 위해 문의해 주세요.',
+    'next_departure' => '다음 출발',
+    'from' => '부터',
+    'price' => '가격',
+    'photos' => '사진',
 ];

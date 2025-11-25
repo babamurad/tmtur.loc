@@ -95,7 +95,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="text-center mt-4"><a href="#contact" class="btn btn-danger btn-lg">See All</a></div>
+            <div class="text-center mt-4"><a href="{{ route('tours.category.index') }}" class="btn btn-danger btn-lg">See All</a></div>
         </div>
     </section>
 
