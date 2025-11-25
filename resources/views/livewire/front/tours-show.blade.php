@@ -153,7 +153,7 @@
                                                         <i class="fas fa-dollar-sign text-success mr-2"></i>
                                                         <div>
                                                             <strong class="text-success d-block" style="font-size: 1.25rem;">
-                                                                {{ number_format($group->price_cents / 100, 2) }}
+                                                                {{ number_format($group->price_cents, 2) }}
                                                             </strong>
                                                             <small class="text-muted">{{ __('messages.per_person') ?? 'за человека' }}</small>
                                                         </div>
