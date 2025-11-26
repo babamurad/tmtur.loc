@@ -14,10 +14,16 @@ class CategoryIndex extends Component
 
     public string $view = 'grid';
 
+    public function mount()
+    {
+        $this->view = session('tour_view_preference', 'grid');
+    }
+
     public function setView(string $view)
     {
         $this->resetPage(); // СБРОСИТЬ пагинацию
-        $this->view = $view;        
+        $this->view = $view;
+        session()->put('tour_view_preference', $view);
     }
 
     public function render()

@@ -17,10 +17,12 @@ class CategoryShowTour extends Component
     public function setView(string $view)
     {
         $this->view = $view;
+        session()->put('tour_view_preference', $view);
     }
 
     public function mount(string $slug)
     {
+        $this->view = session('tour_view_preference', 'grid');
         $this->category = TourCategory::whereSlug($slug)
             ->where('is_published', true)
             ->firstOrFail();

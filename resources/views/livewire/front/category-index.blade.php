@@ -7,12 +7,12 @@
             {{-- VIEW SWITCHER --}}
             <div class="d-flex justify-content-end mb-3">
                 <button wire:click="setView('grid')"
-                        class="btn btn-outline-secondary btn-sm {{ $view === 'grid' ? 'active' : '' }}">
+                        class="btn btn-sm {{ $view === 'grid' ? 'btn-secondary' : 'btn-outline-secondary' }}">
                     <i class="fa fa-th"></i>
                 </button>
 
                 <button wire:click="setView('list')"
-                        class="btn btn-outline-secondary btn-sm ml-2 {{ $view === 'list' ? 'active' : '' }}">
+                        class="btn btn-sm ml-2 {{ $view === 'list' ? 'btn-secondary' : 'btn-outline-secondary' }}">
                     <i class="fa fa-bars"></i>
                 </button>
             </div>
