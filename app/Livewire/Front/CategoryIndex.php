@@ -10,12 +10,14 @@ use Livewire\WithPagination;
 class CategoryIndex extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public string $view = 'grid';
 
     public function setView(string $view)
     {
-        $this->view = $view;
+        $this->resetPage(); // СБРОСИТЬ пагинацию
+        $this->view = $view;        
     }
 
     public function render()

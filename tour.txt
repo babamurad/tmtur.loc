@@ -287,3 +287,6 @@ Tours - drop down 1. Categories 2. See all
             setTimeout(initApp, 3000); // Контрольный выстрел через 3 сек
         })();
     </script>
+
+проверить всю страницу category-index.blade.php целиком и оптимизировать 
+(например lazy-loading картинок, правильная верстка sidebar, адаптивность карточек).

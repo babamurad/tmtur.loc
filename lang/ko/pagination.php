@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
-    'showing' => 'Showing :first to :last of :total results',
+    'previous' => '&laquo; 이전',
+    'next' => '다음 &raquo;',
+    'showing' => '전체 :total개 중 :first부터 :last까지 표시',
 
 ];
