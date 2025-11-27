@@ -121,348 +121,138 @@
 .image-preview input,
 #callback-preview input {
     line-height: 200px;
+}
 
-    /* 1. Скрываем стандартные радиокнопки */
-    .star-rating input[type="radio"] {
-        display: none;
-    }
+/* 1. Скрываем стандартные радиокнопки */
+.star-rating input[type="radio"] {
+    display: none;
+}
 
-    /* 2. Контейнер для звезд */
-    .star-rating {
-        display: flex;
-        /* Делает звезды в ряд */
-        flex-direction: row-reverse;
-        /* Располагает звезды справа налево для CSS-хака */
-        justify-content: flex-end;
-        /* Выравнивает звезды вправо, если контейнер шире */
-        font-size: 2.5em;
-        /* Размер звезд */
-        color: #ccc;
-        /* Цвет неактивных звезд */
-        line-height: 1;
-        /* Важно, чтобы избежать лишних отступов по высоте */
-    }
+/* 2. Контейнер для звезд */
+.star-rating {
+    display: flex;
+    /* Делает звезды в ряд */
+    flex-direction: row-reverse;
+    /* Располагает звезды справа налево для CSS-хака */
+    justify-content: flex-end;
+    /* Выравнивает звезды вправо, если контейнер шире */
+    font-size: 2.5em;
+    /* Размер звезд */
+    color: #ccc;
+    /* Цвет неактивных звезд */
+    line-height: 1;
+    /* Важно, чтобы избежать лишних отступов по высоте */
+}
 
-    /* 3. Стили для каждой звезды (label) */
-    .star-rating label {
-        cursor: pointer;
-        position: relative;
-        /* Для позиционирования иконки */
-        width: 1.1em;
-        /* Ширина для каждой звезды */
-        height: 1.1em;
-        /* Высота для каждой звезды */
-        text-align: center;
-        /* Центрируем иконку внутри label */
-        margin: 0 2px;
-        /* Небольшой отступ между звездами */
-        display: flex;
-        /* Делаем label flex-контейнером */
-        align-items: center;
-        /* Выравниваем по центру по вертикали */
-        justify-content: center;
-        /* Выравниваем по центру по горизонтали */
-    }
+/* 3. Стили для каждой звезды (label) */
+.star-rating label {
+    cursor: pointer;
+    position: relative;
+    /* Для позиционирования иконки */
+    width: 1.1em;
+    /* Ширина для каждой звезды */
+    height: 1.1em;
+    /* Высота для каждой звезды */
+    text-align: center;
+    /* Центрируем иконку внутри label */
+    margin: 0 2px;
+    /* Небольшой отступ между звездами */
+    display: flex;
+    /* Делаем label flex-контейнером */
+    align-items: center;
+    /* Выравниваем по центру по вертикали */
+    justify-content: center;
+    /* Выравниваем по центру по горизонтали */
+}
 
-    /* 4. Иконки звезд (используем Font Awesome) */
-    .star-rating label:before {
-        content: '\f005';
-        /* Код для звезды Font Awesome Solid */
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        display: inline-block;
-        /* Иконка как инлайн-блок */
-    }
+/* 4. Иконки звезд (используем Font Awesome) */
+.star-rating label:before {
+    content: '\f005';
+    /* Код для звезды Font Awesome Solid */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    display: inline-block;
+    /* Иконка как инлайн-блок */
+}
 
-    /* 5. Скрываем текст "N звезд", но оставляем его для скринридеров */
-    .star-rating label span.sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
-
-    /* 6. Изменение цвета звезд при наведении и выборе */
-    .star-rating input[type="radio"]:checked~label {
-        color: #ffc107;
-        /* Цвет выбранных звезд (желтый) */
-    }
-
-    .star-rating label:hover,
-    .star-rating label:hover~label {
-        color: #ffc107;
-        /* Цвет звезд при наведении */
-    }
-
-    /* 7. Опционально: эффект плавности */
-    .star-rating label,
-    .star-rating label:before {
-        transition: color 0.2s ease-in-out;
-    }
-
-    /* Стилизация для валидации Bootstrap 4 (если input invalid, показываем feedback) */
-    .star-rating:has(input[type="radio"]:invalid)+.invalid-feedback {
-        display: block;
-    }
-
-    .image-preview,
-    #callback-preview {
-        width: 250px;
-        height: 250px;
-        border: 2px dashed #ddd;
-        border-radius: 3px;
-        position: relative;
-        overflow: hidden;
-        background-color: #ffffff;
-        color: #ecf0f1;
-    }
-
-    .image-preview label,
-    #callback-preview label {
-        position: absolute;
-        z-index: 5;
-        opacity: 0.8;
-        cursor: pointer;
-        background-color: #bdc3c7;
-        width: 150px;
-        height: 50px;
-        font-size: 12px;
-        line-height: 50px;
-        text-transform: uppercase;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        text-align: center;
-    }
-
-    .image-preview input,
-    #callback-preview input {
-        line-height: 200px;
-        font-size: 200px;
-        position: absolute;
-        opacity: 0;
-        z-index: 10;
-    }
-
-    .select2-container .select2-selection--multiple .select2-selection__choice {
-        background-color: #6d61ea !important;
-
-        /* border: none;
-    color: #fff;
+/* 5. Скрываем текст "N звезд", но оставляем его для скринридеров */
+.star-rating label span.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
     border: 0;
 }
 
 /* 6. Изменение цвета звезд при наведении и выборе */
-        .star-rating input[type="radio"]:checked~label {
-            color: #ffc107;
-            /* Цвет выбранных звезд (желтый) */
-        }
+.star-rating input[type="radio"]:checked~label {
+    color: #ffc107;
+    /* Цвет выбранных звезд (желтый) */
+}
 
-        .star-rating label:hover,
-        .star-rating label:hover~label {
-            color: #ffc107;
-            /* Цвет звезд при наведении */
-        }
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #ffc107;
+    /* Цвет звезд при наведении */
+}
 
-        /* 7. Опционально: эффект плавности */
-        .star-rating label,
-        .star-rating label:before {
-            transition: color 0.2s ease-in-out;
-        }
+/* 7. Опционально: эффект плавности */
+.star-rating label,
+.star-rating label:before {
+    transition: color 0.2s ease-in-out;
+}
 
-        /* Стилизация для валидации Bootstrap 4 (если input invalid, показываем feedback) */
-        .star-rating:has(input[type="radio"]:invalid)+.invalid-feedback {
-            display: block;
-        }
+/* Стилизация для валидации Bootstrap 4 (если input invalid, показываем feedback) */
+.star-rating:has(input[type="radio"]:invalid)+.invalid-feedback {
+    display: block;
+}
 
-        .image-preview,
-        #callback-preview {
-            width: 250px;
-            height: 250px;
-            border: 2px dashed #ddd;
-            border-radius: 3px;
-            position: relative;
-            overflow: hidden;
-            background-color: #ffffff;
-            color: #ecf0f1;
-        }
-
-        .image-preview label,
-        #callback-preview label {
-            position: absolute;
-            z-index: 5;
-            opacity: 0.8;
-            cursor: pointer;
-            background-color: #bdc3c7;
-            width: 150px;
-            height: 50px;
-            font-size: 12px;
-            line-height: 50px;
-            text-transform: uppercase;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-            text-align: center;
-        }
-
-        .image-preview input,
-        #callback-preview input {
-            line-height: 200px;
-
-            /* 1. Скрываем стандартные радиокнопки */
-            .star-rating input[type="radio"] {
-                display: none;
-            }
-
-            /* 2. Контейнер для звезд */
-            .star-rating {
-                display: flex;
-                /* Делает звезды в ряд */
-                flex-direction: row-reverse;
-                /* Располагает звезды справа налево для CSS-хака */
-                justify-content: flex-end;
-                /* Выравнивает звезды вправо, если контейнер шире */
-                font-size: 2.5em;
-                /* Размер звезд */
-                color: #ccc;
-                /* Цвет неактивных звезд */
-                line-height: 1;
-                /* Важно, чтобы избежать лишних отступов по высоте */
-            }
-
-            /* 3. Стили для каждой звезды (label) */
-            .star-rating label {
-                cursor: pointer;
-                position: relative;
-                /* Для позиционирования иконки */
-                width: 1.1em;
-                /* Ширина для каждой звезды */
-                height: 1.1em;
-                /* Высота для каждой звезды */
-                text-align: center;
-                /* Центрируем иконку внутри label */
-                margin: 0 2px;
-                /* Небольшой отступ между звездами */
-                display: flex;
-                /* Делаем label flex-контейнером */
-                align-items: center;
-                /* Выравниваем по центру по вертикали */
-                justify-content: center;
-                /* Выравниваем по центру по горизонтали */
-            }
-
-            /* 4. Иконки звезд (используем Font Awesome) */
-            .star-rating label:before {
-                content: '\f005';
-                /* Код для звезды Font Awesome Solid */
-                font-family: 'Font Awesome 5 Free';
-                font-weight: 900;
-                display: inline-block;
-                /* Иконка как инлайн-блок */
-            }
-
-            /* 5. Скрываем текст "N звезд", но оставляем его для скринридеров */
-            .star-rating label span.sr-only {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                padding: 0;
-                margin: -1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                white-space: nowrap;
-                border: 0;
-            }
-
-            /* 6. Изменение цвета звезд при наведении и выборе */
-            .star-rating input[type="radio"]:checked~label {
-                color: #ffc107;
-                /* Цвет выбранных звезд (желтый) */
-            }
-
-            .star-rating label:hover,
-            .star-rating label:hover~label {
-                color: #ffc107;
-                /* Цвет звезд при наведении */
-            }
-
-            /* 7. Опционально: эффект плавности */
-            .star-rating label,
-            .star-rating label:before {
-                transition: color 0.2s ease-in-out;
-            }
-
-            /* Стилизация для валидации Bootstrap 4 (если input invalid, показываем feedback) */
-            .star-rating:has(input[type="radio"]:invalid)+.invalid-feedback {
-                display: block;
-            }
-
-            .image-preview,
-            #callback-preview {
-                width: 250px;
-                height: 250px;
-                border: 2px dashed #ddd;
-                border-radius: 3px;
-                position: relative;
-                overflow: hidden;
-                background-color: #ffffff;
-                color: #ecf0f1;
-            }
-
-            .image-preview label,
-            #callback-preview label {
-                position: absolute;
-                z-index: 5;
-                opacity: 0.8;
-                cursor: pointer;
-                background-color: #bdc3c7;
-                width: 150px;
-                height: 50px;
-                font-size: 12px;
-                line-height: 50px;
-                text-transform: uppercase;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                margin: auto;
-                text-align: center;
-            }
-
-            .image-preview input,
-            #callback-preview input {
-                line-height: 200px;
-                font-size: 200px;
-                position: absolute;
-                opacity: 0;
-                z-index: 10;
-            }
-
-            .select2-container .select2-selection--multiple .select2-selection__choice {
-                background-color: #6d61ea !important;
-                /* border: none;
-    color: #fff;
+.image-preview,
+#callback-preview {
+    width: 250px;
+    height: 250px;
+    border: 2px dashed #ddd;
     border-radius: 3px;
-    padding: 0 7px;
-    margin-top: 7px; */
-            }
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: #ecf0f1;
+}
 
-            /* Active state for outline buttons */
-            .btn.btn-outline-secondary.active,
-            .btn.btn-outline-secondary:active,
-            .show>.btn-outline-secondary.dropdown-toggle {
-                color: #fff !important;
-                background-color: #6d61ea !important;
-                border-color: #6d61ea !important;
-            }
+.image-preview label,
+#callback-preview label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 150px;
+    height: 50px;
+    font-size: 12px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
 
-            ```
+.image-preview input,
+#callback-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #6d61ea !important;
+}
