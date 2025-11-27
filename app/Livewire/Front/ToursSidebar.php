@@ -14,7 +14,9 @@ class ToursSidebar extends Component
             'categories' => TourCategory::withCount(['tours' => function ($query) {
                 $query->where('is_published', true);
             }])->get(),
-            'totalTours' => Tour::where('is_published', true)->count(),
+            'totalTours' => Tour::where('is_published', true)
+                ->whereHas('categories')
+                ->count(),
         ])->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }
