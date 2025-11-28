@@ -93,7 +93,7 @@
                                 <th>Начало</th>
                                 <th>Макс. людей</th>
                                 <th>Текущее <br> кол-во</th>
-                                <th>Цена</th>
+                                <th>Цена <br> min|max</th>
                                 <th>Статус</th>
                                 <th style="width: 120px" class="text-center">Действия</th>
                             </tr>
@@ -134,7 +134,7 @@
                                     </td>
                                     <td>
                                             <span class="text-muted">
-                                                {{ $tourGroup->price_cents / 100 }}
+                                                ${{ $tourGroup->price_min }} | ${{ $tourGroup->price_max }}
                                             </span>
                                     </td>
                                     <td>
