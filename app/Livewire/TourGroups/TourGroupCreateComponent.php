@@ -15,7 +15,8 @@ class TourGroupCreateComponent extends Component
     public $starts_at;
     public $max_people;
     public $current_people = 0;
-    public $price_cents;
+    public $price_min;
+    public $price_max;
     public $status = 'draft';
 
     /* --------- массив услуг, пришедших из БД --------- */
@@ -34,7 +35,8 @@ class TourGroupCreateComponent extends Component
             'starts_at'      => 'required|date',
             'max_people'     => 'required|integer|min:1',
             'current_people' => 'nullable|integer|min:0|lte:max_people',
-            'price_cents'    => 'required|integer|min:0',
+            'price_min'      => 'required|integer|min:0',
+            'price_max'      => 'required|integer|min:0|gte:price_min',
             'status'         => 'required|in:draft,open,closed,cancelled',
 
             /* валидация цен только для отмеченных услуг */
@@ -55,9 +57,13 @@ class TourGroupCreateComponent extends Component
             'current_people.integer'  => 'Текущее количество людей должно быть целым числом.',
             'current_people.min'      => 'Количество людей не может быть отрицательным.',
             'current_people.lte'      => 'Текущее количество людей не может превышать максимальное.',
-            'price_cents.required'    => 'Укажите цену.',
-            'price_cents.integer'     => 'Цена должна быть целым числом.',
-            'price_cents.min'         => 'Цена не может быть отрицательной.',
+            'price_min.required'      => 'Укажите минимальную цену.',
+            'price_min.integer'       => 'Цена должна быть целым числом.',
+            'price_min.min'           => 'Цена не может быть отрицательной.',
+            'price_max.required'      => 'Укажите максимальную цену.',
+            'price_max.integer'       => 'Цена должна быть целым числом.',
+            'price_max.min'           => 'Цена не может быть отрицательной.',
+            'price_max.gte'           => 'Максимальная цена должна быть больше или равна минимальной.',
             'status.required'         => 'Выберите статус.',
             'status.in'               => 'Некорректный статус.',
             'servicePrices.*.integer' => 'Цена услуги должна быть целым числом.',
@@ -86,7 +92,8 @@ class TourGroupCreateComponent extends Component
             'starts_at'       => $this->starts_at,
             'max_people'      => $this->max_people,
             'current_people'  => $this->current_people,
-            'price_cents'     => $this->price_cents,
+            'price_min'       => $this->price_min,
+            'price_max'       => $this->price_max,
             'status'          => $this->status,
         ]);
 

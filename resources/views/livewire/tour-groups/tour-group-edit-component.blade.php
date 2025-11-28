@@ -55,11 +55,18 @@
                                 @error('current_people') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
-                            <!-- Price -->
+                            <!-- Price Min -->
                             <div class="form-group">
-                                <label>Цена (центы) <span class="text-danger">*</span></label>
-                                <input type="number" min="0" wire:model.defer="price_cents" class="form-control @error('price_cents') is-invalid @enderror">
-                                @error('price_cents') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                <label>Мин. цена ($) <span class="text-danger">*</span></label>
+                                <input type="number" min="0" wire:model.defer="price_min" class="form-control @error('price_min') is-invalid @enderror">
+                                @error('price_min') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            </div>
+
+                            <!-- Price Max -->
+                            <div class="form-group">
+                                <label>Макс. цена ($) <span class="text-danger">*</span></label>
+                                <input type="number" min="0" wire:model.defer="price_max" class="form-control @error('price_max') is-invalid @enderror">
+                                @error('price_max') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Status -->

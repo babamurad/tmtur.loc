@@ -19,7 +19,9 @@ class CartComponent extends Component
                     throw new \Exception('Недостаточно мест для группы '.$group->id);
                 }
 
-                $total = $group->price_cents * $row['people'];
+                // Price is in dollars, convert to cents for total
+                $pricePerPersonCents = $group->getPriceForPeople($row['people']) * 100;
+                $total = $pricePerPersonCents * $row['people'];
 
                 // суммируем выбранные услуги
                 $services = TourGroupService::where('tour_group_id', $group->id)
