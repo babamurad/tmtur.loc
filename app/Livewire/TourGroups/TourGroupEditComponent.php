@@ -86,13 +86,13 @@ class TourGroupEditComponent extends Component
 
         foreach ($this->services as $s) {
             $id = (int)$s->id;
-//            $pivot = $tourGroup->tourGroupServices()
-//                ->where('service_id', $id)
-//                ->first();
+            $pivot = $tourGroup->tourGroupServices()
+                ->where('service_id', $id)
+                ->first();
 
-//            $this->checked[$id] = (bool)$pivot;
-//            $this->prices[$id]  = $pivot?->price_cents ?? $s->default_price_cents;
-//            $this->details[$id] = $pivot?->details;
+            $this->checked[$id] = (bool)$pivot;
+            $this->prices[$id]  = $pivot?->price_cents ?? $s->default_price_cents;
+            // $this->details[$id] = $pivot?->details;
         }
     }
 
@@ -113,7 +113,7 @@ class TourGroupEditComponent extends Component
 
         // 2. sync услуг (HasMany)
         $wanted = collect($this->services)
-            ->filter(fn($s) => $this->checked[(int)$s->id])
+            ->filter(fn($s) => $this->checked[(int)$s->id] ?? false)
             ->pluck('id');
 
         // 2а. удаляем лишние

@@ -89,6 +89,7 @@
                             <tr>
                                 <th style="width: 60px">#</th>
                                 <th>Тур</th>
+                                <th>Категория</th>
                                 <th>Начало</th>
                                 <th>Макс. людей</th>
                                 <th>Текущее <br> кол-во</th>
@@ -103,13 +104,22 @@
                                 <tr>
                                     <td>{{ $tourGroup->id }}</td>
                                     <td>
+                                        <a href="{{ route('tour-groups.edit', $tourGroup) }}">
                                             <span class="font-weight-semibold">
                                                 {{ $tourGroup->tour->title ?? 'N/A' }}
                                             </span>
+                                        </a>
                                     </td>
                                     <td>
-                                            <span class="text-muted">
-                                                {{ $tourGroup->starts_at }}
+                                        @foreach($tourGroup->tour->categories as $category)
+                                            <span class="badge badge-soft-info font-size-12">
+                                                {{ $category->title }}
+                                            </span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                            <span class="badge badge-soft-primary font-size-12">
+                                                {{ \Carbon\Carbon::parse($tourGroup->starts_at)->format('d.m.Y') }}
                                             </span>
                                     </td>
                                     <td>
@@ -160,7 +170,8 @@
                                         </a>
 
                                         <button wire:click="delete({{ $tourGroup->id }})"
-                                                class="btn btn-sm btn-outline-danger waves-effect waves-light">
+                                                class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                data-toggle="tooltip" title="Удалить">
                                             <i class="bx bx-trash font-size-14"></i>
                                         </button>
                                     </td>
