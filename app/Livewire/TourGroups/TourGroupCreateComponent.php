@@ -42,6 +42,29 @@ class TourGroupCreateComponent extends Component
         ];
     }
 
+    protected function messages(): array
+    {
+        return [
+            'tour_id.required'        => 'Необходимо выбрать тур.',
+            'tour_id.exists'          => 'Выбранный тур не существует.',
+            'starts_at.required'      => 'Укажите дату начала.',
+            'starts_at.date'          => 'Некорректный формат даты.',
+            'max_people.required'     => 'Укажите максимальное количество людей.',
+            'max_people.integer'      => 'Количество людей должно быть целым числом.',
+            'max_people.min'          => 'Минимальное количество людей — 1.',
+            'current_people.integer'  => 'Текущее количество людей должно быть целым числом.',
+            'current_people.min'      => 'Количество людей не может быть отрицательным.',
+            'current_people.lte'      => 'Текущее количество людей не может превышать максимальное.',
+            'price_cents.required'    => 'Укажите цену.',
+            'price_cents.integer'     => 'Цена должна быть целым числом.',
+            'price_cents.min'         => 'Цена не может быть отрицательной.',
+            'status.required'         => 'Выберите статус.',
+            'status.in'               => 'Некорректный статус.',
+            'servicePrices.*.integer' => 'Цена услуги должна быть целым числом.',
+            'servicePrices.*.min'     => 'Цена услуги не может быть отрицательной.',
+        ];
+    }
+
     public function mount()
     {
         // Загружаем список всех услуг один раз
