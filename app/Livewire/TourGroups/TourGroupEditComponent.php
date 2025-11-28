@@ -15,7 +15,8 @@ class TourGroupEditComponent extends Component
     public $starts_at;
     public $max_people;
     public $current_people;
-    public $price_cents;
+    public $price_min;
+    public $price_max;
     public $status;
 
     /* ---------- Services ---------- */
@@ -32,9 +33,38 @@ class TourGroupEditComponent extends Component
             'starts_at'      => 'required|date',
             'max_people'     => 'required|integer|min:1',
             'current_people' => 'nullable|integer|min:0|lte:max_people',
-            'price_cents'    => 'required|integer|min:0',
+            'price_min'      => 'required|integer|min:0',
+            'price_max'      => 'required|integer|min:0|gte:price_min',
             'status'         => 'required|in:draft,open,closed,cancelled',
             'prices.*'       => 'nullable|integer|min:0',
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'tour_id.required'        => 'Необходимо выбрать тур.',
+            'tour_id.exists'          => 'Выбранный тур не существует.',
+            'starts_at.required'      => 'Укажите дату начала.',
+            'starts_at.date'          => 'Некорректный формат даты.',
+            'max_people.required'     => 'Укажите максимальное количество людей.',
+            'max_people.integer'      => 'Количество людей должно быть целым числом.',
+            'max_people.min'          => 'Минимальное количество людей — 1.',
+            'current_people.integer'  => 'Текущее количество людей должно быть целым числом.',
+            'current_people.min'      => 'Количество людей не может быть отрицательным.',
+            'current_people.lte'      => 'Текущее количество людей не может превышать максимальное.',
+            'current_people.lte'      => 'Текущее количество людей не может превышать максимальное.',
+            'price_min.required'      => 'Укажите минимальную цену.',
+            'price_min.integer'       => 'Цена должна быть целым числом.',
+            'price_min.min'           => 'Цена не может быть отрицательной.',
+            'price_max.required'      => 'Укажите максимальную цену.',
+            'price_max.integer'       => 'Цена должна быть целым числом.',
+            'price_max.min'           => 'Цена не может быть отрицательной.',
+            'price_max.gte'           => 'Максимальная цена должна быть больше или равна минимальной.',
+            'status.required'         => 'Выберите статус.',
+            'status.in'               => 'Некорректный статус.',
+            'prices.*.integer'        => 'Цена услуги должна быть целым числом.',
+            'prices.*.min'            => 'Цена услуги не может быть отрицательной.',
         ];
     }
 
@@ -47,7 +77,8 @@ class TourGroupEditComponent extends Component
         $this->starts_at      = $this->tourGroup->starts_at;
         $this->max_people     = $this->tourGroup->max_people;
         $this->current_people = $this->tourGroup->current_people;
-        $this->price_cents    = $this->tourGroup->price_cents;
+        $this->price_min      = $this->tourGroup->price_min;
+        $this->price_max      = $this->tourGroup->price_max;
         $this->status         = $this->tourGroup->status;
 
         // 2. услуги
@@ -75,7 +106,8 @@ class TourGroupEditComponent extends Component
             'starts_at'      => $this->starts_at,
             'max_people'     => $this->max_people,
             'current_people' => $this->current_people,
-            'price_cents'    => $this->price_cents,
+            'price_min'      => $this->price_min,
+            'price_max'      => $this->price_max,
             'status'         => $this->status,
         ]);
 

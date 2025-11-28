@@ -73,15 +73,28 @@
                                 @enderror
                             </div>
 
-                            {{-- Price --}}
+                            {{-- Price Min --}}
                             <div class="form-group">
-                                <label for="price_cents">Price (cents) <span class="text-danger">*</span></label>
+                                <label for="price_min">Min Price ($) <span class="text-danger">*</span></label>
                                 <input type="number"
-                                       id="price_cents"
-                                       wire:model.defer="price_cents"
-                                       class="form-control @error('price_cents') is-invalid @enderror"
+                                       id="price_min"
+                                       wire:model.defer="price_min"
+                                       class="form-control @error('price_min') is-invalid @enderror"
                                        min="0">
-                                @error('price_cents')
+                                @error('price_min')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Price Max --}}
+                            <div class="form-group">
+                                <label for="price_max">Max Price ($) <span class="text-danger">*</span></label>
+                                <input type="number"
+                                       id="price_max"
+                                       wire:model.defer="price_max"
+                                       class="form-control @error('price_max') is-invalid @enderror"
+                                       min="0">
+                                @error('price_max')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
