@@ -149,14 +149,21 @@
 
                                                 {{-- Цена --}}
                                                 <div class="col-md-3 mb-2 mb-md-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fas fa-dollar-sign text-success mr-2"></i>
-                                                        <div>
-                                                            <strong class="text-success d-block" style="font-size: 1.25rem;">
-                                                                {{ number_format($group->price_cents, 2) }}
-                                                            </strong>
-                                                            <small class="text-muted">{{ __('messages.per_person') ?? 'за человека' }}</small>
-                                                        </div>
+                                                    <div class="d-flex flex-column">                                                        
+                                                        
+                                                        {{-- 2 Prices Display --}}
+                                                        @if($group->max_people > 1)
+                                                            <div class="d-flex flex-column">
+                                                                <span class="badge bg-secondary border border-secondary text-secondary mb-1 font-weight-normal text-left" 
+                                                                      style="background-color: #f8f9fa;">
+                                                                    <i class="fas fa-user"></i> 1 {{ __('messages.person') ?? 'чел.' }}: <strong>${{ $group->price_max }}</strong>
+                                                                </span>
+                                                                <span class="badge bg-success border border-success text-success mb-1 font-weight-normal text-left" 
+                                                                      style="background-color: #f8fff9;">
+                                                                    <i class="fas fa-users"></i> {{ $group->max_people }} {{ __('messages.people') ?? 'чел.' }}: <strong>${{ $group->price_min }}</strong>
+                                                                </span>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
 

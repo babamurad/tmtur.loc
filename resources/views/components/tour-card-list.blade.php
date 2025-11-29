@@ -29,7 +29,7 @@
                 @if($tour->groupsOpen && $tour->groupsOpen->count() > 0)
                     @php
                         $nextGroup = $tour->groupsOpen->first();
-                        $minPrice = $tour->groupsOpen->min('price_cents');
+                        $minPrice = $tour->groupsOpen->min('price_min');
                     @endphp
                     <div class="mb-3 p-2 bg-light rounded">
                         <div class="row">
@@ -45,7 +45,24 @@
                                     <i class="fas fa-dollar-sign text-success"></i> 
                                     {{ __('messages.price') ?? 'Цена' }}
                                 </small>
-                                <strong class="text-success">${{ number_format($minPrice, 2) }}</strong>
+                                @php
+                                    $maxPrice = $tour->groupsOpen->max('price_max');
+                                    $minPrice = $tour->groupsOpen->min('price_min');
+                                    $maxPeople = $tour->groupsOpen->max('max_people');
+                                @endphp
+
+                                @if($maxPeople > 1)
+                                    <div class="d-flex flex-column">
+                                        <span class="badge badge-secondary border text-left mb-1 font-weight-normal text-muted">
+                                             <i class="fas fa-user"></i> 1 {{ __('messages.person') ?? 'чел.' }}: <strong>${{ number_format($maxPrice, 0) }}</strong>
+                                        </span>
+                                        <span class="badge badge-success border text-left font-weight-normal text-success">
+                                             <i class="fas fa-users"></i> {{ $maxPeople }} {{ __('messages.people') ?? 'чел.' }}: <strong>${{ number_format($minPrice, 0) }}</strong>
+                                        </span>
+                                    </div>
+                                @else
+                                    <strong class="text-success">${{ number_format($minPrice, 0) }}</strong>
+                                @endif
                             </div>
                         </div>
                     </div>

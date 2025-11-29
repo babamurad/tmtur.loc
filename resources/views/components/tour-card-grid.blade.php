@@ -27,7 +27,7 @@
         @if($tour->groupsOpen && $tour->groupsOpen->count() > 0)
             @php
                 $nextGroup = $tour->groupsOpen->first();
-                $minPrice = $tour->groupsOpen->min('price_cents');
+                $minPrice = $tour->groupsOpen->min('price_min');
             @endphp
             <div class="mb-2">
                 <small class="text-muted d-block">
@@ -35,12 +35,26 @@
                     {{ __('messages.next_departure') ?? 'Ближайший выезд' }}: 
                     <strong>{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
                 </small>
-                <small class="text-success d-block">
-                    <i class="fas fa-dollar-sign"></i>
-                    {{ __('messages.price') ?? 'Цена' }}  
-                    {{ __('messages.from') ?? 'от' }} 
-                    <strong>${{ number_format($minPrice, 2) }}</strong>
-                </small>
+                <div class="d-flex flex-column mt-2">
+                    @php
+                        $maxPrice = $tour->groupsOpen->max('price_max');
+                        $minPrice = $tour->groupsOpen->min('price_min');
+                        $maxPeople = $tour->groupsOpen->max('max_people');
+                    @endphp
+                    
+                    @if($maxPeople > 1)
+                        <span class="badge badge-secondary border text-left mb-1 font-weight-normal text-muted">
+                             <i class="fas fa-user"></i> 1 {{ __('messages.person') ?? 'чел.' }}: <strong>${{ number_format($maxPrice, 0) }}</strong>
+                        </span>
+                        <span class="badge badge-success border text-left font-weight-normal text-success">
+                             <i class="fas fa-users"></i> {{ $maxPeople }} {{ __('messages.people') ?? 'чел.' }}: <strong>${{ number_format($minPrice, 0) }}</strong>
+                        </span>
+                    @else
+                        <span class="text-success font-weight-bold">
+                            ${{ number_format($minPrice, 0) }}
+                        </span>
+                    @endif
+                </div>
             </div>
         @endif
 

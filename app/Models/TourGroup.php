@@ -42,6 +42,11 @@ class TourGroup extends Model
         return (int) round($this->price_max - ($discountPerPerson * $currentPeopleDiff));
     }
 
+    public function freePlaces()
+    {
+        return $this->max_people - $this->current_people;
+    }
+
     public function tour()
     {
         return $this->belongsTo(Tour::class);

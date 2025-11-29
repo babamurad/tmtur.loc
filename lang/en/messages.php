@@ -52,4 +52,6 @@ return [
     'from' => 'from',
     'price' => 'Price',
     'photos' => 'photos',
+    'person' => 'person',
+    'people' => 'people',
 ];

@@ -52,4 +52,6 @@ return [
     'from' => 'от',
     'price' => 'Цена',
     'photos' => 'фото',
+    'person' => 'чел.',
+    'people' => 'чел.',
 ];
