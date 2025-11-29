@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class InclusionIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public function delete($id)
     {

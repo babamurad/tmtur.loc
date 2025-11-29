@@ -86,9 +86,11 @@
                                     <tr>
                                         <td>{{ $service->id }}</td>
                                         <td>
-                                            <span class="font-weight-semibold">
-                                                {{ $service->name }}
-                                            </span>
+                                            <a href="{{ route('services.edit', $service) }}">
+                                                <span class="font-weight-semibold">
+                                                    {{ $service->name }}
+                                                </span>
+                                            </a>
                                         </td>
                                         <td>
                                             <span class="text-muted">

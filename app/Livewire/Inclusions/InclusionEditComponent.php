@@ -35,8 +35,12 @@ class InclusionEditComponent extends Component
 
         $inclusion = Inclusion::findOrFail($this->inclusion_id);
         
-        // Обновляем timestamp
-        $inclusion->touch();
+        $fallbackLocale = config('app.fallback_locale');
+        
+        // Обновляем title из fallback языка
+        $inclusion->update([
+            'title' => $this->trans[$fallbackLocale]['title']
+        ]);
 
         foreach ($this->trans as $locale => $fields) {
             foreach ($fields as $field => $value) {

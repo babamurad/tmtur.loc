@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 class TourGroupIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $delId;
     public $perPage = 10;

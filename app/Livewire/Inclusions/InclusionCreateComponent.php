@@ -29,8 +29,12 @@ class InclusionCreateComponent extends Component
     {
         $this->validate();
 
-        // Создаем пустую запись, так как таблица inclusions содержит только id и timestamps
-        $inclusion = Inclusion::create([]);
+        $fallbackLocale = config('app.fallback_locale');
+        
+        // Создаем запись с title из fallback языка
+        $inclusion = Inclusion::create([
+            'title' => $this->trans[$fallbackLocale]['title']
+        ]);
 
         foreach ($this->trans as $locale => $fields) {
             foreach ($fields as $field => $value) {
