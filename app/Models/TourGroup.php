@@ -57,13 +57,8 @@ class TourGroup extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public function groupServices()
+    public function tourGroupServices()
     {
         return $this->hasMany(TourGroupService::class);
-    }
-
-    public function TourGroup()
-    {
-        return $this->belongsToMany(TourGroup::class);
     }
 }
