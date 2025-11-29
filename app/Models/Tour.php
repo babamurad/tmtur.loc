@@ -118,10 +118,12 @@ class Tour extends Model
         return $this->hasMany(TourItineraryDay::class)->orderBy('day_number');
     }
 
-    // Связь: тур может иметь много включений
+    // Связь: тур может иметь много включений (Многие ко Многим)
     public function inclusions()
     {
-        return $this->hasMany(TourInclusion::class);
+        return $this->belongsToMany(Inclusion::class, 'tour_inclusion')
+            ->withPivot('is_included')
+            ->withTimestamps();
     }
 
     // Связь: тур может иметь много вариантов аккомодации

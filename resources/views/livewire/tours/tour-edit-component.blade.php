@@ -293,68 +293,31 @@
                                         </button>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col-md-12">
-                                                <label class="form-label">Тип</label>
-                                                <select wire:model.defer="inclusions.{{ $index }}.type" class="form-control form-control-sm">
-                                                    <option value="included">Включено</option>
-                                                    <option value="not_included">Не включено</option>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <label class="form-label">Включение</label>
+                                                <select wire:model.defer="inclusions.{{ $index }}.inclusion_id" class="form-control form-control-sm">
+                                                    <option value="">Выберите...</option>
+                                                    @foreach($available_inclusions as $availInc)
+                                                        <option value="{{ $availInc->id }}">
+                                                            {{ $availInc->tr('title') }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
-                                                @error("inclusions.{$index}.type") 
+                                                @error("inclusions.{$index}.inclusion_id") 
                                                 <div class="text-danger small">{{ $message }}</div> 
                                                 @enderror
                                             </div>
-                                        </div>
-
-                                        {{-- Language Tabs --}}
-                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#edit-inc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
-                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
-                                                </a>
-                                            </li>
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#edit-inc-{{ $index }}-lang-{{ $locale }}" role="tab">
-                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-
-                                        {{-- Tab Content --}}
-                                        <div class="tab-content">
-                                            {{-- Default Language Tab --}}
-                                            <div class="tab-pane active" id="edit-inc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
-                                                <div class="form-group">
-                                                    <label>Описание <span class="text-danger">*</span></label>
-                                                    <input type="text" 
-                                                           wire:model.defer="inclusions.{{ $index }}.trans.{{ config('app.fallback_locale') }}.item" 
-                                                           class="form-control form-control-sm" 
-                                                           placeholder="Описание">
-                                                    @error("inclusions.{$index}.trans.".config('app.fallback_locale').".item") 
-                                                    <div class="text-danger small">{{ $message }}</div> 
-                                                    @enderror
-                                                </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Тип</label>
+                                                <select wire:model.defer="inclusions.{{ $index }}.is_included" class="form-control form-control-sm">
+                                                    <option value="1">Включено</option>
+                                                    <option value="0">Не включено</option>
+                                                </select>
+                                                @error("inclusions.{$index}.is_included") 
+                                                <div class="text-danger small">{{ $message }}</div> 
+                                                @enderror
                                             </div>
-
-                                            {{-- Other Language Tabs --}}
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
-                                                <div class="tab-pane" id="edit-inc-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
-                                                    <div class="form-group">
-                                                        <label>Описание <span class="text-danger">*</span></label>
-                                                        <input type="text" 
-                                                               wire:model.defer="inclusions.{{ $index }}.trans.{{ $locale }}.item" 
-                                                               class="form-control form-control-sm" 
-                                                               placeholder="Описание на {{ strtoupper($locale) }}">
-                                                        @error("inclusions.{$index}.trans.{$locale}.item") 
-                                                        <div class="text-danger small">{{ $message }}</div> 
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

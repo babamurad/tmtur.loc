@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Media;
 use App\Models\TourItineraryDay;
-use App\Models\TourInclusion;
+use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
 
 class TourEditComponent extends Component
@@ -38,6 +38,7 @@ class TourEditComponent extends Component
     /* Динамические массивы */
     public array $itinerary_days  = [];
     public array $inclusions      = [];
+    public array $available_inclusions = []; // List of all available inclusions
     public array $accommodations  = [];
     /* мультиязычные значения */
     public array $trans = [];   // [ru][title], [en][title] …
@@ -60,7 +61,8 @@ class TourEditComponent extends Component
             'itinerary_days.*.day_number' => 'required|integer|min:1',
 
             'inclusions'                  => 'nullable|array',
-            'inclusions.*.type'           => 'required|in:included,not_included',
+            'inclusions.*.inclusion_id'   => 'required|exists:inclusions,id',
+            'inclusions.*.is_included'    => 'required|boolean',
 
             'accommodations'              => 'nullable|array',
             'accommodations.*.nights_count' => 'required|integer|min:1',
@@ -78,10 +80,7 @@ class TourEditComponent extends Component
             $rules["itinerary_days.*.trans.$l.description"] = 'nullable|string';
         }
 
-        /* переводы для включений */
-        foreach (config('app.available_locales') as $l) {
-            $rules["inclusions.*.trans.$l.item"] = 'required|string';
-        }
+        // Removed translation rules for inclusions
 
         /* переводы для размещения */
         foreach (config('app.available_locales') as $l) {
@@ -141,18 +140,14 @@ class TourEditComponent extends Component
             ];
         })->all();
 
-        // Загружаем включения с переводами
+        // Загружаем доступные включения
+        $this->available_inclusions = Inclusion::all()->all();
+
+        // Загружаем привязанные включения
         $this->inclusions = $tour->inclusions->map(function($item) {
-            $trans = [];
-            foreach (config('app.available_locales') as $locale) {
-                $trans[$locale] = [
-                    'item' => $item->tr('item', $locale),
-                ];
-            }
             return [
-                'id' => $item->id,
-                'type' => $item->type,
-                'trans' => $trans
+                'inclusion_id' => $item->id,
+                'is_included' => $item->pivot->is_included,
             ];
         })->all();
 
@@ -210,16 +205,9 @@ class TourEditComponent extends Component
     // === Методы для Inclusions ===
     public function addInclusion()
     {
-        $trans = [];
-        foreach (config('app.available_locales') as $locale) {
-            $trans[$locale] = [
-                'item' => ''
-            ];
-        }
-        
         $this->inclusions[] = [
-            'type' => 'included',
-            'trans' => $trans
+            'inclusion_id' => '',
+            'is_included' => 1
         ];
     }
 
@@ -371,29 +359,14 @@ class TourEditComponent extends Component
         TourItineraryDay::where('tour_id', $this->tour->id)
             ->whereNotIn('id', $keepDays)->delete();
 
-        // Inclusions
-        $keepInc = [];
+        // Inclusions Sync
+        $syncData = [];
         foreach ($this->inclusions as $incData) {
-            $fallbackLocale = config('app.fallback_locale');
-            $inc = TourInclusion::updateOrCreate(
-                ['id' => $incData['id'] ?? null, 'tour_id' => $this->tour->id],
-                [
-                    'type' => $incData['type'],
-                    'item' => $incData['trans'][$fallbackLocale]['item'] ?? '',
-                ]
-            );
-            
-            // Сохраняем переводы
-            foreach ($incData['trans'] as $locale => $fields) {
-                foreach ($fields as $field => $value) {
-                    $inc->setTr($field, $locale, $value);
-                }
+            if (!empty($incData['inclusion_id'])) {
+                $syncData[$incData['inclusion_id']] = ['is_included' => $incData['is_included']];
             }
-            
-            $keepInc[] = $inc->id;
         }
-        TourInclusion::where('tour_id', $this->tour->id)
-            ->whereNotIn('id', $keepInc)->delete();
+        $this->tour->inclusions()->sync($syncData);
 
         // Accommodations
         $keepAcc = [];

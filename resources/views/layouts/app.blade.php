@@ -60,6 +60,7 @@
                             <li><a href="{{ route('tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a></li>
                             <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы туров</a></li>
                             <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i> Услуги</a></li>
+                            <li><a href="{{ route('inclusions.index') }}"><i class="bx bx-check-square"></i> Включения</a></li>
                         </ul>
                     </li>
 

@@ -206,12 +206,12 @@
                                 <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}</h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
-                                        <li class="mb-2">
-                                            @if($item->type === 'included')
+                                        @if($item->pivot->is_included)
+                                            <li class="mb-2">
                                                 <i class="fas fa-check-circle text-success mr-2"></i>
-                                                {{ $item->tr('item') }}
-                                            @endif
-                                        </li>
+                                                {{ $item->tr('title') }}
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -219,12 +219,12 @@
                                 <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_not_included') }}</h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
-                                        <li class="mb-2">
-                                            @if($item->type === 'not_included')
+                                        @if(!$item->pivot->is_included)
+                                            <li class="mb-2">
                                                 <i class="fas fa-times-circle text-danger mr-2"></i>
-                                                {{ $item->tr('item') }}
-                                            @endif
-                                        </li>
+                                                {{ $item->tr('title') }}
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>

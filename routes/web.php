@@ -88,6 +88,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('tour-groups/edit/{tourGroup}', App\Livewire\TourGroups\TourGroupEditComponent::class)->name('tour-groups.edit');
     Route::get('tour-groups/delete/{tourGroup}', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.delete');
 
+    Route::get('inclusions', App\Livewire\Inclusions\InclusionIndexComponent::class)->name('inclusions.index');
+    Route::get('inclusions/create', App\Livewire\Inclusions\InclusionCreateComponent::class)->name('inclusions.create');
+    Route::get('inclusions/edit/{id}', App\Livewire\Inclusions\InclusionEditComponent::class)->name('inclusions.edit');
+
     Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
     Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');
     Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');

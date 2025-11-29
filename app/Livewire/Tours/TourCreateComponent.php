@@ -9,42 +9,42 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Media; // Если вы будете использовать отдельную таблицу для медиа
+use App\Models\Media;
 use Carbon\Carbon;
 use App\Models\TourItineraryDay;
-use App\Models\TourInclusion;
+use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
 
 class TourCreateComponent extends Component
 {
-    use WithFileUploads; // Добавляем трейт
+    use WithFileUploads;
 
     // Основные поля тура
     public $title;
     public $slug;
     public $category_id = [];
-    public $short_description = ''; // Инициализируем пустой строкой
-    public $images = []; // Массив для множественной загрузки
+    public $short_description = '';
+    public $images = [];
     public $is_published = true;
     public $base_price_cents;
     public $duration_days;
 
-    // Поля для итинерария (массив для хранения дней)
+    // Поля для итинерария
     public $itinerary_days = [];
 
-    // Поля для включений (массив для хранения включений/невключений)
+    // Поля для включений
     public $inclusions = [];
+    public $available_inclusions = []; // List of all available inclusions
 
-    // Поля для аккомодаций (массив для хранения вариантов)
+    // Поля для аккомодаций
     public $accommodations = [];
 
     /* мультиязычные значения */
-    public array $trans = [];   // [ru][title], [en][title] …
+    public array $trans = [];
 
     protected function rules()
     {
         $rules = [
-            // Правила для основного тура
             'title' => 'required|min:3|max:255',
             'slug' => 'nullable|min:3|max:255|unique:tours,slug',
             'short_description' => 'nullable|string',
@@ -54,37 +54,30 @@ class TourCreateComponent extends Component
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
 
-            // Правила для дней итинерария
             'itinerary_days.*.day_number' => 'required|integer|min:1',
 
-            // Правила для включений/невключений
-            'inclusions.*.type' => 'required|in:included,not_included',
+            // Updated rules for inclusions
+            'inclusions.*.inclusion_id' => 'required|exists:inclusions,id',
+            'inclusions.*.is_included' => 'required|boolean',
 
-            // Правила для аккомодаций
             'accommodations.*.nights_count' => 'required|integer|min:1',
 
             'category_id' => 'required|array|min:1',
             'category_id.*' => 'integer|exists:tour_categories,id',
         ];
 
-        /* переводы для основного тура */
         foreach (config('app.available_locales') as $l) {
             $rules["trans.$l.title"] = 'nullable|string|max:255';
             $rules["trans.$l.short_description"] = 'nullable|string';
         }
 
-        /* переводы для дней итинерария */
         foreach (config('app.available_locales') as $l) {
             $rules["itinerary_days.*.trans.$l.title"] = 'required|string|max:255';
             $rules["itinerary_days.*.trans.$l.description"] = 'nullable|string';
         }
 
-        /* переводы для включений */
-        foreach (config('app.available_locales') as $l) {
-            $rules["inclusions.*.trans.$l.item"] = 'required|string';
-        }
+        // Removed translation rules for inclusions as they are now managed separately
 
-        /* переводы для размещения */
         foreach (config('app.available_locales') as $l) {
             $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255';
             $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
@@ -100,6 +93,8 @@ class TourCreateComponent extends Component
             $this->trans[$locale]['title'] = '';
             $this->trans[$locale]['short_description'] = '';
         }
+        
+        $this->available_inclusions = Inclusion::all();
     }
 
     protected $listeners = ['quillUpdated' => 'updateQuillField'];
@@ -141,28 +136,21 @@ class TourCreateComponent extends Component
     public function removeItineraryDay($index)
     {
         unset($this->itinerary_days[$index]);
-        $this->itinerary_days = array_values($this->itinerary_days); // Переиндексация
+        $this->itinerary_days = array_values($this->itinerary_days);
     }
 
     public function addInclusion()
     {
-        $trans = [];
-        foreach (config('app.available_locales') as $locale) {
-            $trans[$locale] = [
-                'item' => ''
-            ];
-        }
-        
         $this->inclusions[] = [
-            'type' => 'included',
-            'trans' => $trans
+            'inclusion_id' => '',
+            'is_included' => 1 // Default to included
         ];
     }
 
     public function removeInclusion($index)
     {
         unset($this->inclusions[$index]);
-        $this->inclusions = array_values($this->inclusions); // Переиндексация
+        $this->inclusions = array_values($this->inclusions);
     }
 
     public function addAccommodation()
@@ -185,28 +173,25 @@ class TourCreateComponent extends Component
     public function removeAccommodation($index)
     {
         unset($this->accommodations[$index]);
-        $this->accommodations = array_values($this->accommodations); // Переиндексация
+        $this->accommodations = array_values($this->accommodations);
     }
 
     public function save()
     {
         $fallback = config('app.fallback_locale');
-        $this->trans[$fallback]['title'] = $this->title; // ✅ синхронизация
+        $this->trans[$fallback]['title'] = $this->title;
 
         $this->validate();
 
-        // Создаем основной тур
         $tour = Tour::create([
             'title' => $this->title,
             'slug' => $this->slug,
-
             'is_published' => $this->is_published,
             'base_price_cents' => $this->base_price_cents ?? 0,
             'duration_days' => $this->duration_days ?? 1,
             'short_description' => $this->trans[config('app.fallback_locale')]['short_description'] ?? '',
         ]);
 
-        // сохраняем переводы
         $fallbackLocale = config('app.fallback_locale');
         $this->trans[$fallbackLocale]['title'] = $this->title;
 
@@ -216,11 +201,8 @@ class TourCreateComponent extends Component
             }
         }
 
-        // ПРИКРЕПЛЯЕМ КАТЕГОРИИ
-        // Метод sync() удобен для "многие ко многим"
         $tour->categories()->sync($this->category_id);
 
-        // Создаем связанные дни итинерария
         foreach ($this->itinerary_days as $dayData) {
             $fallbackLocale = config('app.fallback_locale');
             $day = TourItineraryDay::create([
@@ -230,7 +212,6 @@ class TourCreateComponent extends Component
                 'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
             ]);
             
-            // Сохраняем переводы
             foreach ($dayData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $day->setTr($field, $locale, $value);
@@ -238,24 +219,15 @@ class TourCreateComponent extends Component
             }
         }
 
-        // Создаем связанные включения/невключения
+        // Sync Inclusions
+        $syncData = [];
         foreach ($this->inclusions as $incData) {
-            $fallbackLocale = config('app.fallback_locale');
-            $inclusion = TourInclusion::create([
-                'tour_id' => $tour->id,
-                'type' => $incData['type'],
-                'item' => $incData['trans'][$fallbackLocale]['item'] ?? '',
-            ]);
-            
-            // Сохраняем переводы
-            foreach ($incData['trans'] as $locale => $fields) {
-                foreach ($fields as $field => $value) {
-                    $inclusion->setTr($field, $locale, $value);
-                }
+            if (!empty($incData['inclusion_id'])) {
+                $syncData[$incData['inclusion_id']] = ['is_included' => $incData['is_included']];
             }
         }
+        $tour->inclusions()->sync($syncData);
 
-        // Создаем связанные аккомодации
         foreach ($this->accommodations as $accData) {
             $fallbackLocale = config('app.fallback_locale');
             $accommodation = TourAccommodation::create([
@@ -266,7 +238,6 @@ class TourCreateComponent extends Component
                 'comfort_options' => $accData['trans'][$fallbackLocale]['comfort_options'] ?? '',
             ]);
             
-            // Сохраняем переводы
             foreach ($accData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $accommodation->setTr($field, $locale, $value);
@@ -274,7 +245,6 @@ class TourCreateComponent extends Component
             }
         }
 
-        // Сохранение изображений (множественная загрузка)
         if ($this->images && count($this->images) > 0) {
             foreach ($this->images as $idx => $file) {
                 $path = Storage::disk('public_uploads')->putFileAs(
@@ -289,7 +259,7 @@ class TourCreateComponent extends Component
                     'file_path'  => $path,
                     'file_name'  => $file->getClientOriginalName(),
                     'mime_type'  => $file->getClientMimeType(),
-                    'order'      => $idx, // Порядок загрузки
+                    'order'      => $idx,
                 ]);
             }
         }
