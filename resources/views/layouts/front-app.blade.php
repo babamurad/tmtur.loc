@@ -104,13 +104,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </ul>
             </div>
             <div class="col-md-3">
-                <div class="font-weight-bold mb-2">{{ __('layout.subscribe_newsletter') }}</div>
-                <form class="form-inline">
-                    <input type="email" class="form-control form-control-sm mr-2" placeholder="{{ __('layout.your_email') }}" required>
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
+                @livewire('front.newsletter-subscription-component')
             </div>
         </div>
         <hr class="my-3 bg-white">

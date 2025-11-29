@@ -118,6 +118,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
       Route::get('/edit/{id}', GalleryEdit::class)->name('edit');
     });
 
+    Route::get('newsletter-subscribers', \App\Livewire\Admin\NewsletterSubscribersCrud::class)->name('admin.newsletter-subscribers');
+
 //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 
