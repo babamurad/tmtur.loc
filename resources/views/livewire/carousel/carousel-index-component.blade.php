@@ -78,15 +78,19 @@
                                         <td>{{ $slide->id }}</td>
                                         <td>
                                             @if($slide->image)
+                                            <a href="{{ route('carousels.edit', $slide->id) }}">
                                                 <img class="rounded" src="{{ asset('uploads/' . $slide->image) }}" alt="{{ $slide->title }}" height="50">
+                                            </a>
                                             @else
                                                 N/A
                                             @endif
                                         </td>
                                         <td>
-                                            <span class="font-weight-semibold">
-                                                {{ $slide->title }}
-                                            </span>
+                                            <a href="{{ route('carousels.edit', $slide->id) }}">
+                                                <span class="font-weight-semibold">
+                                                    {{ $slide->title }}
+                                                </span>
+                                            </a>
                                         </td>
                                         <td>
                                             <span class="text-muted">
