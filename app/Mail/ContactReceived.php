@@ -23,20 +23,13 @@ class ContactReceived extends Mailable
         $this->data = $data;
     }
 
-    public function build()
-    {
-        return $this->subject('New contact message from website')
-            ->view('emails.contact-received')
-            ->with(['data' => $this->data]);
-    }
-
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Received',
+            subject: 'Новое сообщение с сайта / New Contact Message',
         );
     }
 
