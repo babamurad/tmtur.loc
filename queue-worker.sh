@@ -4,7 +4,7 @@
 # This script processes queued jobs with lock file protection
 
 # Project directory
-PROJECT_DIR="/home/u960938720/domains/tmtourism.com"
+PROJECT_DIR="/home/u960938720/tmtourism.com"
 LOCK_FILE="$PROJECT_DIR/storage/queue-worker.lock"
 
 # Change to project directory

@@ -3,7 +3,7 @@
 # Diagnostic script to check queue and email configuration
 # Run this on the server to troubleshoot email issues
 
-PROJECT_DIR="/home/u960938720/domains/tmtourism.com"
+PROJECT_DIR="/home/u960938720/tmtourism.com"
 cd "$PROJECT_DIR" || exit 1
 
 echo "======================================"

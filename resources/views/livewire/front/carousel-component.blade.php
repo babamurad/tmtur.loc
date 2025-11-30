@@ -10,7 +10,7 @@
     <!-- Слайды -->
     <div class="carousel-inner">
         @foreach($carousels as $carousel)
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="3000"
+            <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000"
                  style="background-image: url({{ asset('uploads/' . $carousel->image) }}); background-size: cover; background-position: center;">
                 <div class="carousel-caption text-center">
                     <h1 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h1>

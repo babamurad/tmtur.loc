@@ -293,3 +293,11 @@ Tours - drop down 1. Categories 2. See all
 
 cd /home/u960938720/domains/tmtourism.com && php artisan queue:work --stop-when-empty --tries=3 --timeout=50
 cd /home/u960938720/domains/tmtourism.com && php artisan queue:work --stop-when-empty --tries=3 --timeout=50  
+
+cd /home/u960938720/tmtourism.com && { echo "Cron выполнен: $(date '+%Y-%m-%d %H:%M:%S')" 1>&2; php artisan queue:work --stop-when-empty --tries=3 --timeout=50 1>&2; }
+
+cd /home/u960938720/tmtourism.com && \
+echo "Cron выполнен: $(date '+%Y-%m-%d %H:%M:%S')" >> /home/u960938720/cron-debug.log && \
+/usr/local/bin/php /home/u960938720/tmtourism.com/artisan queue:work --stop-when-empty --tries=3 --timeout=50 >> /home/u960938720/queue.log 2>&1
+
+cd /home/u960938720/tmtourism.com && /home/u960938720/domains/tmtourism.com/queue-worker.sh
