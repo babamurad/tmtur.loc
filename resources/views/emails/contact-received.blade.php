@@ -193,7 +193,7 @@
 
             <!-- Quick Reply Button -->
             <center>
-                <a href="mailto:{{ $data['email'] }}?subject=Re: Ваше обращение" class="reply-button">
+                <a href="mailto:{{ $data['email'] }}?subject=Re: Ваше обращение" class="reply-button text-white">
                     Ответить клиенту
                 </a>
             </center>
