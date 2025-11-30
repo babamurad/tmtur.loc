@@ -63,7 +63,7 @@
     </div>
 </section>
 
-<!-- ========== POPULAR TOURS (WeRoad Style) ========== -->
+<!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
 <section id="tours" class="py-5 bg-light">
     <div class="container py-5">
 
@@ -72,47 +72,65 @@
         </h2>
 
         <div class="row g-4">
+
             @foreach($tours as $tour)
+
+                @php
+                    $badges = ['Most Popular','Best Price','New Tour','Recommended','Local Favorite'];
+                    $badge = $badges[array_rand($badges)];
+                @endphp
+
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 border-0 shadow-sm tour-card"
-                         style="border-radius: 18px; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease;">
 
-                        <!-- Photo -->
-                        <a href="{{ route('our-tours.show', $tour->slug) }}" class="text-decoration-none">
-                            <div class="position-relative">
+                    <div class="card border-0 shadow tour-card-gyg h-100"
+                         style="border-radius: 16px; overflow: hidden; transition: .25s;">
+
+                        <!-- TOP IMAGE -->
+                        <div class="position-relative">
+                            <a href="{{ route('our-tours.show', $tour->slug) }}">
                                 <img src="{{ $tour->first_media_url }}"
-                                     alt="{{ $tour->tr('title') }}"
                                      class="w-100"
-                                     style="height: 240px; object-fit: cover; border-top-left-radius: 18px; border-top-right-radius: 18px;">
-                            </div>
-                        </a>
+                                     style="height: 260px; object-fit: cover;">
+                            </a>
 
-                        <span class="tour-badge-gyg">
-                            ⭐ Top Seller
-                        </span>
+                            <!-- BADGE -->
+                            <span class="tour-badge-gyg">{{ $badge }}</span>
+                        </div>
 
-                        <div class="card-body d-flex flex-column" style="padding: 1.3rem 1.3rem 0.8rem;">
+                        <!-- BODY -->
+                        <div class="card-body" style="padding: 1.25rem 1.25rem 0.5rem;">
 
-                            <!-- Title -->
-                            <a href="{{ route('our-tours.show', $tour->slug) }}" class="text-dark text-decoration-none">
-                                <h5 class="fw-bold mb-3" style="font-size: 1.2rem; line-height: 1.3;">
+                            <!-- TITLE -->
+                            <a href="{{ route('our-tours.show', $tour->slug) }}"
+                               class="text-decoration-none text-dark">
+                                <h5 class="fw-bold mb-2" style="font-size: 1.15rem; line-height: 1.3;">
                                     {{ $tour->tr('title') }}
                                 </h5>
                             </a>
 
-                            <!-- Short Description -->
-                            <p class="text-muted small mb-3" style="line-height:1.45;">
-                                {!! Str::words(strip_tags($tour->tr('short_description')), 20, '...') !!}
+                            <!-- ICONS (jeep, border, crater, hotel, train) -->
+                            <div class="mb-3" style="font-size: 1rem; color:#444;">
+                                <i class="fa-solid fa-car-side mr-2"></i>
+                                <i class="fa-solid fa-passport mr-2"></i>
+                                <i class="fa-solid fa-fire-flame-curved mr-2"></i>
+                                <i class="fa-solid fa-hotel mr-2"></i>
+                                <i class="fa-solid fa-train-subway"></i>
+                            </div>
+
+                            <!-- SHORT DESCRIPTION -->
+                            <p class="text-muted small mb-3" style="line-height: 1.45;">
+                                {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
                             </p>
 
-                            <!-- Rating + Duration -->
+                            <!-- RATING + DURATION -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
 
-                            <span class="badge-days">
-                                {{ $tour->duration_days }} days
-                            </span>
+                                <!-- Duration -->
+                                <span class="badge-duration-gyg">
+                                    {{ $tour->duration_days }} days
+                                </span>
 
-                                <!-- Trustpilot-style stars -->
+                                <!-- Rating -->
                                 <div class="text-success" style="font-size: 1rem;">
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
@@ -122,20 +140,44 @@
                                 </div>
                             </div>
 
+                            {{-- 2 Prices Display --}}
+                            @if($tour->groupsOpen->first())
+                                <div class="tour-price-box d-flex flex-column mb-3">
+
+                                    <!-- Цена за 1 человека -->
+                                    <div class="price-chip-single mb-1">
+                                        <i class="fas fa-user mr-1"></i>
+                                        1 {{ __('messages.person') ?? 'чел.' }}:
+                                        <strong>${{ $tour->groupsOpen->first()->price_max }}</strong>
+                                    </div>
+
+                                    <!-- Цена за группу -->
+                                    <div class="price-chip-group">
+                                        <i class="fas fa-users mr-1"></i>
+                                        {{ $tour->groupsOpen->first()->max_people }} {{ __('messages.people') ?? 'чел.' }}:
+                                        <strong>${{ $tour->groupsOpen->first()->price_min }}</strong>
+                                    </div>
+
+                                </div>
+                            @endif
+
+
                         </div>
 
-                        <!-- Button -->
-                        <div class="card-footer bg-white border-0 px-3 pb-4">
+                        <!-- FOOTER -->
+                        <div class="card-footer bg-white border-0 pb-4 px-3">
                             <a href="{{ route('our-tours.show', $tour->slug) }}"
                                class="btn btn-danger w-100 py-2"
-                               style="border-radius: 12px;">
+                               style="border-radius: 12px; font-size: 1rem;">
                                 {{ __('messages.read_more') }}
                             </a>
                         </div>
 
                     </div>
+
                 </div>
             @endforeach
+
         </div>
 
         <div class="text-center mt-4">
@@ -148,36 +190,6 @@
 
     </div>
 </section>
-
-<!-- CUSTOM CSS FOR GETYOURGUIDE STYLE -->
-<style>
-    .tour-card-gyg:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
-    }
-
-    .tour-badge-gyg {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #ff4b57;
-        color: #fff;
-        padding: 6px 14px;
-        font-size: 0.78rem;
-        border-radius: 8px;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    }
-
-    .badge-duration-gyg {
-        background: #eef1f4;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 500;
-    }
-</style>
 
 
     <!-- ========== GALLERY ========== -->

@@ -614,3 +614,83 @@ body {
     border-radius: 50px;
     font-weight: 500;
 }
+.tour-card-gyg:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
+    }
+    .tour-badge-gyg {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #ff4b57;
+        color: #fff;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    .badge-duration-gyg {
+        background: #eef1f4;
+        color: #555;
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        font-weight: 500;
+    }
+    .price-gyg {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #111;
+    }
+
+    /* Контейнер */
+    .tour-price-box div {
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+    }
+
+    /* Цена за 1 человека */
+    .price-chip-single {
+        background: #f2f4f7;
+        color: #333;
+        border: 1px solid #e1e4e8;
+    }
+
+    /* Цена за группу */
+    .price-chip-group {
+        background: #e9f9ee;
+        color: #0c7a3e;
+        border: 1px solid #bde8cc;
+    }
+    .tour-card-gyg:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
+    }
+
+    .tour-badge-gyg {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #ff4b57;
+        color: #fff;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .badge-duration-gyg {
+        background: #eef1f4;
+        color: #555;
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        font-weight: 500;
+    }
