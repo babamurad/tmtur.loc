@@ -598,3 +598,19 @@ body {
 .dropup .dropdown-menu .dropdown-item:hover {
     background-color: #a6c !important;
 }
+
+.tour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.badge-days {
+    display: inline-block;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    color: #555;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    border-radius: 50px;
+    font-weight: 500;
+}

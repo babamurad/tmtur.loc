@@ -63,45 +63,121 @@
     </div>
 </section>
 
-    <!-- ========== TOURS ========== -->
-    <section id="tours" class="py-5 bg-light">
-        <div class="container py-5">
-            <h2 class="text-center mb-5">{{ __('about.popular_tours') }}</h2>
-            <div class="row g-4">
-                <!-- Card 1 -->
-                @foreach($tours as $tour)
-                    <div class="col-md-6 col-lg-4 mb-3">
-                        <div class="card h-100 shadow">
+<!-- ========== POPULAR TOURS (WeRoad Style) ========== -->
+<section id="tours" class="py-5 bg-light">
+    <div class="container py-5">
+
+        <h2 class="text-center mb-5 fs-2 fw-bold text-dark">
+            {{ __('about.popular_tours') }}
+        </h2>
+
+        <div class="row g-4">
+            @foreach($tours as $tour)
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm tour-card"
+                         style="border-radius: 18px; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease;">
+
+                        <!-- Photo -->
+                        <a href="{{ route('our-tours.show', $tour->slug) }}" class="text-decoration-none">
                             <div class="position-relative">
-                                <a href="{{ route('our-tours.show', $tour->slug) }}">
-                                    <img src="{{ $tour->first_media_url }}" 
-                                         class="card-img-top"
-                                         alt="{{ $tour->tr('title') }}">
-                                </a>
-                                {{--                                <span class="badge bg-danger position-absolute top-0 end-0 m-2">HIT</span>--}}
+                                <img src="{{ $tour->first_media_url }}"
+                                     alt="{{ $tour->tr('title') }}"
+                                     class="w-100"
+                                     style="height: 240px; object-fit: cover; border-top-left-radius: 18px; border-top-right-radius: 18px;">
                             </div>
-                            <div class="card-body d-flex flex-column">
-                                <a href="{{ route('our-tours.show', $tour->slug) }}">
-                                <h5 class="card-title">{{ $tour->tr('title') }}</h5>
-                                </a>
-                                <p class="card-text small">{!! Str::words(strip_tags($tour->tr('short_description')), 20, '...') !!}</p>
-                                <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <div><span class="fw-bold text-danger ms-2">{{ $tour->duration_days }} days</span></div>
-                                    <div class="text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        </a>
+
+                        <span class="tour-badge-gyg">
+                            ⭐ Top Seller
+                        </span>
+
+                        <div class="card-body d-flex flex-column" style="padding: 1.3rem 1.3rem 0.8rem;">
+
+                            <!-- Title -->
+                            <a href="{{ route('our-tours.show', $tour->slug) }}" class="text-dark text-decoration-none">
+                                <h5 class="fw-bold mb-3" style="font-size: 1.2rem; line-height: 1.3;">
+                                    {{ $tour->tr('title') }}
+                                </h5>
+                            </a>
+
+                            <!-- Short Description -->
+                            <p class="text-muted small mb-3" style="line-height:1.45;">
+                                {!! Str::words(strip_tags($tour->tr('short_description')), 20, '...') !!}
+                            </p>
+
+                            <!-- Rating + Duration -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                            <span class="badge-days">
+                                {{ $tour->duration_days }} days
+                            </span>
+
+                                <!-- Trustpilot-style stars -->
+                                <div class="text-success" style="font-size: 1rem;">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <a href="{{ route('our-tours.show', $tour) }}" class="btn btn-dark w-100 mt-2">{{__('messages.read_more')}}</a>
-                            </div>
+
                         </div>
+
+                        <!-- Button -->
+                        <div class="card-footer bg-white border-0 px-3 pb-4">
+                            <a href="{{ route('our-tours.show', $tour->slug) }}"
+                               class="btn btn-danger w-100 py-2"
+                               style="border-radius: 12px;">
+                                {{ __('messages.read_more') }}
+                            </a>
+                        </div>
+
                     </div>
-                @endforeach
-            </div>
-            <div class="text-center mt-4"><a href="{{ route('tours.category.index') }}" class="btn btn-danger btn-lg">See All</a></div>
+                </div>
+            @endforeach
         </div>
-    </section>
 
+        <div class="text-center mt-4">
+            <a href="{{ route('tours.category.index') }}"
+               class="btn btn-danger btn-lg px-4 py-2"
+               style="border-radius: 50px;">
+                See All
+            </a>
+        </div>
 
+    </div>
+</section>
+
+<!-- CUSTOM CSS FOR GETYOURGUIDE STYLE -->
+<style>
+    .tour-card-gyg:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
+    }
+
+    .tour-badge-gyg {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #ff4b57;
+        color: #fff;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .badge-duration-gyg {
+        background: #eef1f4;
+        color: #555;
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        font-weight: 500;
+    }
+</style>
 
 
     <!-- ========== GALLERY ========== -->
