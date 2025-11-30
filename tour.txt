@@ -290,3 +290,6 @@ Tours - drop down 1. Categories 2. See all
 
 проверить всю страницу category-index.blade.php целиком и оптимизировать 
 (например lazy-loading картинок, правильная верстка sidebar, адаптивность карточек).
+
+cd /home/u960938720/domains/tmtourism.com && php artisan queue:work --stop-when-empty --tries=3 --timeout=50
+cd /home/u960938720/domains/tmtourism.com && php artisan queue:work --stop-when-empty --tries=3 --timeout=50  
