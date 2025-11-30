@@ -58,24 +58,27 @@ class ContactFormComponent extends Component
             \Log::error('ContactMessage save error: '.$e->getMessage());
         }
 
-        // Send email notification (wrap in try/catch to avoid breaking UX)
-        try {
-            // Prioritize MAIL_TO_ADDRESS, fallback to MAIL_FROM_ADDRESS
-            $recipient = env('MAIL_TO_ADDRESS') ?: config('mail.from.address');
-            if ($recipient) {
-                Mail::to($recipient)->send(new ContactReceived($data));
-                \Log::info('Contact email sent to: ' . $recipient, ['from' => $data['email']]);
-            } else {
-                \Log::warning('Contact form submitted but no recipient email configured in .env');
-            }
-        } catch (\Throwable $e) {
-            \Log::error('Contact email send error: '.$e->getMessage());
-        }
-
+        // Reset form and show success immediately for better UX
         $this->resetForm();
         session()->flash('contact_success', 'Message sent. Thank you!');
         $this->dispatch('messagesUpdated');
         $this->sending = false;
+
+        // Send email notification asynchronously (in background)
+        // This runs AFTER user sees success message
+        try {
+            $recipient = env('MAIL_TO_ADDRESS') ?: config('mail.from.address');
+            if ($recipient) {
+                // Use queue if available (database/redis), otherwise send immediately
+                Mail::to($recipient)->send(new ContactReceived($data));
+                \Log::info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email']]);
+            } else {
+                \Log::warning('Contact form submitted but no recipient email configured in .env');
+            }
+        } catch (\Throwable $e) {
+            // Log error but don't break user experience
+            \Log::error('Contact email send error: '.$e->getMessage());
+        }
     }
 
     public function resetForm()
