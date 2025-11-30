@@ -71,9 +71,9 @@ class ContactFormComponent extends Component
             if ($recipient) {
                 // Use queue if available (database/redis), otherwise send immediately
                 Mail::to($recipient)->send(new ContactReceived($data));
-                \Log::info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email']]);
+                \Log::channel('daily')->info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email']]);
             } else {
-                \Log::warning('Contact form submitted but no recipient email configured in .env');
+                \Log::channel('daily')->warning('Contact form submitted but no recipient email configured in .env');
             }
         } catch (\Throwable $e) {
             // Log error but don't break user experience
