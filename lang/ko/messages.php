@@ -28,6 +28,7 @@ return [
     'send_message' => '메시지 보내기',
     'our_contacts' => '연락처',
     'follow_us' => '팔로우',
+    'see_all' => '전체 보기',
 
     // Blog
     'author' => '저자:',
@@ -38,7 +39,7 @@ return [
     'published' => '게시됨',
     'in_category' => '카테고리',
     'popular_posts' => '인기 게시물',
-    
+
     // Tour Groups
     'available_dates' => '출발 가능 날짜',
     'available' => '예약 가능',

@@ -1,7 +1,5 @@
 <div>
 
-
-    <!-- ========== ABOUT TURKMENISTAN ========== -->
 <!-- ========== ABOUT TURKMENISTAN — GETYOURGUIDE STYLE ========== -->
 <section class="py-5 bg-white" id="about">
     <div class="container py-4">
@@ -114,8 +112,8 @@
 </style>
 
 
-<!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
-<section id="tours" class="bg-light">
+    <!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
+    <section id="tours" class="bg-light">
     <div class="container py-5">
 
         <h2 class="text-center mb-5 fs-2 fw-bold text-dark">
@@ -235,13 +233,12 @@
             <a href="{{ route('tours.category.index') }}"
                class="btn btn-danger btn-lg px-4 py-2"
                style="border-radius: 50px;">
-                See All
+                {{ __('messages.see_all') }}
             </a>
         </div>
 
     </div>
 </section>
-
 
     <!-- ========== ADVANTAGES — COLORED WEROAD ICONS ========== -->
     <section class="bg-light">
@@ -289,7 +286,7 @@
             </div>
         </div>
     </section>
-    
+
 
     <!-- ========== GALLERY ========== -->
     <section class="bg-light">
@@ -330,11 +327,11 @@
 
                         <!-- Image -->
                         <img id="lightboxImg" src="" class="img-fluid w-100" alt="" style="max-height: 70vh; object-fit: contain;">
-                        
+
                         <!-- Photo Information -->
                         <div class="p-4 text-white">
                             <h4 id="lightboxTitle" class="mb-3 font-weight-bold"></h4>
-                            
+
                             <div class="row mb-3">
                                 <div class="col-md-6" id="lightboxLocationWrapper">
                                     <p class="mb-1">
@@ -349,7 +346,7 @@
                                     </p>
                                 </div>
                             </div>
-                            
+
                             <div id="lightboxDescriptionWrapper">
                                 <p id="lightboxDescription" class="text-white-50 mb-0"></p>
                             </div>
@@ -374,14 +371,14 @@
                 var description = trigger.data('description') || '';
 
                 var modal = $(this);
-                
+
                 // Set image
                 modal.find('#lightboxImg').attr('src', imgSrc);
                 modal.find('#lightboxImg').attr('alt', title);
-                
+
                 // Set title
                 modal.find('#lightboxTitle').text(title);
-                
+
                 // Set location (hide if empty)
                 if (location) {
                     modal.find('#lightboxLocation').text(location);
@@ -389,7 +386,7 @@
                 } else {
                     modal.find('#lightboxLocationWrapper').hide();
                 }
-                
+
                 // Set photographer (hide if empty)
                 if (photographer) {
                     modal.find('#lightboxPhotographer').text(photographer);
@@ -397,7 +394,7 @@
                 } else {
                     modal.find('#lightboxPhotographerWrapper').hide();
                 }
-                
+
                 // Set description (hide if empty)
                 if (description) {
                     modal.find('#lightboxDescription').text(description);
@@ -417,9 +414,6 @@
             });
         </script>
     @endpush
-
-
-
 
     <!-- ========== FAQ (Bootstrap 4) ========== -->
     <section class="py-3 bg-light">
@@ -532,7 +526,66 @@
         </div>
     </section>
 
-{{--42270905--}}
+    <!-- ========== SAFE & GUARANTEED ENTRY ASSISTANCE ========== -->
+    <section class="py-5 bg-light" id="safe-entry">
+        <div class="container py-4">
+
+            <h2 class="fw-bold text-center mb-4" style="font-size: 2rem;">
+                {{ __('safe.title') }}
+            </h2>
+
+            <p class="text-center text-muted mb-5" style="font-size: 1.05rem; max-width: 750px; margin: 0 auto;">
+                {{ __('safe.subtitle') }}
+            </p>
+
+            <div class="row g-4">
+
+                <!-- Pill 1 -->
+                <div class="col-md-4">
+                    <div class="safe-pill text-center p-4">
+                        <div class="safe-icon mb-3">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">{{ __('safe.point1_title') }}</h5>
+                        <p class="text-muted small">{{ __('safe.point1_text') }}</p>
+                    </div>
+                </div>
+
+                <!-- Pill 2 -->
+                <div class="col-md-4">
+                    <div class="safe-pill text-center p-4">
+                        <div class="safe-icon mb-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">{{ __('safe.point2_title') }}</h5>
+                        <p class="text-muted small">{{ __('safe.point2_text') }}</p>
+                    </div>
+                </div>
+
+                <!-- Pill 3 -->
+                <div class="col-md-4">
+                    <div class="safe-pill text-center p-4">
+                        <div class="safe-icon mb-3">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">{{ __('safe.point3_title') }}</h5>
+                        <p class="text-muted small">{{ __('safe.point3_text') }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="#tours" class="btn btn-danger px-4 py-2" style="border-radius: 10px;">
+                    {{ __('safe.btn') }}
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    {{--42270905--}}
     <!-- ========== CONTACTS ========== -->
     @livewire('front.contact-form-component')
 </div>

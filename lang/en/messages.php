@@ -28,6 +28,7 @@ return [
     'send_message' => 'Send message',
     'our_contacts' => 'Our contacts',
     'follow_us' => 'Follow us',
+    'see_all' => 'See All',
 
     // Blog
     'author' => 'Author:',
@@ -38,7 +39,7 @@ return [
     'published' => 'Published',
     'in_category' => 'in category',
     'popular_posts' => 'POPULAR POSTS',
-    
+
     // Tour Groups
     'available_dates' => 'Available Departure Dates',
     'available' => 'Available',

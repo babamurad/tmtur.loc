@@ -2,30 +2,22 @@ html {
     scroll-behavior: smooth;
 }
 
+/* NAVBAR FIXES */
 .navbar.mb-3,
-.navbar.mb-4 {
-    margin-bottom: 0 !important;
-}
-
+.navbar.mb-4,
 .navbar {
     margin-bottom: 0 !important;
-    /* убираем нижний отступ Bootstrap */
 }
 
-/* следующий элемент после navbar = карусель, поднимаем её вверх */
 .navbar+section {
-    /* если у вас <section id="home" …> идёт сразу после nav */
     margin-top: -4px;
-    /* «прилипание» к навбару (1 px надёжнее 0) */
 }
 
-/* --------- Full-screen carousel --------- */
+/* FULLSCREEN CAROUSEL */
 html,
 body {
     height: 100%;
 }
-
-/* чтобы 100vh работала на iOS */
 
 #home-carousel .carousel,
 #home-carousel .carousel-inner,
@@ -33,20 +25,16 @@ body {
     height: 94vh;
 }
 
-/* Отменяем или меняем поведение на мобильных */
 @media (max-width: 767.98px) {
-
     #home-carousel .carousel,
     #home-carousel .carousel-inner,
     #home-carousel .carousel-item {
         height: auto;
-        /* или другое значение, например 50vh, 100%, и т.д. */
     }
 }
 
 .carousel-item:not(.active) {
     display: none !important;
-    /* Bootstrap сам переключает */
 }
 
 .carousel-item {
@@ -56,10 +44,8 @@ body {
     background-position: center;
 }
 
-/* 3. Расположение внутри слайда */
 .carousel-caption {
     margin: auto 0;
-    /* центр по вертикали */
     padding: 2vh 3vw;
     background: rgba(0, 0, 0, .55);
     border-radius: .5rem;
@@ -69,19 +55,15 @@ body {
 
 .carousel-indicators {
     margin: auto 0 2vh 0;
-    /* прижать к низу слайда */
-    /*  position: relative;                       убираем absolute, чтобы не вылезать */
     z-index: 3;
 }
 
-/* стрелки чуть крупнее (по желанию) */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     width: 3rem;
     height: 3rem;
 }
 
-/* 4. Мелкий экран: уменьшаем текст */
 @media (max-height: 600px) {
     .carousel-caption h1 {
         font-size: 6vh;
@@ -92,15 +74,17 @@ body {
     }
 }
 
+/* GUIDE IMAGE */
 .guide-img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto 15px;
-    border: 3px solid var(--primary-color);
+    border: 3px solid #7e5bef;
 }
 
+/* BADGES */
 .badge-primary {
     color: #fff;
     background-color: #007bff;
@@ -122,14 +106,12 @@ body {
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
-    text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
     border-radius: .25rem;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: 0.15s;
 }
 
-/* ====== FAQ с иконками ====== */
+/* FAQ */
 .section-title {
     font-weight: 600;
     letter-spacing: .5px;
@@ -141,19 +123,17 @@ body {
     font-size: 1.05rem;
     font-weight: 500;
     color: #212529;
-    text-decoration: none;
     border-radius: .45rem;
     display: flex;
     align-items: center;
     gap: .75rem;
-    /* расстояние иконка→текст */
     transition: background .25s;
 }
 
 .accordion-btn:hover,
 .accordion-btn:focus {
-    text-decoration: none;
     background: #f8f9fa;
+    text-decoration: none;
 }
 
 .accordion-btn:not(.collapsed) {
@@ -161,10 +141,8 @@ body {
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .05);
 }
 
-/* иконка справа «плюс/минус» */
 .accordion-btn .toggle-icon {
     margin-left: auto;
-    /* прижать вправо */
     font-size: 1.25rem;
     color: #0d6efd;
     transition: transform .3s;
@@ -174,7 +152,6 @@ body {
     transform: rotate(45deg);
 }
 
-/* иконки вопроса и ответа */
 .q-icon {
     color: #0d6efd;
     font-size: 1.3rem;
@@ -185,7 +162,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* оформление раскрытого блока */
 .answer-wrap {
     display: flex;
     gap: .75rem;
@@ -194,13 +170,13 @@ body {
     border-radius: 0 0 .45rem .45rem;
 }
 
-/* ---------- Contacts «mdb-style» ---------- */
+/* CONTACTS */
 .contact-card,
 .form-card {
     border: none;
     border-radius: .75rem;
     box-shadow: 0 .125rem .5rem rgba(0, 0, 0, .08);
-    transition: box-shadow .25s, transform .25s;
+    transition: .25s;
 }
 
 .contact-card:hover,
@@ -209,7 +185,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* кружочки-иконки */
 .contact-icon {
     width: 44px;
     height: 44px;
@@ -220,10 +195,8 @@ body {
     background: linear-gradient(135deg, #ff416c, #ff4b2b);
     color: #fff;
     font-size: 1.1rem;
-    flex-shrink: 0;
 }
 
-/* кнопка «Send message» */
 .btn-send {
     border: none;
     border-radius: .5rem;
@@ -232,384 +205,53 @@ body {
     color: #fff;
     background: linear-gradient(135deg, #232526, #414345);
     box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
-    transition: box-shadow .25s;
+    transition: .25s;
 }
 
 .btn-send:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
-    color: #fff;
 }
 
-/* круглые цветные соц-кнопки */
-.soc-btn {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff !important;
-    transition: box-shadow .25s;
-}
-
-.soc-btn:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
-}
-
-.btn-fb {
-    background: #3b5998;
-}
-
-.btn-tw {
-    background: #1da1f2;
-}
-
-.btn-ig {
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-}
-
-.btn-yt {
-    background: #ff0000;
-}
-
-.btn-ws {
-    background: #29A71A;
-}
-
-/* ------ соц-кнопки: никакого светлого ховера BS5 ------ */
-.soc-btn {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border-radius: 50%;
-    color: #fff !important;
-    border: none !important;
-    outline: none !important;
-    /* убираем рамку фокуса BS5 */
-    transition: transform .25s, box-shadow .25s;
-    -webkit-tap-highlight-color: transparent;
-    /* убираем подсветку на мобильных */
-}
-
-.soc-btn:hover,
-.soc-btn:focus,
-.soc-btn:active {
-    transform: translateY(-3px) scale(1.08);
-    /* поднять + увеличить */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .5) !important;
-    color: #fff !important;
-    /*background-color: inherit !important;*/
-}
-
-/* цвета кнопок (остаются) */
-.btn-fb {
-    background: #3b5998 !important;
-}
-
-.btn-tw {
-    background: #1da1f2 !important;
-}
-
-.btn-ig {
-    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important;
-}
-
-.btn-yt {
-    background: #ff0000 !important;
-}
-
-.btn-ws {
-    background: #29A71A !important;
-}
-
-.btn-fb {
-    background-color: #1877f2;
-    color: white;
-}
-
-.btn-ig {
-    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
-    color: white;
-}
-
-.btn-yt {
-    background-color: #ff0000;
-    color: white;
-}
-
-.btn-ws {
-    background-color: #25D366;
-    color: white;
-}
-
-.btn-tw {
-    background-color: #000000;
-    color: white;
-}
-
-/* для X */
-
-/* Стрелка вниз (закрыт) → поворачивается вверх при открытии */
-/* FAQ Accordion Arrow — Font Awesome */
-.card-header .btn-link {
-    position: relative;
-    display: block;
-    /* или оставьте как есть, если используете d-flex */
-}
-
-.card-header .btn-link::after {
-    font-family: "Font Awesome 6 Free";
-    /* или "Font Awesome 5 Free" */
-    font-weight: 900;
-    content: "\f107";
-    /* fa-angle-down */
-    transition: transform 0.35s ease;
-    margin-left: 8px;
-}
-
-.card-header .btn-link[aria-expanded="true"]::after {
-    transform: rotate(180deg);
-}
-
-#faqAccordion .card .collapse.show {
-    background-color: #f0f5ff;
-}
-
+/* SOCIAL BUTTONS */
 .soc-btn {
     width: 38px !important;
     height: 38px !important;
-    padding: 0 !important;
+    border-radius: 50%;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-}
-
-.soc-btn i {
-    line-height: 1;
-    /* убираем лишний межстрочный интервал */
-}
-
-.thumb-slider {
-    position: relative;
-    overflow: hidden
-}
-
-.thumb-slider .thumb-wrapper {
-    display: flex;
-    transition: transform .3s ease
-}
-
-.thumb-slider .thumb-item {
-    flex: 0 0 16.66667%;
-    max-width: 16.66667%;
-    padding: 0 2px
-}
-
-@media (max-width:768px) {
-    .thumb-slider .thumb-item {
-        flex: 0 0 25%;
-        max-width: 25%
-    }
-}
-
-.thumb-slider .btn-nav {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 30px;
-    background: rgba(0, 0, 0, .4);
-    color: #fff;
-    border: none;
-    z-index: 2
-}
-
-.thumb-slider .btn-nav.prev {
-    left: 0
-}
-
-.thumb-slider .btn-nav.next {
-    right: 0
-}
-
-/*.thumb-nav-btn{*/
-/*    border: 0;*/
-/*    background-color: transparent;*/
-/*}*/
-
-.thumb-nav-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
-    transition: 0.2s;
-}
-
-.thumb-nav-btn:hover {
-    background: #f0f0f0;
-    transform: scale(1.08);
-}
-
-.thumb-nav-btn i {
-    font-size: 14px;
-}
-
-/* ширина одного «слайда» = 100 %, но внутри него 3 колонки */
-#room-carousel .carousel-item {
-    transition: transform .6s ease;
-}
-
-#room-carousel .carousel-item .row {
-    margin: 0;
-}
-
-/* ---------- карусель гидов ---------- */
-#guides-carousel .carousel-inner {
-    overflow: hidden;
-}
-
-#guides-carousel .carousel-item {
-    transition: transform .6s ease;
-}
-
-#guides-carousel .carousel-item .row {
-    margin: 0;
-}
-
-/* карточка гида внутри слайда */
-#guides-carousel .guide-card {
-    background: #fff;
-    border-radius: .75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
-    padding: 1.5rem 1rem;
-    height: 100%;
-}
-
-/* размер аватарки */
-#guides-carousel .guide-img {
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color, #007bff);
-}
-
-/* стрелки чуть крупнее и видны всегда */
-#guides-carousel .carousel-control-prev-icon,
-#guides-carousel .carousel-control-next-icon {
-    width: 2.2rem;
-    height: 2.2rem;
-}
-
-/* ---------- гид-каарусель: выравниваем стрелки и убираем fade ---------- */
-#guides-carousel {
-    position: relative;
-}
-
-#guides-carousel .carousel-item {
-    height: auto;
-}
-
-/* внутренняя обёртка = высота текущего активного слайда */
-#guides-carousel .carousel-inner {
-    display: flex;
-    align-items: flex-start;
-    /* сверху */
-}
-
-/* слайды переключаются transform-ом, а не opacity */
-#guides-carousel .carousel-item {
-    transition: transform .6s ease-in-out;
-    backface-visibility: hidden;
-    opacity: 1 !important;
-    /* гасим встроенный fade */
-}
-
-#guides-carousel .carousel-item:not(.active) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transform: translateX(100%);
-}
-
-#guides-carousel .carousel-item.prev {
-    transform: translateX(-100%);
-}
-
-#guides-carousel .carousel-item.next {
-    transform: translateX(100%);
-}
-
-/* стрелки строго по вертикальному центру ВИДИМОГО слайда */
-#guides-carousel .carousel-control-prev,
-#guides-carousel .carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    bottom: auto;
-    /* сброс дефолта */
-    width: 44px;
-    height: 44px;
-    background: rgba(0, 0, 0, .5);
-    border-radius: 50%;
-    opacity: .9;
-}
-
-#guides-carousel .carousel-control-prev {
-    left: -55px;
-}
-
-#guides-carousel .carousel-control-next {
-    right: -55px;
-}
-
-@media (max-width: 767px) {
-    #guides-carousel .carousel-control-prev {
-        left: 5px;
-    }
-
-    #guides-carousel .carousel-control-next {
-        right: 5px;
-    }
-}
-
-.badge-primary a {
     color: #fff !important;
-    text-decoration: none;
+    transition: .25s;
 }
 
-.btn.btn-sm {
-    padding: .4rem .6rem;
+.soc-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .5) !important;
 }
 
+/* Social colors */
+.btn-fb { background: #1877f2 !important; }
+.btn-tw { background: #000 !important; }
+.btn-ig { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) !important; }
+.btn-yt { background: #ff0000 !important; }
+.btn-ws { background: #25D366 !important; }
+
+/* DROPDOWNS */
 .dropdown-item.active,
 .dropdown-item:active {
     color: #fff;
-    text-decoration: none;
     background-color: #a6c !important;
 }
 
 .dropdown-menu {
-    /* color: #212529; */
     min-width: 5rem;
 }
 
-
-.dropdown .dropdown-menu .dropdown-item:hover,
-.dropleft .dropdown-menu .dropdown-item:hover,
-.dropright .dropdown-menu .dropdown-item:hover,
-.dropup .dropdown-menu .dropdown-item:hover {
+.dropdown-menu .dropdown-item:hover {
     background-color: #a6c !important;
 }
 
+/* TOUR CARDS */
 .tour-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
@@ -626,6 +268,7 @@ body {
     font-weight: 500;
 }
 
+/* GYG Cards */
 .tour-card-gyg:hover {
     transform: translateY(-6px);
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
@@ -659,7 +302,6 @@ body {
     color: #111;
 }
 
-/* Контейнер */
 .tour-price-box div {
     font-size: 0.85rem;
     font-weight: 500;
@@ -667,53 +309,24 @@ body {
     border-radius: 8px;
     display: inline-flex;
     align-items: center;
-    width: fit-content;
 }
 
-/* Цена за 1 человека */
 .price-chip-single {
     background: #f2f4f7;
     color: #333;
     border: 1px solid #e1e4e8;
 }
 
-/* Цена за группу */
 .price-chip-group {
     background: #e9f9ee;
     color: #0c7a3e;
     border: 1px solid #bde8cc;
 }
 
-.tour-card-gyg:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
-}
-
-.tour-badge-gyg {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: #ff4b57;
-    color: #fff;
-    padding: 6px 14px;
-    font-size: 0.78rem;
-    border-radius: 8px;
-    font-weight: 600;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-.badge-duration-gyg {
-    background: #eef1f4;
-    color: #555;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 0.78rem;
-    font-weight: 500;
-}
-
+/* ADVANTAGES */
 .adv-card {
     border-radius: 16px;
-    transition: .25s ease;
+    transition: .25s;
     padding: 5px;
 }
 
@@ -736,10 +349,9 @@ body {
     font-size: 2rem;
 }
 
-/* MOBILE LAYOUT v1 — COMPACT MODE */
+/* MOBILE LAYOUT — COMPACT */
 @media (max-width: 576px) {
 
-    /* HERO — уменьшение высоты */
     #home-carousel .carousel-item {
         height: 65vh !important;
     }
@@ -757,7 +369,6 @@ body {
         font-size: 0.9rem !important;
     }
 
-    /* TOURS — компактные карточки */
     .tour-card-gyg img {
         height: 180px !important;
     }
@@ -775,17 +386,6 @@ body {
         font-size: 0.85rem !important;
     }
 
-    .tour-card-gyg .price-box,
-    .tour-card-gyg .badge-duration-gyg {
-        font-size: 0.75rem !important;
-    }
-
-    .tour-card-gyg .btn {
-        padding: 8px !important;
-        font-size: 0.9rem !important;
-    }
-
-    /* ADVANTAGES — компактные карточки */
     .adv-card {
         padding: 0 !important;
     }
@@ -795,19 +395,6 @@ body {
         height: 55px !important;
     }
 
-    .adv-icon-circle i {
-        font-size: 1.5rem !important;
-    }
-
-    .adv-card h5 {
-        font-size: 1rem !important;
-    }
-
-    .adv-card p {
-        font-size: 0.85rem !important;
-    }
-
-    /* TRUST / WHY-US — компактный вариант */
     #why-us .we-icon,
     #why-us .trust-icon-wrapper {
         width: 42px !important;
@@ -815,411 +402,86 @@ body {
         font-size: 1.1rem !important;
     }
 
-    #why-us h5 {
-        font-size: 1rem !important;
-    }
-
-    #why-us p {
-        font-size: 0.85rem !important;
-    }
-
-    /* ABOUT SECTION — уменьшение ширины картинок */
     #about img {
         height: 110px !important;
         object-fit: cover !important;
     }
 
-
-    .badge-duration-gyg {
-        background: #eef1f4;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 500;
+    section h2 {
+        font-size: 1.6rem !important;
     }
 
-    .price-gyg {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #111;
+    section.py-5 {
+        padding-top: 2.2rem !important;
+        padding-bottom: 2.2rem !important;
     }
+}
 
-    /* Контейнер */
-    .tour-price-box div {
-        font-size: 0.85rem;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        width: fit-content;
+/* ABOUT GRID */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+}
+
+.about-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.about-large {
+    grid-column: 1 / 3;
+    height: 320px;
+}
+
+.about-small {
+    height: 150px;
+}
+
+@media (max-width: 576px) {
+    .about-large { height: 220px; }
+    .about-small { height: 120px; }
+}
+
+/* SAFE ENTRY */
+.safe-pill {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e6e6e6;
+    transition: .25s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.safe-pill:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.12);
+    background: #f7faf7;
+}
+
+.safe-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 14px;
+    background: #e9f9ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #0c7a3e;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+    .safe-pill { padding: 18px !important; }
+    .safe-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
     }
-
-    /* Цена за 1 человека */
-    .price-chip-single {
-        background: #f2f4f7;
-        color: #333;
-        border: 1px solid #e1e4e8;
+    #safe-entry h2 {
+        font-size: 1.7rem !important;
     }
-
-    /* Цена за группу */
-    .price-chip-group {
-        background: #e9f9ee;
-        color: #0c7a3e;
-        border: 1px solid #bde8cc;
-    }
-
-    .tour-card-gyg:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
-    }
-
-    .tour-badge-gyg {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #ff4b57;
-        color: #fff;
-        padding: 6px 14px;
-        font-size: 0.78rem;
-        border-radius: 8px;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .badge-duration-gyg {
-        background: #eef1f4;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 500;
-    }
-
-    .adv-card {
-        border-radius: 16px;
-        transition: .25s ease;
-        padding: 5px;
-    }
-
-    .adv-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
-    }
-
-    .adv-icon-circle {
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .adv-icon-circle i {
-        font-size: 2rem;
-    }
-
-    /* MOBILE LAYOUT v1 — COMPACT MODE */
-    @media (max-width: 576px) {
-
-        /* HERO — уменьшение высоты */
-        #home-carousel .carousel-item {
-            height: 65vh !important;
-        }
-
-        #home-carousel h1 {
-            font-size: 1.8rem !important;
-        }
-
-        #home-carousel p {
-            font-size: 0.95rem !important;
-        }
-
-        #home-carousel .btn {
-            padding: 8px 18px !important;
-            font-size: 0.9rem !important;
-        }
-
-        /* TOURS — компактные карточки */
-        .tour-card-gyg img {
-            height: 180px !important;
-        }
-
-        .tour-card-gyg .card-body {
-            padding: 0.9rem 1rem !important;
-        }
-
-        .tour-card-gyg h5 {
-            font-size: 1rem !important;
-            margin-bottom: 6px !important;
-        }
-
-        .tour-card-gyg p {
-            font-size: 0.85rem !important;
-        }
-
-        .tour-card-gyg .price-box,
-        .tour-card-gyg .badge-duration-gyg {
-            font-size: 0.75rem !important;
-        }
-
-        .tour-card-gyg .btn {
-            padding: 8px !important;
-            font-size: 0.9rem !important;
-        }
-
-        /* ADVANTAGES — компактные карточки */
-        .adv-card {
-            padding: 0 !important;
-        }
-
-        .adv-icon-circle {
-            width: 55px !important;
-            height: 55px !important;
-        }
-
-        .adv-icon-circle i {
-            font-size: 1.5rem !important;
-        }
-
-        .adv-card h5 {
-            font-size: 1rem !important;
-        }
-
-        .adv-card p {
-            font-size: 0.85rem !important;
-        }
-
-        /* TRUST / WHY-US — компактный вариант */
-        #why-us .we-icon,
-        #why-us .trust-icon-wrapper {
-            width: 42px !important;
-            height: 42px !important;
-            font-size: 1.1rem !important;
-        }
-
-        #why-us h5 {
-          
-            /* TRUST / WHY-US — компактный вариант */
-            #why-us .we-icon,
-            #why-us .trust-icon-wrapper {
-                width: 42px !important;
-                height: 42px !important;
-                font-size: 1.1rem !important;
-            }
-
-            #why-us h5 {
-                font-size: 1rem !important;
-            }
-
-            #why-us p {
-                font-size: 0.85rem !important;
-            }
-
-            /* ABOUT SECTION — уменьшение ширины картинок */
-            #about img {
-                height: 110px !important;
-                object-fit: cover !important;
-            }
-
-
-            .badge-duration-gyg {
-                background: #eef1f4;
-                color: #555;
-                padding: 5px 10px;
-                border-radius: 6px;
-                font-size: 0.78rem;
-                font-weight: 500;
-            }
-
-            .price-gyg {
-                font-size: 1rem;
-                font-weight: 700;
-                color: #111;
-            }
-
-            /* Контейнер */
-            .tour-price-box div {
-                font-size: 0.85rem;
-                font-weight: 500;
-                padding: 6px 12px;
-                border-radius: 8px;
-                display: inline-flex;
-                align-items: center;
-                width: fit-content;
-            }
-
-            /* Цена за 1 человека */
-            .price-chip-single {
-                background: #f2f4f7;
-                color: #333;
-                border: 1px solid #e1e4e8;
-            }
-
-            /* Цена за группу */
-            .price-chip-group {
-                background: #e9f9ee;
-                color: #0c7a3e;
-                border: 1px solid #bde8cc;
-            }
-
-            .tour-card-gyg:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
-            }
-
-            .tour-badge-gyg {
-                position: absolute;
-                top: 12px;
-                left: 12px;
-                background: #ff4b57;
-                color: #fff;
-                padding: 6px 14px;
-                font-size: 0.78rem;
-                border-radius: 8px;
-                font-weight: 600;
-                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-            }
-
-            .badge-duration-gyg {
-                background: #eef1f4;
-                color: #555;
-                padding: 5px 10px;
-                border-radius: 6px;
-                font-size: 0.78rem;
-                font-weight: 500;
-            }
-
-            .adv-card {
-                border-radius: 16px;
-                transition: .25s ease;
-                padding: 5px;
-            }
-
-            .adv-card:hover {
-                transform: translateY(-6px);
-                box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
-            }
-
-            .adv-icon-circle {
-                width: 75px;
-                height: 75px;
-                border-radius: 50%;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .adv-icon-circle i {
-                font-size: 2rem;
-            }
-
-            /* MOBILE LAYOUT v1 — COMPACT MODE */
-            @media (max-width: 576px) {
-
-                /* HERO — уменьшение высоты */
-                #home-carousel .carousel-item {
-                    height: 65vh !important;
-                }
-
-                #home-carousel h1 {
-                    font-size: 1.8rem !important;
-                }
-
-                #home-carousel p {
-                    font-size: 0.95rem !important;
-                }
-
-                #home-carousel .btn {
-                    padding: 8px 18px !important;
-                    font-size: 0.9rem !important;
-                }
-
-                /* TOURS — компактные карточки */
-                .tour-card-gyg img {
-                    height: 180px !important;
-                }
-
-                .tour-card-gyg .card-body {
-                    padding: 0.9rem 1rem !important;
-                }
-
-                .tour-card-gyg h5 {
-                    font-size: 1rem !important;
-                    margin-bottom: 6px !important;
-                }
-
-                .tour-card-gyg p {
-                    font-size: 0.85rem !important;
-                }
-
-                .tour-card-gyg .price-box,
-                .tour-card-gyg .badge-duration-gyg {
-                    font-size: 0.75rem !important;
-                }
-
-                .tour-card-gyg .btn {
-                    padding: 8px !important;
-                    font-size: 0.9rem !important;
-                }
-
-                /* ADVANTAGES — компактные карточки */
-                .adv-card {
-                    padding: 0 !important;
-                }
-
-                .adv-icon-circle {
-                    width: 55px !important;
-                    height: 55px !important;
-                }
-
-                .adv-icon-circle i {
-                    font-size: 1.5rem !important;
-                }
-
-                .adv-card h5 {
-                    font-size: 1rem !important;
-                }
-
-                .adv-card p {
-                    font-size: 0.85rem !important;
-                }
-
-                /* TRUST / WHY-US — компактный вариант */
-                #why-us .we-icon,
-                #why-us .trust-icon-wrapper {
-                    width: 42px !important;
-                    height: 42px !important;
-                    font-size: 1.1rem !important;
-                }
-
-                #why-us h5 {
-                    font-size: 1rem !important;
-                }
-
-                #why-us p {
-                    font-size: 0.85rem !important;
-                }
-
-                /* ABOUT SECTION — уменьшение ширины картинок */
-                #about img {
-                    height: 110px !important;
-                    object-fit: cover !important;
-                }
-
-                /* Заголовки секций */
-                section h2 {
-                    font-size: 1.6rem !important;
-                    margin-bottom: 1.6rem !important;
-                }
-
-                /* Вертикальные отступы секций (уменьшаем) */
-                section.py-5 {
-                    padding-top: 2.2rem !important;
-                    padding-bottom: 2.2rem !important;
-                }
-            }
+}

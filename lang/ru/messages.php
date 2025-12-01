@@ -28,6 +28,7 @@ return [
     'send_message' => 'Отправить сообщение',
     'our_contacts' => 'Наши контакты',
     'follow_us' => 'Подписывайтесь на нас',
+    'see_all' => 'Посмотреть все',
 
     // Blog
     'author' => 'Автор:',
@@ -38,7 +39,7 @@ return [
     'published' => 'Опубликовано',
     'in_category' => 'в категории',
     'popular_posts' => 'ПОПУЛЯРНЫЕ ПОСТЫ',
-    
+
     // Tour Groups
     'available_dates' => 'Доступные даты отправления',
     'available' => 'Доступно',
