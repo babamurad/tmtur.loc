@@ -80,8 +80,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('front.login') }}" class="btn btn-outline-primary btn-sm mr-2" wire:navigate>{{ __('menu.login') ?? 'Login' }}</a>
-                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm" wire:navigate>{{ __('menu.register') ?? 'Register' }}</a>
+                    <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2" wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
+                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm" wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
                 @endauth
             </div>
         </div>
