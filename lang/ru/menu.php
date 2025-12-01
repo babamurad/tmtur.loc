@@ -10,4 +10,7 @@ return [
     'contact'   => 'Контакты',
     'darwaza'   => 'Дарваза',
     'gallery'   => 'Галерея',
+    'login'     => 'Войти',
+    'register'  => 'Регистрация',
+    'logout'    => 'Выйти',
 ];

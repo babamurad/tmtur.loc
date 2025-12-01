@@ -10,4 +10,7 @@ return [
     'contact'   => '연락처',
     'darwaza'   => '다르바자',
     'gallery'   => '갤러리',
+    'login'     => '로그인',
+    'register'  => '회원가입',
+    'logout'    => '로그아웃',
 ];
