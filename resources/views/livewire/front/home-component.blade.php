@@ -64,7 +64,7 @@
 </section>
 
 <!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
-<section id="tours" class="py-5 bg-light">
+<section id="tours" class="bg-light">
     <div class="container py-5">
 
         <h2 class="text-center mb-5 fs-2 fw-bold text-dark">
@@ -191,6 +191,54 @@
     </div>
 </section>
 
+
+    <!-- ========== ADVANTAGES — COLORED WEROAD ICONS ========== -->
+    <section class="bg-light">
+        <div class="container">
+
+            <h2 class="text-center mb-5 fw-bold" style="font-size: 2.2rem;">
+                {{ __('advantages.title') }}
+            </h2>
+
+            <div class="row g-4">
+
+                @php
+                    $items = [
+                        ['icon' => 'fa-fire',          'color' => '#ff5a3c', 'title' => __('advantages.item1_title'), 'text' => __('advantages.item1_text')],
+                        ['icon' => 'fa-archway',       'color' => '#1fb6ff', 'title' => __('advantages.item2_title'), 'text' => __('advantages.item2_text')],
+                        ['icon' => 'fa-horse',         'color' => '#ffc82c', 'title' => __('advantages.item3_title'), 'text' => __('advantages.item3_text')],
+                        ['icon' => 'fa-umbrella-beach','color' => '#7e5bef', 'title' => __('advantages.item4_title'), 'text' => __('advantages.item4_text')],
+                        ['icon' => 'fa-utensils',      'color' => '#13ce66', 'title' => __('advantages.item5_title'), 'text' => __('advantages.item5_text')],
+                        ['icon' => 'fa-spa',           'color' => '#ff7849', 'title' => __('advantages.item6_title'), 'text' => __('advantages.item6_text')],
+                    ];
+                @endphp
+
+                @foreach($items as $item)
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100 border-0 shadow-sm adv-card">
+                            <div class="card-body text-center">
+
+                                <div class="adv-icon-circle mb-3" style="background: {{ $item['color'] }}20;">
+                                    <i class="fa-solid {{ $item['icon'] }}" style="color: {{ $item['color'] }};"></i>
+                                </div>
+
+                                <h5 class="fw-bold mb-2" style="font-size: 1.2rem;">
+                                    {{ $item['title'] }}
+                                </h5>
+
+                                <p class="text-muted small" style="line-height: 1.5;">
+                                    {{ $item['text'] }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+    
 
     <!-- ========== GALLERY ========== -->
     <section class="bg-light">

@@ -15,7 +15,7 @@ html {
 /* следующий элемент после navbar = карусель, поднимаем её вверх */
 .navbar+section {
     /* если у вас <section id="home" …> идёт сразу после nav */
-    margin-top: -1px;
+    margin-top: -4px;
     /* «прилипание» к навбару (1 px надёжнее 0) */
 }
 
@@ -31,6 +31,17 @@ body {
 #home-carousel .carousel-inner,
 #home-carousel .carousel-item {
     height: 94vh;
+}
+
+/* Отменяем или меняем поведение на мобильных */
+@media (max-width: 767.98px) {
+
+    #home-carousel .carousel,
+    #home-carousel .carousel-inner,
+    #home-carousel .carousel-item {
+        height: auto;
+        /* или другое значение, например 50vh, 100%, и т.д. */
+    }
 }
 
 .carousel-item:not(.active) {
@@ -601,7 +612,7 @@ body {
 
 .tour-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .badge-days {
@@ -614,83 +625,435 @@ body {
     border-radius: 50px;
     font-weight: 500;
 }
+
 .tour-card-gyg:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
-    }
-    .tour-badge-gyg {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #ff4b57;
-        color: #fff;
-        padding: 6px 14px;
-        font-size: 0.78rem;
-        border-radius: 8px;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    }
-    .badge-duration-gyg {
-        background: #eef1f4;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 500;
-    }
-    .price-gyg {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #111;
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+}
+
+.tour-badge-gyg {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff4b57;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-duration-gyg {
+    background: #eef1f4;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.price-gyg {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+/* Контейнер */
+.tour-price-box div {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+
+/* Цена за 1 человека */
+.price-chip-single {
+    background: #f2f4f7;
+    color: #333;
+    border: 1px solid #e1e4e8;
+}
+
+/* Цена за группу */
+.price-chip-group {
+    background: #e9f9ee;
+    color: #0c7a3e;
+    border: 1px solid #bde8cc;
+}
+
+.tour-card-gyg:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+}
+
+.tour-badge-gyg {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff4b57;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-duration-gyg {
+    background: #eef1f4;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.adv-card {
+    border-radius: 16px;
+    transition: .25s ease;
+    padding: 5px;
+}
+
+.adv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+.adv-icon-circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adv-icon-circle i {
+    font-size: 2rem;
+}
+
+/* MOBILE LAYOUT v1 — COMPACT MODE */
+@media (max-width: 576px) {
+
+    /* HERO — уменьшение высоты */
+    #home-carousel .carousel-item {
+        height: 65vh !important;
     }
 
-    /* Контейнер */
-    .tour-price-box div {
-        font-size: 0.85rem;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        width: fit-content;
+    #home-carousel h1 {
+        font-size: 1.8rem !important;
     }
 
-    /* Цена за 1 человека */
-    .price-chip-single {
-        background: #f2f4f7;
-        color: #333;
-        border: 1px solid #e1e4e8;
+    #home-carousel p {
+        font-size: 0.95rem !important;
     }
 
-    /* Цена за группу */
-    .price-chip-group {
-        background: #e9f9ee;
-        color: #0c7a3e;
-        border: 1px solid #bde8cc;
-    }
-    .tour-card-gyg:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 14px 32px rgba(0,0,0,0.15);
+    #home-carousel .btn {
+        padding: 8px 18px !important;
+        font-size: 0.9rem !important;
     }
 
-    .tour-badge-gyg {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        background: #ff4b57;
-        color: #fff;
-        padding: 6px 14px;
-        font-size: 0.78rem;
-        border-radius: 8px;
-        font-weight: 600;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    /* TOURS — компактные карточки */
+    .tour-card-gyg img {
+        height: 180px !important;
     }
 
-    .badge-duration-gyg {
-        background: #eef1f4;
-        color: #555;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.78rem;
-        font-weight: 500;
+    .tour-card-gyg .card-body {
+        padding: 0.9rem 1rem !important;
     }
+
+    .tour-card-gyg h5 {
+        font-size: 1rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    .tour-card-gyg p {
+        font-size: 0.85rem !important;
+    }
+
+    .tour-card-gyg .price-box,
+    .tour-card-gyg .badge-duration-gyg {
+        font-size: 0.75rem !important;
+    }
+
+    .tour-card-gyg .btn {
+        padding: 8px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* ADVANTAGES — компактные карточки */
+    .adv-card {
+        padding: 0 !important;
+    }
+
+    .adv-icon-circle {
+        width: 55px !important;
+        height: 55px !important;
+    }
+
+    .adv-icon-circle i {
+        font-size: 1.5rem !important;
+    }
+
+    .adv-card h5 {
+        font-size: 1rem !important;
+    }
+
+    .adv-card p {
+        font-size: 0.85rem !important;
+    }
+
+    /* TRUST / WHY-US — компактный вариант */
+    #why-us .we-icon,
+    #why-us .trust-icon-wrapper {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.1rem !important;
+    }
+
+    #why-us h5 {
+        font-size: 1rem !important;
+    }
+
+    #why-us p {
+        font-size: 0.85rem !important;
+    }
+
+    /* ABOUT SECTION — уменьшение ширины картинок */
+    #about img {
+        height: 110px !important;
+        object-fit: cover !important;
+    }
+
+    top: 12px;
+    left: 12px;
+    background: #ff4b57;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-duration-gyg {
+    background: #eef1f4;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.price-gyg {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+/* Контейнер */
+.tour-price-box div {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+}
+
+/* Цена за 1 человека */
+.price-chip-single {
+    background: #f2f4f7;
+    color: #333;
+    border: 1px solid #e1e4e8;
+}
+
+/* Цена за группу */
+.price-chip-group {
+    background: #e9f9ee;
+    color: #0c7a3e;
+    border: 1px solid #bde8cc;
+}
+
+.tour-card-gyg:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.15);
+}
+
+.tour-badge-gyg {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff4b57;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-duration-gyg {
+    background: #eef1f4;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+.adv-card {
+    border-radius: 16px;
+    transition: .25s ease;
+    padding: 5px;
+}
+
+.adv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+.adv-icon-circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adv-icon-circle i {
+    font-size: 2rem;
+}
+
+/* MOBILE LAYOUT v1 — COMPACT MODE */
+@media (max-width: 576px) {
+
+    /* HERO — уменьшение высоты */
+    #home-carousel .carousel-item {
+        height: 65vh !important;
+    }
+
+    #home-carousel h1 {
+        font-size: 1.8rem !important;
+    }
+
+    #home-carousel p {
+        font-size: 0.95rem !important;
+    }
+
+    #home-carousel .btn {
+        padding: 8px 18px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* TOURS — компактные карточки */
+    .tour-card-gyg img {
+        height: 180px !important;
+    }
+
+    .tour-card-gyg .card-body {
+        padding: 0.9rem 1rem !important;
+    }
+
+    .tour-card-gyg h5 {
+        font-size: 1rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    .tour-card-gyg p {
+        font-size: 0.85rem !important;
+    }
+
+    .tour-card-gyg .price-box,
+    .tour-card-gyg .badge-duration-gyg {
+        font-size: 0.75rem !important;
+    }
+
+    .tour-card-gyg .btn {
+        padding: 8px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* ADVANTAGES — компактные карточки */
+    .adv-card {
+        padding: 0 !important;
+    }
+
+    .adv-icon-circle {
+        width: 55px !important;
+        height: 55px !important;
+    }
+
+    .adv-icon-circle i {
+        font-size: 1.5rem !important;
+    }
+
+    .adv-card h5 {
+        font-size: 1rem !important;
+    }
+
+    .adv-card p {
+        font-size: 0.85rem !important;
+    }
+
+    /* TRUST / WHY-US — компактный вариант */
+    #why-us .we-icon,
+    #why-us .trust-icon-wrapper {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 1.1rem !important;
+    }
+
+    #why-us h5 {
+        font-size: 1rem !important;
+    }
+
+    #why-us p {
+        font-size: 0.85rem !important;
+    }
+
+    /* ABOUT SECTION — уменьшение ширины картинок */
+    #about img {
+        height: 110px !important;
+        object-fit: cover !important;
+    }
+
+    /* Заголовки секций */
+    section h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 1.6rem !important;
+    }
+
+    /* Вертикальные отступы секций (уменьшаем) */
+    section.py-5 {
+        padding-top: 2.2rem !important;
+        padding-bottom: 2.2rem !important;
+    }
+
+    /* Language dropdown mobile fix */
+    .navbar-collapse .dropdown {
+        width: 100%;
+    }
+
+    .navbar-collapse .dropdown .btn {
+        width: 100%;
+        text-align: left;
+    }
+
+    .navbar-collapse .dropdown-menu {
+        width: 100%;
+        position: static !important;
+        transform: none !important;
+        border: none;
+        box-shadow: none;
+        background-color: #f8f9fa;
+        margin-top: 0.5rem;
+    }
+}
