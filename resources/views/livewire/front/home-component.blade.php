@@ -2,66 +2,117 @@
 
 
     <!-- ========== ABOUT TURKMENISTAN ========== -->
-<section id="about" class="py-5 bg-white">
-    <div class="container px-4">
-        <h2 class="text-center mb-5 fs-2 fw-bold text-dark">{{ __('about.title') }}</h2>
+<!-- ========== ABOUT TURKMENISTAN — GETYOURGUIDE STYLE ========== -->
+<section class="py-5 bg-white" id="about">
+    <div class="container py-4">
 
-        <div class="row align-items-center g-5">
-            {{-- Текстовая часть --}}
-            <div class="col-md-6">
-                <p class="mb-4">{{ __('about.lead1') }}</p>
-                <p class="mb-4">{{ __('about.lead2') }}</p>
+        <div class="row align-items-center gy-5">
 
-                <ul class="list-unstyled mb-4">
-                    <li class="d-flex align-items-start mb-2">
-                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                        <span>{{ __('about.sunny') }}</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-2">
-                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                        <span>{{ __('about.nature') }}</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-2">
-                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                        <span>{{ __('about.hospitable') }}</span>
-                    </li>
-                    <li class="d-flex align-items-start mb-2">
-                        <i class="fas fa-check-circle text-success mt-1 mr-2"></i>
-                        <span>{{ __('about.history') }}</span>
-                    </li>
-                </ul>
+            <!-- LEFT SIDE — TEXT -->
+            <div class="col-lg-6">
 
-                <a href="#contact" class="btn btn-dark px-4 py-2 rounded-pill">{{ __('about.btn') }}</a>
+                <h2 class="fw-bold mb-4" style="font-size: 2rem;">
+                    {{ __('about_g.title') }}
+                </h2>
+
+                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                    {{ __('about_g.text1') }}
+                </p>
+
+                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                    {{ __('about_g.text2') }}
+                </p>
+
+                <!-- FEATURES -->
+                <div class="row g-3 mb-4">
+
+                    <div class="col-6 d-flex align-items-center">
+                        <i class="fas fa-sun text-warning mr-2"></i>
+                        <span class="small">{{ __('about_g.fact1') }}</span>
+                    </div>
+
+                    <div class="col-6 d-flex align-items-center">
+                        <i class="fas fa-mountain text-secondary mr-2"></i>
+                        <span class="small">{{ __('about_g.fact2') }}</span>
+                    </div>
+
+                    <div class="col-6 d-flex align-items-center">
+                        <i class="fas fa-city text-primary mr-2"></i>
+                        <span class="small">{{ __('about_g.fact3') }}</span>
+                    </div>
+
+                    <div class="col-6 d-flex align-items-center">
+                        <i class="fas fa-wifi text-danger mr-2"></i>
+                        <span class="small">{{ __('about_g.fact4') }}</span>
+                    </div>
+
+                </div>
+
+                <a href="#tours" class="btn btn-danger px-4 py-2" style="border-radius: 10px;">
+                    {{ __('about_g.btn') }}
+                </a>
+
             </div>
 
-            {{-- Изображения --}}
-            <div class="col-md-6">
-                <div class="row g-3">
-                        <div class="col-6">
-                            <div class="overflow-hidden rounded shadow-sm">
-                                <img src="{{ asset('assets/images/tmfotos/i (4).webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="overflow-hidden rounded shadow-sm">
-                                <img src="{{ asset('assets/images/tmfotos/i.webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="overflow-hidden rounded shadow-sm">
-                                <img src="{{ asset('assets/images/tmfotos/i (2).webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="overflow-hidden rounded shadow-sm">
-                                <img src="{{ asset('assets/images/tmfotos/i (1).webp') }}" class="img-fluid w-100 h-100 object-fit-cover mb-2" alt="Туркменистан">
-                            </div>
-                        </div>
+            <!-- RIGHT SIDE — IMAGE GRID -->
+            <div class="col-lg-6">
+                <div class="about-grid">
+
+                    <div class="about-large">
+                        <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan" />
+                    </div>
+
+                    <div class="about-small">
+                        <img src="/assets/images/tmfotos/i (4).webp" alt="Turkmenistan" />
+                    </div>
+
+                    <div class="about-small">
+                        <img src="/assets/images/tmfotos/i (1).webp" alt="Turkmenistan" />
+                    </div>
+
                 </div>
             </div>
+
         </div>
+
     </div>
 </section>
+
+<style>
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 14px;
+    }
+
+    .about-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 14px;
+    }
+
+    .about-large {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        height: 320px;
+    }
+
+    .about-small {
+        height: 150px;
+    }
+
+    @media (max-width: 576px) {
+        .about-large {
+            height: 220px;
+        }
+        .about-small {
+            height: 120px;
+        }
+    }
+</style>
+
 
 <!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
 <section id="tours" class="bg-light">
