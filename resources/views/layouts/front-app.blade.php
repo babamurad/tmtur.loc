@@ -34,6 +34,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Bootstrap 4.6 CSS -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/mdb-pro.min.css') }}">
@@ -46,7 +50,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-            padding-top: 60px; /* примерная высота навбара */
+            padding-top: 72px; /* примерная высота навбара */
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.06), transparent 30%),
+            radial-gradient(circle at 80% 0%, rgba(45, 212, 191, 0.08), transparent 32%),
+            linear-gradient(180deg, #f7f8fb 0%, #f0f4ff 100%);
+            color: #1f2937;
         }
         .fa-fire {
             animation: pulse 2s infinite;
@@ -185,6 +194,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         }
     });
+</script>
+
+<script>
+    function updateNavbarState() {
+        var navbar = document.getElementById('mainNav');
+        if (!navbar) return;
+
+        if (window.scrollY > 10) {
+            navbar.classList.add('navbar-scrolled');
+        } else {
+            navbar.classList.remove('navbar-scrolled');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', updateNavbarState);
+    document.addEventListener('scroll', updateNavbarState);
+    document.addEventListener('livewire:navigated', updateNavbarState);
 </script>
 
 @stack('scripts')

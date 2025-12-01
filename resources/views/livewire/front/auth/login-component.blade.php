@@ -1,37 +1,59 @@
-<div class="py-6">
+<div class="auth-page py-6">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card auth-card shadow-lg border-0 rounded-lg">
                     <div class="card-body p-5">
-                        <h2 class="mb-3 text-center font-weight-bold">{{ __('auth.login_title') }}</h2>
-                        <p class="text-muted text-center mb-4 small">{{ __('auth.login_subtitle') }}</p>
+                        <div class="text-center mb-4">
+                            <div class="auth-icon mb-3">
+                                <i class="fa-solid fa-unlock-alt fa-lg"></i>
+                            </div>
+                            <h2 class="mb-2 text-center font-weight-bold">{{ __('auth.login_title') }}</h2>
+                            <p class="text-muted text-center mb-1 small">{{ __('auth.login_subtitle') }}</p>
+                            <p class="text-muted small mb-0">{{ __('auth.no_account') }} <a href="{{ route('front.register') }}" class="font-weight-bold" wire:navigate>{{ __('auth.sign_up_link') }}</a></p>
+                        </div>
 
                         <form wire:submit.prevent="login">
                             <div class="form-group">
                                 <label for="frontEmail" class="font-weight-bold">{{ __('auth.email') }}</label>
-                                <input id="frontEmail"
-                                       type="email"
-                                       class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                       placeholder="name@example.com"
-                                       wire:model.defer="email">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-transparent border-right-0 text-muted">
+                                            <i class="fa-regular fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                    <input id="frontEmail"
+                                           type="email"
+                                           class="form-control form-control-lg border-left-0 pl-0 @error('email') is-invalid @enderror"
+                                           placeholder="name@example.com"
+                                           wire:model.defer="email">
+                                </div>
+                                <small class="form-hint d-block mt-1">{{ __('auth.login_subtitle') }}</small>
                                 @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <label for="frontPassword" class="mb-0 font-weight-bold">{{ __('auth.password') }}</label>
-                                    <a href="#" class="small text-primary">{{ __('auth.forgot_password') }}</a>
+                                    <a href="#" class="small text-primary auth-muted-link">{{ __('auth.forgot_password') }}</a>
                                 </div>
-                                <input id="frontPassword"
-                                       type="password"
-                                       class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                       placeholder="********"
-                                       wire:model.defer="password">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-transparent border-right-0 text-muted">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </span>
+                                    </div>
+                                    <input id="frontPassword"
+                                           type="password"
+                                           class="form-control form-control-lg border-left-0 pl-0 @error('password') is-invalid @enderror"
+                                           placeholder="********"
+                                           wire:model.defer="password">
+                                </div>
+                                <small class="form-hint d-block mt-1">Минимум 8 символов, латиница и цифры.</small>
                                 @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -40,10 +62,12 @@
                                 <label class="custom-control-label" for="frontRemember">{{ __('auth.remember') }}</label>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('auth.sign_in') }}</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block auth-cta">{{ __('auth.sign_in') }}</button>
                         </form>
 
-                        <div class="text-center mt-4">
+                        <div class="auth-divider text-center small">{{ __('auth.or_continue') ?? 'или продолжить' }}</div>
+
+                        <div class="text-center mt-3">
                             <span class="text-muted">{{ __('auth.no_account') }}</span>
                             <a href="{{ route('front.register') }}" class="text-primary font-weight-bold" wire:navigate>{{ __('auth.sign_up_link') }}</a>
                         </div>
