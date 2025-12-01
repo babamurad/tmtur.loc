@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Dashboard</h4>
+                    <h4 class="mb-0 font-size-18">Админ панель</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Opatix</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Админ</a></li>
+                            <li class="breadcrumb-item active">Дашборд</li>
                         </ol>
                     </div>
 
@@ -28,7 +28,7 @@
                                             <i class="bx bx-layer m-0 h3 text-primary"></i>
                                         </span>
                         </div>
-                        <h6 class="text-muted text-uppercase mt-0">Project Income</h6>
+                        <h6 class="text-muted text-uppercase mt-0">Туры</h6>
                         <h3 class="my-3">$4,514</h3>
                         <span class="badge badge-soft-primary mr-1"> +11% </span> <span class="text-muted">From previous period</span>
                     </div>
@@ -43,7 +43,7 @@
                                             <i class="bx bx-dollar-circle m-0 h3 text-primary"></i>
                                         </span>
                         </div>
-                        <h6 class="text-muted text-uppercase mt-0">Net Revenue</h6>
+                        <h6 class="text-muted text-uppercase mt-0">Группы</h6>
                         <h3 class="my-3">$85,365</h3>
                         <span class="badge badge-soft-primary mr-1"> -29% </span> <span class="text-muted">This Month</span>
                     </div>
@@ -58,7 +58,7 @@
                                             <i class="bx bx-analyse m-0 h3 text-primary"></i>
                                         </span>
                         </div>
-                        <h6 class="text-muted text-uppercase mt-0">New Leads</h6>
+                        <h6 class="text-muted text-uppercase mt-0">Партнеры</h6>
                         <h3 class="my-3">$<span data-plugin="counterup">9.94</span></h3>
                         <span class="badge badge-soft-primary mr-1"> 0% </span> <span class="text-muted">This Month</span>
                     </div>
@@ -73,7 +73,7 @@
                                             <i class="bx bx-basket m-0 h3 text-primary"></i>
                                         </span>
                         </div>
-                        <h6 class="text-muted text-uppercase mt-0">Quoted </h6>
+                        <h6 class="text-muted text-uppercase mt-0">Подписчики </h6>
                         <h3 class="my-3" data-plugin="counterup">5,842</h3>
                         <span class="badge badge-soft-primary mr-1"> +89% </span> <span class="text-muted">This Month</span>
                     </div>
@@ -99,7 +99,7 @@
                                 <li><a href="#" class="dropdown-item">Separated link</a></li>
                             </ul>
                         </div>
-                        <h4 class="card-title d-inline-block mb-3">Team Members - Messages</h4>
+                        <h4 class="card-title d-inline-block mb-3">Последние сообщения с сайта</h4>
 
                         <div data-simplebar="init" style="max-height: 380px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
                                                 <a href="#" class="d-flex align-items-center border-bottom py-3">
@@ -187,7 +187,7 @@
                                 <li><a href="#" class="dropdown-item">Separated link</a></li>
                             </ul>
                         </div>
-                        <h4 class="card-title d-inline-block">All Projects</h4>
+                        <h4 class="card-title d-inline-block">Группы туров</h4>
 
                         <div class="table-responsive">
                             <table class="table table-borderless table-hover mb-0">
