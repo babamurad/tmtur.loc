@@ -4,6 +4,8 @@ use App\Livewire\ContactInfosCrud;
 use App\Livewire\Front\CategoryIndex;
 use App\Livewire\Front\CategoryShowTour;
 use App\Livewire\Front\HomeComponent;
+use App\Livewire\Front\Auth\LoginComponent as FrontLoginComponent;
+use App\Livewire\Front\Auth\RegisterComponent as FrontRegisterComponent;
 use App\Livewire\Gallery\GalleryCreate;
 use App\Livewire\Gallery\GalleryEdit;
 use App\Livewire\Gallery\GalleryIndex;
@@ -149,6 +151,11 @@ Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.
 Route::get('galley', \App\Livewire\Front\ProductGallery ::class)->name('galley');
 
 Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
+
+Route::middleware('guest')->group(function () {
+    Route::get('auth/register', FrontRegisterComponent::class)->name('front.register');
+    Route::get('auth/login', FrontLoginComponent::class)->name('front.login');
+});
 
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');
 Route::get('login', \App\Livewire\Auth\LoginComponent::class)->name('login');

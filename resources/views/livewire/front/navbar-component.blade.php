@@ -65,6 +65,25 @@
 
             {{-- Переключатель языков (Livewire-компонент) --}}
             @livewire('language-switcher')
+
+            <div class="ml-lg-3 d-flex align-items-center">
+                @auth
+                    <div class="dropdown">
+                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountMenu">
+                            <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
+                                @csrf
+                                <button type="submit" class="btn btn-link p-0 text-danger">{{ __('menu.logout') ?? 'Logout' }}</button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('front.login') }}" class="btn btn-outline-primary btn-sm mr-2" wire:navigate>{{ __('menu.login') ?? 'Login' }}</a>
+                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm" wire:navigate>{{ __('menu.register') ?? 'Register' }}</a>
+                @endauth
+            </div>
         </div>
     </div>
 </nav>

@@ -10,4 +10,7 @@ return [
     'contact' => 'Contact',
     'darwaza' => 'Darvaza',
     'gallery' => 'Gallery',
+    'login' => 'Login',
+    'register' => 'Register',
+    'logout' => 'Logout',
 ];
