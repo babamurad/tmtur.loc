@@ -83,8 +83,8 @@
 
                     @livewire('MessageNavComponent')
 
-                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контактная информация</a></li>
-                    <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i> Подписчики рассылки</a></li>
+                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контакты</a></li>
+                    <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i> Подписчики</a></li>
 
 
                 </ul>

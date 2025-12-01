@@ -76,41 +76,6 @@
     </div>
 </section>
 
-<style>
-    .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 14px;
-    }
-
-    .about-grid img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 14px;
-    }
-
-    .about-large {
-        grid-column: 1 / 3;
-        grid-row: 1 / 2;
-        height: 320px;
-    }
-
-    .about-small {
-        height: 150px;
-    }
-
-    @media (max-width: 576px) {
-        .about-large {
-            height: 220px;
-        }
-        .about-small {
-            height: 120px;
-        }
-    }
-</style>
-
 
     <!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
     <section id="tours" class="bg-light">
