@@ -1,6 +1,6 @@
-<nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm nav-glass">
     <div class="container">
-        <a class="navbar-brand font-weight-bold" href="/#home">
+        <a class="navbar-brand font-weight-bold d-flex align-items-center" href="/#home">
             <i class="fa-solid fa-fire text-danger mr-2"></i>TmTourism
         </a>
 
@@ -9,7 +9,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto align-items-lg-center nav-links-spaced">
 
                 <li class="nav-item">
                     <a class="nav-link" href="/#home" wire:navigate>{{ __('menu.home') }}</a>
@@ -31,21 +31,26 @@
                         {{ __('menu.tours') }}
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="toursDropdown">
-                        @foreach($categories as $category)
-                            <a class="dropdown-item"
-                               href="{{ route('tours.category.show', $category->slug) }}"
-                               wire:navigate>
-                                {{ $category->tr('title') }}
-                            </a>
-                        @endforeach
+                    <div class="dropdown-menu mega-dropdown" aria-labelledby="toursDropdown">
+                        <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">{{ __('menu.tours') }}</div>
+                        <div class="dropdown-grid px-2 pb-2">
+                            @foreach($categories as $category)
+                                <a class="dropdown-item d-flex align-items-center"
+                                   href="{{ route('tours.category.show', $category->slug) }}"
+                                   wire:navigate>
+                                    <span class="badge-dot mr-2"></span>
+                                    <span>{{ $category->tr('title') }}</span>
+                                </a>
+                            @endforeach
+                        </div>
 
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item"
-                           href="{{ route('tours.category.index') }}"
-                           wire:navigate>
-                            {{ __('menu.all_tours') }}
-                        </a>
+                        <div class="dropdown-footer border-top px-3 py-2">
+                            <a class="dropdown-item font-weight-semibold d-flex align-items-center"
+                               href="{{ route('tours.category.index') }}"
+                               wire:navigate>
+                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.all_tours') }}
+                            </a>
+                        </div>
                     </div>
                 </li>
 
@@ -66,7 +71,7 @@
             {{-- Переключатель языков (Livewire-компонент) --}}
             @livewire('language-switcher')
 
-            <div class="ml-lg-3 d-flex align-items-center">
+            <div class="ml-lg-3 d-flex align-items-center nav-auth-actions">
                 @auth
                     <div class="dropdown">
                         <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,8 +85,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2" wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
-                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm" wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
+                    <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2 nav-ghost-btn" wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
+                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm nav-cta-btn" wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
                 @endauth
             </div>
         </div>
