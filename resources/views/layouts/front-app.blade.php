@@ -12,7 +12,9 @@
     </script>
 
 <!-- Start cookieyes banner --> 
+@if(config('app.env') === 'production')
  <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js"></script> 
+@endif
  <!-- End cookieyes banner -->
 
  <!-- Google Tag Manager -->
@@ -135,7 +137,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // Функция для инициализации Bootstrap компонентов
     function initBootstrapComponents() {
         // Реинициализация всех dropdown элементов
-        $('.dropdown-toggle').dropdown();
+        $('.dropdown-toggle').each(function() {
+            $(this).dropdown();
+        });
         
         // Реинициализация WOW анимаций
         if (typeof WOW !== 'undefined') {
