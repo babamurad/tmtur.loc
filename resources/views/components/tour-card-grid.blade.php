@@ -1,76 +1,100 @@
-<div class="card h-100 shadow">
+@props(['tour'])
+
+@php
+    $badges = ['Most Popular','Best Price','New Tour','Recommended','Local Favorite'];
+    $badge = $badges[array_rand($badges)];
+@endphp
+
+<div class="card border-0 shadow tour-card-gyg h-100"
+     style="border-radius: 16px; overflow: hidden; transition: .25s;">
+
+    <!-- TOP IMAGE -->
     <div class="position-relative">
         <a href="{{ route('our-tours.show', $tour->slug) }}">
             <img src="{{ $tour->first_media_url }}"
-                 class="card-img-top"
-                 alt="{{ $tour->tr('title') }}">
+                 class="w-100"
+                 style="height: 260px; object-fit: cover;">
         </a>
-        
-        {{-- Badge for available groups --}}
-        @if($tour->groupsOpen && $tour->groupsOpen->count() > 0)
-            <span class="badge badge-success position-absolute" style="top: 10px; right: 10px;">
-                <i class="fas fa-check-circle"></i> {{ __('messages.available') ?? 'Доступно' }}
-            </span>
-        @endif
+
+        <!-- BADGE -->
+        <span class="tour-badge-gyg">{{ $badge }}</span>
     </div>
 
-    <div class="card-body d-flex flex-column">
-        <a href="{{ route('our-tours.show', $tour->slug) }}">
-            <h5 class="card-title">{{ $tour->tr('title') }}</h5>
+    <!-- BODY -->
+    <div class="card-body" style="padding: 1.25rem 1.25rem 0.5rem;">
+
+        <!-- TITLE -->
+        <a href="{{ route('our-tours.show', $tour->slug) }}"
+           class="text-decoration-none text-dark">
+            <h5 class="fw-bold mb-2" style="font-size: 1.15rem; line-height: 1.3;">
+                {{ $tour->tr('title') }}
+            </h5>
         </a>
 
-        <p class="card-text small">
-            {!! Str::words(strip_tags($tour->tr('short_description')), 20) !!}
+        <!-- ICONS (jeep, border, crater, hotel, train) -->
+        <div class="mb-3" style="font-size: 1rem; color:#444;">
+            <i class="fa-solid fa-car-side mr-2"></i>
+            <i class="fa-solid fa-passport mr-2"></i>
+            <i class="fa-solid fa-fire-flame-curved mr-2"></i>
+            <i class="fa-solid fa-hotel mr-2"></i>
+            <i class="fa-solid fa-bus mr-2"></i>
+            <i class="fas fa-campground mr-2"></i>
+        </div>
+
+        <!-- SHORT DESCRIPTION -->
+        <p class="text-muted small mb-3" style="line-height: 1.45;">
+            {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
         </p>
 
-        {{-- Tour group info --}}
-        @if($tour->groupsOpen && $tour->groupsOpen->count() > 0)
-            @php
-                $nextGroup = $tour->groupsOpen->first();
-                $minPrice = $tour->groupsOpen->min('price_min');
-            @endphp
-            <div class="mb-2">
-                <small class="text-muted d-block">
-                    <i class="fas fa-calendar-alt"></i> 
-                    {{ __('messages.next_departure') ?? 'Ближайший выезд' }}: 
-                    <strong>{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
-                </small>
-                <div class="d-flex flex-column mt-2">
-                    @php
-                        $maxPrice = $tour->groupsOpen->max('price_max');
-                        $minPrice = $tour->groupsOpen->min('price_min');
-                        $maxPeople = $tour->groupsOpen->max('max_people');
-                    @endphp
-                    
-                    @if($maxPeople > 1)
-                        <span class="badge badge-secondary border text-left mb-1 font-weight-normal text-muted">
-                             <i class="fas fa-user"></i> 1 {{ __('messages.person') ?? 'чел.' }}: <strong>${{ number_format($maxPrice, 0) }}</strong>
-                        </span>
-                        <span class="badge badge-success border text-left font-weight-normal text-success">
-                             <i class="fas fa-users"></i> {{ $maxPeople }} {{ __('messages.people') ?? 'чел.' }}: <strong>${{ number_format($minPrice, 0) }}</strong>
-                        </span>
-                    @else
-                        <span class="text-success font-weight-bold">
-                            ${{ number_format($minPrice, 0) }}
-                        </span>
-                    @endif
+        <!-- RATING + DURATION -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <!-- Duration -->
+            <span class="badge-duration-gyg">
+                {{ $tour->duration_days }} days
+            </span>
+
+            <!-- Rating -->
+            <div class="text-success" style="font-size: 1rem;">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </div>
+        </div>
+
+        {{-- 2 Prices Display --}}
+        @if($tour->groupsOpen->first())
+            <div class="tour-price-box d-flex flex-column mb-3">
+
+                <!-- Цена за 1 человека -->
+                <div class="price-chip-single mb-1">
+                    <i class="fas fa-user mr-1"></i>
+                    1 {{ __('messages.person') ?? 'чел.' }}:
+                    <strong>${{ $tour->groupsOpen->first()->price_max }}</strong>
                 </div>
+
+                <!-- Цена за группу -->
+                <div class="price-chip-group">
+                    <i class="fas fa-users mr-1"></i>
+                    {{ $tour->groupsOpen->first()->max_people }} {{ __('messages.people') ?? 'чел.' }}:
+                    <strong>${{ $tour->groupsOpen->first()->price_min }}</strong>
+                </div>
+
             </div>
         @endif
 
-        <div class="d-flex justify-content-between align-items-center mt-auto">
-            <span class="fw-bold text-danger">{{ $tour->duration_days }} {{ __('messages.days_label') }}</span>
-            <span class="text-warning">
-                @for($i = 0; $i < 5; $i++)
-                    <i class="fa-solid fa-star"></i>
-                @endfor
-            </span>
-        </div>
+
     </div>
 
-    <div class="card-footer">
+    <!-- FOOTER -->
+    <div class="card-footer bg-white border-0 pb-4 px-3">
         <a href="{{ route('our-tours.show', $tour->slug) }}"
-           class="btn btn-dark w-100">{{ __('messages.read_more') }}</a>
+           class="btn btn-danger w-100 py-2"
+           style="border-radius: 12px; font-size: 1rem;">
+            {{ __('messages.read_more') }}
+        </a>
     </div>
-</div>
 
+</div>

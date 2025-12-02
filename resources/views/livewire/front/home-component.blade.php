@@ -128,7 +128,8 @@
                                 <i class="fa-solid fa-passport mr-2"></i>
                                 <i class="fa-solid fa-fire-flame-curved mr-2"></i>
                                 <i class="fa-solid fa-hotel mr-2"></i>
-                                <i class="fa-solid fa-train-subway"></i>
+                                <i class="fa-solid fa-bus mr-2"></i>
+                                <i class="fas fa-campground mr-2"></i>
                             </div>
 
                             <!-- SHORT DESCRIPTION -->

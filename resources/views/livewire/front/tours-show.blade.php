@@ -131,7 +131,7 @@
                                                 </div>
 
                                                 {{-- Свободные места --}}
-                                                <div class="col-md-3 mb-2 mb-md-0">
+                                                <div class="col-md-2 mb-2 mb-md-0">
                                                     <div class="d-flex align-items-center">
                                                         <i class="fas fa-users text-info mr-2"></i>
                                                         <div>
@@ -168,7 +168,7 @@
                                                 </div>
 
                                                 {{-- Кнопка бронирования --}}
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     @if($available > 0)
                                                         <a href="#"
                                                            class="btn btn-sm btn-primary btn-block">
