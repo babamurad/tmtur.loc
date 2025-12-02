@@ -216,12 +216,25 @@ body {
 .soc-btn {
     width: 38px !important;
     height: 38px !important;
-    border-radius: 50%;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
+    min-width: 38px !important; /* Принудительно устанавливаем минимальную ширину */
+    min-height: 38px !important; /* Принудительно устанавливаем минимальную высоту */
+    border-radius: 50% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    display: grid !important; /* Используем grid для принудительного центрирования */
+    place-items: center !important; /* Центрируем содержимое */
     color: #fff !important;
+    overflow: hidden !important; /* Обрезает содержимое, если оно выходит за границы */
+    text-decoration: none !important; /* Удаляем подчеркивание */
+    white-space: nowrap !important; /* Предотвращаем перенос текста */
+    flex-shrink: 0 !important; /* Предотвращаем уменьшение элемента */
+    flex-grow: 0 !important; /* Предотвращаем увеличение элемента */
+    line-height: 1 !important; /* Обеспечивает правильное вертикальное выравнивание */
     transition: .25s;
+}
+
+.soc-btn i {
+    font-size: 1.1rem !important; /* Устанавливаем размер шрифта для иконки */
 }
 
 .soc-btn:hover {
