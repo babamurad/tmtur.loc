@@ -717,3 +717,6 @@ body {
     color: #4f46e5;
     text-decoration: none;
 }
+.dropdown .dropdown-menu .dropdown-item:hover{
+    color: #4f46e5 !important;
+}

@@ -88,7 +88,7 @@
                     <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2 nav-ghost-btn" wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
                     <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm nav-cta-btn" wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
                 @endauth
-            </div>
+            </div>            
         </div>
     </div>
 </nav>
