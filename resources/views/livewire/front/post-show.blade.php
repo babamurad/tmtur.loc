@@ -127,7 +127,7 @@
                 <ul class="list-group shadow-1-strong mt-4">
                     @foreach ($categories as $category)
                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <a href="{{ route('blog.category', $category->slug) }}" class="text-decoration-none text-dark">{{ $category->title }}</a>
+                            <a href="{{ route('blog.category', $category->slug) }}" class="text-decoration-none text-dark">{{ $category->tr('title') }}</a>
                             <span class="badge bg-danger rounded-pill">{{ $category->posts_count }}</span>
                         </li>
                     @endforeach

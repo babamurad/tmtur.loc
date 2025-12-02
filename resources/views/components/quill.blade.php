@@ -1,7 +1,6 @@
 @props(['value' => ''])
 
-<div
-    x-data="{
+<div x-data="{
         content: @entangle($attributes->wire('model')),
         initQuill() {
             const editor = new Quill(this.$refs.editor, {
@@ -13,7 +12,7 @@
                         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                         [{ 'color': [] }, { 'background': [] }],
                         [{ 'align': [] }],
-                        ['link', 'clean']
+                        ['link', 'image', 'clean'] // <-- Добавлено 'image'
                     ]
                 }
             });
@@ -33,11 +32,7 @@
                 }
             });
         }
-    }"
-    x-init="initQuill"
-    wire:ignore
-    class="quill-wrapper"
->
+    }" x-init="initQuill" wire:ignore class="quill-wrapper">
     <div x-ref="editor"></div>
 </div>
 

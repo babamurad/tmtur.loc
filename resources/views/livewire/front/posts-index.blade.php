@@ -11,10 +11,13 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->tr('title') }}</h2>
                         <p class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</p>
-                        <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary">{{ __('messages.read_more') }}</a>
+                        <a href="{{ route('blog.show', $post->slug) }}"
+                            class="btn btn-primary">{{ __('messages.read_more') }}</a>
                     </div>
                     <div class="card-footer text-muted">
-                        {{ __('messages.published') }} {{ $post->created_at->diffForHumans() }} {{ __('messages.in_category') }} <a href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->title }}</a>
+                        {{ __('messages.published') }} {{ $post->created_at->diffForHumans() }}
+                        {{ __('messages.in_category') }} <a
+                            href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->tr('title') }}</a>
                         <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
                     </div>
                 </div>
@@ -31,8 +34,10 @@
                 <hr class="border-danger border-2 opacity-75">
                 <ul class="list-group shadow-1-strong mt-4">
                     @foreach ($categories as $category)
-                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <a href="{{ route('blog.category', $category->slug) }}" class="text-decoration-none text-dark">{{ $category->title }}</a>
+                        <li
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <a href="{{ route('blog.category', $category->slug) }}"
+                                class="text-decoration-none text-dark">{{ $category->tr('title') }}</a>
                             <span class="badge bg-danger rounded-pill">{{ $category->posts_count }}</span>
                         </li>
                     @endforeach
@@ -54,14 +59,15 @@
                             <div class="row">
                                 <div class="col-4">
                                     <!-- Image -->
-                                    <div class="bg-image hover-overlay ripple rounded shadow-1-strong" data-ripple-color="light">
+                                    <div class="bg-image hover-overlay ripple rounded shadow-1-strong"
+                                        data-ripple-color="light">
                                         @if ($featuredPost->image)
-                                        <a href="{{ route('blog.show', $featuredPost->slug) }}">
-                                            <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
-                                                <img src="{{ asset('uploads/' . $featuredPost->image) }}"
-                                                class="img-fluid" alt="{{ $featuredPost->tr('title') }}">
-                                            </div>
-                                        </a>
+                                            <a href="{{ route('blog.show', $featuredPost->slug) }}">
+                                                <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
+                                                    <img src="{{ asset('uploads/' . $featuredPost->image) }}" class="img-fluid"
+                                                        alt="{{ $featuredPost->tr('title') }}">
+                                                </div>
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
@@ -74,7 +80,8 @@
                                     </h6>
                                     <div class="post-data">
                                         <p class="font-small text-secondary mb-0">
-                                            <i class="far fa-clock"></i> {{ $featuredPost->published_at->diffForHumans() }}</p>
+                                            <i class="far fa-clock"></i> {{ $featuredPost->published_at->diffForHumans() }}
+                                        </p>
                                     </div>
                                 </div>
                                 <!-- Excerpt -->

@@ -38,7 +38,7 @@ class PostsIndex extends Component
         if ($this->categorySlug) {
             $category = Category::where('slug', $this->categorySlug)->first();
             if ($category) {
-                $title = __('titles.category_blog', ['category' => $category->tr('name')]);
+                $title = __('titles.category_blog', ['category' => $category->tr('title')]);
             }
         }
 
