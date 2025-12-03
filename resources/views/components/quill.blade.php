@@ -85,8 +85,89 @@
                 };
             });
 
-    // Initial content
-    editor.root.innerHTML = this.content;
+            // Add alignment controls when image is clicked
+            const self = this;
+            editor.root.addEventListener('click', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.stopPropagation();
+                    const img = e.target;
+                    
+                    // Remove existing menu
+                    const existingMenu = document.querySelector('.image-align-menu');
+                    if (existingMenu) existingMenu.remove();
+                    
+                    // Create menu
+                    const menu = document.createElement('div');
+                    menu.className = 'image-align-menu';
+                    
+                    // Create buttons
+                    const btnLeft = document.createElement('button');
+                    btnLeft.innerHTML = '⬅️';
+                    btnLeft.title = 'Слева';
+                    btnLeft.onclick = function(e) {
+                        e.stopPropagation();
+                        img.className = 'ql-align-left';
+                        menu.remove();
+                    };
+                    
+                    const btnCenter = document.createElement('button');
+                    btnCenter.innerHTML = '↔️';
+                    btnCenter.title = 'По центру';
+                    btnCenter.onclick = function(e) {
+                        e.stopPropagation();
+                        img.className = 'ql-align-center';
+                        menu.remove();
+                    };
+                    
+                    const btnRight = document.createElement('button');
+                    btnRight.innerHTML = '➡️';
+                    btnRight.title = 'Справа';
+                    btnRight.onclick = function(e) {
+                        e.stopPropagation();
+                        img.className = 'ql-align-right';
+                        menu.remove();
+                    };
+                    
+                    const btnDelete = document.createElement('button');
+                    btnDelete.innerHTML = '🗑️';
+                    btnDelete.title = 'Удалить';
+                    btnDelete.className = 'delete-btn';
+                    btnDelete.onclick = function(e) {
+                        e.stopPropagation();
+                        img.remove();
+                        menu.remove();
+                    };
+                    
+                    menu.appendChild(btnLeft);
+                    menu.appendChild(btnCenter);
+                    menu.appendChild(btnRight);
+                    menu.appendChild(btnDelete);
+                    
+                    // Prevent menu from closing when clicking on it
+                    menu.onclick = function(e) {
+                        e.stopPropagation();
+                    };
+                    
+                    // Position menu
+                    const rect = img.getBoundingClientRect();
+                    menu.style.position = 'absolute';
+                    menu.style.top = (rect.top + window.scrollY - 40) + 'px';
+                    menu.style.left = (rect.left + window.scrollX + rect.width / 2 - 90) + 'px';
+                    
+                    document.body.appendChild(menu);
+                    
+                    // Close on outside click
+                    setTimeout(function() {
+                        document.addEventListener('click', function closeMenu(e) {
+                            menu.remove();
+                            document.removeEventListener('click', closeMenu);
+                        });
+                    }, 100);
+                }
+            });
+
+            // Initial content
+            editor.root.innerHTML = this.content;
 
     // Livewire → Quill
     editor.on('text-change', () => {
@@ -171,12 +252,68 @@
 
             /* Centered and responsive images */
             .quill-wrapper .ql-editor img {
-                display: block;
-                margin: 1rem auto;
                 max-width: 100%;
                 height: auto;
                 border-radius: 4px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+            }
+
+            /* Image alignment */
+            .quill-wrapper .ql-editor img.ql-align-left {
+                display: block;
+                float: left;
+                margin: 1rem 1rem 1rem 0;
+            }
+
+            .quill-wrapper .ql-editor img.ql-align-center {
+                display: block;
+                margin: 1rem auto;
+                float: none;
+            }
+
+            .quill-wrapper .ql-editor img.ql-align-right {
+                display: block;
+                float: right;
+                margin: 1rem 0 1rem 1rem;
+            }
+
+            /* Alignment menu */
+            .image-align-menu {
+                position: absolute;
+                z-index: 10000;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                padding: 4px;
+                display: flex;
+                gap: 4px;
+            }
+
+            .image-align-menu button {
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 8px 12px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.2s;
+            }
+
+            .image-align-menu button:hover {
+                background: #f0f0f0;
+                border-color: #999;
+            }
+
+            .image-align-menu button.delete-btn {
+                color: #dc3545;
+            }
+
+            .image-align-menu button.delete-btn:hover {
+                background: #dc3545;
+                color: white;
+                border-color: #dc3545;
             }
 
             .quill-wrapper .ql-container {
