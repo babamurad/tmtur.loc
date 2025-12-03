@@ -22,11 +22,50 @@
 
             // Try to register ImageResize if available
             if (typeof window.ImageResize !== 'undefined' && Quill.imports) {
+                // Register custom image alignment format
+                const ImageBlot = Quill.import('formats/image');
+                class AlignedImage extends ImageBlot {
+                    static create(value) {
+                        const node = super.create(value);
+                        if (typeof value === 'object') {
+                            node.setAttribute('src', value.src || value);
+                            if (value.align) {
+                                node.setAttribute('data-align', value.align);
+                                node.classList.add(`ql-align-${value.align}`);
+                            }
+                        }
+                        return node;
+                    }
+                    
+                    static formats(node) {
+                        return {
+                            src: node.getAttribute('src'),
+                            align: node.getAttribute('data-align') || 'center'
+                        };
+                    }
+                }
+                AlignedImage.blotName = 'image';
+                AlignedImage.tagName = 'img';
+                Quill.register(AlignedImage, true);
+                
+                // Register ImageResize module
                 if (!Quill.imports['modules/imageResize']) {
                     try {
-                        Quill.register('modules/imageResize', window.ImageResize);
+                        Quill.register('modules/imageResize', window.ImageResize.default || window.ImageResize);
                         modules.imageResize = {
-                            modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                            modules: ['Resize', 'DisplaySize', 'Toolbar'],
+                            handleStyles: {
+                                backgroundColor: 'black',
+                                border: 'none',
+                                color: 'white'
+                            },
+                            displayStyles: {
+                                backgroundColor: 'black',
+                                border: 'none',
+                                color: 'white',
+                                padding: '4px 8px',
+                                borderRadius: '4px'
+                            }
                         };
                         console.log('ImageResize module enabled');
                     } catch (e) {
@@ -34,7 +73,7 @@
                     }
                 } else {
                     modules.imageResize = {
-                        modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                        modules: ['Resize', 'DisplaySize', 'Toolbar']
                     };
                 }
             } else {
@@ -87,6 +126,64 @@
                         alert('Ошибка при обработке изображения');
                     }
                 };
+            });
+
+            // Add alignment controls when image is clicked
+            editor.root.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    const img = e.target;
+                    
+                    // Remove existing alignment menu
+                    const existingMenu = document.querySelector('.image-align-menu');
+                    if (existingMenu) existingMenu.remove();
+                    
+                    // Create alignment menu
+                    const menu = document.createElement('div');
+                    menu.className = 'image-align-menu';
+                    menu.innerHTML = `
+                        <button data-align="left" title="Выровнять слева">⬅️</button>
+                        <button data-align="center" title="Выровнять по центру">↔️</button>
+                        <button data-align="right" title="Выровнять справа">➡️</button>
+                    `;
+                    
+                    // Position menu above image
+                    const rect = img.getBoundingClientRect();
+                    menu.style.position = 'absolute';
+                    menu.style.top = (rect.top + window.scrollY - 40) + 'px';
+                    menu.style.left = (rect.left + window.scrollX + rect.width / 2 - 75) + 'px';
+                    
+                    document.body.appendChild(menu);
+                    
+                    // Handle alignment clicks
+                    menu.querySelectorAll('button').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const align = btn.getAttribute('data-align');
+                            
+                            // Remove old alignment classes
+                            img.classList.remove('ql-align-left', 'ql-align-center', 'ql-align-right');
+                            
+                            // Add new alignment
+                            img.classList.add(`ql-align-${align}`);
+                            img.setAttribute('data-align', align);
+                            
+                            // Trigger content change
+                            editor.root.dispatchEvent(new Event('input', { bubbles: true }));
+                            
+                            menu.remove();
+                        });
+                    });
+                    
+                    // Close menu when clicking outside
+                    setTimeout(() => {
+                        document.addEventListener('click', function closeMenu(e) {
+                            if (!menu.contains(e.target) && e.target !== img) {
+                                menu.remove();
+                                document.removeEventListener('click', closeMenu);
+                            }
+                        });
+                    }, 0);
+                }
             });
 
             // Initial content
@@ -199,8 +296,8 @@
     @push('quill-js')
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-        <!-- РАБОТАЮЩАЯ ВЕРСИЯ РЕСАЙЗ МОДУЛЯ -->
-        <script src="https://unpkg.com/quill-image-resize-module@3.0.0/dist/quill-image-resize-module.min.js"></script>
+        <!-- ImageResize module from jsDelivr -->
+        <script src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
 
         <script>
             function quillEditor(content) {
