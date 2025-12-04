@@ -103,10 +103,10 @@
                             <div class="form-group">
                                 <label for="status">Status <span class="text-danger">*</span></label>
                                 <select wire:model.defer="status" class="form-control @error('status') is-invalid @enderror">
-                                    <option value="draft">Draft</option>
-                                    <option value="open">Open</option>
-                                    <option value="closed">Closed</option>
-                                    <option value="cancelled">Cancelled</option>
+                                    <option value="draft">Черновик</option>
+                                    <option value="open">Открыто</option>
+                                    <option value="closed">Закрыто</option>
+                                    <option value="cancelled">Отменено</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>

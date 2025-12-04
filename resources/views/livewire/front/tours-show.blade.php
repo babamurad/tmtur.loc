@@ -1,23 +1,32 @@
+<style>
+    .tour-category-link {
+        color: #e0e0e0 !important;
+        transition: color 0.2s;
+    }
+
+    .tour-category-link:hover {
+        color: #fff !important;
+        text-decoration: none;
+    }
+</style>
 <div class="container mt-5 pt-5">
     <div class="row">
-        {{--  LEFT: TOUR DETAILS  --}}
+        {{-- LEFT: TOUR DETAILS --}}
         <div class="col-md-8">
             <div class="card shadow-sm mb-4">
                 {{-- ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ --}}
                 @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
                     {{-- Главное изображение --}}
                     <div class="position-relative">
-                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}"
-                             class="card-img-top"
-                             alt="{{ $tour->tr('title') }}"
-                             style="max-height: 500px; object-fit: cover; cursor: pointer;"
-                             data-toggle="modal"
-                             data-target="#galleryModal">
-                        
+                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top"
+                            alt="{{ $tour->tr('title') }}" style="max-height: 500px; object-fit: cover; cursor: pointer;"
+                            data-toggle="modal" data-target="#galleryModal">
+
                         @if($tour->orderedMedia->count() > 1)
                             <div class="position-absolute" style="bottom: 15px; right: 15px;">
                                 <span class="badge badge-dark badge-pill px-3 py-2">
-                                    <i class="fas fa-images"></i> {{ $tour->orderedMedia->count() }} {{ __('messages.photos') ?? 'фото' }}
+                                    <i class="fas fa-images"></i> {{ $tour->orderedMedia->count() }}
+                                    {{ __('messages.photos') ?? 'фото' }}
                                 </span>
                             </div>
                         @endif
@@ -30,22 +39,19 @@
                                 @foreach($tour->orderedMedia->take(6) as $index => $media)
                                     <div class="col-2">
                                         <img src="{{ asset('uploads/' . $media->file_path) }}"
-                                             class="img-thumbnail {{ $index === 0 ? 'border-primary' : '' }}"
-                                             alt="{{ $tour->tr('title') }}"
-                                             style="height: 60px; object-fit: cover; cursor: pointer; width: 100%;"
-                                             data-toggle="modal"
-                                             data-target="#galleryModal"
-                                             onclick="showGalleryImage({{ $index }})">
+                                            class="img-thumbnail {{ $index === 0 ? 'border-primary' : '' }}"
+                                            alt="{{ $tour->tr('title') }}"
+                                            style="height: 60px; object-fit: cover; cursor: pointer; width: 100%;"
+                                            data-toggle="modal" data-target="#galleryModal"
+                                            onclick="showGalleryImage({{ $index }})">
                                     </div>
                                 @endforeach
-                                
+
                                 @if($tour->orderedMedia->count() > 6)
                                     <div class="col-2">
                                         <div class="img-thumbnail d-flex align-items-center justify-content-center bg-light"
-                                             style="height: 60px; cursor: pointer;"
-                                             data-toggle="modal"
-                                             data-target="#galleryModal"
-                                             onclick="showGalleryImage(6)">
+                                            style="height: 60px; cursor: pointer;" data-toggle="modal" data-target="#galleryModal"
+                                            onclick="showGalleryImage(6)">
                                             <span class="text-muted">+{{ $tour->orderedMedia->count() - 6 }}</span>
                                         </div>
                                     </div>
@@ -55,8 +61,8 @@
                     @endif
                 @else
                     {{-- Изображение по умолчанию --}}
-                    <img src="{{ asset('assets/images/tmfotos/default.jpg') }}"
-                         class="card-img-top" alt="{{ $tour->tr('title') }}">
+                    <img src="{{ asset('assets/images/tmfotos/default.jpg') }}" class="card-img-top"
+                        alt="{{ $tour->tr('title') }}">
                 @endif
 
                 {{-- ТЕЛО --}}
@@ -69,9 +75,9 @@
                         {!! $tour->tr('short_description') !!}
                     </div>
 
-                    {{--  СЕТКА ИНФО-ПЛИТОК  --}}
+                    {{-- СЕТКА ИНФО-ПЛИТОК --}}
                     <div class="row text-center mb-3">
-                        {{--  ДНИ  --}}
+                        {{-- ДНИ --}}
                         <div class="col-4">
                             <div class="border rounded py-3">
                                 <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
@@ -82,7 +88,7 @@
                             </div>
                         </div>
 
-                        {{--  ГРУППЫ  --}}
+                        {{-- ГРУППЫ --}}
                         <div class="col-4">
                             <div class="border rounded py-3">
                                 <i class="fas fa-users fa-2x text-info mb-2"></i>
@@ -93,7 +99,7 @@
                             </div>
                         </div>
 
-                        {{--  РАЗМЕЩЕНИЕ  --}}
+                        {{-- РАЗМЕЩЕНИЕ --}}
                         <div class="col-4">
                             <div class="border rounded py-3">
                                 <i class="fas fa-bed fa-2x text-warning mb-2"></i>
@@ -124,8 +130,10 @@
                                                     <div class="d-flex align-items-center">
                                                         <i class="fas fa-calendar-alt text-primary mr-2"></i>
                                                         <div>
-                                                            <strong class="d-block">{{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y') }}</strong>
-                                                            <small class="text-muted">{{ \Carbon\Carbon::parse($group->starts_at)->format('H:i') }}</small>
+                                                            <strong
+                                                                class="d-block">{{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y') }}</strong>
+                                                            <small
+                                                                class="text-muted">{{ \Carbon\Carbon::parse($group->starts_at)->format('H:i') }}</small>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -139,28 +147,37 @@
                                                                 $available = $group->max_people - $group->current_people;
                                                                 $percentage = ($available / $group->max_people) * 100;
                                                             @endphp
-                                                            <span class="badge badge-{{ $percentage > 50 ? 'success' : ($percentage > 20 ? 'warning' : 'danger') }}">
-                                                                {{ $available }} / {{ $group->max_people }} {{ __('messages.seats') ?? 'мест' }}
+                                                            <span
+                                                                class="badge badge-{{ $percentage > 50 ? 'success' : ($percentage > 20 ? 'warning' : 'danger') }}">
+                                                                {{ $available }} / {{ $group->max_people }}
+                                                                {{ __('messages.seats') ?? 'мест' }}
                                                             </span>
-                                                            <small class="d-block text-muted">{{ __('messages.available') ?? 'свободно' }}</small>
+                                                            <small
+                                                                class="d-block text-muted">{{ __('messages.available') ?? 'свободно' }}</small>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {{-- Цена --}}
                                                 <div class="col-md-3 mb-2 mb-md-0">
-                                                    <div class="d-flex flex-column">                                                        
-                                                        
+                                                    <div class="d-flex flex-column">
+
                                                         {{-- 2 Prices Display --}}
                                                         @if($group->max_people > 1)
                                                             <div class="d-flex flex-column">
-                                                                <span class="badge bg-secondary border border-secondary text-secondary mb-1 font-weight-normal text-left" 
-                                                                      style="background-color: #f8f9fa;">
-                                                                    <i class="fas fa-user"></i> 1 {{ __('messages.person') ?? 'чел.' }}: <strong>${{ $group->price_max }}</strong>
+                                                                <span
+                                                                    class="badge bg-secondary border border-secondary text-secondary mb-1 font-weight-normal text-left"
+                                                                    style="background-color: #f8f9fa;">
+                                                                    <i class="fas fa-user"></i> 1
+                                                                    {{ __('messages.person') ?? 'чел.' }}:
+                                                                    <strong>${{ $group->price_max }}</strong>
                                                                 </span>
-                                                                <span class="badge bg-success border border-success text-success mb-1 font-weight-normal text-left" 
-                                                                      style="background-color: #f8fff9;">
-                                                                    <i class="fas fa-users"></i> {{ $group->max_people }} {{ __('messages.people') ?? 'чел.' }}: <strong>${{ $group->price_min }}</strong>
+                                                                <span
+                                                                    class="badge bg-success border border-success text-success mb-1 font-weight-normal text-left"
+                                                                    style="background-color: #f8fff9;">
+                                                                    <i class="fas fa-users"></i> {{ $group->max_people }}
+                                                                    {{ __('messages.people') ?? 'чел.' }}:
+                                                                    <strong>${{ $group->price_min }}</strong>
                                                                 </span>
                                                             </div>
                                                         @endif
@@ -170,8 +187,7 @@
                                                 {{-- Кнопка бронирования --}}
                                                 <div class="col-md-4">
                                                     @if($available > 0)
-                                                        <a href="#"
-                                                           class="btn btn-sm btn-primary btn-block">
+                                                        <a href="#" class="btn btn-sm btn-primary btn-block">
                                                             <i class="fas fa-ticket-alt mr-1"></i>
                                                             {{ __('messages.book_now') ?? 'Забронировать' }}
                                                         </a>
@@ -199,11 +215,12 @@
                         </div>
                     @endif
 
-                    {{--  БЛОК «ВКЛЮЧЕНО / НЕ ВКЛЮЧЕНО»  --}}
+                    {{-- БЛОК «ВКЛЮЧЕНО / НЕ ВКЛЮЧЕНО» --}}
                     @if($tour->inclusions && $tour->inclusions->count())
                         <div class="row text-center mb-3">
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}</h6>
+                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}
+                                </h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         @if($item->pivot->is_included)
@@ -216,7 +233,9 @@
                                 </ul>
                             </div>
                             <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_not_included') }}</h6>
+                                <h6 class="text-uppercase text-muted mb-2 text-left">
+                                    {{ __('messages.what_is_not_included') }}
+                                </h6>
                                 <ul class="list-unstyled text-left">
                                     @foreach($tour->inclusions as $item)
                                         @if(!$item->pivot->is_included)
@@ -234,7 +253,7 @@
                     {{-- Программа тура --}}
 
                     <div class="card-header my-4">
-                    <h5>{{ __('messages.tour_program') }}</h5>
+                        <h5>{{ __('messages.tour_program') }}</h5>
                     </div>
                     <div class="accordion" id="itineraryAccordion">
                         @foreach($tour->itineraryDays as $idx => $day)
@@ -243,23 +262,20 @@
                                 <div class="card-header p-0" id="heading{{ $idx }}">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left d-flex justify-content-between align-items-center
-                                   text-decoration-none text-dark"
-                                                type="button"
-                                                data-toggle="collapse"
-                                                data-target="#collapse{{ $idx }}"
-                                                aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
-                                                aria-controls="collapse{{ $idx }}">
-                                            <span class="badge badge-light">{{ __('messages.day') }} {{ $day->day_number }}</span>
+                                           text-decoration-none text-dark" type="button" data-toggle="collapse"
+                                            data-target="#collapse{{ $idx }}"
+                                            aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
+                                            aria-controls="collapse{{ $idx }}">
+                                            <span class="badge badge-light">{{ __('messages.day') }}
+                                                {{ $day->day_number }}</span>
                                             <span class="font-weight-normal ">{{ $day->tr('title') }}</span>
                                         </button>
                                     </h2>
                                 </div>
 
                                 {{-- тело панели --}}
-                                <div id="collapse{{ $idx }}"
-                                     class="collapse {{ $idx === 0 ? 'show' : '' }}"
-                                     aria-labelledby="heading{{ $idx }}"
-                                     data-parent="#itineraryAccordion">
+                                <div id="collapse{{ $idx }}" class="collapse {{ $idx === 0 ? 'show' : '' }}"
+                                    aria-labelledby="heading{{ $idx }}" data-parent="#itineraryAccordion">
                                     <div class="card-body">
                                         {!! nl2br(e($day->tr('description'))) !!}
                                     </div>
@@ -268,22 +284,25 @@
                         @endforeach
                     </div>
 
-{{--                    accommodations--}}
+                    {{-- accommodations--}}
 
-                        <div class="card-header mt-4">
-                            <h5 class="mb-0">{{ __('messages.accommodations') }}</h5>
-                        </div>
+                    <div class="card-header mt-4">
+                        <h5 class="mb-0">{{ __('messages.accommodations') }}</h5>
+                    </div>
 
                     @if($tour->accommodations)
                         <ul>
                             @foreach($tour->accommodations as $accommodation)
                                 <li>
-                                    {{ $accommodation->tr('location') }} ({{ $accommodation->nights_count }} {{ __('messages.nights') }})
+                                    {{ $accommodation->tr('location') }} ({{ $accommodation->nights_count }}
+                                    {{ __('messages.nights') }})
                                     @if($accommodation->tr('standard_options'))
-                                        <br><small class="text-muted">{{ __('messages.standard') }}: {{ $accommodation->tr('standard_options') }}</small>
+                                        <br><small class="text-muted">{{ __('messages.standard') }}:
+                                            {{ $accommodation->tr('standard_options') }}</small>
                                     @endif
                                     @if($accommodation->tr('comfort_options'))
-                                        <br><small class="text-muted">{{ __('messages.comfort') }}: {{ $accommodation->tr('comfort_options') }}</small>
+                                        <br><small class="text-muted">{{ __('messages.comfort') }}:
+                                            {{ $accommodation->tr('comfort_options') }}</small>
                                     @endif
                                 </li>
                             @endforeach
@@ -291,30 +310,31 @@
                     @endif
                 </div>
 
-                {{--  ФУТЕР  --}}
+                {{-- ФУТЕР --}}
                 <div class="card-footer bg-light text-muted d-flex justify-content-between">
-        <span>
-            {{ __('messages.category') }}:
-{{--            {{ route('tours.category', $tour->category->slug) }}--}}
-
-                @forelse ($tour->categories as $category)
-                    <span class="badge badge-pill badge-primary text-white">
-                        <a href="{{ route('tours.category.show', $category->slug) }}">{{ $category->tr('title') }}</a>
-                    </span>
-                @empty
-                    N/A
-                @endforelse
-
-        </span>
                     <span>
-            <i class="far fa-calendar mr-1"></i>
-            {{ $tour->created_at->diffForHumans() }}
-        </span>
+                        {{ __('messages.category') }}:
+                        {{-- {{ route('tours.category', $tour->category->slug) }}--}}
+
+                        @forelse ($tour->categories as $category)
+                            <span class="badge badge-pill badge-primary text-white">
+                                <a class="tour-category-link"
+                                    href="{{ route('tours.category.show', $category->slug) }}">{{ $category->tr('title') }}</a>
+                            </span>
+                        @empty
+                            N/A
+                        @endforelse
+
+                    </span>
+                    <span>
+                        <i class="far fa-calendar mr-1"></i>
+                        {{ $tour->created_at->diffForHumans() }}
+                    </span>
                 </div>
             </div>
 
             {{-- BOOKING FORM (Livewire component) --}}
-{{--            @livewire('front.tour-booking', ['tour' => $tour], key($tour->id))--}}
+            {{-- @livewire('front.tour-booking', ['tour' => $tour], key($tour->id))--}}
         </div>
 
         {{-- RIGHT: SIDEBAR --}}
@@ -323,7 +343,8 @@
 
     {{-- GALLERY MODAL --}}
     @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
-        <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+        <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                 <div class="modal-content bg-dark">
                     <div class="modal-header border-0">
@@ -339,8 +360,7 @@
                             {{-- Indicators --}}
                             <ol class="carousel-indicators">
                                 @foreach($tour->orderedMedia as $index => $media)
-                                    <li data-target="#galleryCarousel" 
-                                        data-slide-to="{{ $index }}" 
+                                    <li data-target="#galleryCarousel" data-slide-to="{{ $index }}"
                                         class="{{ $index === 0 ? 'active' : '' }}"></li>
                                 @endforeach
                             </ol>
@@ -349,15 +369,13 @@
                             <div class="carousel-inner">
                                 @foreach($tour->orderedMedia as $index => $media)
                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('uploads/' . $media->file_path) }}" 
-                                             class="d-block w-100" 
-                                             alt="{{ $media->file_name }}"
-                                             style="max-height: 80vh; object-fit: contain;">
+                                        <img src="{{ asset('uploads/' . $media->file_path) }}" class="d-block w-100"
+                                            alt="{{ $media->file_name }}" style="max-height: 80vh; object-fit: contain;">
                                         <!-- @if($media->file_name)
-                                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                                <p class="mb-0">{{ $media->file_name }}</p>
-                                            </div>
-                                        @endif -->
+                                                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                                                <p class="mb-0">{{ $media->file_name }}</p>
+                                                            </div>
+                                                        @endif -->
                                     </div>
                                 @endforeach
                             </div>
@@ -377,7 +395,7 @@
                     </div>
                     <div class="modal-footer border-0 justify-content-center">
                         <span class="text-white">
-                            <i class="fas fa-image"></i> 
+                            <i class="fas fa-image"></i>
                             <span id="currentImageNumber">1</span> / {{ $tour->orderedMedia->count() }}
                         </span>
                     </div>
@@ -387,36 +405,36 @@
 
         {{-- Gallery JavaScript --}}
         @push('scripts')
-        <script>
-            function showGalleryImage(index) {
-                $('#galleryCarousel').carousel(index);
-            }
+            <script>
+                function showGalleryImage(index) {
+                    $('#galleryCarousel').carousel(index);
+                }
 
-            $(document).ready(function() {
-                // Update image counter when carousel slides
-                $('#galleryCarousel').on('slid.bs.carousel', function (e) {
-                    var currentIndex = $('div.carousel-item.active').index() + 1;
-                    $('#currentImageNumber').text(currentIndex);
-                });
+                $(document).ready(function () {
+                    // Update image counter when carousel slides
+                    $('#galleryCarousel').on('slid.bs.carousel', function (e) {
+                        var currentIndex = $('div.carousel-item.active').index() + 1;
+                        $('#currentImageNumber').text(currentIndex);
+                    });
 
-                // Keyboard navigation
-                $('#galleryModal').on('shown.bs.modal', function() {
-                    $(document).on('keydown.gallery', function(e) {
-                        if (e.keyCode == 37) { // Left arrow
-                            $('#galleryCarousel').carousel('prev');
-                        } else if (e.keyCode == 39) { // Right arrow
-                            $('#galleryCarousel').carousel('next');
-                        } else if (e.keyCode == 27) { // Escape
-                            $('#galleryModal').modal('hide');
-                        }
+                    // Keyboard navigation
+                    $('#galleryModal').on('shown.bs.modal', function () {
+                        $(document).on('keydown.gallery', function (e) {
+                            if (e.keyCode == 37) { // Left arrow
+                                $('#galleryCarousel').carousel('prev');
+                            } else if (e.keyCode == 39) { // Right arrow
+                                $('#galleryCarousel').carousel('next');
+                            } else if (e.keyCode == 27) { // Escape
+                                $('#galleryModal').modal('hide');
+                            }
+                        });
+                    });
+
+                    $('#galleryModal').on('hidden.bs.modal', function () {
+                        $(document).off('keydown.gallery');
                     });
                 });
-
-                $('#galleryModal').on('hidden.bs.modal', function() {
-                    $(document).off('keydown.gallery');
-                });
-            });
-        </script>
+            </script>
         @endpush
     @endif
 </div>

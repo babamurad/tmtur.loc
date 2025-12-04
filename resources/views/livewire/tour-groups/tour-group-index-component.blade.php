@@ -91,8 +91,7 @@
                                 <th>Тур</th>
                                 <th>Категория</th>
                                 <th>Начало</th>
-                                <th>Макс. людей</th>
-                                <th>Текущее <br> кол-во</th>
+                                <th>Кол-во людей <br> текущее|максимум</th>
                                 <th>Цена <br> min|max</th>
                                 <th>Статус</th>
                                 <th style="width: 120px" class="text-center">Действия</th>
@@ -123,17 +122,12 @@
                                             </span>
                                     </td>
                                     <td>
-                                            <span class="text-muted">
-                                                {{ $tourGroup->max_people }}
+                                            <span class="badge badge-soft-primary font-size-12">
+                                                {{ $tourGroup->current_people }}/{{ $tourGroup->max_people }}
                                             </span>
                                     </td>
                                     <td>
-                                            <span class="text-muted">
-                                                {{ $tourGroup->current_people }}
-                                            </span>
-                                    </td>
-                                    <td>
-                                            <span class="text-muted">
+                                            <span class="badge badge-soft-primary font-size-12">
                                                 ${{ $tourGroup->price_min }} | ${{ $tourGroup->price_max }}
                                             </span>
                                     </td>
@@ -141,19 +135,19 @@
                                         @switch($tourGroup->status)
                                             @case('draft')
                                                 <span
-                                                    class="badge badge-soft-info font-size-12">{{ $tourGroup->status }}</span>
+                                                    class="badge badge-soft-info font-size-12">Черновик</span>
                                                 @break
                                             @case('open')
                                                 <span
-                                                    class="badge badge-soft-success font-size-12">{{ $tourGroup->status }}</span>
+                                                    class="badge badge-soft-success font-size-12">Открыто</span>
                                                 @break
                                             @case('closed')
                                                 <span
-                                                    class="badge badge-soft-warning font-size-12">{{ $tourGroup->status }}</span>
+                                                    class="badge badge-soft-warning font-size-12">Закрыто</span>
                                                 @break
                                             @case('cancelled')
                                                 <span
-                                                    class="badge badge-soft-danger font-size-12">{{ $tourGroup->status }}</span>
+                                                    class="badge badge-soft-danger font-size-12">Отменено</span>
                                                 @break
                                             @default
                                                 <span
