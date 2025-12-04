@@ -72,7 +72,7 @@ class GalleryCreate extends Component
         /* запись в БД */
         $gallery = TurkmenistanGallery::create([
             'title'        => $this->trans[$fallback]['title'],
-            'slug'         => Str::slug($this->title),
+            // 'slug'         => Str::slug($this->title),
             'description'  => $this->trans[$fallback]['description'] ?? '',
             'file_path'    => $path,
             'file_name'    => $fileName,

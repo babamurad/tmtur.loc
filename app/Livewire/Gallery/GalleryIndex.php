@@ -22,12 +22,13 @@ class GalleryIndex extends Component
     public function mount()
     {
         if (session()->has('saved')) {
-            LivewireAlert::alert('success', session('saved.title'), [
-                'position' => 'top-end',
-                'timer' => 3000,
-                'toast' => true,
-                'text' => session('saved.text') ?? '',
-            ]);
+            LivewireAlert::title(session('saved.title'))
+                ->text(session('saved.text') ?? '')
+                ->success()
+                ->position('top-end')
+                ->timer(3000)
+                ->toast()
+                ->show();
         }
     }
 
