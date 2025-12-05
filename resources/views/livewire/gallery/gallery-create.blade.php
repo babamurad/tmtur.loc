@@ -30,21 +30,17 @@
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" 
-                                       data-toggle="tab" 
-                                       href="#lang-{{ config('app.fallback_locale') }}" 
-                                       role="tab">
+                                    <a class="nav-link active" data-toggle="tab"
+                                        href="#lang-{{ config('app.fallback_locale') }}" role="tab">
                                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                        <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
+                                        <span
+                                            class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
                                     </a>
                                 </li>
                                 @foreach(config('app.available_locales') as $locale)
                                     @continue($locale === config('app.fallback_locale'))
                                     <li class="nav-item">
-                                        <a class="nav-link" 
-                                           data-toggle="tab" 
-                                           href="#lang-{{ $locale }}" 
-                                           role="tab">
+                                        <a class="nav-link" data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
                                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
                                         </a>
@@ -55,27 +51,25 @@
                             {{-- Tab Content --}}
                             <div class="tab-content">
                                 {{-- Default Language Tab --}}
-                                <div class="tab-pane active" 
-                                     id="lang-{{ config('app.fallback_locale') }}" 
-                                     role="tabpanel">
-                                    
+                                <div class="tab-pane active" id="lang-{{ config('app.fallback_locale') }}"
+                                    role="tabpanel">
+
                                     <!-- Title -->
                                     <div class="form-group">
                                         <label>Название <span class="text-danger">*</span></label>
-                                        <input type="text" 
-                                               class="form-control @error('title') is-invalid @enderror"
-                                               wire:model.defer="title"
-                                               placeholder="Введите название">
-                                        @error('title') 
-                                            <div class="invalid-feedback">{{ $message }}</div> 
+                                        <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                            wire:model.defer="title" placeholder="Введите название">
+                                        @error('title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <!-- Description -->
                                     <div class="form-group">
                                         <label>Описание</label>
-                                        <x-quill wire:model.defer="trans.{{ config('app.fallback_locale') }}.description" />
-                                        @error('trans.'.config('app.fallback_locale').'.description')
+                                        <x-quill
+                                            wire:model.defer="trans.{{ config('app.fallback_locale') }}.description" />
+                                        @error('trans.' . config('app.fallback_locale') . '.description')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -83,12 +77,12 @@
                                     <!-- Location -->
                                     <div class="form-group">
                                         <label>Местоположение</label>
-                                        <input type="text" 
-                                               class="form-control @error('trans.'.config('app.fallback_locale').'.location') is-invalid @enderror"
-                                               wire:model.defer="trans.{{ config('app.fallback_locale') }}.location"
-                                               placeholder="Например: Ашхабад">
-                                        @error('trans.'.config('app.fallback_locale').'.location') 
-                                            <div class="invalid-feedback">{{ $message }}</div> 
+                                        <input type="text"
+                                            class="form-control @error('trans.' . config('app.fallback_locale') . '.location') is-invalid @enderror"
+                                            wire:model.defer="trans.{{ config('app.fallback_locale') }}.location"
+                                            placeholder="Например: Ашхабад">
+                                        @error('trans.' . config('app.fallback_locale') . '.location')
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
 
@@ -97,12 +91,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Фотограф</label>
-                                                <input type="text" 
-                                                       class="form-control @error('trans.'.config('app.fallback_locale').'.photographer') is-invalid @enderror"
-                                                       wire:model.defer="trans.{{ config('app.fallback_locale') }}.photographer"
-                                                       placeholder="Имя фотографа">
-                                                @error('trans.'.config('app.fallback_locale').'.photographer') 
-                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                <input type="text"
+                                                    class="form-control @error('trans.' . config('app.fallback_locale') . '.photographer') is-invalid @enderror"
+                                                    wire:model.defer="trans.{{ config('app.fallback_locale') }}.photographer"
+                                                    placeholder="Имя фотографа">
+                                                @error('trans.' . config('app.fallback_locale') . '.photographer')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -111,12 +105,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Alt-текст</label>
-                                                <input type="text" 
-                                                       class="form-control @error('trans.'.config('app.fallback_locale').'.alt_text') is-invalid @enderror"
-                                                       wire:model.defer="trans.{{ config('app.fallback_locale') }}.alt_text"
-                                                       placeholder="Описание для SEO">
-                                                @error('trans.'.config('app.fallback_locale').'.alt_text') 
-                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                <input type="text"
+                                                    class="form-control @error('trans.' . config('app.fallback_locale') . '.alt_text') is-invalid @enderror"
+                                                    wire:model.defer="trans.{{ config('app.fallback_locale') }}.alt_text"
+                                                    placeholder="Описание для SEO">
+                                                @error('trans.' . config('app.fallback_locale') . '.alt_text')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -126,19 +120,17 @@
                                 {{-- Other Language Tabs --}}
                                 @foreach(config('app.available_locales') as $locale)
                                     @continue($locale === config('app.fallback_locale'))
-                                    <div class="tab-pane" 
-                                         id="lang-{{ $locale }}" 
-                                         role="tabpanel">
-                                        
+                                    <div class="tab-pane" id="lang-{{ $locale }}" role="tabpanel">
+
                                         <!-- Title -->
                                         <div class="form-group">
                                             <label>Название</label>
-                                            <input type="text" 
-                                                   class="form-control @error('trans.'.$locale.'.title') is-invalid @enderror"
-                                                   wire:model.defer="trans.{{ $locale }}.title"
-                                                   placeholder="Название на {{ strtoupper($locale) }}">
-                                            @error('trans.'.$locale.'.title') 
-                                                <div class="invalid-feedback">{{ $message }}</div> 
+                                            <input type="text"
+                                                class="form-control @error('trans.' . $locale . '.title') is-invalid @enderror"
+                                                wire:model.defer="trans.{{ $locale }}.title"
+                                                placeholder="Название на {{ strtoupper($locale) }}">
+                                            @error('trans.' . $locale . '.title')
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
@@ -146,7 +138,7 @@
                                         <div class="form-group">
                                             <label>Описание</label>
                                             <x-quill wire:model.defer="trans.{{ $locale }}.description" />
-                                            @error('trans.'.$locale.'.description')
+                                            @error('trans.' . $locale . '.description')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -154,12 +146,12 @@
                                         <!-- Location -->
                                         <div class="form-group">
                                             <label>Местоположение</label>
-                                            <input type="text" 
-                                                   class="form-control @error('trans.'.$locale.'.location') is-invalid @enderror"
-                                                   wire:model.defer="trans.{{ $locale }}.location"
-                                                   placeholder="Например: Ашхабад">
-                                            @error('trans.'.$locale.'.location') 
-                                                <div class="invalid-feedback">{{ $message }}</div> 
+                                            <input type="text"
+                                                class="form-control @error('trans.' . $locale . '.location') is-invalid @enderror"
+                                                wire:model.defer="trans.{{ $locale }}.location"
+                                                placeholder="Например: Ашхабад">
+                                            @error('trans.' . $locale . '.location')
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
@@ -168,12 +160,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Фотограф</label>
-                                                    <input type="text" 
-                                                           class="form-control @error('trans.'.$locale.'.photographer') is-invalid @enderror"
-                                                           wire:model.defer="trans.{{ $locale }}.photographer"
-                                                           placeholder="Имя фотографа">
-                                                    @error('trans.'.$locale.'.photographer') 
-                                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                                    <input type="text"
+                                                        class="form-control @error('trans.' . $locale . '.photographer') is-invalid @enderror"
+                                                        wire:model.defer="trans.{{ $locale }}.photographer"
+                                                        placeholder="Имя фотографа">
+                                                    @error('trans.' . $locale . '.photographer')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -182,12 +174,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Alt-текст</label>
-                                                    <input type="text" 
-                                                           class="form-control @error('trans.'.$locale.'.alt_text') is-invalid @enderror"
-                                                           wire:model.defer="trans.{{ $locale }}.alt_text"
-                                                           placeholder="Описание для SEO">
-                                                    @error('trans.'.$locale.'.alt_text') 
-                                                        <div class="invalid-feedback">{{ $message }}</div> 
+                                                    <input type="text"
+                                                        class="form-control @error('trans.' . $locale . '.alt_text') is-invalid @enderror"
+                                                        wire:model.defer="trans.{{ $locale }}.alt_text"
+                                                        placeholder="Описание для SEO">
+                                                    @error('trans.' . $locale . '.alt_text')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -195,11 +187,9 @@
                                     </div>
                                 @endforeach
                             </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-
                 {{-- Sidebar Column --}}
                 <div class="col-lg-4">
                     {{-- Image Section --}}
@@ -209,15 +199,12 @@
                                 <i class="bx bx-image font-size-18 align-middle mr-1 text-primary"></i>
                                 Изображение
                             </h5>
-                            
+
                             <div class="form-group">
                                 <label>Файл <span class="text-danger">*</span></label>
                                 <div class="custom-file">
-                                    <input type="file"
-                                           class="custom-file-input @error('photo') is-invalid @enderror"
-                                           id="photo"
-                                           wire:model="photo"
-                                           accept="image/*">
+                                    <input type="file" class="custom-file-input @error('photo') is-invalid @enderror"
+                                        id="photo" wire:model="photo" accept="image/*">
                                     <label class="custom-file-label" for="photo">
                                         {{ $photo ? $photo->getClientOriginalName() : 'Выберите файл' }}
                                     </label>
@@ -229,9 +216,8 @@
                             @if($photo)
                                 <div class="mt-3">
                                     <p class="text-muted mb-2"><small>Предпросмотр:</small></p>
-                                    <img src="{{ $photo->temporaryUrl() }}"
-                                         class="img-fluid rounded shadow-sm"
-                                         style="max-height:200px;object-fit:cover;" alt="Превью">
+                                    <img src="{{ $photo->temporaryUrl() }}" class="img-fluid rounded shadow-sm"
+                                        style="max-height:200px;object-fit:cover;" alt="Превью">
                                 </div>
                             @else
                                 <div class="mt-3 text-center p-4 bg-light rounded">
@@ -253,20 +239,16 @@
                             <!-- Order -->
                             <div class="form-group">
                                 <label>Порядок</label>
-                                <input type="number" 
-                                       wire:model.defer="order"
-                                       class="form-control @error('order') is-invalid @enderror" 
-                                       min="0">
+                                <input type="number" wire:model.defer="order"
+                                    class="form-control @error('order') is-invalid @enderror" min="0">
                                 @error('order') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </div>
 
                             <!-- Featured -->
                             <div class="form-group mb-0">
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" 
-                                           class="custom-control-input" 
-                                           id="is_featured"
-                                           wire:model.defer="is_featured">
+                                    <input type="checkbox" class="custom-control-input" id="is_featured"
+                                        wire:model.defer="is_featured">
                                     <label class="custom-control-label" for="is_featured">
                                         <strong>Избранное</strong>
                                         <br>
@@ -280,13 +262,12 @@
                     {{-- Action Buttons --}}
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit"
-                                    class="btn btn-success btn-block waves-effect waves-light">
+                            <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
                                 <i class="fas fa-save font-size-16 align-middle mr-1"></i>
                                 Сохранить
                             </button>
                             <a href="{{ route('gallery.index') }}"
-                               class="btn btn-secondary btn-block waves-effect waves-light mt-2">
+                                class="btn btn-secondary btn-block waves-effect waves-light mt-2">
                                 <i class="fas fa-times font-size-16 align-middle mr-1"></i>
                                 Отмена
                             </a>
@@ -294,6 +275,9 @@
                     </div>
                 </div>
             </div>
-        </form>
+
+
     </div>
+    </form>
+</div>
 </div>
