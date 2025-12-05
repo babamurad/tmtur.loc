@@ -43,7 +43,7 @@
                 theme: 'snow',
                 modules: modules
             });
-            
+
             console.log('Quill initialized successfully');
 
             // Custom image handler
@@ -169,64 +169,64 @@
             // Initial content
             editor.root.innerHTML = this.content;
 
-    // Livewire → Quill
-    editor.on('text-change', () => {
-    this.content = editor.root.innerHTML;
-    });
+            // Livewire → Quill
+            editor.on('text-change', () => {
+                this.content = editor.root.innerHTML;
+            });
 
-    // Quill → Livewire
-    this.$watch('content', (value) => {
-    if (editor.root.innerHTML !== value) {
-    editor.root.innerHTML = value;
-    }
-    });
-    },
+            // Quill → Livewire
+            this.$watch('content', (value) => {
+                if (editor.root.innerHTML !== value) {
+                    editor.root.innerHTML = value;
+                }
+            });
+        },
 
-    // Image processing function
-    processImage(file) {
-    return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+        // Image processing function
+        processImage(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
 
-    reader.onload = (e) => {
-    const img = new Image();
+                reader.onload = (e) => {
+                    const img = new Image();
 
-    img.onload = () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
 
-    // Calculate new dimensions (max 1800px)
-    let width = img.width;
-    let height = img.height;
-    const maxSize = 1800;
+                        // Calculate new dimensions (max 1800px)
+                        let width = img.width;
+                        let height = img.height;
+                        const maxSize = 1800;
 
-    if (width > maxSize || height > maxSize) {
-    if (width > height) {
-    height = (height / width) * maxSize;
-    width = maxSize;
-    } else {
-    width = (width / height) * maxSize;
-    height = maxSize;
-    }
-    }
+                        if (width > maxSize || height > maxSize) {
+                            if (width > height) {
+                                height = (height / width) * maxSize;
+                                width = maxSize;
+                            } else {
+                                width = (width / height) * maxSize;
+                                height = maxSize;
+                            }
+                        }
 
-    canvas.width = width;
-    canvas.height = height;
+                        canvas.width = width;
+                        canvas.height = height;
 
-    // Draw and compress (75% quality)
-    ctx.drawImage(img, 0, 0, width, height);
-    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                        // Draw and compress (75% quality)
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
 
-    resolve(compressedDataUrl);
-    };
+                        resolve(compressedDataUrl);
+                    };
 
-    img.onerror = reject;
-    img.src = e.target.result;
-    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
 
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-    });
-    }
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
     }" x-init="initQuill" wire:ignore class="quill-wrapper">
 
     <div x-ref="editor"></div>
@@ -353,7 +353,8 @@
                                         ['bold', 'italic', 'underline'],
                                         [{ list: 'ordered' }, { list: 'bullet' }],
                                         [{ 'align': [] }],
-                                        ['link', 'image']
+                                        ['link', 'image'],
+                                        [{ 'table': 'insert' }]
                                     ],
                                     handlers: {
                                         image: () => this.selectLocalImage(editor)

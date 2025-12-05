@@ -26,6 +26,7 @@ body {
 }
 
 @media (max-width: 767.98px) {
+
     #home-carousel .carousel,
     #home-carousel .carousel-inner,
     #home-carousel .carousel-item {
@@ -216,25 +217,36 @@ body {
 .soc-btn {
     width: 38px !important;
     height: 38px !important;
-    min-width: 38px !important; /* Принудительно устанавливаем минимальную ширину */
-    min-height: 38px !important; /* Принудительно устанавливаем минимальную высоту */
+    min-width: 38px !important;
+    /* Принудительно устанавливаем минимальную ширину */
+    min-height: 38px !important;
+    /* Принудительно устанавливаем минимальную высоту */
     border-radius: 50% !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    display: grid !important; /* Используем grid для принудительного центрирования */
-    place-items: center !important; /* Центрируем содержимое */
+    display: grid !important;
+    /* Используем grid для принудительного центрирования */
+    place-items: center !important;
+    /* Центрируем содержимое */
     color: #fff !important;
-    overflow: hidden !important; /* Обрезает содержимое, если оно выходит за границы */
-    text-decoration: none !important; /* Удаляем подчеркивание */
-    white-space: nowrap !important; /* Предотвращаем перенос текста */
-    flex-shrink: 0 !important; /* Предотвращаем уменьшение элемента */
-    flex-grow: 0 !important; /* Предотвращаем увеличение элемента */
-    line-height: 1 !important; /* Обеспечивает правильное вертикальное выравнивание */
+    overflow: hidden !important;
+    /* Обрезает содержимое, если оно выходит за границы */
+    text-decoration: none !important;
+    /* Удаляем подчеркивание */
+    white-space: nowrap !important;
+    /* Предотвращаем перенос текста */
+    flex-shrink: 0 !important;
+    /* Предотвращаем уменьшение элемента */
+    flex-grow: 0 !important;
+    /* Предотвращаем увеличение элемента */
+    line-height: 1 !important;
+    /* Обеспечивает правильное вертикальное выравнивание */
     transition: .25s;
 }
 
 .soc-btn i {
-    font-size: 1.1rem !important; /* Устанавливаем размер шрифта для иконки */
+    font-size: 1.1rem !important;
+    /* Устанавливаем размер шрифта для иконки */
 }
 
 .soc-btn:hover {
@@ -243,11 +255,25 @@ body {
 }
 
 /* Social colors */
-.btn-fb { background: #1877f2 !important; }
-.btn-tw { background: #000 !important; }
-.btn-ig { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) !important; }
-.btn-yt { background: #ff0000 !important; }
-.btn-ws { background: #25D366 !important; }
+.btn-fb {
+    background: #1877f2 !important;
+}
+
+.btn-tw {
+    background: #000 !important;
+}
+
+.btn-ig {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d) !important;
+}
+
+.btn-yt {
+    background: #ff0000 !important;
+}
+
+.btn-ws {
+    background: #25D366 !important;
+}
 
 /* DROPDOWNS */
 .dropdown-item.active,
@@ -455,8 +481,13 @@ body {
 }
 
 @media (max-width: 576px) {
-    .about-large { height: 220px; }
-    .about-small { height: 120px; }
+    .about-large {
+        height: 220px;
+    }
+
+    .about-small {
+        height: 120px;
+    }
 }
 
 /* SAFE ENTRY */
@@ -465,12 +496,12 @@ body {
     border-radius: 16px;
     border: 1px solid #e6e6e6;
     transition: .25s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .safe-pill:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 22px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
     background: #f7faf7;
 }
 
@@ -488,16 +519,21 @@ body {
 }
 
 @media (max-width: 576px) {
-    .safe-pill { padding: 18px !important; }
+    .safe-pill {
+        padding: 18px !important;
+    }
+
     .safe-icon {
         width: 55px;
         height: 55px;
         font-size: 1.6rem;
     }
+
     #safe-entry h2 {
         font-size: 1.7rem !important;
     }
 }
+
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -526,6 +562,7 @@ body {
     .about-large {
         height: 220px;
     }
+
     .about-small {
         height: 120px;
     }
@@ -563,7 +600,7 @@ body {
 .nav-ghost-btn {
     border-color: #d1d5db;
     color: #374151;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .nav-ghost-btn:hover {
@@ -638,7 +675,7 @@ body {
     position: absolute;
     inset: 0;
     background: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.08), transparent 32%),
-    radial-gradient(circle at 90% 30%, rgba(16, 185, 129, 0.08), transparent 35%);
+        radial-gradient(circle at 90% 30%, rgba(16, 185, 129, 0.08), transparent 35%);
     z-index: 0;
 }
 
@@ -668,7 +705,7 @@ body {
     pointer-events: none;
 }
 
-.auth-card .card-body > * {
+.auth-card .card-body>* {
     position: relative;
     z-index: 1;
 }
@@ -730,6 +767,16 @@ body {
     color: #4f46e5;
     text-decoration: none;
 }
-.dropdown .dropdown-menu .dropdown-item:hover{
+
+.dropdown .dropdown-menu .dropdown-item:hover {
     color: #4f46e5 !important;
+}
+
+.article img,
+.article iframe,
+.article video,
+.article embed,
+.article object {
+    max-width: 100%;
+    height: auto;
 }

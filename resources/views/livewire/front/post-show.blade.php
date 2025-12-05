@@ -51,7 +51,9 @@
                     <hr>
                     <!-- Grid row -->
                     <div class="row mx-md-4 px-4 mt-3">
-                        <p class="text-dark article">{!! $post->tr('content') !!}</p>
+                        <div class="col-12">
+                            <div class="text-dark article">{!! $post->tr('content') !!}</div>
+                        </div>
                     </div>
                     <!-- Grid row -->
                     <hr>
