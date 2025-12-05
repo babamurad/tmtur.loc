@@ -15,29 +15,24 @@
                     <a class="nav-link" href="/#home" wire:navigate>{{ __('menu.home') }}</a>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="/#about">{{ __('menu.about') }}</a>
-                </li>
+                </li> -->
 
                 {{-- Выпадающий пункт «Туры» --}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="toursDropdown"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         {{ __('menu.tours') }}
                     </a>
 
                     <div class="dropdown-menu mega-dropdown" aria-labelledby="toursDropdown">
-                        <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">{{ __('menu.tours') }}</div>
+                        <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">
+                            {{ __('menu.tours') }}</div>
                         <div class="dropdown-grid px-2 pb-2">
                             @foreach($categories as $category)
                                 <a class="dropdown-item d-flex align-items-center"
-                                   href="{{ route('tours.category.show', $category->slug) }}"
-                                   wire:navigate>
+                                    href="{{ route('tours.category.show', $category->slug) }}" wire:navigate>
                                     <span class="badge-dot mr-2"></span>
                                     <span>{{ $category->tr('title') }}</span>
                                 </a>
@@ -46,8 +41,7 @@
 
                         <div class="dropdown-footer border-top px-3 py-2">
                             <a class="dropdown-item font-weight-semibold d-flex align-items-center"
-                               href="{{ route('tours.category.index') }}"
-                               wire:navigate>
+                                href="{{ route('tours.category.index') }}" wire:navigate>
                                 <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.all_tours') }}
                             </a>
                         </div>
@@ -74,21 +68,25 @@
             <div class="ml-lg-3 d-flex align-items-center nav-auth-actions">
                 @auth
                     <div class="dropdown">
-                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="accountMenu"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountMenu">
                             <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
                                 @csrf
-                                <button type="submit" class="btn btn-link p-0 text-danger">{{ __('menu.logout') ?? 'Logout' }}</button>
+                                <button type="submit"
+                                    class="btn btn-link p-0 text-danger">{{ __('menu.logout') ?? 'Logout' }}</button>
                             </form>
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2 nav-ghost-btn" wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
-                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm nav-cta-btn" wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
+                    <a href="{{ route('front.login') }}" class="btn btn-outline-secondary btn-sm mr-2 nav-ghost-btn"
+                        wire:navigate>{{ __('menu.login') ?? 'Войти' }}</a>
+                    <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm nav-cta-btn"
+                        wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a>
                 @endauth
-            </div>            
+            </div>
         </div>
     </div>
 </nav>
