@@ -39,6 +39,7 @@ return [
     'published' => 'Опубликовано',
     'in_category' => 'в категории',
     'popular_posts' => 'ПОПУЛЯРНЫЕ ПОСТЫ',
+    'all_posts'   => 'Все посты',
 
     // Tour Groups
     'available_dates' => 'Доступные даты отправления',

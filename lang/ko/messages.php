@@ -39,6 +39,7 @@ return [
     'published' => '게시됨',
     'in_category' => '카테고리',
     'popular_posts' => '인기 게시물',
+    'all_posts'   => '모든 게시물',
 
     // Tour Groups
     'available_dates' => '출발 가능 날짜',

@@ -43,6 +43,12 @@
                             <span class="badge bg-danger rounded-pill">{{ $category->posts_count }}</span>
                         </li>
                     @endforeach
+                    <li
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="{{ route('blog.index') }}"
+                            class="text-decoration-none text-dark">{{ __('messages.all_posts') }}</a>
+                        <span class="badge bg-danger rounded-pill">{{ \App\Models\Post::where('status', true)->count() }}</span>
+                    </li>
                 </ul>
             </section>
             <!-- Section: Categories -->

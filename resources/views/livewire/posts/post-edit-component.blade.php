@@ -194,9 +194,17 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="submit"
-                                    class="btn btn-success btn-block waves-effect waves-light">
-                                <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                Сохранить
+                                    class="btn btn-success btn-block waves-effect waves-light"
+                                    wire:loading.attr="disabled"
+                                    wire:target="save">
+                                <span wire:loading.remove wire:target="save">
+                                    <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
+                                    Сохранить
+                                </span>
+                                <span wire:loading wire:target="save">
+                                    <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i>
+                                    Сохраняем...
+                                </span>
                             </button>
                             <a href="{{ route('posts.index') }}"
                                class="btn btn-secondary btn-block waves-effect waves-light mt-2">
