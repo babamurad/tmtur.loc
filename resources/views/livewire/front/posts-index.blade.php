@@ -10,7 +10,8 @@
                     @endif
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->tr('title') }}</h2>
-                        <p class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</p>
+                        <!-- <p class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</p> -->
+                         <div>{{ $post->tr('content') }}</div>
                         
                         <a href="{{ route('blog.show', $post->slug) }}"
                             class="btn btn-primary read-more-btn">{{ __('messages.read_more') }}</a>
