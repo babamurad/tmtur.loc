@@ -19,6 +19,7 @@
                         {{ __('messages.in_category') }} <a
                             href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->tr('title') }}</a>
                         <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
+                        
                     </div>
                 </div>
             @endforeach
