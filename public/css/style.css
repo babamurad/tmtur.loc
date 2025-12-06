@@ -780,3 +780,8 @@ body {
     max-width: 100%;
     height: auto;
 }
+
+.read-more-btn::before,
+.read-more-btn::after {
+    content: normal !important;
+}
