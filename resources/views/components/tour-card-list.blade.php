@@ -72,7 +72,7 @@
                     <div class="d-flex justify-content-between mb-2">
                         <span class="fw-bold text-danger">
                             <i class="fas fa-clock"></i>
-                            {{ $tour->duration_days }} {{ __('messages.days_label') }}
+                            {{ trans_choice('messages.days', $tour->duration_days, ['count' => $tour->duration_days]) }}
                         </span>
 
                         <span class="text-warning">
