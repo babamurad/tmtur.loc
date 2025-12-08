@@ -18,6 +18,11 @@ class CategoryIndex extends Component
     {
         $this->view = session('tour_view_preference', 'grid');
     }
+    
+    public function updatingView()
+    {
+        $this->resetPage(); // СБРОСИТЬ пагинацию
+    }
 
     public function setView(string $view)
     {

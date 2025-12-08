@@ -785,3 +785,13 @@ body {
 .read-more-btn::after {
     content: normal !important;
 }
+
+.tour-category-link {
+        color: #e0e0e0 !important;
+        transition: color 0.2s;
+}
+
+.tour-category-link:hover {
+    color: #fff !important;
+    text-decoration: none;
+}
