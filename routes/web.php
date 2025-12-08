@@ -4,6 +4,7 @@ use App\Livewire\ContactInfosCrud;
 use App\Livewire\Front\CategoryIndex;
 use App\Livewire\Front\CategoryShowTour;
 use App\Livewire\Front\HomeComponent;
+use App\Livewire\Front\TourGroupsIndexComponent;
 use App\Livewire\Front\Auth\LoginComponent as FrontLoginComponent;
 use App\Livewire\Front\Auth\RegisterComponent as FrontRegisterComponent;
 use App\Livewire\Gallery\GalleryCreate;
@@ -139,6 +140,9 @@ Route::get('/', HomeComponent::class)->name('home');
 Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('our-tours.show');
 Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
 Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
+
+// Тур-группы (публичная страница)
+Route::get('tour-groups', TourGroupsIndexComponent::class)->name('front.tour-groups');
 
 Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
 Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
