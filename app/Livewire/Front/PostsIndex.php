@@ -21,14 +21,17 @@ class PostsIndex extends Component
 
     public function render()
     {
-        $posts = Post::query()
+        $baseQuery = Post::query()
             ->when($this->categorySlug, function ($query) {
                 $query->whereHas('category', function ($q) {
                     $q->where('slug', $this->categorySlug);
                 });
             })
-            ->where('status', true)
-            ->orderBy('published_at', 'desc')
+            ->where('status', true);
+
+        $totalPosts = $baseQuery->count();
+
+        $posts = $baseQuery->orderBy('published_at', 'desc')
             ->paginate(2);
 
         $categories = Category::withCount('posts')->where('is_published', true)->get();
@@ -45,6 +48,7 @@ class PostsIndex extends Component
         return view('livewire.front.posts-index', [
             'posts' => $posts,
             'categories' => $categories,
+            'totalPosts' => $totalPosts,
         ])
             ->layout('layouts.front-app', ['hideCarousel' => true])
             ->title($title);

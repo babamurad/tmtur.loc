@@ -23,6 +23,7 @@ return [
     ],
     'email'        => '전체 서류를 다음으로 보내세요:',
     'timeline'     => 'LOI(초청장) 처리 기간',
+    'days_duration' => '10–14일',
     'timeline_txt' => '모든 서류를 받은 후 초청장(LOI)은 보통 :days 이내에 준비됩니다(출발일이 너무 가까우면 제외). 이메일로 발송해 드립니다.',
     'where_title'  => '비자 발급 장소',
     'where_txt'    => 'LOI를 받으신 후:',

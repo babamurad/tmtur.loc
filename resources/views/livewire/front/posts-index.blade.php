@@ -10,15 +10,17 @@
                     @endif
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->tr('title') }}</h2>
-                        <p class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</p>
+                        <!-- <div class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</div>s -->
+                        
                         <a href="{{ route('blog.show', $post->slug) }}"
-                            class="btn btn-primary">{{ __('messages.read_more') }}</a>
+                            class="btn btn-primary read-more-btn">{{ __('messages.read_more') }}</a>
                     </div>
                     <div class="card-footer text-muted">
                         {{ __('messages.published') }} {{ $post->created_at->diffForHumans() }}
                         {{ __('messages.in_category') }} <a
                             href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->tr('title') }}</a>
                         <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
+                        
                     </div>
                 </div>
             @endforeach
@@ -41,6 +43,12 @@
                             <span class="badge bg-danger rounded-pill">{{ $category->posts_count }}</span>
                         </li>
                     @endforeach
+                    <li
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="{{ route('blog.index') }}"
+                            class="text-decoration-none text-dark">{{ __('messages.all_posts') }}</a>
+                        <span class="badge bg-danger rounded-pill">{{ \App\Models\Post::where('status', true)->count() }}</span>
+                    </li>
                 </ul>
             </section>
             <!-- Section: Categories -->

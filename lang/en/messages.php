@@ -39,6 +39,7 @@ return [
     'published' => 'Published',
     'in_category' => 'in category',
     'popular_posts' => 'POPULAR POSTS',
+    'all_posts'   => 'All Posts',
 
     // Tour Groups
     'available_dates' => 'Available Departure Dates',

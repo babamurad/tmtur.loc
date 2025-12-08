@@ -42,16 +42,16 @@
         </div>
 
         <!-- SHORT DESCRIPTION -->
-        <p class="text-muted small mb-3" style="line-height: 1.45;">
+        <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
             {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-        </p>
+        </p> -->
 
         <!-- RATING + DURATION -->
         <div class="d-flex justify-content-between align-items-center mb-3">
 
             <!-- Duration -->
             <span class="badge-duration-gyg">
-                {{ $tour->duration_days }} days
+                {{ trans_choice('messages.days', $tour->duration_days, ['count' => $tour->duration_days]) }}
             </span>
 
             <!-- Rating -->

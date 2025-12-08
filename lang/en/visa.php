@@ -22,6 +22,7 @@ return [
     ],
     'email'        => 'Send the full package to:',
     'timeline'     => 'LOI processing time',
+    'days_duration' => '10–14 days',
     'timeline_txt' => 'After we receive complete documents, the Letter of Invitation (LOI) is usually ready within :days (unless the request is submitted too close to travel date). We’ll email the LOI to you.',
     'where_title'  => 'Where to obtain the visa',
     'where_txt'    => 'With the LOI you can:',
