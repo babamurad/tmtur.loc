@@ -3,7 +3,9 @@
 namespace App\Livewire\Front;
 
 use Livewire\Component;
-use App\Models\{Category, Tour, TourCategory, TourGroup, TourGroupService};
+use App\Mail\ContactReceived;
+use App\Models\{Category, ContactMessage, Tour, TourCategory, TourGroup, TourGroupService};
+use Illuminate\Support\Facades\Mail;
 
 class ToursShow extends Component
 {
@@ -63,21 +65,40 @@ class ToursShow extends Component
             return;
         }
 
+        $tourGroup = null;
+        if ($this->selectedGroupId) {
+            $tourGroup = TourGroup::find($this->selectedGroupId);
+        }
+
         $data = [
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'message' => $this->message,
+            'tour_id' => $this->tour->id,
+            'tour_title' => $this->tour->tr('title'),
+            'tour_group_id' => $this->selectedGroupId,
+            'tour_group_title' => $tourGroup ? $tourGroup->tr('title') : null,
+            'people_count' => $this->peopleCount,
+            'services' => array_keys(array_filter($this->services)),
         ];
 
-        // Save to DB (if model exists)
+        // Save to DB
         try {
-            ContactMessage::create(array_merge($data, [
+            ContactMessage::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'message' => $data['message'] ?? $this->tour->tr('title'),
+                'tour_title' => $data['tour_title'],
+                'tour_id' => $data['tour_id'],
+                'tour_group_id' => $data['tour_group_id'],
+                'people_count' => $data['people_count'],
+                'services' => json_encode($data['services']), // Сохраняем как JSON
                 'ip' => request()->ip(),
                 'user_agent' => request()->header('User-Agent'),
-            ]));
+            ]);
         } catch (\Throwable $e) {
-            // log but continue — don't fail UX
             \Log::error('ContactMessage save error: '.$e->getMessage());
         }
 
@@ -85,6 +106,7 @@ class ToursShow extends Component
         $this->resetForm();
         session()->flash('contact_success', 'Message sent. Thank you!');
         $this->dispatch('messagesUpdated');
+        $this->dispatch('close-modal'); // Добавлено для закрытия модального окна
         $this->sending = false;
 
         // Send email notification asynchronously (in background)
@@ -92,9 +114,17 @@ class ToursShow extends Component
         try {
             $recipient = env('MAIL_TO_ADDRESS') ?: config('mail.from.address');
             if ($recipient) {
-                // Use queue if available (database/redis), otherwise send immediately
-                Mail::to($recipient)->send(new ContactReceived($data));
-                \Log::channel('daily')->info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email']]);
+                Mail::to($recipient)->send(new ContactReceived(
+                    ['name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'], 'message' => $data['message']],
+                    [
+                        'tour_title' => $data['tour_title'],
+                        'tour_group_id' => $data['tour_group_id'],
+                        'tour_group_title' => $data['tour_group_title'],
+                        'people_count' => $data['people_count'],
+                        'services' => $data['services'],
+                    ]
+                ));
+                \Log::channel('daily')->info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email'], 'tour_id' => $data['tour_id'] ?? null]);
             } else {
                 \Log::channel('daily')->warning('Contact form submitted but no recipient email configured in .env');
             }

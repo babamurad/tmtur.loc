@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новое сообщение с контактной формы</title>
+    <title>{{ $tourTitle ? 'Запрос по туру: ' . $tourTitle : 'Новое сообщение с контактной формы' }}</title>
     <style>
         * {
             margin: 0;
@@ -149,8 +149,17 @@
     <div class="email-container">
         <!-- Header -->
         <div class="email-header">
-            <h1>📧 Новое сообщение</h1>
-            <p>Получено через контактную форму сайта</p>
+            <h1>📧 {{ $tourTitle ? 'Запрос по туру' : 'Новое сообщение' }}</h1>
+            <p>
+                @if($tourTitle)
+                    Тур: <strong>{{ $tourTitle }}</strong>
+                    @if($tourGroupTitle)
+                        (Группа: {{ $tourGroupTitle }})
+                    @endif
+                @else
+                    Получено через контактную форму сайта
+                @endif
+            </p>
         </div>
 
         <!-- Body -->
@@ -159,26 +168,54 @@
                 🕐 {{ now()->format('d.m.Y H:i:s') }}
             </div>
 
+            <!-- Tour Information (if available) -->
+            @if($tourTitle)
+            <div class="info-section">
+                <div class="info-row">
+                    <span class="info-label">Тур:</span>
+                    <span class="info-value">{{ $tourTitle }}</span>
+                </div>
+                @if($tourGroupTitle)
+                <div class="info-row">
+                    <span class="info-label">Группа:</span>
+                    <span class="info-value">{{ $tourGroupTitle }}</span>
+                </div>
+                @endif
+                @if($peopleCount)
+                <div class="info-row">
+                    <span class="info-label">Кол-во человек:</span>
+                    <span class="info-value">{{ $peopleCount }}</span>
+                </div>
+                @endif
+                @if(!empty($services))
+                <div class="info-row">
+                    <span class="info-label">Услуги:</span>
+                    <span class="info-value">{{ implode(', ', $services) }}</span>
+                </div>
+                @endif
+            </div>
+            @endif
+
             <!-- Contact Information -->
             <div class="info-section">
                 <div class="info-row">
                     <span class="info-label">Имя:</span>
-                    <span class="info-value">{{ $data['name'] }}</span>
+                    <span class="info-value">{{ $name }}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Email:</span>
                     <span class="info-value">
-                        <a href="mailto:{{ $data['email'] }}" style="color: #667eea; text-decoration: none;">
-                            {{ $data['email'] }}
+                        <a href="mailto:{{ $email }}" style="color: #667eea; text-decoration: none;">
+                            {{ $email }}
                         </a>
                     </span>
                 </div>
-                @if (!empty($data['phone']))
+                @if (!empty($phone))
                 <div class="info-row">
                     <span class="info-label">Телефон:</span>
                     <span class="info-value">
-                        <a href="tel:{{ $data['phone'] }}" style="color: #667eea; text-decoration: none;">
-                            {{ $data['phone'] }}
+                        <a href="tel:{{ $phone }}" style="color: #667eea; text-decoration: none;">
+                            {{ $phone }}
                         </a>
                     </span>
                 </div>
@@ -188,12 +225,12 @@
             <!-- Message Content -->
             <div class="message-section">
                 <h3>💬 Текст сообщения:</h3>
-                <div class="message-content">{!! nl2br(e($data['message'])) !!}</div>
+                <div class="message-content">{!! nl2br(e($messageText)) !!}</div>
             </div>
 
             <!-- Quick Reply Button -->
             <center>
-                <a href="mailto:{{ $data['email'] }}?subject=Re: Ваше обращение" class="reply-button text-white">
+                <a href="mailto:{{ $email }}?subject=Re: {{ $tourTitle ? 'Запрос по туру ' . $tourTitle : 'Ваше обращение' }}" class="reply-button text-white">
                     Ответить клиенту
                 </a>
             </center>

@@ -27,14 +27,16 @@ class ContactReceived extends Mailable implements ShouldQueue
      */
     public $backoff = 10;
 
-    public $data; // массив с name,email,phone,message
+    public $data; // массив с name,email,phone,message, а также данными о туре
+    public $tourData; // данные о туре
 
     /**
      * Create a new message instance.
      */
-    public function __construct(array $data)
+    public function __construct(array $data, array $tourData = [])
     {
         $this->data = $data;
+        $this->tourData = $tourData;
     }
 
     /**
@@ -42,8 +44,16 @@ class ContactReceived extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
+        $subject = 'Новое сообщение с сайта / New Contact Message';
+        if (!empty($this->tourData['tour_title'])) {
+            $subject = 'Запрос по туру: ' . $this->tourData['tour_title'];
+            if (!empty($this->tourData['tour_group_title'])) {
+                $subject .= ' (' . $this->tourData['tour_group_title'] . ')';
+            }
+        }
+
         return new Envelope(
-            subject: 'Новое сообщение с сайта / New Contact Message',
+            subject: $subject,
         );
     }
 
@@ -54,6 +64,17 @@ class ContactReceived extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'emails.contact-received',
+            with: [
+                'name' => $this->data['name'],
+                'email' => $this->data['email'],
+                'phone' => $this->data['phone'],
+                'messageText' => $this->data['message'],
+                'tourTitle' => $this->tourData['tour_title'] ?? null,
+                'tourGroupId' => $this->tourData['tour_group_id'] ?? null,
+                'tourGroupTitle' => $this->tourData['tour_group_title'] ?? null,
+                'peopleCount' => $this->tourData['people_count'] ?? null,
+                'services' => $this->tourData['services'] ?? [],
+            ],
         );
     }
 
