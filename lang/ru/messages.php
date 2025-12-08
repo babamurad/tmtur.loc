@@ -56,4 +56,9 @@ return [
     'photos' => 'фото',
     'person' => 'чел.',
     'people' => 'чел.',
+    'no_tour_groups_available' => 'В данный момент нет доступных тур-групп.',
+    'available_seats' => 'Доступно мест',
+    'price_per_person' => 'Цена за человека',
+    'price_full_group' => 'Цена за всю группу (:count чел.)',
+    'people_range' => 'Количество человек',
 ];

@@ -54,4 +54,9 @@ return [
     'from' => '부터',
     'price' => '가격',
     'photos' => '사진',
+    'no_tour_groups_available' => '현재 이용 가능한 투어 그룹이 없습니다.',
+    'available_seats' => '예약 가능 좌석',
+    'price_per_person' => '1인당 가격',
+    'price_full_group' => '전체 그룹 가격 (:count명)',
+    'people_range' => '인원 수',
 ];

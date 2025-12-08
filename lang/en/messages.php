@@ -56,4 +56,9 @@ return [
     'photos' => 'photos',
     'person' => 'person',
     'people' => 'people',
+    'no_tour_groups_available' => 'No tour groups available at the moment.',
+    'available_seats' => 'Available seats',
+    'price_per_person' => 'Price per person',
+    'price_full_group' => 'Price for full group (:count people)',
+    'people_range' => 'Number of people',
 ];

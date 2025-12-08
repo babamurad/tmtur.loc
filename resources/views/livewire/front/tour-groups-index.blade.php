@@ -35,11 +35,39 @@
                             <i class="far fa-calendar-alt"></i>
                             {{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y H:i') }}
                         </div>
-                        <div class="mb-2">
-                            {{ __('messages.available_seats') }}: <span class="badge {{ $badge }}">{{ $available }}</span>
+                        {{-- Доступные места --}}
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-users text-info mr-2"></i>
+                                <span class="font-weight-medium">{{ __('messages.available_seats') }}:</span>
+                            </div>
+                            <div class="pl-4">
+                                <span class="badge {{ $badge }}">{{ $available }} / {{ $group->max_people }}</span>
+                                <small class="text-muted ml-2">{{ __('messages.available') ?? 'свободно' }}</small>
+                            </div>
                         </div>
-                        <div class="small text-muted">{{ __('messages.price_per_person') }}: <strong>{{ number_format($group->price_max, 0, '.', ' ') }}</strong> TMT</div>
-                        <div class="small text-muted">{{ __('messages.price_full_group', ['count' => $group->max_people]) }}: <strong>{{ number_format($group->price_min, 0, '.', ' ') }}</strong> TMT</div>
+
+                        {{-- Цены --}}
+                        @if($group->max_people > 1)
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-tag text-success mr-2"></i>
+                                    <span class="font-weight-medium">{{ __('messages.price') }}:</span>
+                                </div>
+                                <div class="pl-4">
+                                    <div class="mb-1">
+                                        <i class="fas fa-user text-muted mr-1"></i>
+                                        <span class="text-muted">{{ __('messages.price_per_person') }}:</span>
+                                        <strong>${{ number_format($group->price_max, 0, '.', ' ') }}</strong>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-users text-muted mr-1"></i>
+                                        <span class="text-muted">{{ __('messages.price_full_group', ['count' => $group->max_people]) }}:</span>
+                                        <strong>${{ number_format($group->price_min, 0, '.', ' ') }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="mt-auto pt-3">
                             <a class="btn btn-primary btn-block {{ $available > 0 ? '' : 'disabled' }}" href="#">{{ __('messages.book_now') }}</a>
                         </div>
