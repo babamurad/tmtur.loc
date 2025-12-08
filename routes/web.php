@@ -142,7 +142,7 @@ Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.catego
 Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
 // Тур-группы (публичная страница)
-Route::get('tour-groups', TourGroupsIndexComponent::class)->name('front.tour-groups');
+Route::get('tour-groups-date', TourGroupsIndexComponent::class)->name('front.tour-groups');
 
 Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
 Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');

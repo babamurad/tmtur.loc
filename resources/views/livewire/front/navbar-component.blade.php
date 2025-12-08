@@ -44,6 +44,10 @@
                                 href="{{ route('tours.category.index') }}" wire:navigate>
                                 <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.all_tours') }}
                             </a>
+                            <a class="dropdown-item font-weight-semibold d-flex align-items-center"
+                                href="{{ route('front.tour-groups') }}" wire:navigate>
+                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.tour_groups') }}
+                            </a>
                         </div>
                     </div>
                 </li>
