@@ -54,6 +54,14 @@
     </div>
     </div>
 
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('close-modal', () => {
+                $('#exampleModal').modal('hide');
+            });
+        });
+    </script>
+
 
             {{-- КАРТОЧКА ТУРА --}}
 

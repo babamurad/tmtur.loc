@@ -105,7 +105,7 @@ class ToursShow extends Component
         // Reset form and show success immediately for better UX
         $this->resetForm();
         session()->flash('contact_success', 'Message sent. Thank you!');
-        $this->dispatch('messagesUpdated');
+        // $this->dispatch('messagesUpdated');
         $this->dispatch('close-modal'); // Добавлено для закрытия модального окна
         $this->sending = false;
 
