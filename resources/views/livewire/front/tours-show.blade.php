@@ -6,52 +6,52 @@
 
     {{-- модалка --}}
     <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ __('messages.modal_book_tour_title') }}</h5>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ __('messages.modal_book_tour_title') }}</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <p class="text-muted text-center">{{ __('messages.modal_book_tour_description') }}</p>
+                <form>
+                {{-- honeypot --}}
+                <div style="position:absolute; left:-9999px;">
+                    <input type="text" wire:model.defer="hp" tabindex="-1">
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control @error('name') is-invalid @enderror"
+                        wire:model.defer="name" placeholder="{{ __('messages.modal_name_placeholder') }}">
+                    @error('name') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                        wire:model.defer="email" placeholder="Email">
+                    @error('email') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                        wire:model.defer="phone" placeholder="{{ __('messages.modal_phone_placeholder') }}">
+                    @error('phone') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control @error('message') is-invalid @enderror"
+                            wire:model.defer="message" rows="4" placeholder="{{ __('messages.modal_message_placeholder') }}"></textarea>
+                    @error('message') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('messages.modal_cancel_button') }}</button>
+                    <button type="button" class="btn btn-primary" wire:click="sendMessage()">{{ __('messages.modal_send_button') }}</button>
+                </div>
+                </form>
+            </div>
+            </div>
         </div>
-        <div class="modal-body">
-        <p class="text-muted text-center">{{ __('messages.modal_book_tour_description') }}</p>
-            <form>
-            {{-- honeypot --}}
-            <div style="position:absolute; left:-9999px;">
-                <input type="text" wire:model.defer="hp" tabindex="-1">
-            </div>
-
-            <div class="form-group">
-                <input class="form-control @error('name') is-invalid @enderror"
-                    wire:model.defer="name" placeholder="{{ __('messages.modal_name_placeholder') }}">
-                @error('name') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="form-group">
-                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                    wire:model.defer="email" placeholder="Email">
-                @error('email') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="form-group">
-                <input type="tel" class="form-control @error('phone') is-invalid @enderror"
-                    wire:model.defer="phone" placeholder="{{ __('messages.modal_phone_placeholder') }}">
-                @error('phone') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="form-group">
-                <textarea class="form-control @error('message') is-invalid @enderror"
-                        wire:model.defer="message" rows="4" placeholder="{{ __('messages.modal_message_placeholder') }}"></textarea>
-                @error('message') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('messages.modal_cancel_button') }}</button>
-                <button type="button" class="btn btn-primary" wire:click="sendMessage()">{{ __('messages.modal_send_button') }}</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
     </div>
 
     <script>
