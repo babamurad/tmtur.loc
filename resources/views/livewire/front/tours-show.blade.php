@@ -231,20 +231,16 @@
                                                 {{-- Кнопка бронирования --}}
                                                 <div class="col-md-4">
                                                     @if($available > 0)
-                                                        <a href="#" class="btn btn-sm btn-primary btn-block">
+                                                        <button type="button" href="#" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
                                                             <i class="fas fa-ticket-alt mr-1"></i>
                                                             {{ __('messages.book_now') ?? 'Забронировать' }}
-                                                        </a>
+                                                        </button>
                                                     @else
                                                         <button class="btn btn-secondary btn-block" disabled>
                                                             <i class="fas fa-times-circle mr-1"></i>
                                                             {{ __('messages.sold_out') ?? 'Мест нет' }}
                                                         </button>
                                                     @endif
-                                                            <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                    Launch demo modal
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
