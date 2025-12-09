@@ -40,7 +40,7 @@
 
             <div class="navbar-brand-box">
                 <a href="/" class="logo" target="_blank">
-                    <img src="{{ asset('img/tmtourism-logo.png') }}" alt="" height="42" style="height: 70px;" />
+                    <img src="{{ asset('img/tmtourism-logo2.png') }}" alt="" height="42" style="height: 70px;" />
                 </a>
             </div>
 
