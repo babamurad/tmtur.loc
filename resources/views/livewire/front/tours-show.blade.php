@@ -269,35 +269,51 @@
 
                     {{-- БЛОК «ВКЛЮЧЕНО / НЕ ВКЛЮЧЕНО» --}}
                     @if($tour->inclusions && $tour->inclusions->count())
-                        <div class="row text-center mb-3">
-                            <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}
-                                </h6>
-                                <ul class="list-unstyled text-left">
-                                    @foreach($tour->inclusions as $item)
-                                        @if($item->pivot->is_included)
-                                            <li class="mb-2">
-                                                <i class="fas fa-check-circle text-success mr-2"></i>
-                                                {{ $item->tr('title') }}
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <h6 class="text-uppercase text-muted mb-2 text-left">
-                                    {{ __('messages.what_is_not_included') }}
-                                </h6>
-                                <ul class="list-unstyled text-left">
-                                    @foreach($tour->inclusions as $item)
-                                        @if(!$item->pivot->is_included)
-                                            <li class="mb-2">
-                                                <i class="fas fa-times-circle text-danger mr-2"></i>
-                                                {{ $item->tr('title') }}
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
+                        <div class="accordion" id="accordionInclusions">
+                            <div class="card">
+                                <div class="card-header p-0" id="headingInclusions">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInclusions" aria-expanded="true" aria-controls="collapseInclusions">
+                                            <h6 class="mb-0">{{ __('messages.what_is_included_not_included') }}</h6>
+                                        </button>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseInclusions" class="collapse show" aria-labelledby="headingInclusions" data-parent="#accordionInclusions">
+                                    <div class="card-body">
+                                        <div class="row text-center mb-3">
+                                            <div class="col-sm-6">
+                                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}
+                                                </h6>
+                                                <ul class="list-unstyled text-left">
+                                                    @foreach($tour->inclusions as $item)
+                                                        @if($item->pivot->is_included)
+                                                            <li class="mb-2">
+                                                                <i class="fas fa-check-circle text-success mr-2"></i>
+                                                                {{ $item->tr('title') }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6 class="text-uppercase text-muted mb-2 text-left">
+                                                    {{ __('messages.what_is_not_included') }}
+                                                </h6>
+                                                <ul class="list-unstyled text-left">
+                                                    @foreach($tour->inclusions as $item)
+                                                        @if(!$item->pivot->is_included)
+                                                            <li class="mb-2">
+                                                                <i class="fas fa-times-circle text-danger mr-2"></i>
+                                                                {{ $item->tr('title') }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endif

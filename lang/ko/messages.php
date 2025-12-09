@@ -9,6 +9,7 @@ return [
     'options'     => '옵션',
     'what_is_included' => '포함 사항',
     'what_is_not_included' => '불포함 사항',
+    'what_is_included_not_included' => '포함/불포함 사항',
     'tour_program' => '투어 프로그램',
     'day'         => '일',
     'accommodations' => '숙박',

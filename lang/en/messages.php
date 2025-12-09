@@ -9,6 +9,7 @@ return [
     'options'     => 'options',
     'what_is_included' => 'What is included',
     'what_is_not_included' => 'What is not included',
+    'what_is_included_not_included' => 'What is included/not included',
     'tour_program' => 'Tour program',
     'day'         => 'Day',
     'accommodations' => 'Accommodations',

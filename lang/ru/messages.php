@@ -9,6 +9,7 @@ return [
     'options'     => 'вариантов',
     'what_is_included' => 'Что включено',
     'what_is_not_included' => 'Что не включено',
+    'what_is_included_not_included' => 'Что включено/не включено',
     'tour_program' => 'Программа тура',
     'day'         => 'День',
     'accommodations' => 'Размещение',
