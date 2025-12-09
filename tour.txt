@@ -112,27 +112,6 @@ php artisan optimize:clear
 
 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
 
-
-php artisan make:filament-resource Tour --generate
-php artisan make:filament-resource Service --generate
-php artisan make:filament-resource TourGroup --generate
-php artisan make:filament-resource Customer --generate
-php artisan make:filament-resource Booking --generate
-php artisan make:filament-resource Payment --generate
-php artisan make:filament-resource Review --generate
-php artisan make:filament-resource Inquiry --generate   # только View
-
-Элемент	Статус (Похоже, есть)	Рекомендация
-Главные достопримечательности	✅	Нет нареканий.
-Отзывы	✅	Хорошо, но убедитесь, что они легко обновляются.
-Гиды	✅	Отлично, повышает доверие.
-Контактная информация	✅	Добавьте юридический адрес или регистрационные данные (для серьезного бизнеса).
-Информация о Визе	❌ ✔️ 	Обязательно добавьте отдельный раздел или блок.
-Страница "О нас"	❌ ✔️	Рекомендуется создать.
-Цены и пакеты туров	⚠️ ✔️	Сделайте их более конкретными и заметными.
-Мобильная адаптивность	❓	Убедитесь, что сайт идеально работает на смартфонах (большинство туристов ищут туры с телефона).
-
-
 Guides
 Routes
 Culture Items
