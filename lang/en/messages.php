@@ -61,4 +61,12 @@ return [
     'price_per_person' => 'Price per person',
     'price_full_group' => 'Price for full group (:count people)',
     'people_range' => 'Number of people',
+    'modal_book_tour_title' => 'Book a Tour',
+    'modal_book_tour_description' => 'Please provide your details, and we will contact you to confirm.',
+    'modal_name_placeholder' => 'Name',
+    'modal_email_placeholder' => 'Email',
+    'modal_phone_placeholder' => 'Phone',
+    'modal_message_placeholder' => 'Message',
+    'modal_cancel_button' => 'Cancel',
+    'modal_send_button' => 'Send',
 ];

@@ -59,4 +59,12 @@ return [
     'price_per_person' => '1인당 가격',
     'price_full_group' => '전체 그룹 가격 (:count명)',
     'people_range' => '인원 수',
+    'modal_book_tour_title' => '투어 예약',
+    'modal_book_tour_description' => '세부 사항 확인을 위해 연락드리겠습니다.',
+    'modal_name_placeholder' => '이름',
+    'modal_email_placeholder' => '이메일',
+    'modal_phone_placeholder' => '전화번호',
+    'modal_message_placeholder' => '메시지',
+    'modal_cancel_button' => '취소',
+    'modal_send_button' => '보내기',
 ];

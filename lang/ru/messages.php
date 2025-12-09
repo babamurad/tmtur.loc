@@ -61,4 +61,12 @@ return [
     'price_per_person' => 'Цена за человека',
     'price_full_group' => 'Цена за всю группу (:count чел.)',
     'people_range' => 'Количество человек',
+    'modal_book_tour_title' => 'Заказать тур',
+    'modal_book_tour_description' => 'Укажите свои данные, мы свяжемся с Вами для уточнения деталей.',
+    'modal_name_placeholder' => 'Имя',
+    'modal_email_placeholder' => 'Email',
+    'modal_phone_placeholder' => 'Телефон',
+    'modal_message_placeholder' => 'Сообщение',
+    'modal_cancel_button' => 'Отмена',
+    'modal_send_button' => 'Отправить',
 ];
