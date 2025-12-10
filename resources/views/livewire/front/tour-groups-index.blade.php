@@ -1,12 +1,12 @@
 <div>
-    <div class="container mt-5 pt-3">
+    <div class="container mt-4 pt-2">
         <h2 class="text-center mb-4">{{ __('messages.available_dates') }}</h2>
 
         {{-- Фильтры по месяцу и году --}}
-        <div class="row mb-4">
+        <div class="row mb-3">
             <div class="col-md-4">
                 <label for="monthFilter">{{ __('Месяц') }}</label>
-                <select wire:model.live="month" id="monthFilter" class="form-control">
+                <select wire:model.live="month" id="monthFilter" class="form-control form-control-sm">
                     @foreach($months as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-4">
                 <label for="yearFilter">{{ __('Год') }}</label>
-                <select wire:model.live="year" id="yearFilter" class="form-control">
+                <select wire:model.live="year" id="yearFilter" class="form-control form-control-sm">
                     @foreach($years as $value => $label)
                         <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        {{-- Список групп (компактные строки, данные из TourGroup) --}}
+        {{-- Список групп --}}
         <div class="row">
             @forelse($groups as $group)
                 @php
@@ -32,47 +32,57 @@
                 @endphp
 
                 <div class="col-12 mb-3">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body d-flex flex-column flex-md-row align-items-md-center">
-                            <div class="flex-fill">
-                                <div class="d-flex flex-wrap align-items-center mb-2">
-                                    <h5 class="mb-0 mr-2">
-                                        {{ $group->tour?->tr('title') ?? $group->tour?->title }}
-                                    </h5>
-                                </div>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
 
-                                <div class="text-muted small mb-2">
-                                    <i class="far fa-calendar-alt mr-1"></i>
-                                    @if($group->starts_at)
+                            {{-- 1-я строка: название тура --}}
+                            <h6 class="mb-1">
+                                <a href="{{ route('our-tours.show', $group->tour?->slug) }}">
+                                    {{ $group->tour?->tr('title') ?? $group->tour?->title }}
+                                </a>
+                            </h6>
+
+                            {{-- 2-я строка: дата + места | цена (прижата к правому краю) --}}
+                            <div class="d-flex flex-wrap align-items-center justify-content-between small mb-2">
+                                {{-- Дата и места --}}
+                                <div class="d-flex align-items-center">
+                                    <span class="text-nowrap text-muted mr-2">
+                                        <i class="far fa-calendar-alt mr-1"></i>
                                         {{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y') }}
-                                    @endif
+                                    </span>
+
+                                    <span class="badge badge-info mr-1">
+                                        <i class="fas fa-user-check mr-1"></i>Забронировали: {{ $booked }} из {{ $capacity }}
+                                    </span>
+                                    <span class="badge badge-success">
+                                        <i class="fas fa-user-plus mr-1"></i>Свободных мест: {{ $available }}
+                                    </span>
                                 </div>
 
-                                <div class="small">
-                                    <div>Забронировали: {{ $booked }} из {{ $capacity }}</div>
-                                    <div>Свободных мест: {{ $available }}</div>
-                                </div>
-                            </div>
-
-                            <div class="text-md-right mt-3 mt-md-0">
+                                {{-- Цена (прижата к правому краю) --}}
                                 @if($group->price_min)
-                                    <div class="small text-muted">
-                                        {{ __('Цена от за человека') }}
-                                    </div>
-                                    <div class="h5 mb-2">
-                                        ${{ number_format($group->price_min, 0, '.', ' ') }}
+                                    <div class="text-nowrap">
+                                        <span class="badge badge-success text-muted">{{ __('Цена от за человека') }}</span>
+                                        <span class="h6 mb-0 font-weight-bold">
+                                            <i class="fas fa-money-bill-wave mr-1 text-success"></i>${{ number_format($group->price_min, 0, '.', ' ') }}
+                                        </span>
                                     </div>
                                 @endif
+                            </div>
 
+                            {{-- 3-я строка: кнопка Заказать --}}
+                            <div class="text-right">
                                 <button
                                     type="button"
-                                    class="btn btn-primary btn-block {{ $available <= 0 ? 'disabled' : '' }}"
+                                    class="btn btn-primary btn-sm rounded {{ $available <= 0 ? 'disabled' : '' }}"
                                     wire:click="openBookingModal({{ $group->id }})"
                                     @if($available <= 0) disabled @endif
                                 >
+                                    <i class="fas fa-ticket-alt mr-1"></i>
                                     {{ $available <= 0 ? __('Мест нет') : __('Заказать') }}
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -83,12 +93,14 @@
             @endforelse
         </div>
 
+        {{-- Пагинация --}}
         @if($groups->hasPages())
             <div class="pt-3">
                 {{ $groups->links() }}
             </div>
         @endif
 
+        {{-- Сообщение об успехе --}}
         @if (session()->has('success'))
             <div class="alert alert-success mt-3">
                 {{ session('success') }}
@@ -96,7 +108,7 @@
         @endif
     </div>
 
-    {{-- Модальное окно "Заказать" --}}
+    {{-- Модальное окно бронирования --}}
     @if($showBookingModal)
         <div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -183,8 +195,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- Подложка под модальное окно --}}
         <div class="modal-backdrop fade show"></div>
     @endif
 </div>
