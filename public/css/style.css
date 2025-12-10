@@ -842,3 +842,7 @@ body {
     color: #fff !important;
     text-decoration: none;
 }
+
+.breadcrumb{
+    background-color: transparent;
+}

@@ -268,6 +268,6 @@ class TourCreateComponent extends Component
             'title' => 'Тур создан!',
             'text' => 'Создан новый тур!',
         ]);
-        return redirect()->route('tours.index');
+        return redirect()->route('admin.tours.index');
     }
 }

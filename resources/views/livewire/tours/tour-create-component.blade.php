@@ -6,7 +6,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Создать тур</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('tours.index') }}">Туры</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.tours.index') }}">Туры</a></li>
                         <li class="breadcrumb-item active">Создание</li>
                     </ol>
                 </div>
@@ -593,7 +593,7 @@
                                     <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
                                 </span>
                             </button>
-                            <a href="{{ route('tours.index') }}"
+                            <a href="{{ route('admin.tours.index') }}"
                                class="btn btn-secondary btn-block waves-effect waves-light mt-2"
                                wire:loading.attr="disabled"
                                wire:target="images">

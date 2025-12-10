@@ -4,6 +4,7 @@ return [
     'home' => 'Home',
     'about' => 'About Turkmenistan',
     'tours' => 'Tours',
+    'categories' => 'Categories',
     'all_tours' => 'All tours',
     'tour_groups' => 'Scheduled tours',
     'visa' => 'Visa',

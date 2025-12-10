@@ -447,7 +447,7 @@ class TourEditComponent extends Component
             'text'  => 'Все изменения сохранены.',
         ]);
 
-        return redirect()->route('tours.index');
+        return redirect()->route('admin.tours.index');
     }
 
     public function render()

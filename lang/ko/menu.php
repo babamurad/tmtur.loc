@@ -4,6 +4,7 @@ return [
     'home' => '홈',
     'about' => '투르크메니스탄 소개',
     'tours' => '투어',
+    'categories' => '카테고리',
     'all_tours' => '모든 투어',
     'tour_groups' => '예정된 투어',
     'visa' => '비자',

@@ -1,4 +1,13 @@
-<div class="container mt-5 pt-5">
+<div class="container">
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('menu.home') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('tours.category.index') }}">{{ __('menu.tours') }}</a></li>
+                <li class="breadcrumb-item active">{{ $tour->tr('title') }}</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row">
         {{-- LEFT: TOUR DETAILS --}}
         <div class="col-md-8">
