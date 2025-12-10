@@ -61,11 +61,11 @@
                     </div>
 
                     <div class="about-small">
-                        <img src="/assets/images/tmfotos/i (4).webp" alt="Turkmenistan" />
+                        <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan" />
                     </div>
 
                     <div class="about-small">
-                        <img src="/assets/images/tmfotos/i (1).webp" alt="Turkmenistan" />
+                        <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan" />
                     </div>
 
                 </div>
