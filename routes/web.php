@@ -172,3 +172,6 @@ Route::post('/logout', function () {
     session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+
+Route::get('sitemap.xml', fn () => response()->file(public_path('sitemap.xml')));
