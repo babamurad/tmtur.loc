@@ -17,6 +17,7 @@ class ToursSidebar extends Component
             'totalTours' => Tour::where('is_published', true)
                 ->whereHas('categories')
                 ->count(),
+            // $tourGroupTotal = TourGroup::where    
         ])->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

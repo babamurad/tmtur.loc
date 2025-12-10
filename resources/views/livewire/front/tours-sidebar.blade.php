@@ -22,6 +22,13 @@
                                 {{ $totalTours }}
                         </span>
             </li>
+            <!-- Запланированные туры -->
+            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a class="text-decoration-none text-dark" href="{{ route('front.tour-groups') }}">{{ __('menu.tour_groups') }}</a>
+                <!-- <span class="badge bg-danger rounded-pill">
+                                {{ $totalTours }}
+                        </span> -->
+            </li>
         </ul>
     </section>
 
@@ -39,7 +46,7 @@
                     <div class="row">
                         {{--  thumb  --}}
                         <div class="col-4">
-                            <a href="{{ route('our-tours.show', $popular->slug) }}">
+                            <a href="{{ route('tours.show', $popular->slug) }}">
                                 <img src="{{ $popular->first_media_url }}"
                                      class="img-fluid rounded"
                                      alt="{{ $popular->tr('title') }}">
@@ -49,7 +56,7 @@
                         {{--  title + date  --}}
                         <div class="col-8">
                             <h6 class="mt-0 mb-1">
-                                <a href="{{ route('our-tours.show', $popular->slug) }}"
+                                <a href="{{ route('tours.show', $popular->slug) }}"
                                    class="text-dark">
                                     <strong>{{ \Illuminate\Support\Str::limit($popular->tr('title'), 50) }}</strong>
                                 </a>

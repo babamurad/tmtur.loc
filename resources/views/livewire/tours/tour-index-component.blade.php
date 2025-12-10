@@ -10,7 +10,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Туры</h4>
 
-                    <a href="{{ route('tours.create') }}"
+                    <a href="{{ route('admin.tours.create') }}"
                        class="btn btn-success waves-effect waves-light">
                         <i class="fas fa-plus-circle font-size-16 align-middle mr-1"></i>
                         Создать
@@ -84,7 +84,7 @@
                                     <td>{{ $tour->id }}</td>
                                     <td style="width: 20%;">
                                         <div>
-                                            <a href="{{ route('tours.edit', $tour->id) }}">
+                                            <a href="{{ route('admin.tours.edit', $tour->id) }}">
                                                 @if($tour->getFirstMediaUrl())
                                                     <img src="{{ $tour->getFirstMediaUrl() }}" 
                                                         alt="{{ $tour->title }}" 
@@ -100,7 +100,7 @@
                                         </div>
 
                                         <div style="white-space: normal; word-break: break-word; max-width: 100%;">
-                                            <a href="{{ route('tours.edit', $tour->id) }}">
+                                            <a href="{{ route('admin.tours.edit', $tour->id) }}">
                                                 {{ $tour->title }}
                                             </a>
                                         </div>
@@ -131,7 +131,7 @@
 
                                     {{-- Кнопки действий --}}
                                     <td class="text-center">
-                                        <a href="{{ route('tours.edit', $tour->id) }}"
+                                        <a href="{{ route('admin.tours.edit', $tour->id) }}"
                                            class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                            data-toggle="tooltip" title="Редактировать">
                                             <i class="fas fa-edit font-size-14"></i> <!-- Используем Font Awesome -->

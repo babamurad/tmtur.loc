@@ -2,7 +2,7 @@
     <div class="row no-gutters">
         <div class="col-md-4">
             <div class="position-relative h-100">
-                <a href="{{ route('our-tours.show', $tour->slug) }}">
+                <a href="{{ route('tours.show', $tour->slug) }}">
                     <img src="{{ $tour->first_media_url }}" class="card-img h-100" alt="{{ $tour->tr('title') }}" style="object-fit: cover;">
                 </a>
                 
@@ -17,7 +17,7 @@
 
         <div class="col-md-8">
             <div class="card-body d-flex flex-column h-100">
-                <a href="{{ route('our-tours.show', $tour->slug) }}">
+                <a href="{{ route('tours.show', $tour->slug) }}">
                     <h5>{{ $tour->tr('title') }}</h5>
                 </a>
 
@@ -82,7 +82,7 @@
                         </span>
                     </div>
 
-                    <a href="{{ route('our-tours.show', $tour->slug) }}"
+                    <a href="{{ route('tours.show', $tour->slug) }}"
                        class="btn btn-dark btn-sm w-100">
                         {{ __('messages.read_more') }}
                     </a>

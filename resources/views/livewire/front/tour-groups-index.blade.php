@@ -37,7 +37,7 @@
 
                             {{-- 1-я строка: название тура --}}
                             <h6 class="mb-1">
-                                <a href="{{ route('our-tours.show', $group->tour?->slug) }}">
+                                <a href="{{ route('tours.show', $group->tour?->slug) }}">
                                     {{ $group->tour?->tr('title') ?? $group->tour?->title }}
                                 </a>
                             </h6>

@@ -101,7 +101,7 @@
 
                         <!-- TOP IMAGE -->
                         <div class="position-relative">
-                            <a href="{{ route('our-tours.show', $tour->slug) }}">
+                            <a href="{{ route('tours.show', $tour->slug) }}">
                                 <img src="{{ $tour->first_media_url }}"
                                      class="w-100"
                                      style="height: 260px; object-fit: cover;">
@@ -115,7 +115,7 @@
                         <div class="card-body" style="padding: 1.25rem 1.25rem 0.5rem;">
 
                             <!-- TITLE -->
-                            <a href="{{ route('our-tours.show', $tour->slug) }}"
+                            <a href="{{ route('tours.show', $tour->slug) }}"
                                class="text-decoration-none text-dark">
                                 <h5 class="fw-bold mb-2" style="font-size: 1.15rem; line-height: 1.3;">
                                     {{ $tour->tr('title') }}
@@ -181,7 +181,7 @@
 
                         <!-- FOOTER -->
                         <div class="card-footer bg-white border-0 pb-4 px-3">
-                            <a href="{{ route('our-tours.show', $tour->slug) }}"
+                            <a href="{{ route('tours.show', $tour->slug) }}"
                                class="btn btn-danger w-100 py-2"
                                style="border-radius: 12px; font-size: 1rem;">
                                 {{ __('messages.read_more') }}
@@ -215,7 +215,6 @@
             </h2>
 
             <div class="row g-4">
-
                 @php
                     $items = [
                         ['icon' => 'fa-fire',          'color' => '#ff5a3c', 'title' => __('advantages.item1_title'), 'text' => __('advantages.item1_text')],

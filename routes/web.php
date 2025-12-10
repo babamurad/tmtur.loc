@@ -82,9 +82,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
     Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
 
-    Route::get('/tours', TourIndexComponent::class)->name('tours.index');
-    Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
-    Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+    Route::prefix('admin')->name('admin.')->group(function() {
+        Route::get('/tours', TourIndexComponent::class)->name('tours.index');
+        Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
+        Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
+    });    
 
     Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
     Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');
@@ -137,7 +139,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/', HomeComponent::class)->name('home');
 //Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
 
-Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('our-tours.show');
+Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
 Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
 Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
