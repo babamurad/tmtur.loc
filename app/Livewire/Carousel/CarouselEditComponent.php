@@ -15,8 +15,7 @@ class CarouselEditComponent extends Component
     public $carouselSlide;
     public $title;
     public $description;
-    public $newImage; // Для нового изображения
-    public $currentImage; // Для отображения текущего изображения
+    public $newPhoto; // Для нового изображения
     public $button_text;
     public $button_link;
     public $sort_order;
@@ -28,7 +27,7 @@ class CarouselEditComponent extends Component
         $rules = [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'newImage' => 'nullable|image|max:2048', // 2MB Max
+            'newPhoto' => 'nullable|image|max:2048', // 2MB Max
             'button_text' => 'nullable|string|max:255',
             'button_link' => 'nullable|string|max:255|url',
             'sort_order' => 'required|integer|min:0',
@@ -54,7 +53,6 @@ class CarouselEditComponent extends Component
         $this->carouselSlide = $carouselSlide;
         $this->title = $carouselSlide->title;
         $this->description = $carouselSlide->description;
-        $this->currentImage = $carouselSlide->image; // Путь к текущему изображению
         $this->button_text = $carouselSlide->button_text;
         $this->button_link = $carouselSlide->button_link;
         $this->sort_order = $carouselSlide->sort_order;
@@ -77,22 +75,26 @@ class CarouselEditComponent extends Component
     {
         $this->validate();
 
-        $imageName = $this->currentImage; // По умолчанию оставляем текущее изображение
-
-        if ($this->newImage) {
-            // Удаляем старое изображение, если оно существует
-            if ($this->currentImage && Storage::disk('public')->exists('carousel/' . $this->currentImage)) {
-                Storage::disk('public')->delete('carousel/' . $this->currentImage);
+        /* если загружен новый файл – заменяем */
+        if ($this->newPhoto) {
+            /* удаляем старый */
+            if ($this->carouselSlide->image) {
+                Storage::disk('public_uploads')->delete($this->carouselSlide->image);
             }
-            // Сохраняем новое изображение
-            $imageName = 'carousel/' . Carbon::now()->timestamp . '.' . $this->newImage->extension();
-            $this->newImage->storeAs('public', $imageName);
+
+            $path     = $this->newPhoto->store('carousel', 'public_uploads');
+            $fileName = $this->newPhoto->getClientOriginalName();
+            $mime     = $this->newPhoto->getMimeType();
+            $size     = $this->newPhoto->getSize();
+
+            $this->carouselSlide->update([
+                'image' => $path,
+            ]);
         }
 
         $this->carouselSlide->update([
             'title' => $this->title,
             'description' => $this->description,
-            'image' => $imageName,
             'button_text' => $this->button_text,
             'button_link' => $this->button_link,
             'sort_order' => $this->sort_order,

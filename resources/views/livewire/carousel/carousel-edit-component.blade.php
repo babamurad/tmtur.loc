@@ -149,32 +149,32 @@
                             <div class="form-group">
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input @error('newImage') is-invalid @enderror"
-                                        id="newImage"
-                                        wire:model="newImage"
+                                        class="custom-file-input @error('newPhoto') is-invalid @enderror"
+                                        id="newPhoto"
+                                        wire:model="newPhoto"
                                         accept="image/*">
-                                    <label class="custom-file-label" for="newImage">
-                                        @if ($newImage)
-                                            {{ $newImage->getClientOriginalName() }}
+                                    <label class="custom-file-label" for="newPhoto">
+                                        @if ($newPhoto)
+                                            {{ $newPhoto->getClientOriginalName() }}
                                         @else
                                             Выберите изображение
                                         @endif
                                     </label>
-                                    @error('newImage')
+                                    @error('newPhoto')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-                            @if ($newImage)
+                            @if ($newPhoto)
                                 <div class="mt-3">
                                     <p class="text-muted mb-2"><small>Предпросмотр нового изображения:</small></p>
-                                    <img src="{{ $newImage->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="New image preview">
+                                    <img src="{{ $newPhoto->temporaryUrl() }}" class="img-fluid rounded shadow-sm" alt="New image preview">
                                 </div>
-                            @elseif ($currentImage)
+                            @elseif ($carouselSlide->image)
                                 <div class="mt-3">
                                     <p class="text-muted mb-2"><small>Текущее изображение:</small></p>
-                                    <img src="{{ asset('uploads/' . $currentImage) }}" class="img-fluid rounded shadow-sm" alt="Current image">
+                                    <img src="{{ asset('uploads/' . $carouselSlide->image) }}" class="img-fluid rounded shadow-sm" alt="Current image">
                                 </div>
                             @else
                                 <div class="mt-3 text-center p-4 bg-light rounded">
