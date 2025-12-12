@@ -13,11 +13,11 @@
                     {{ __('about_g.title') }}
                 </h2>
 
-                <p class="text-muted mb-0 pb-0" style="font-size: 1.05rem; line-height: 1.6;">
+                <p class="text-muted mb-0 pb-0" style="font-size: 1.05rem; line-height: 1.6; text-indent: 1.5rem;">
                     {{ __('about_g.text1') }}
                 </p>
 
-                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6; text-indent: 1.5rem;">
                     {{ __('about_g.text2') }}
                 </p>
 
