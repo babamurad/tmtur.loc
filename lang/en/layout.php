@@ -7,4 +7,5 @@ return [
     'subscribe_newsletter' => 'Subscribe to newsletter',
     'your_email' => 'Your email',
     'copyright' => 'TmTourism. All rights reserved.',
+    'follow_us' => 'Follow us',
 ];

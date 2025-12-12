@@ -32,18 +32,15 @@
                         <!-- Grid column -->
                         <!-- Grid column -->
                         <div class="col-md-6 mt-2 d-flex justify-content-end">
-                            <!-- Facebook -->
-                            <a type="button" class="btn btn-primary btn-sm me-2">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <!-- Twitter -->
-                            <a type="button" class="btn btn-info btn-sm me-2">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <!-- Google + -->
-                            <a type="button" class="btn btn-danger btn-sm">
-                                <i class="fab fa-google-plus-g"></i>
-                            </a>
+                            @foreach($socialLinks as $link)
+                                <a href="{{ $link->url }}" target="_blank" type="button" class="btn {{ $link->btn_class ?: 'btn-primary' }} btn-sm me-2">
+                                    @if($link->icon)
+                                        <i class="{{ $link->icon }}"></i>
+                                    @else
+                                        <i class="fas fa-share-alt"></i>
+                                    @endif
+                                </a>
+                            @endforeach
                         </div>
                         <!-- Grid column -->
                     </div>
@@ -64,14 +61,16 @@
                             <h4 class="text-center fw-bold text-dark mt-3 mb-3">
                                 <strong>{{ __('messages.share_post') }}</strong>
                             </h4>
-                            <button type="button" class="btn btn-primary btn-sm me-2">
-                                <i class="fab fa-facebook-f me-1"></i> Facebook</button>
-                            <!-- Twitter -->
-                            <button type="button" class="btn btn-info btn-sm me-2">
-                                <i class="fab fa-twitter me-1"></i> Twitter</button>
-                            <!-- Google + -->
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <i class="fab fa-google-plus-g me-1"></i> Google +</button>
+                            @foreach($socialLinks as $link)
+                                <a href="{{ $link->url }}" target="_blank" class="btn {{ $link->btn_class ?: 'btn-primary' }} btn-sm me-2">
+                                    @if($link->icon)
+                                        <i class="{{ $link->icon }} me-1"></i>
+                                    @else
+                                        <i class="fas fa-share-alt me-1"></i>
+                                    @endif
+                                    {{ $link->name }}
+                                </a>
+                            @endforeach
                         </div>
                         <!-- Grid column -->
                     </div>
@@ -93,18 +92,15 @@
                                     <strong><span>{{ __('messages.author') }}</span> {{ $post->user->name ?? 'Admin' }}</strong>
                                 </p>
                                 <div class="personal-sm">
-                                    <a class="me-2 text-primary">
-                                        <i class="fab fa-facebook-f"> </i>
-                                    </a>
-                                    <a class="me-2 text-info">
-                                        <i class="fab fa-twitter"> </i>
-                                    </a>
-                                    <a class="me-2 text-danger">
-                                        <i class="fab fa-google-plus-g"> </i>
-                                    </a>
-                                    <a class="me-2 text-primary">
-                                        <i class="fab fa-linkedin-in"> </i>
-                                    </a>
+                                    @foreach($socialLinks as $link)
+                                        <a href="{{ $link->url }}" target="_blank" class="me-2">
+                                            @if($link->icon)
+                                                <i class="{{ $link->icon }}"></i>
+                                            @else
+                                                <i class="fas fa-share-alt"></i>
+                                            @endif
+                                        </a>
+                                    @endforeach
                                 </div>
                                 <p class="text-dark article">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.

@@ -139,6 +139,10 @@
                 <div class="col-md-3">
                     @livewire('front.newsletter-subscription-component')
                 </div>
+                <div class="col-md-3">
+                    <div class="font-weight-bold mb-2">{{ __('layout.follow_us') }}</div>
+                    @livewire('footer-social-links')
+                </div>
             </div>
             <hr class="my-3 bg-white">
             <div class="text-center small text-white-50">&copy; 2025 {{ __('layout.copyright') }}</div>

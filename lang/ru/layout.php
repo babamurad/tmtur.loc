@@ -7,4 +7,5 @@ return [
     'subscribe_newsletter' => 'Подписаться на рассылку',
     'your_email' => 'Ваш email',
     'copyright' => 'TmTourism. Все права защищены.',
+    'follow_us' => 'Следите за нами',
 ];

@@ -13,7 +13,7 @@
                     {{ __('about_g.title') }}
                 </h2>
 
-                <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                <p class="text-muted mb-0 pb-0" style="font-size: 1.05rem; line-height: 1.6;">
                     {{ __('about_g.text1') }}
                 </p>
 
@@ -22,7 +22,7 @@
                 </p>
 
                 <!-- FEATURES -->
-                <div class="row g-3 mb-4">
+                <!-- <div class="row g-3 mb-4">
 
                     <div class="col-6 d-flex align-items-center">
                         <i class="fas fa-sun text-warning mr-2"></i>
@@ -44,11 +44,11 @@
                         <span class="small">{{ __('about_g.fact4') }}</span>
                     </div>
 
-                </div>
+                </div> -->
 
-                <a href="#tours" class="btn btn-danger px-4 py-2" style="border-radius: 10px;">
+                <!-- <a href="#tours" class="btn btn-danger px-4 py-2" style="border-radius: 10px;">
                     {{ __('about_g.btn') }}
-                </a>
+                </a> -->
 
             </div>
 
