@@ -129,12 +129,12 @@
                     <div class="card card-body">
                         <div class="row">
                             <div class="col-12 col-sm-2 mb-md-0 mb-3">
-                                <img src="{{ asset('img/placeholder_avatar.png') }}" class="img-fluid rounded-circle"
-                                    alt="">
+                                <img src="{{ $post->user?->avatar_url ?? asset('img/placeholder_avatar.png') }}"
+                                    class="img-fluid rounded-circle" alt="{{ $post->user->name ?? 'Admin' }}">
                             </div>
                             <div class="col-12 col-sm-10">
                                 <p><strong><span>{{ __('messages.author') }}</span>
-                                        {{ $post->user->name ?? 'Admin' }}</strong></p>
+                                        {{ $post->user->name ?? __('messages.unknown') }}</strong></p>
                                 <div class="personal-sm">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
                                         target="_blank" class=" text-primary"><i class="fab fa-facebook-f"></i></a>

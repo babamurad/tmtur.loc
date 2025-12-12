@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->morphOne(Media::class, 'model');
     }
 
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? asset('storage/' . $this->avatar->path) : asset('img/placeholder_avatar.png');
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->role == 1;

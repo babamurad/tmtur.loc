@@ -13,7 +13,14 @@ class Post extends Model
     public $fields = ['title', 'content'];
 
     protected $fillable = [
-        'title', 'slug', 'category_id', 'content', 'image', 'status', 'published_at', 'views'
+        'title',
+        'slug',
+        'category_id',
+        'content',
+        'image',
+        'status',
+        'published_at',
+        'views'
     ];
 
     protected $casts = [
@@ -44,6 +51,11 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function getImageUrlAttribute(): string
