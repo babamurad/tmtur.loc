@@ -7,4 +7,5 @@ return [
     'subscribe_newsletter' => '뉴스레터 구독',
     'your_email' => '이메일',
     'copyright' => 'TmTourism. 판권 소유.',
+    'follow_us' => '우리를 따르십시오',
 ];

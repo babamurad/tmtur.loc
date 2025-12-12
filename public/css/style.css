@@ -846,3 +846,21 @@ body {
 .breadcrumb{
     background-color: transparent;
 }
+
+.share-buttons .btn{
+                transition:all .3s ease;
+                border:none;
+                box-shadow:0 2px 4px rgba(0,0,0,.1);
+            }
+            .share-buttons .btn:hover{
+                transform:translateY(-2px);
+                box-shadow:0 4px 8px rgba(0,0,0,.2);
+            }
+            .personal-sm a{
+                transition:all .3s ease;
+                display:inline-block;
+            }
+            .personal-sm a:hover{transform:scale(1.2);}
+            .btn-dark{background-color:#000!important;}
+            .text-dark{color:#000!important;}
+            .text-dark:hover{color:#000!important;}

@@ -21,6 +21,16 @@
                     {{ __('about_g.text2') }}
                 </p>
 
+                <h3>Почему путешественники выбирают TmTourism</h3>
+                <ul>
+                    <li class="text-muted">Местная команда с реальным опытом в туризме</li>
+                    <li class="text-muted">Помощь с визой, LOI и прохождением границы</li>
+                    <li class="text-muted">Прозрачные цены без скрытых доплат</li>
+                    <li class="text-muted">Небольшие группы и индивидуальный подход</li>
+                </ul>
+                <p class="text-muted"></p> 
+                
+
                 <!-- FEATURES -->
                 <!-- <div class="row g-3 mb-4">
 
