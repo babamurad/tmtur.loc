@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->role === self::ROLE_USER;
     }
 
+    public function avatar()
+    {
+        return $this->morphOne(Media::class, 'model');
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->role == 1;

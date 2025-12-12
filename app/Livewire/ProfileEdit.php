@@ -4,14 +4,18 @@ namespace App\Livewire;
 
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class ProfileEdit extends Component
 {
+    use WithFileUploads;
+
     public $name;
     public $email;
+    public $avatar;
     public $current_password;
     public $password;
     public $password_confirmation;
@@ -39,9 +43,28 @@ class ProfileEdit extends Component
                 Rule::unique('users')->ignore(Auth::id()),
             ],
             'name' => 'required|string|max:255',
+            'avatar' => 'nullable|image|max:1024', // 1MB Max
         ]);
 
         $user = Auth::user();
+
+        if ($this->avatar) {
+            $path = $this->avatar->store('avatars', 'public_uploads');
+
+            // Delete old avatar if exists
+            if ($user->avatar) {
+                // Optional: Delete physical file if needed, e.g. Storage::disk('public')->delete($user->avatar->file_path);
+                $user->avatar()->delete();
+            }
+
+            $user->avatar()->create([
+                'file_path' => $path,
+                'file_name' => $this->avatar->getClientOriginalName(),
+                'mime_type' => $this->avatar->getMimeType(),
+                'model_type' => get_class($user),
+                'model_id' => $user->id,
+            ]);
+        }
         $user->name = $this->name;
         $user->email = $this->email;
 
@@ -66,9 +89,29 @@ class ProfileEdit extends Component
             ->text('Profile data has been successfully saved!')
             ->success()
             ->toast()
+            ->position('center')
+            ->show();
+
+        $this->dispatch('profile-updated');
+    }
+
+    public function deleteAvatar()
+    {
+        $user = Auth::user();
+        if ($user->avatar) {
+            // Optional: Delete physical file if needed
+            // Storage::disk('public_uploads')->delete($user->avatar->file_path);
+            $user->avatar()->delete();
+        }
+
+        $this->avatar = null;
+
+        LivewireAlert::title('Avatar deleted')
+            ->text('Avatar has been successfully deleted!')
+            ->success()
+            ->toast()
             ->position('top-end')
             ->show();
-        $this->dispatch('profile-updated');
     }
 
     public function render()
