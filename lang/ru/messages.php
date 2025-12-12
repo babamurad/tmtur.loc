@@ -70,4 +70,21 @@ return [
     'modal_message_placeholder' => 'Сообщение',
     'modal_cancel_button' => 'Отмена',
     'modal_send_button' => 'Отправить',
+    
+    // Modal form labels (additional)
+    'modal_name_label' => 'Имя',
+    'modal_email_label' => 'Email',
+    'modal_phone_label' => 'Телефон (WhatsApp)',
+    'modal_guests_label' => 'Кол-во человек',
+    'modal_message_label' => 'Комментарий',
+    
+    // Booking badges and modal title
+    'booked_badge' => 'Забронировали',
+    'available_seats_badge' => 'Свободных мест',
+    'price_per_person_badge' => 'Цена от за человека',
+    'modal_booking_title' => 'Заказ тура',
+    
+    // Button text
+    'no_seats' => 'Мест нет',
+    'order_button' => 'Заказать',
 ];

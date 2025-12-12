@@ -68,4 +68,21 @@ return [
     'modal_message_placeholder' => '메시지',
     'modal_cancel_button' => '취소',
     'modal_send_button' => '보내기',
+    
+    // Modal form labels (additional)
+    'modal_name_label' => '이름',
+    'modal_email_label' => '이메일',
+    'modal_phone_label' => '전화번호 (WhatsApp)',
+    'modal_guests_label' => '인원 수',
+    'modal_message_label' => '코멘트',
+    
+    // Booking badges and modal title
+    'booked_badge' => '예약됨',
+    'available_seats_badge' => '예약 가능 좌석',
+    'price_per_person_badge' => '1인당 가격',
+    'modal_booking_title' => '투어 예약',
+    
+    // Button text
+    'no_seats' => '매진',
+    'order_button' => '지금 예약',
 ];

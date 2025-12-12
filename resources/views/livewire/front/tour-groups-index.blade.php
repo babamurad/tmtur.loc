@@ -52,17 +52,17 @@
                                     </span>
 
                                     <span class="badge badge-info mr-1">
-                                        <i class="fas fa-user-check mr-1"></i>Забронировали: {{ $booked }} из {{ $capacity }}
+                                        <i class="fas fa-user-check mr-1"></i>{{ __('messages.booked_badge') }}: {{ $booked }} из {{ $capacity }}
                                     </span>
                                     <span class="badge badge-success">
-                                        <i class="fas fa-user-plus mr-1"></i>Свободных мест: {{ $available }}
+                                        <i class="fas fa-user-plus mr-1"></i>{{ __('messages.available_seats_badge') }}: {{ $available }}
                                     </span>
                                 </div>
 
                                 {{-- Цена (прижата к правому краю) --}}
                                 @if($group->price_min)
                                     <div class="text-nowrap">
-                                        <span class="badge badge-success text-muted">{{ __('Цена от за человека') }}</span>
+                                        <span class="badge badge-success text-muted">{{ __('messages.price_per_person_badge') }}</span>
                                         <span class="h6 mb-0 font-weight-bold">
                                             <i class="fas fa-money-bill-wave mr-1 text-success"></i>${{ number_format($group->price_min, 0, '.', ' ') }}
                                         </span>
@@ -79,7 +79,7 @@
                                     @if($available <= 0) disabled @endif
                                 >
                                     <i class="fas fa-ticket-alt mr-1"></i>
-                                    {{ $available <= 0 ? __('Мест нет') : __('Заказать') }}
+                                    {{ $available <= 0 ? __('messages.no_seats') : __('messages.order_button') }}
                                 </button>
                             </div>
 
@@ -115,7 +115,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            {{ __('Заказ тура') }}
+                            {{ __('messages.modal_booking_title') }}
                             @if($selectedGroup)
                                 – {{ $selectedGroup->tour?->tr('title') ?? $selectedGroup->tour?->title }}
                                 @if($selectedGroup->starts_at)
@@ -132,7 +132,7 @@
                         <div class="modal-body">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="booking_name">Имя</label>
+                                    <label for="booking_name">{{ __('messages.modal_name_label') }}</label>
                                     <input type="text"
                                            id="booking_name"
                                            class="form-control @error('booking_name') is-invalid @enderror"
@@ -140,7 +140,7 @@
                                     @error('booking_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="booking_email">Email</label>
+                                    <label for="booking_email">{{ __('messages.modal_email_label') }}</label>
                                     <input type="email"
                                            id="booking_email"
                                            class="form-control @error('booking_email') is-invalid @enderror"
@@ -151,7 +151,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="booking_phone">Телефон (WhatsApp)</label>
+                                    <label for="booking_phone">{{ __('messages.modal_phone_label') }}</label>
                                     <input type="text"
                                            id="booking_phone"
                                            class="form-control @error('booking_phone') is-invalid @enderror"
@@ -159,7 +159,7 @@
                                     @error('booking_phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="booking_guests">Кол-во человек</label>
+                                    <label for="booking_guests">{{ __('messages.modal_guests_label') }}</label>
                                     <input type="number"
                                            min="1"
                                            id="booking_guests"
@@ -170,7 +170,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="booking_message">Комментарий</label>
+                                <label for="booking_message">{{ __('messages.modal_message_label') }}</label>
                                 <textarea id="booking_message"
                                           rows="3"
                                           class="form-control @error('booking_message') is-invalid @enderror"

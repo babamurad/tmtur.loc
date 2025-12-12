@@ -70,4 +70,21 @@ return [
     'modal_message_placeholder' => 'Message',
     'modal_cancel_button' => 'Cancel',
     'modal_send_button' => 'Send',
+    
+    // Modal form labels (additional)
+    'modal_name_label' => 'Name',
+    'modal_email_label' => 'Email',
+    'modal_phone_label' => 'Phone (WhatsApp)',
+    'modal_guests_label' => 'Number of people',
+    'modal_message_label' => 'Comment',
+    
+    // Booking badges and modal title
+    'booked_badge' => 'Booked',
+    'available_seats_badge' => 'Available seats',
+    'price_per_person_badge' => 'Price per person',
+    'modal_booking_title' => 'Book a Tour',
+    
+    // Button text
+    'no_seats' => 'Sold Out',
+    'order_button' => 'Book Now',
 ];
