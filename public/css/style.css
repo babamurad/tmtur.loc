@@ -607,7 +607,7 @@ body {
 
 @media (max-width: 576px) {
     .about-large {
-        height: 220px;
+        height: 7rem;
     }
 
     .about-small {

@@ -34,7 +34,9 @@ class PostsIndex extends Component
         $posts = $baseQuery->orderBy('published_at', 'desc')
             ->paginate(2);
 
-        $categories = Category::withCount('posts')->where('is_published', true)->get();
+        $categories = Category::withCount(['posts' => function($query) {
+            $query->where('status', true);
+        }])->where('is_published', true)->get();
 
         // Определяем title
         $title = __('titles.blog');
