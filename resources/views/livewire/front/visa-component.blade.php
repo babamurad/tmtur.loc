@@ -74,8 +74,9 @@
                     </div>
                 </div>
 
-                <!-- Timeline -->
-                <h4 class="fw-semibold mb-3 pt-3 border-top">{{ __('visa.timeline') }}</h4>
+                <div class="list-group-item px-0 p-3 mb-2 border rounded-3 shadow-sm">
+                   <!-- Timeline -->
+                <h4 class="fw-semibold mb-3 pt-3">{{ __('visa.timeline') }}</h4>
                 <p class="mb-4">
                     {!! __('visa.timeline_txt', ['days' => '<span class="badge bg-success fs-6 py-2 px-3">' . $days . '</span>']) !!}
                 </p>
@@ -89,7 +90,9 @@
                     </li>
                     <li class="d-flex align-items-start"><i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
                         {!! __('visa.where_opt2') !!}</li>
-                </ul>
+                </ul> 
+                </div>
+                
 
             </div>
         </div>
