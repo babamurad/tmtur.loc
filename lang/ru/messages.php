@@ -1,25 +1,25 @@
 <?php
 return [
-    'read_more'   => 'Читать далее',
-    'buy_tour'    => 'Купить тур',
-    'days'        => ':count день|:count дня|:count дней',
-    'days_label'  => 'дней',
-    'price_from'  => 'Цена от :price USD',
-    'groups'      => 'групп',
-    'options'     => 'вариантов',
+    'read_more' => 'Читать далее',
+    'buy_tour' => 'Купить тур',
+    'days' => ':count день|:count дня|:count дней',
+    'days_label' => 'дней',
+    'price_from' => 'Цена от :price USD',
+    'groups' => 'групп',
+    'options' => 'вариантов',
     'what_is_included' => 'Что включено',
     'what_is_not_included' => 'Что не включено',
     'what_is_included_not_included' => 'Что включено/не включено',
     'tour_program' => 'Программа тура',
-    'day'         => 'День',
+    'day' => 'День',
     'accommodations' => 'Размещение',
-    'nights'      => 'ночей',
-    'standard'    => 'Стандарт',
-    'comfort'     => 'Комфорт',
-    'category'    => 'Категория',
-    'categories'  => 'КАТЕГОРИИ',
+    'nights' => 'ночей',
+    'standard' => 'Стандарт',
+    'comfort' => 'Комфорт',
+    'category' => 'Категория',
+    'categories' => 'КАТЕГОРИИ',
     'popular_tours' => 'ПОПУЛЯРНЫЕ ТУРЫ',
-    'all_tours'   => 'Все туры',
+    'all_tours' => 'Все туры',
     'no_tours_in_category' => 'В данной категории нет туров.',
     'contact_us' => 'Свяжитесь с нами',
     'your_name' => 'Ваше имя',
@@ -40,7 +40,7 @@ return [
     'published' => 'Опубликовано',
     'in_category' => 'в категории',
     'popular_posts' => 'ПОПУЛЯРНЫЕ ПОСТЫ',
-    'all_posts'   => 'Все посты',
+    'all_posts' => 'Все посты',
 
     // Tour Groups
     'available_dates' => 'Доступные даты отправления',
@@ -70,21 +70,22 @@ return [
     'modal_message_placeholder' => 'Сообщение',
     'modal_cancel_button' => 'Отмена',
     'modal_send_button' => 'Отправить',
-    
+
     // Modal form labels (additional)
     'modal_name_label' => 'Имя',
     'modal_email_label' => 'Email',
     'modal_phone_label' => 'Телефон (WhatsApp)',
     'modal_guests_label' => 'Кол-во человек',
     'modal_message_label' => 'Комментарий',
-    
+
     // Booking badges and modal title
     'booked_badge' => 'Забронировали',
     'available_seats_badge' => 'Свободных мест',
     'price_per_person_badge' => 'Цена от за человека',
     'modal_booking_title' => 'Заказ тура',
-    
+
     // Button text
     'no_seats' => 'Мест нет',
     'order_button' => 'Заказать',
+    'gdpr_consent_statement' => 'Я даю согласие на обработку персональных данных',
 ];

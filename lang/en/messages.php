@@ -1,25 +1,25 @@
 <?php
 return [
-    'read_more'   => 'Read more',
-    'buy_tour'    => 'Buy tour',
-    'days'        => ':count day|:count days',
-    'days_label'  => 'days',
-    'price_from'  => 'Price from :price USD',
-    'groups'      => 'groups',
-    'options'     => 'options',
+    'read_more' => 'Read more',
+    'buy_tour' => 'Buy tour',
+    'days' => ':count day|:count days',
+    'days_label' => 'days',
+    'price_from' => 'Price from :price USD',
+    'groups' => 'groups',
+    'options' => 'options',
     'what_is_included' => 'What is included',
     'what_is_not_included' => 'What is not included',
     'what_is_included_not_included' => 'What is included/not included',
     'tour_program' => 'Tour program',
-    'day'         => 'Day',
+    'day' => 'Day',
     'accommodations' => 'Accommodations',
-    'nights'      => 'nights',
-    'standard'    => 'Standard',
-    'comfort'     => 'Comfort',
-    'category'    => 'Category',
-    'categories'  => 'CATEGORIES',
+    'nights' => 'nights',
+    'standard' => 'Standard',
+    'comfort' => 'Comfort',
+    'category' => 'Category',
+    'categories' => 'CATEGORIES',
     'popular_tours' => 'POPULAR TOURS',
-    'all_tours'   => 'All Tours',
+    'all_tours' => 'All Tours',
     'no_tours_in_category' => 'There are no tours in this category.',
     'contact_us' => 'Contact us',
     'your_name' => 'Your name',
@@ -40,7 +40,7 @@ return [
     'published' => 'Published',
     'in_category' => 'in category',
     'popular_posts' => 'POPULAR POSTS',
-    'all_posts'   => 'All Posts',
+    'all_posts' => 'All Posts',
 
     // Tour Groups
     'available_dates' => 'Available Departure Dates',
@@ -70,21 +70,22 @@ return [
     'modal_message_placeholder' => 'Message',
     'modal_cancel_button' => 'Cancel',
     'modal_send_button' => 'Send',
-    
+
     // Modal form labels (additional)
     'modal_name_label' => 'Name',
     'modal_email_label' => 'Email',
     'modal_phone_label' => 'Phone (WhatsApp)',
     'modal_guests_label' => 'Number of people',
     'modal_message_label' => 'Comment',
-    
+
     // Booking badges and modal title
     'booked_badge' => 'Booked',
     'available_seats_badge' => 'Available seats',
     'price_per_person_badge' => 'Price per person',
     'modal_booking_title' => 'Book a Tour',
-    
+
     // Button text
     'no_seats' => 'Sold Out',
     'order_button' => 'Book Now',
+    'gdpr_consent_statement' => 'I agree to the processing of personal data',
 ];

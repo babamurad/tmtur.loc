@@ -177,7 +177,7 @@
                                 <input type="checkbox" class="form-check-input @error('gdpr_consent') is-invalid @enderror"
                                     id="gdpr_consent" wire:model="gdpr_consent">
                                 <label class="form-check-label" for="gdpr_consent">
-                                    {{ __('Я даю согласие на обработку персональных данных') }}
+                                    {{ __('messages.gdpr_consent_statement') }}
                                 </label>
                                 @error('gdpr_consent') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                             </div>

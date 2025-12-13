@@ -181,6 +181,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'gdpr_consent' => [
+            'accepted' => 'You must accept the personal data processing agreement.',
+        ],
     ],
 
     /*

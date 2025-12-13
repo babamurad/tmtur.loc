@@ -1,25 +1,25 @@
 <?php
 return [
-    'read_more'   => '더 보기',
-    'buy_tour'    => '투어 구매',
-    'days'        => ':count일',
-    'days_label'  => '일',
-    'price_from'  => ':price USD부터',
-    'groups'      => '그룹',
-    'options'     => '옵션',
+    'read_more' => '더 보기',
+    'buy_tour' => '투어 구매',
+    'days' => ':count일',
+    'days_label' => '일',
+    'price_from' => ':price USD부터',
+    'groups' => '그룹',
+    'options' => '옵션',
     'what_is_included' => '포함 사항',
     'what_is_not_included' => '불포함 사항',
     'what_is_included_not_included' => '포함/불포함 사항',
     'tour_program' => '투어 프로그램',
-    'day'         => '일',
+    'day' => '일',
     'accommodations' => '숙박',
-    'nights'      => '박',
-    'standard'    => '스탠다드',
-    'comfort'     => '컴포트',
-    'category'    => '카테고리',
-    'categories'  => '카테고리',
+    'nights' => '박',
+    'standard' => '스탠다드',
+    'comfort' => '컴포트',
+    'category' => '카테고리',
+    'categories' => '카테고리',
     'popular_tours' => '인기 투어',
-    'all_tours'   => '모든 투어',
+    'all_tours' => '모든 투어',
     'no_tours_in_category' => '이 카테고리에는 투어가 없습니다.',
     'contact_us' => '문의하기',
     'your_name' => '이름',
@@ -40,7 +40,7 @@ return [
     'published' => '게시됨',
     'in_category' => '카테고리',
     'popular_posts' => '인기 게시물',
-    'all_posts'   => '모든 게시물',
+    'all_posts' => '모든 게시물',
 
     // Tour Groups
     'available_dates' => '출발 가능 날짜',
@@ -68,21 +68,22 @@ return [
     'modal_message_placeholder' => '메시지',
     'modal_cancel_button' => '취소',
     'modal_send_button' => '보내기',
-    
+
     // Modal form labels (additional)
     'modal_name_label' => '이름',
     'modal_email_label' => '이메일',
     'modal_phone_label' => '전화번호 (WhatsApp)',
     'modal_guests_label' => '인원 수',
     'modal_message_label' => '코멘트',
-    
+
     // Booking badges and modal title
     'booked_badge' => '예약됨',
     'available_seats_badge' => '예약 가능 좌석',
     'price_per_person_badge' => '1인당 가격',
     'modal_booking_title' => '투어 예약',
-    
+
     // Button text
     'no_seats' => '매진',
     'order_button' => '지금 예약',
+    'gdpr_consent_statement' => '개인정보 처리방침에 동의합니다',
 ];
