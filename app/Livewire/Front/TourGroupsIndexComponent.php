@@ -34,6 +34,7 @@ class TourGroupsIndexComponent extends Component
     public string $booking_phone = '';
     public string $booking_guests = '1';
     public string $booking_message = '';
+    public bool $gdpr_consent = false;
 
     protected $queryString = [
         'month' => ['except' => null],
@@ -48,6 +49,7 @@ class TourGroupsIndexComponent extends Component
             'booking_phone' => ['nullable', 'string', 'max:50'],
             'booking_guests' => ['required', 'integer', 'min:1'],
             'booking_message' => ['nullable', 'string', 'max:2000'],
+            'gdpr_consent' => ['accepted'],
         ];
     }
 
@@ -100,6 +102,7 @@ class TourGroupsIndexComponent extends Component
 
         $this->booking_guests = '1';
         $this->booking_message = '';
+        $this->gdpr_consent = false;
 
         $this->resetErrorBag();
         $this->resetValidation();
@@ -156,6 +159,7 @@ class TourGroupsIndexComponent extends Component
             [
                 'full_name' => $validated['booking_name'],
                 'phone' => $validated['booking_phone'],
+                'gdpr_consent_at' => now(),
             ]
         );
 
