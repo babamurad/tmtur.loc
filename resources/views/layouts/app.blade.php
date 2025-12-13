@@ -87,7 +87,7 @@
 
 
                         <li><a href="#"><i class="bx bx-diamond"></i> Элементы культуры</a></li>
-                        <li><a href="#"><i class="bx bx-user"></i> Клиенты</a></li>
+                        <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
                         <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
 
                         @livewire('MessageNavComponent')
