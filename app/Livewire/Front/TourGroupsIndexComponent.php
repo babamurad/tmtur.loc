@@ -4,6 +4,7 @@ namespace App\Livewire\Front;
 
 use App\Models\TourGroup;
 use App\Models\ContactMessage;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,32 +21,32 @@ class TourGroupsIndexComponent extends Component
 
     // Фильтры
     public ?string $month = null;
-    public ?string $year  = null;
-    public int $perPage   = 9;
+    public ?string $year = null;
+    public int $perPage = 9;
 
     // Модальное окно бронирования
     public bool $showBookingModal = false;
     public ?TourGroup $selectedGroup = null;
 
     // Поля формы в модальном окне
-    public string $booking_name    = '';
-    public string $booking_email   = '';
-    public string $booking_phone   = '';
-    public string $booking_guests  = '1';
+    public string $booking_name = '';
+    public string $booking_email = '';
+    public string $booking_phone = '';
+    public string $booking_guests = '1';
     public string $booking_message = '';
 
     protected $queryString = [
         'month' => ['except' => null],
-        'year'  => ['except' => null],
+        'year' => ['except' => null],
     ];
 
     protected function rules(): array
     {
         return [
-            'booking_name'    => ['required', 'string', 'max:255'],
-            'booking_email'   => ['required', 'email', 'max:255'],
-            'booking_phone'   => ['nullable', 'string', 'max:50'],
-            'booking_guests'  => ['required', 'integer', 'min:1'],
+            'booking_name' => ['required', 'string', 'max:255'],
+            'booking_email' => ['required', 'email', 'max:255'],
+            'booking_phone' => ['nullable', 'string', 'max:50'],
+            'booking_guests' => ['required', 'integer', 'min:1'],
             'booking_message' => ['nullable', 'string', 'max:2000'],
         ];
     }
@@ -92,12 +93,12 @@ class TourGroupsIndexComponent extends Component
     public function resetBookingForm(bool $clearContactData = false): void
     {
         if ($clearContactData) {
-            $this->booking_name  = '';
+            $this->booking_name = '';
             $this->booking_email = '';
             $this->booking_phone = '';
         }
 
-        $this->booking_guests  = '1';
+        $this->booking_guests = '1';
         $this->booking_message = '';
 
         $this->resetErrorBag();
@@ -114,7 +115,7 @@ class TourGroupsIndexComponent extends Component
         $validated = $this->validate();
 
         $available = (int) $this->selectedGroup->freePlaces();
-        $guests    = (int) $validated['booking_guests'];
+        $guests = (int) $validated['booking_guests'];
 
         if ($available <= 0 || $guests > max($available, 0)) {
             $this->addError('booking_guests', __('messages.not_enough_free_places'));
@@ -124,7 +125,7 @@ class TourGroupsIndexComponent extends Component
         $tourTitle = $this->selectedGroup->tour?->tr('title')
             ?? $this->selectedGroup->tour?->title
             ?? '';
-        $startDate = $this->selectedGroup->starts_at            
+        $startDate = $this->selectedGroup->starts_at
             ? \Carbon\Carbon::parse($this->selectedGroup->starts_at)->format('d.m.Y')
             : '';
 
@@ -143,11 +144,20 @@ class TourGroupsIndexComponent extends Component
         // Сохраняем в contact_messages
         // ВАЖНО: подстрой поля под свою модель ContactMessage (если структура другая)
         ContactMessage::create([
-            'name'    => $validated['booking_name'],
-            'email'   => $validated['booking_email'],
-            'phone'   => $validated['booking_phone'],
+            'name' => $validated['booking_name'],
+            'email' => $validated['booking_email'],
+            'phone' => $validated['booking_phone'],
             'message' => $messageBody,
         ]);
+
+        // Сохраняем или обновляем клиента
+        Customer::updateOrCreate(
+            ['email' => $validated['booking_email']],
+            [
+                'full_name' => $validated['booking_name'],
+                'phone' => $validated['booking_phone'],
+            ]
+        );
 
         // Отправляем email админу (на почту из config/mail.php)
         $adminEmail = config('mail.from.address');
@@ -180,7 +190,7 @@ class TourGroupsIndexComponent extends Component
         return view('livewire.front.tour-groups-index', [
             'groups' => $groups,
             'months' => $this->getMonths(),
-            'years'  => $this->getYears(),
+            'years' => $this->getYears(),
         ])
             ->layout($this->layout, $this->layoutData)
             ->title(__($this->title));
