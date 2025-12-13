@@ -42,7 +42,7 @@
 
     {{-- SEO: canonical --}}
     <link rel="canonical" href="{{ url()->current() }}">
-    
+
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
 
@@ -132,8 +132,7 @@
                     <ul class="list-unstyled small">
                         <li><a href="/#darwaza" class="text-white-50">{{ __('menu.darwaza') }}</a></li>
                         <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
-                        <li><a href="{{ route('galley') }}" class="text-white-50"
-                                wire:navigate>{{ __('menu.gallery') }}</a></li>
+                        <li><a href="{{ route('galley') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
