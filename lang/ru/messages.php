@@ -4,6 +4,7 @@ return [
     'buy_tour' => 'Купить тур',
     'days' => ':count день|:count дня|:count дней',
     'days_label' => 'дней',
+    'small_group' => 'Мини-группа',
     'price_from' => 'Цена от :price USD',
     'groups' => 'групп',
     'options' => 'вариантов',
@@ -30,6 +31,7 @@ return [
     'our_contacts' => 'Наши контакты',
     'follow_us' => 'Подписывайтесь на нас',
     'see_all' => 'Посмотреть все',
+    'view_all' => 'Посмотреть все туры',
 
     // Blog
     'author' => 'Автор:',
@@ -88,4 +90,8 @@ return [
     'no_seats' => 'Мест нет',
     'order_button' => 'Заказать',
     'gdpr_consent_statement' => 'Я даю согласие на обработку персональных данных',
+
+    'home_popular_title' => 'Популярные туры по Туркменистану',
+    'home_popular_subtitle' => 'Отобранные групповые и индивидуальные туры от надёжных местных экспертов.',
+
 ];

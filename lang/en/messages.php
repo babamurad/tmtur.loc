@@ -4,6 +4,7 @@ return [
     'buy_tour' => 'Buy tour',
     'days' => ':count day|:count days',
     'days_label' => 'days',
+    'small_group' => 'Small group tour',
     'price_from' => 'Price from :price USD',
     'groups' => 'groups',
     'options' => 'options',
@@ -30,6 +31,7 @@ return [
     'our_contacts' => 'Our contacts',
     'follow_us' => 'Follow us',
     'see_all' => 'See All',
+    'view_all' => 'View all tours',
 
     // Blog
     'author' => 'Author:',
@@ -88,4 +90,8 @@ return [
     'no_seats' => 'Sold Out',
     'order_button' => 'Book Now',
     'gdpr_consent_statement' => 'I agree to the processing of personal data',
+
+    'home_popular_title' => 'Popular Tours in Turkmenistan',
+    'home_popular_subtitle' => 'Handpicked group and private tours crafted by trusted local experts.',
+
 ];

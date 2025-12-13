@@ -4,6 +4,7 @@ return [
     'buy_tour' => '투어 구매',
     'days' => ':count일',
     'days_label' => '일',
+    'small_group' => '소규모 그룹 투어',
     'price_from' => ':price USD부터',
     'groups' => '그룹',
     'options' => '옵션',
@@ -30,6 +31,7 @@ return [
     'our_contacts' => '연락처',
     'follow_us' => '팔로우',
     'see_all' => '전체 보기',
+    'view_all' => '모든 투어 보기',
 
     // Blog
     'author' => '저자:',
@@ -86,4 +88,8 @@ return [
     'no_seats' => '매진',
     'order_button' => '지금 예약',
     'gdpr_consent_statement' => '개인정보 처리방침에 동의합니다',
+
+    'home_popular_title' => '투르크메니스탄 인기 투어',
+    'home_popular_subtitle' => '현지 전문가가 엄선한 소규모 그룹 및 프라이빗 투어.',
+
 ];

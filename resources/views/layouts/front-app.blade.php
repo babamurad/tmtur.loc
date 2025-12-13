@@ -132,7 +132,7 @@
                     <ul class="list-unstyled small">
                         <li><a href="/#darwaza" class="text-white-50">{{ __('menu.darwaza') }}</a></li>
                         <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
-                        <li><a href="{{ route('galley') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
+                        <li><a href="{{ route('gallery') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">

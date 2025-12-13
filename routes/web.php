@@ -154,7 +154,7 @@ Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
 Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
 Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
 
-Route::get('galley', \App\Livewire\Front\ProductGallery ::class)->name('galley');
+Route::get('gallery', \App\Livewire\Front\ProductGallery ::class)->name('gallery');
 
 Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
 

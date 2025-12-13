@@ -75,6 +75,232 @@ body {
     }
 }
 
+/* Global layout tweaks for homepage */
+#about {
+    position: relative;
+}
+
+#about .fw-bold {
+    letter-spacing: 0.02em;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 0.75rem;
+}
+
+.about-grid .about-large {
+    grid-row: 1 / 3;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.about-grid .about-large img,
+.about-grid .about-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 18px;
+}
+
+.about-grid .about-small {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.about-grid img {
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.about-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* Popular tours cards */
+.tour-card-gyg {
+    border-radius: 20px !important;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    background: #ffffff;
+}
+
+.tour-card-gyg:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.16);
+    border-color: #ffb4b8;
+}
+
+.tour-card-gyg img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.tour-badge-gyg {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(17, 24, 39, 0.88);
+    color: #f9fafb;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.tour-location-chip {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #f9fafb;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tour-location-chip i {
+    margin-right: 6px;
+}
+
+.rating-chip {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(34, 197, 94, 0.9);
+    color: #ecfdf5;
+    display: inline-flex;
+    align-items: center;
+}
+
+.rating-chip i {
+    margin-right: 4px;
+}
+
+.price-chip-single,
+.price-chip-group {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    margin-bottom: 2px;
+}
+
+.price-chip-group {
+    background: #ecfdf3;
+    border-color: #bbf7d0;
+}
+
+.price-chip-single i,
+.price-chip-group i {
+    margin-right: 6px;
+}
+
+/* Safe entry section */
+#safe-entry {
+    position: relative;
+}
+
+.safe-pill {
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    height: 100%;
+}
+
+.safe-pill:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 46px rgba(15, 23, 42, 0.14);
+    border-color: #ffb4b8;
+}
+
+.safe-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    background: #fff1f2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: #f97373;
+}
+
+.safe-pill h5 {
+    font-size: 1rem;
+}
+
+.safe-pill p {
+    font-size: 0.87rem;
+}
+
+/* Home gallery thumbs (если есть блок с фотками) */
+.home-gallery-thumb {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.home-gallery-thumb img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.home-gallery-thumb:hover img {
+    transform: scale(1.04);
+}
+
+/* CTA buttons tweaks */
+.btn-danger {
+    border-radius: 999px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-weight: 600;
+    border: none;
+    background: linear-gradient(135deg, #ff4b57, #ff7a4d);
+}
+
+.btn-danger:hover {
+    opacity: 0.95;
+}
+
+/* Small devices tuning */
+@media (max-width: 767.98px) {
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .about-grid .about-large {
+        grid-row: auto;
+    }
+
+    .tour-card-gyg img {
+        height: 190px;
+    }
+}
+
 /* GUIDE IMAGE */
 .guide-img {
     width: 150px;
@@ -488,7 +714,7 @@ body {
         width: 100%;
         max-width: 100%;
     }
-    
+
     .about-large {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
@@ -500,7 +726,7 @@ body {
         height: 150px;
         width: 100%;
     }
-    
+
     .about-grid img {
         max-width: 100%;
         height: auto;
@@ -517,7 +743,7 @@ body {
         width: 100%;
         max-width: 100%;
     }
-    
+
     .about-large {
         grid-column: 1 / 3;
         grid-row: 1 / 2;
@@ -529,7 +755,7 @@ body {
         height: 130px;
         width: 100%;
     }
-    
+
     .about-grid img {
         max-width: 100%;
         height: 100%;
@@ -834,8 +1060,8 @@ body {
 }
 
 .tour-category-link {
-        color: #e0e0e0 !important;
-        transition: color 0.2s;
+    color: #e0e0e0 !important;
+    transition: color 0.2s;
 }
 
 .tour-category-link:hover {
@@ -843,24 +1069,590 @@ body {
     text-decoration: none;
 }
 
-.breadcrumb{
+.breadcrumb {
     background-color: transparent;
 }
 
-.share-buttons .btn{
-                transition:all .3s ease;
-                border:none;
-                box-shadow:0 2px 4px rgba(0,0,0,.1);
-            }
-            .share-buttons .btn:hover{
-                transform:translateY(-2px);
-                box-shadow:0 4px 8px rgba(0,0,0,.2);
-            }
-            .personal-sm a{
-                transition:all .3s ease;
-                display:inline-block;
-            }
-            .personal-sm a:hover{transform:scale(1.2);}
-            .btn-dark{background-color:#000!important;}
-            .text-dark{color:#000!important;}
-            .text-dark:hover{color:#000!important;}
+.share-buttons .btn {
+    transition: all .3s ease;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.share-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+}
+
+.personal-sm a {
+    transition: all .3s ease;
+    display: inline-block;
+}
+
+.personal-sm a:hover {
+    transform: scale(1.2);
+}
+
+.btn-dark {
+    background-color: #000 !important;
+}
+
+.text-dark {
+    color: #000 !important;
+}
+
+.text-dark:hover {
+    color: #000 !important;
+}
+
+.tm-section-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.tm-section-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+    max-width: 640px;
+    margin: 0 auto 0.25rem auto;
+}
+
+.tm-filters-card {
+    border-radius: 16px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 14px 18px;
+}
+
+.tm-filters-card label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.tm-filters-card .form-control {
+    font-size: 0.9rem;
+    border-radius: 999px;
+}
+
+.tm-filters-card .form-control:focus {
+    border-color: #ff4b57;
+    box-shadow: 0 0 0 0.1rem rgba(255, 75, 87, 0.25);
+}
+
+.tm-group-card {
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    padding: 14px 18px 12px;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tm-group-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    border-color: #ffb4b8;
+}
+
+.tm-group-card-full {
+    border-left: 4px solid #ef4444;
+}
+
+.tm-group-card-available {
+    border-left: 4px solid #10b981;
+}
+
+.tm-group-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tm-group-title a {
+    color: #111827;
+}
+
+.tm-group-title a:hover {
+    text-decoration: none;
+    color: #ff4b57;
+}
+
+.tm-group-meta-line {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.tm-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.tm-pill-date {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.tm-pill-booked {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.tm-pill-available {
+    background: #ecfdf3;
+    color: #047857;
+}
+
+.tm-price-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 4px 11px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tm-price-chip i {
+    margin-right: 4px;
+}
+
+.tm-price-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+    margin-left: 6px;
+}
+
+.tm-order-btn {
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #ff4b57, #ff7a4d);
+    border: none;
+}
+
+.tm-order-btn.disabled,
+.tm-order-btn:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    border: none;
+}
+
+.tm-empty-state {
+    padding: 40px 0;
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+.tm-pagination-wrapper {
+    margin-top: 10px;
+}
+
+/* Modal styles (в том же стиле, что Visa-модал) */
+.tm-modal .modal-dialog {
+    max-width: 620px;
+}
+
+.tm-modal .modal-content {
+    border-radius: 20px;
+    border: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(14px);
+}
+
+.tm-modal-header {
+    background: linear-gradient(135deg, #ff4b57, #ff7a4d);
+    color: #fff;
+    padding: 18px 24px 14px;
+    border-bottom: none;
+    position: relative;
+}
+
+.tm-modal-header .tm-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.tm-modal-header h5 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+.tm-modal-header p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    opacity: 0.9;
+}
+
+.tm-modal-close {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    color: #fff;
+    opacity: 0.9;
+    font-size: 1.3rem;
+}
+
+.tm-modal-body {
+    padding: 18px 22px 20px;
+}
+
+.tm-tour-summary {
+    border-radius: 16px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    margin-bottom: 14px;
+}
+
+.tm-tour-summary-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+}
+
+.tm-tour-summary-meta span {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.tm-tour-summary-meta i {
+    margin-right: 4px;
+}
+
+.tm-form-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.tm-form-control {
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 46px;
+    font-size: 0.9rem;
+}
+
+.tm-form-control:focus {
+    border-color: #ff4b57;
+    box-shadow: 0 0 0 0.1rem rgba(255, 75, 87, 0.25);
+}
+
+.tm-form-control.is-invalid {
+    border-color: #e11d48;
+}
+
+.tm-textarea {
+    border-radius: 16px;
+    min-height: 90px;
+    resize: vertical;
+}
+
+.tm-error {
+    font-size: 0.78rem;
+    color: #e11d48;
+    margin-top: 3px;
+}
+
+.tm-modal .modal-dialog {
+    max-width: 540px;
+}
+
+.tm-modal .modal-content {
+    border-radius: 20px;
+    border: none;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(14px);
+}
+
+.tm-modal-header {
+    background: linear-gradient(135deg, #ff4b57, #ff7a4d);
+    color: #fff;
+    padding: 18px 24px 14px;
+    border-bottom: none;
+    position: relative;
+}
+
+.tm-modal-header .tm-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.tm-modal-header h5 {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+}
+
+.tm-modal-header p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    opacity: 0.9;
+}
+
+.tm-modal-close {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    color: #fff;
+    opacity: 0.9;
+    font-size: 1.3rem;
+}
+
+.tm-modal-body {
+    padding: 18px 22px 20px;
+}
+
+.tm-form-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.tm-form-control {
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 46px;
+    font-size: 0.9rem;
+}
+
+.tm-form-control:focus {
+    border-color: #ff4b57;
+    box-shadow: 0 0 0 0.1rem rgba(255, 75, 87, 0.25);
+}
+
+.tm-form-control.is-invalid {
+    border-color: #e11d48;
+}
+
+.tm-textarea {
+    border-radius: 16px;
+    min-height: 90px;
+    resize: vertical;
+}
+
+.tm-error {
+    font-size: 0.78rem;
+    color: #e11d48;
+    margin-top: 3px;
+}
+
+.tm-submit-btn {
+    border-radius: 999px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0 22px;
+    border: none;
+    background: linear-gradient(135deg, #ff4b57, #ff7a4d);
+}
+
+.tm-submit-btn:focus,
+.tm-submit-btn:hover {
+    opacity: 0.95;
+}
+
+.tm-footnote {
+    font-size: 0.75rem;
+    color: #6b7280;
+    line-height: 1.3;
+}
+
+.tm-footnote strong {
+    font-weight: 600;
+}
+
+/* === Основной контейнер === */
+#about {
+    background-color: #ffffff;
+}
+
+#about .container {
+    max-width: 1200px;
+    /* опционально, для лучшего контроля на больших экранах */
+}
+
+/* === Заголовки и текст === */
+#about h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 1.5rem;
+}
+
+#about h3 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #212529;
+    margin: 1.75rem 0 1rem;
+}
+
+#about p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #6c757d;
+    margin-bottom: 1rem;
+    text-indent: 1.5rem;
+}
+
+/* Убираем отступ у первого абзаца, если нужно (по вашему исходному стилю) */
+#about .text-muted.mb-0 {
+    margin-bottom: 0;
+}
+
+/* === Список преимуществ === */
+#about .about-features-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0 1.5rem;
+}
+
+#about .about-features-list li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #495057;
+}
+
+#about .about-features-list li::before {
+    content: "\f00c";
+    /* Font Awesome Solid check icon */
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
+    color: #dc3545;
+    /* Bootstrap red — замените на ваш акцентный цвет, если нужно */
+    font-size: 0.95rem;
+}
+
+/* === Сетка изображений === */
+#about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+    width: 10;
+    height: auto;
+}
+
+/* === Большое изображение — сохраняем ширину, но контролируем высоту */
+#about .about-large {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    height: 280px;
+}
+
+#about .about-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Показываем ВСЁ изображение, без обрезки */
+    object-position: center;
+    /* Центрируем по содержимому */
+    background-color: #f8f9fa;
+    /* Лёгкий фон, если изображение не заполняет всю область */
+}
+
+/* === Маленькие изображения — одинаковая высота, но не обрезаем */
+#about .about-small {
+    grid-column: span 1;
+    grid-row: 2;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 130px;
+}
+
+#about .about-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background-color: #f8f9fa;
+}
+
+#about .about-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: none;
+}
+
+/* === Адаптивность (мобильные) === */
+@media (max-width: 991.98px) {
+    #about .about-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 12px;
+    }
+
+    #about .about-large {
+        aspect-ratio: 16 / 9;
+        /* или оставьте height, если предпочитаете */
+        height: auto;
+        /* aspect-ratio сам задаст высоту */
+    }
+
+    #about .about-small:nth-of-type(1) {
+        grid-column: 1;
+        grid-row: 2;
+        height: 120px;
+    }
+
+    #about .about-small:nth-of-type(2) {
+        grid-column: 1;
+        grid-row: 3;
+        height: 120px;
+    }
+}

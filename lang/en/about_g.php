@@ -12,4 +12,9 @@ return [
 
 
     'btn' => 'View tours',
+
+    'badge1' => 'Trusted local tour operator',
+    'badge2' => 'Visa & border support',
+    'badge3' => 'Small groups & private tours',
+
 ];
