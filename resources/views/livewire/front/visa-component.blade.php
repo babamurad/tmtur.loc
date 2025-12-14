@@ -75,24 +75,26 @@
                 </div>
 
                 <div class="list-group-item px-0 p-3 mb-2 border rounded-3 shadow-sm">
-                   <!-- Timeline -->
-                <h4 class="fw-semibold mb-3 pt-3">{{ __('visa.timeline') }}</h4>
-                <p class="mb-4">
-                    {!! __('visa.timeline_txt', ['days' => '<span class="badge bg-success fs-6 py-2 px-3">' . $days . '</span>']) !!}
-                </p>
+                    <!-- Timeline -->
+                    <h4 class="fw-semibold mb-3 pt-3">{{ __('visa.timeline') }}</h4>
+                    <p class="mb-4">
+                        {!! __('visa.timeline_txt', ['days' => '<span class="badge bg-success fs-6 py-2 px-3">' . $days . '</span>']) !!}
+                    </p>
 
-                <!-- Where to get visa -->
-                <h4 class="fw-semibold mb-3 pt-3 border-top">{{ __('visa.where_title') }}</h4>
-                <p class="text-muted mb-3">{{ __('visa.where_txt') }}</p>
-                <ul class="list-unstyled mb-0">
-                    <li class="d-flex align-items-start mb-2"><i
-                            class="bi bi-check-circle-fill text-success me-2 mt-1"></i> {!! __('visa.where_opt1') !!}
-                    </li>
-                    <li class="d-flex align-items-start"><i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-                        {!! __('visa.where_opt2') !!}</li>
-                </ul> 
+                    <!-- Where to get visa -->
+                    <h4 class="fw-semibold mb-3 pt-3 border-top">{{ __('visa.where_title') }}</h4>
+                    <p class="text-muted mb-3">{{ __('visa.where_txt') }}</p>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex align-items-start mb-2"><i
+                                class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                            {!! __('visa.where_opt1') !!}
+                        </li>
+                        <li class="d-flex align-items-start"><i
+                                class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                            {!! __('visa.where_opt2') !!}</li>
+                    </ul>
                 </div>
-                
+
 
             </div>
         </div>
@@ -192,16 +194,16 @@
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <button type="button" class="btn btn-dark rounded" wire:click="closeBookingModal">
-                                    {{ __('Отмена') }}
+                                    {{ __('Cancel') }}
                                 </button>
 
                                 <div class="d-flex align-items-center">
                                     <button type="submit" class="btn tm-submit-btn text-white" wire:loading.attr="disabled">
                                         <span wire:loading.remove>
-                                            {{ __('Отправить') }}
+                                            {{ __('Send') }}
                                         </span>
                                         <span wire:loading>
-                                            {{ __('Отправка...') }}
+                                            {{ __('Sending...') }}
                                         </span>
                                     </button>
 
