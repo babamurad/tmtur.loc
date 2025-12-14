@@ -82,11 +82,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('tour-categories/create', App\Livewire\TourCategories\TourCategoryCreateComponent::class)->name('tour-categories.create');
     Route::get('tour-categories/edit/{id}', App\Livewire\TourCategories\TourCategoryEditComponent::class)->name('tour-categories.edit');
 
-    Route::prefix('admin')->name('admin.')->group(function() {
+    Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/tours', TourIndexComponent::class)->name('tours.index');
         Route::get('/tours/create', TourCreateComponent::class)->name('tours.create');
         Route::get('/tours/edit/{id}', TourEditComponent::class)->name('tours.edit');
-    });    
+    });
 
     Route::get('tour-groups', App\Livewire\TourGroups\TourGroupIndexComponent::class)->name('tour-groups.index');
     Route::get('tour-groups/create', App\Livewire\TourGroups\TourGroupCreateComponent::class)->name('tour-groups.create');
@@ -117,15 +117,15 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('profile-edit', ProfileEdit::class)->name('admin.profile-edit');
     Route::get('contact-messages', \App\Livewire\ContactMessagesTable::class)->name('admin.contact-messages-table');
 
-    Route::prefix('gallery')->name('gallery.')->group(function () {
-      Route::get('/', GalleryIndex::class)->name('index');
-      Route::get('/create', GalleryCreate::class)->name('create');
-      Route::get('/edit/{id}', GalleryEdit::class)->name('edit');
+    Route::prefix('gallery.')->name('gallery.')->group(function () {
+        Route::get('/', GalleryIndex::class)->name('index');
+        Route::get('/create', GalleryCreate::class)->name('create');
+        Route::get('/edit/{id}', GalleryEdit::class)->name('edit');
     });
 
     Route::get('newsletter-subscribers', \App\Livewire\Admin\NewsletterSubscribersCrud::class)->name('admin.newsletter-subscribers');
 
-//    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
+    //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
@@ -139,22 +139,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/', HomeComponent::class)->name('home');
 //Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
 
-Route::get('tours/{tour:slug}',      \App\Livewire\Front\ToursShow::class)->name('tours.show');
+Route::get('tours/{tour:slug}', \App\Livewire\Front\ToursShow::class)->name('tours.show');
 Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
 Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
 // Тур-группы (публичная страница)
 Route::get('tour-groups-date', TourGroupsIndexComponent::class)->name('front.tour-groups');
 
-Route::get('cart',                   \App\Livewire\Front\CartComponent::class)->name('cart.index');
-Route::post('checkout',              [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
+Route::get('cart', \App\Livewire\Front\CartComponent::class)->name('cart.index');
+Route::post('checkout', [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
 //Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');
 
 Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
 Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
 Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
 
-Route::get('gallery', \App\Livewire\Front\ProductGallery ::class)->name('gallery');
+Route::get('gallery', \App\Livewire\Front\ProductGallery::class)->name('gallery');
 
 Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
 
@@ -174,4 +174,4 @@ Route::post('/logout', function () {
 })->name('logout');
 
 
-Route::get('sitemap.xml', fn () => response()->file(public_path('sitemap.xml')));
+Route::get('sitemap.xml', fn() => response()->file(public_path('sitemap.xml')));
