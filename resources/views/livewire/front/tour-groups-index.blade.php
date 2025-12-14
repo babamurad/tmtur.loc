@@ -256,12 +256,12 @@
 
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <button type="button" class="btn btn-secondary" wire:click="closeBookingModal">
-                                    {{ __('Отмена') }}
+                                    {{ __('Cancel') }}
                                 </button>
 
                                 <button type="submit" class="btn tm-order-btn" wire:loading.attr="disabled">
-                                    <span wire:loading.remove>{{ __('Отправить') }}</span>
-                                    <span wire:loading>{{ __('Отправка...') }}</span>
+                                    <span wire:loading.remove>{{ __('Send') }}</span>
+                                    <span wire:loading>{{ __('Sending...') }}</span>
                                 </button>
                             </div>
                         </div>
