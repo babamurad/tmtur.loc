@@ -92,4 +92,13 @@ return [
     'home_popular_title' => '투르크메니스탄 인기 투어',
     'home_popular_subtitle' => '현지 전문가가 엄선한 소규모 그룹 및 프라이빗 투어.',
 
+    'home_discover_title' => '투르크메니스탄 발견하기',
+    'home_discover_text_1' => '투르크메니스탄은 카라쿰 사막, 다르바자의 불빛, 아슈하바트의 백색 대리석, 그리고 위대한 실크로드 시대의 흔적이 있는 곳입니다.',
+    'home_discover_text_2' => '이곳에는 유네스코 세계문화유산인 고대 메르브, 쿤야우르겐치, 니사뿐만 아니라 실크로드 구간과 독특한 투란 사막이 여러분을 기다리고 있습니다.',
+    'home_why_choose_title' => '여행자들이 TmTourism을 선택하는 이유',
+    'home_why_choose_list_1' => '실제 관광 경험이 있는 현지 팀',
+    'home_why_choose_list_2' => '비자, 초청장(LOI) 및 국경 통과 지원',
+    'home_why_choose_list_3' => '숨겨진 추가 비용 없는 투명한 가격',
+    'home_why_choose_list_4' => '소규모 그룹 및 맞춤형 접근 방식',
+
 ];

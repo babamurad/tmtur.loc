@@ -94,4 +94,13 @@ return [
     'home_popular_title' => 'Popular Tours in Turkmenistan',
     'home_popular_subtitle' => 'Handpicked group and private tours crafted by trusted local experts.',
 
+    'home_discover_title' => 'Discover Turkmenistan',
+    'home_discover_text_1' => 'Turkmenistan is Karakum, the lights of Darvaza and the white marble of Ashgabat, as well as traces of great eras on the Great Silk Road.',
+    'home_discover_text_2' => 'UNESCO World Heritage Sites await you here: Ancient Merv, Kunya-Urgench, Nisa, as well as sections of the Silk Roads and the unique deserts of Turan.',
+    'home_why_choose_title' => 'Why travelers choose TmTourism',
+    'home_why_choose_list_1' => 'Local team with real tourism experience',
+    'home_why_choose_list_2' => 'Assistance with visa, LOI and border crossing',
+    'home_why_choose_list_3' => 'Transparent prices with no hidden extra charges',
+    'home_why_choose_list_4' => 'Small groups and individual approach',
+
 ];

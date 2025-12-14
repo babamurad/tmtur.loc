@@ -1,51 +1,51 @@
 <div>
-    
-<section class="py-5 bg-white" id="about">
-  <div class="container py-4">
-    <div class="row align-items-center gy-5">
 
-      <!-- LEFT SIDE — TEXT -->
-      <div class="col-lg-6">
-        <h2 class="fw-bold mb-4" style="font-size: 2rem; color: #212529;">
-          Discover Turkmenistan
-        </h2>
+    <section class="py-5 bg-white" id="about">
+        <div class="container py-4">
+            <div class="row align-items-center gy-5">
 
-        <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
-          A land of shining cities, ancient civilizations and the endless sands of the Karakum Desert — where tradition and modernity meet.
-        </p>
+                <!-- LEFT SIDE — TEXT -->
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4" style="font-size: 2rem; color: #212529;">
+                        {{ __('messages.home_discover_title') }}
+                    </h2>
 
-        <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
-          From the legendary Darvaza Gas Crater to marble Ashgabat and the ancient ruins of Merv, Turkmenistan offers unforgettable experiences.
-        </p>
+                    <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
+                        {{ __('messages.home_discover_text_1') }}
+                    </p>
 
-        <h3 class="fw-bold mb-3" style="color: #212529;">Почему путешественники выбирают TmTourism</h3>
+                    <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
+                        {{ __('messages.home_discover_text_2') }}
+                    </p>
 
-        <ul class="about-features-list">
-          <li>Местная команда с реальным опытом в туризме</li>
-          <li>Помощь с визой, LOI и прохождением границы</li>
-          <li>Прозрачные цены без скрытых доплат</li>
-          <li>Небольшие группы и индивидуальный подход</li>
-        </ul>
-      </div>
+                    <h3 class="fw-bold mb-3" style="color: #212529;">{{ __('messages.home_why_choose_title') }}</h3>
 
-      <!-- RIGHT SIDE — IMAGE GRID -->
-      <div class="col-lg-6">
-        <div class="about-grid">
-          <div class="about-large">
-            <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan">
-          </div>
-          <div class="about-small">
-            <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan">
-          </div>
-          <div class="about-small">
-            <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan">
-          </div>
+                    <ul class="about-features-list">
+                        <li>{{ __('messages.home_why_choose_list_1') }}</li>
+                        <li>{{ __('messages.home_why_choose_list_2') }}</li>
+                        <li>{{ __('messages.home_why_choose_list_3') }}</li>
+                        <li>{{ __('messages.home_why_choose_list_4') }}</li>
+                    </ul>
+                </div>
+
+                <!-- RIGHT SIDE — IMAGE GRID -->
+                <div class="col-lg-6">
+                    <div class="about-grid">
+                        <div class="about-large">
+                            <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan">
+                        </div>
+                        <div class="about-small">
+                            <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan">
+                        </div>
+                        <div class="about-small">
+                            <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+    </section>
 
     <!-- ========== POPULAR TOURS – GETYOURGUIDE PREMIUM ========== -->
     <section id="tours" class="bg-light">
@@ -127,8 +127,8 @@
 
                                 <!-- SHORT DESCRIPTION -->
                                 <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                    {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                </p> -->
+                                                                                {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
+                                                                            </p> -->
 
                                 <!-- DURATION & TYPE -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
