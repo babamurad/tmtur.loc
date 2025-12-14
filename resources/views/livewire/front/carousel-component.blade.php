@@ -18,9 +18,9 @@
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center">
                         <a href="{{ route('tours.category.index') }}"
-                            class="btn btn-primary rounded">{{ $carousel->tr('button_text') }}</a>
+                            class="btn btn-primary rounded">{{ __('All Tours') }}</a>
                         <a href="{{ route('front.tour-groups') }}"
-                            class="btn btn-outline-light rounded">{{ __('All Tours') }}</a>
+                            class="btn btn-outline-light rounded">{{ __('By Dates') }}</a>
                     </div>
                 </div>
             </div>
