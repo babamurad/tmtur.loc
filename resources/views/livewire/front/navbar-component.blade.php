@@ -28,13 +28,14 @@
 
                     <div class="dropdown-menu mega-dropdown" aria-labelledby="toursDropdown">
                         <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">
-                            {{ __('menu.tours') }}</div>
+                            {{ __('menu.tours') }}
+                        </div>
                         <div class="dropdown-grid px-2 pb-2">
                             @foreach($categories as $category)
-                                <a class="dropdown-item d-flex align-items-center"
+                                <a class="dropdown-item d-flex align-items-center "
                                     href="{{ route('tours.category.show', $category->slug) }}" wire:navigate>
                                     <span class="badge-dot mr-2"></span>
-                                    <span>{{ $category->tr('title') }}</span>
+                                    <span class="category">{{ $category->tr('title') }}</span>
                                 </a>
                             @endforeach
                         </div>
@@ -42,12 +43,14 @@
                         <div class="dropdown-footer border-top px-3 py-2">
                             <a class="dropdown-item font-weight-semibold d-flex align-items-center"
                                 href="{{ route('tours.category.index') }}" wire:navigate>
-                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.all_tours') }}
-                            </a>
+                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
+                                    {{ __('menu.all_tours') }}
+                                </span></a>
                             <a class="dropdown-item font-weight-semibold d-flex align-items-center"
                                 href="{{ route('front.tour-groups') }}" wire:navigate>
-                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i> {{ __('menu.tour_groups') }}
-                            </a>
+                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
+                                    {{ __('menu.tour_groups') }}
+                                </span></a>
                         </div>
                     </div>
                 </li>

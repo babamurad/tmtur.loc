@@ -1045,6 +1045,10 @@ body {
     color: #fff !important;
 }
 
+.category:hover {
+    color: #4f46e5 !important;
+}
+
 .article img,
 .article iframe,
 .article video,
