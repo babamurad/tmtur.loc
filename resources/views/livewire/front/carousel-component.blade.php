@@ -3,7 +3,8 @@
     <!-- Индикаторы -->
     <ol class="carousel-indicators">
         @foreach($carousels as $carousel)
-            <li data-target="#home-carousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+            <li data-target="#home-carousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}">
+            </li>
         @endforeach
     </ol>
 
@@ -11,13 +12,15 @@
     <div class="carousel-inner">
         @foreach($carousels as $carousel)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000"
-                 style="background-image: url({{ asset('uploads/' . $carousel->image) }}); background-size: cover; background-position: center;">
+                style="background-image: url({{ asset('uploads/' . $carousel->image) }}); background-size: cover; background-position: center;">
                 <div class="carousel-caption text-center">
                     <h1 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h1>
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center">
-                        <a href="#tours" class="btn btn-danger btn-lg mb-2 mb-sm-0 mr-sm-2">{{ $carousel->tr('button_text') }}</a>
-                        <a href="#darwaza" class="btn btn-outline-light btn-lg">{{ __('All Tours') }}</a>
+                        <a href="{{ route('tours.category.index') }}"
+                            class="btn btn-danger btn-lg mb-2 mb-sm-0 mr-sm-2">{{ $carousel->tr('button_text') }}</a>
+                        <a href="{{ route('front.tour-groups') }}"
+                            class="btn btn-outline-light btn-lg">{{ __('All Tours') }}</a>
                     </div>
                 </div>
             </div>
