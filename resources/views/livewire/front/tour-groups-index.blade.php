@@ -260,7 +260,7 @@
                                     {{ __('Cancel') }}
                                 </button>
 
-                                <button type="submit" class="btn tm-order-btn" wire:loading.attr="disabled">
+                                <button type="submit" class="btn tm-order-btn text-white" wire:loading.attr="disabled">
                                     <span wire:loading.remove>{{ __('Send') }}</span>
                                     <span wire:loading>{{ __('Sending...') }}</span>
                                 </button>
