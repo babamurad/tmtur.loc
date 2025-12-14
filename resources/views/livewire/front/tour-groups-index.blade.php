@@ -92,7 +92,8 @@
                                     </div>
                                 @endif
 
-                                <button type="button" class="btn tm-order-btn btn-sm mt-1 {{ $isFull ? 'disabled' : '' }}"
+                                <button type="button"
+                                    class="btn tm-order-btn btn-sm mt-1 text-white {{ $isFull ? 'disabled' : '' }}"
                                     wire:click="openBookingModal({{ $group->id }})" @if($isFull) disabled @endif>
                                     <i class="fas fa-ticket-alt mr-1"></i>
                                     {{ $isFull ? __('messages.no_seats') : __('messages.order_button') }}
