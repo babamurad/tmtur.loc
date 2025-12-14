@@ -10,11 +10,13 @@
                         {{ __('messages.home_discover_title') }}
                     </h2>
 
-                    <p class="text-muted mb-3" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
+                    <p class="text-muted mb-3"
+                        style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem; text-align: justify;">
                         {{ __('messages.home_discover_text_1') }}
                     </p>
 
-                    <p class="text-muted mb-4" style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem;">
+                    <p class="text-muted mb-4"
+                        style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem; text-align: justify;">
                         {{ __('messages.home_discover_text_2') }}
                     </p>
 
@@ -127,8 +129,8 @@
 
                                 <!-- SHORT DESCRIPTION -->
                                 <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                                {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                            </p> -->
+                                                                                    {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
+                                                                                </p> -->
 
                                 <!-- DURATION & TYPE -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
