@@ -53,6 +53,7 @@ return [
     'book_now' => '지금 예약',
     'sold_out' => '매진',
     'booking_info' => '편리한 날짜를 선택하고 그룹에서 자리를 예약하세요',
+    'group_dates_subtitle' => '월을 선택하면 예약 가능한 그룹 출발일을 볼 수 있습니다.',
     'no_available_groups' => '현재 이 투어에 대한 예약 가능한 날짜가 없습니다. 개인 투어를 위해 문의해 주세요.',
     'next_departure' => '다음 출발',
     'from' => '부터',

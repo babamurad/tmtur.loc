@@ -7,8 +7,7 @@
                     {{ __('messages.available_dates') }}
                 </h2>
                 <p class="tm-section-subtitle">
-                    Выберите месяц, чтобы увидеть доступные даты групповых туров. / Choose your month to see available
-                    group departures.
+                    {{ __('messages.group_dates_subtitle') }}
                 </p>
             </div>
         </div>

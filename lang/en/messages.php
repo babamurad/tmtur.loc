@@ -53,6 +53,7 @@ return [
     'book_now' => 'Book Now',
     'sold_out' => 'Sold Out',
     'booking_info' => 'Choose a convenient date and book your spot in the group',
+    'group_dates_subtitle' => 'Choose a month to see available group departures.',
     'no_available_groups' => 'There are currently no available dates for this tour. Contact us for a private tour.',
     'next_departure' => 'Next departure',
     'from' => 'from',
