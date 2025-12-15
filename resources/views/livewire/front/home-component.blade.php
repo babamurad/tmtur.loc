@@ -166,8 +166,6 @@
 
                                         </div>
                                     @endif
-
-
                                 </div>
 
                             </div>
@@ -436,7 +434,7 @@
     @endif
 
     <!-- ========== BORDER CROSSING & VISA SUPPORT – 3 STEPS ========== -->
-    <section class="py-5 bg-white" id="borders">
+    <section class="py-5 bg-light" id="borders">
         <div class="container py-4">
 
             <div class="text-center mb-5">
@@ -513,10 +511,8 @@
         </div>
     </section>
 
-
-
     <!-- ========== GALLERY / EXPERIENCES ========== -->
-    <section class="py-5 bg-light" id="gallery">
+    <section class="py-5 bg-white" id="gallery">
         <div class="container py-4">
 
             <div class="text-center mb-4">
@@ -547,7 +543,6 @@
 
         </div>
     </section>
-
 
     <!-- ========== SAFE & GUARANTEED ENTRY ASSISTANCE ========== -->
     <section class="py-5 bg-light" id="safe-entry">
@@ -607,7 +602,6 @@
 
         </div>
     </section>
-
 
     {{--42270905--}}
     <!-- ========== CONTACTS ========== -->

@@ -1,4 +1,4 @@
-nhtml {
+html {
     scroll-behavior: smooth;
 }
 
@@ -920,7 +920,7 @@ body {
 }
 
 .mega-dropdown .dropdown-item:hover {
-    background: #f5f3ff !important;
+    background: #f5f3ff;
     color: #5b21b6;
 }
 
@@ -1043,11 +1043,14 @@ body {
 
 .dropdown .dropdown-menu .dropdown-item:hover {
     color: #fff !important;
+    background-color: #a6c !important;
 }
 
 .category:hover {
     color: #4f46e5 !important;
 }
+
+
 
 .article img,
 .article iframe,
