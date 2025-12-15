@@ -33,13 +33,13 @@
                 <!-- RIGHT SIDE — IMAGE GRID -->
                 <div class="col-lg-6">
                     <div class="about-grid">
-                        <div class="about-large">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan">
                         </div>
-                        <div class="about-small">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan">
                         </div>
-                        <div class="about-small">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan">
                         </div>
                     </div>
