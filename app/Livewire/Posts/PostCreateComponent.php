@@ -104,6 +104,7 @@ class PostCreateComponent extends Component
                 'status' => (bool)$this->status,
                 'published_at' => $this->published_at,
                 'image' => $path,
+                'user_id' => auth()->id(),
             ];
 
             \Log::debug('Данные для создания поста', $postData);

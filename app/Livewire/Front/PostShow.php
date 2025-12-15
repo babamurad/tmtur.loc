@@ -12,7 +12,7 @@ class PostShow extends Component
 
     public function mount(Post $post)
     {
-        $this->post = $post;
+        $this->post = $post->load('user.avatar');
         $this->post->increment('views');
     }
 

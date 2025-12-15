@@ -20,7 +20,8 @@ class Post extends Model
         'image',
         'status',
         'published_at',
-        'views'
+        'views',
+        'user_id'
     ];
 
     protected $casts = [

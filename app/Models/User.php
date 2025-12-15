@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar ? asset('storage/' . $this->avatar->path) : asset('img/placeholder_avatar.png');
+        return $this->avatar ? asset('uploads/' . $this->avatar->file_path) : asset('img/placeholder_avatar.png');
     }
 
     public function canAccessPanel(Panel $panel): bool
