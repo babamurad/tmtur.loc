@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Service;
 use App\Models\TourGroup;
 use App\Models\TourGroupService;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class TourGroupCreateComponent extends Component
@@ -73,6 +74,9 @@ class TourGroupCreateComponent extends Component
 
     public function mount()
     {
+        // Дата/время по умолчанию: сегодня в 09:30 (формат для datetime-local)
+        $this->starts_at = Carbon::now()->setTime(9, 30)->format('Y-m-d\TH:i');
+
         // Загружаем список всех услуг один раз
         $this->services = Service::all();
 
