@@ -49,6 +49,7 @@ return [
     'available' => '예약 가능',
     'seats' => '좌석',
     'per_person' => '1인당',
+    'small_groups_note' => '확정 후 소규모 그룹 및 보장된 출발입니다.',
     'book_now' => '지금 예약',
     'sold_out' => '매진',
     'booking_info' => '편리한 날짜를 선택하고 그룹에서 자리를 예약하세요',

@@ -34,8 +34,7 @@
                 </div>
                 <div class="col-md-4 d-flex align-items-end justify-content-md-end">
                     <div class="small text-muted mt-2 mt-md-0">
-                        Малые группы и гарантированные выезды после подтверждения. / Small groups and guaranteed
-                        departures after confirmation.
+                        {{ __('messages.small_groups_note') }}
                     </div>
                 </div>
             </div>

@@ -49,6 +49,7 @@ return [
     'available' => 'Available',
     'seats' => 'seats',
     'per_person' => 'per person',
+    'small_groups_note' => 'Small groups and guaranteed departures after confirmation.',
     'book_now' => 'Book Now',
     'sold_out' => 'Sold Out',
     'booking_info' => 'Choose a convenient date and book your spot in the group',
