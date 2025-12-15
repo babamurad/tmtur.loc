@@ -104,4 +104,6 @@ return [
     'home_why_choose_list_3' => 'Transparent prices with no hidden extra charges',
     'home_why_choose_list_4' => 'Small groups and individual approach',
 
+    'view_all_groups' => 'View all group dates',
+
 ];

@@ -102,4 +102,6 @@ return [
     'home_why_choose_list_3' => '숨겨진 추가 비용 없는 투명한 가격',
     'home_why_choose_list_4' => '소규모 그룹 및 맞춤형 접근 방식',
 
+    'view_all_groups' => '모든 그룹 날짜 보기',
+
 ];
