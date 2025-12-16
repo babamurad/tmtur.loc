@@ -1,4 +1,4 @@
-<section id="contact" class="bg-light">
+<section id="contact" class="bg-light pt-3">
     <div class="container">
         <h2 class="text-center mb-5">{{ __('messages.contact_us') }}</h2>
 

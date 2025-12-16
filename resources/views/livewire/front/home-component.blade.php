@@ -35,13 +35,13 @@
                 <!-- RIGHT SIDE — IMAGE GRID -->
                 <div class="col-lg-6">
                     <div class="about-grid">
-                        <div class="about-large">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan">
                         </div>
-                        <div class="about-small">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan">
                         </div>
-                        <div class="about-small">
+                        <div class="home-gallery-thumb">
                             <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan">
                         </div>
                     </div>
@@ -168,8 +168,6 @@
 
                                         </div>
                                     @endif
-
-
                                 </div>
 
                             </div>
@@ -438,7 +436,7 @@
     @endif
 
     <!-- ========== BORDER CROSSING & VISA SUPPORT – 3 STEPS ========== -->
-    <section class="py-5 bg-white" id="borders">
+    <section class="py-5 bg-light" id="borders">
         <div class="container py-4">
 
             <div class="text-center mb-5">
@@ -515,10 +513,8 @@
         </div>
     </section>
 
-
-
     <!-- ========== GALLERY / EXPERIENCES ========== -->
-    <section class="py-5 bg-light" id="gallery">
+    <section class="py-5 bg-white" id="gallery">
         <div class="container py-4">
 
             <div class="text-center mb-4">
@@ -549,7 +545,6 @@
 
         </div>
     </section>
-
 
     <!-- ========== SAFE & GUARANTEED ENTRY ASSISTANCE ========== -->
     <section class="py-5 bg-light" id="safe-entry">
@@ -609,7 +604,6 @@
 
         </div>
     </section>
-
 
     {{--42270905--}}
     <!-- ========== CONTACTS ========== -->

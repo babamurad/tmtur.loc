@@ -1,4 +1,4 @@
-nhtml {
+html {
     scroll-behavior: smooth;
 }
 
@@ -253,19 +253,25 @@ body {
 }
 
 /* Home gallery thumbs (если есть блок с фотками) */
+/* Карточка = картинка (без пустого места снизу) */
 .home-gallery-thumb {
     border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    overflow: hidden;              /* важно: чтобы тень/углы не “вылезали” */
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    background: #fff;
+    line-height: 0;                /* убирает “зазор” снизу от inline-img */
 }
 
+/* Картинка заполняет карточку */
 .home-gallery-thumb img {
     width: 100%;
-    height: 240px;
+    height: 240px;                 /* если нужна одинаковая высота как сейчас */
     object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
+    display: block;                /* убирает нижний зазор (очень важно) */
+    border-radius: 0;              /* скругление теперь на обёртке */
+    box-shadow: none !important;   /* если раньше тень была на img */
 }
+
 
 .home-gallery-thumb:hover img {
     transform: scale(1.04);
@@ -920,7 +926,7 @@ body {
 }
 
 .mega-dropdown .dropdown-item:hover {
-    background: #f5f3ff !important;
+    background: #f5f3ff;
     color: #5b21b6;
 }
 
@@ -1043,11 +1049,14 @@ body {
 
 .dropdown .dropdown-menu .dropdown-item:hover {
     color: #fff !important;
+    background-color: #a6c !important;
 }
 
 .category:hover {
     color: #4f46e5 !important;
 }
+
+
 
 .article img,
 .article iframe,
