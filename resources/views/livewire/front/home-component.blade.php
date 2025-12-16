@@ -10,12 +10,12 @@
                         {{ __('messages.home_discover_title') }}
                     </h2>
 
-                    <p class="text-muted mb-3"
+                    <p class="text-muted mb-0"
                         style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem; text-align: justify;">
                         {{ __('messages.home_discover_text_1') }}
                     </p>
 
-                    <p class="text-muted mb-4"
+                    <p class="text-muted mb-0"
                         style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem; text-align: justify;">
                         {{ __('messages.home_discover_text_2') }}
                     </p>
@@ -23,10 +23,12 @@
                     <h3 class="fw-bold mb-3" style="color: #212529;">{{ __('messages.home_why_choose_title') }}</h3>
 
                     <ul class="about-features-list">
-                        <li>{{ __('messages.home_why_choose_list_1') }}</li>
-                        <li>{{ __('messages.home_why_choose_list_2') }}</li>
-                        <li>{{ __('messages.home_why_choose_list_3') }}</li>
-                        <li>{{ __('messages.home_why_choose_list_4') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_1') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_2') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_3') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_4') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_5') }}</li>
+                        <li class="mb-0">{{ __('messages.home_why_choose_list_6') }}</li>
                     </ul>
                 </div>
 

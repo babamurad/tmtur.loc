@@ -102,8 +102,10 @@ return [
     'home_why_choose_title' => 'Why travelers choose TmTourism',
     'home_why_choose_list_1' => 'Local team with real tourism experience',
     'home_why_choose_list_2' => 'Assistance with visa, LOI and border crossing',
-    'home_why_choose_list_3' => 'Transparent prices with no hidden extra charges',
-    'home_why_choose_list_4' => 'Small groups and individual approach',
+    'home_why_choose_list_3' => 'Transparent prices and conditions — we explain everything in advance, no hidden charges',
+    'home_why_choose_list_4' => 'Custom routes — tailored to your pace, interests and budget',
+    'home_why_choose_list_5' => 'Fast communication 24/7 — you always communicate directly with the organizer',
+    'home_why_choose_list_6' => 'Care for every guest — for us you are not a client, but our guest',
 
     'view_all_groups' => 'View all group dates',
 

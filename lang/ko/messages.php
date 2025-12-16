@@ -100,8 +100,10 @@ return [
     'home_why_choose_title' => '여행자들이 TmTourism을 선택하는 이유',
     'home_why_choose_list_1' => '실제 관광 경험이 있는 현지 팀',
     'home_why_choose_list_2' => '비자, 초청장(LOI) 및 국경 통과 지원',
-    'home_why_choose_list_3' => '숨겨진 추가 비용 없는 투명한 가격',
-    'home_why_choose_list_4' => '소규모 그룹 및 맞춤형 접근 방식',
+    'home_why_choose_list_3' => '투명한 가격 및 조건 — 모든 것을 사전에 설명, 숨겨진 비용 없음',
+    'home_why_choose_list_4' => '맞춤형 여행 코스 — 여러분의 속도, 관심사 및 예산에 맞춤',
+    'home_why_choose_list_5' => '24/7 빠른 소통 — 항상 조직자와 직접 소통',
+    'home_why_choose_list_6' => '모든 게스트에 대한 배려 — 고객이 아닌 우리의 게스트로 대우',
 
     'view_all_groups' => '모든 그룹 날짜 보기',
 
