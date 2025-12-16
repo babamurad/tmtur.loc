@@ -36,13 +36,16 @@
                 <div class="col-lg-6">
                     <div class="about-grid">
                         <div class="home-gallery-thumb">
-                            <img src="/assets/images/tmfotos/i.webp" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/i.webp') }}" alt="Turkmenistan">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="/assets/images/tmfotos/81.webp" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/81.webp') }}" alt="Turkmenistan">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="/assets/images/tmfotos/i-1.webp" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan">
+                        </div>
+                        <div class="home-gallery-thumb">
+                            <img src="{{ asset('assets/images/tmfotos/darvaza.jpg') }}" alt="Turkmenistan">
                         </div>
                     </div>
                 </div>
