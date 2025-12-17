@@ -28,11 +28,9 @@ class ToursShow extends Component
 
     public function mount(Tour $tour)
     {
-        // Загружаем связи, для groupsOpen берем только последние 3 записи
+        // Загружаем связи, для groupsOpen берем все записи
         $this->tour = $tour->load([
-            'groupsOpen' => function ($query) {
-                $query->take(3);
-            },
+            'groupsOpen',
             'categories',
             'itineraryDays',
             'inclusions',

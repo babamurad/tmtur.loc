@@ -183,7 +183,13 @@
                             </div>
                             <div class="card-body p-0">
                                 <div class="list-group list-group-flush">
-                                    @foreach($tour->groupsOpen as $group)
+                                    @php
+                                        $firstThreeGroups = $tour->groupsOpen->take(3);
+                                        $remainingGroups = $tour->groupsOpen->slice(3);
+                                    @endphp
+
+                                    {{-- Первые 3 группы - всегда видимые --}}
+                                    @foreach($firstThreeGroups as $group)
                                         <div class="list-group-item">
                                             <div class="row align-items-center">
                                                 {{-- Дата отправления --}}
@@ -262,21 +268,110 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                </div>
-                            </div>
-                            <div class="card-footer text-muted small">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <i class="fas fa-info-circle"></i>
-                                        {{ __('messages.booking_info') ?? 'Выберите удобную дату и забронируйте место в группе' }}
-                                    </div>
-                                    @if($this->totalOpenGroupsCount > 3)
-                                        <a href="{{ route('front.tour-groups') }}" class="btn btn-sm btn-outline-primary">
-                                            <i class="fas fa-calendar-alt mr-1"></i>
-                                            {{ __('messages.view_all_dates') ?? 'Смотреть все даты' }}
-                                        </a>
+
+                                    {{-- Остальные группы - скрытые, раскрываются по клику --}}
+                                    @if($remainingGroups->count() > 0)
+                                        <div class="collapse" id="moreGroupDates">
+                                            @foreach($remainingGroups as $group)
+                                                <div class="list-group-item">
+                                                    <div class="row align-items-center">
+                                                        {{-- Дата отправления --}}
+                                                        <div class="col-md-3 mb-2 mb-md-0">
+                                                            <div class="d-flex align-items-center">
+                                                                <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                                                                <div>
+                                                                    <strong
+                                                                        class="d-block">{{ \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y') }}</strong>
+                                                                    <small
+                                                                        class="text-muted">{{ \Carbon\Carbon::parse($group->starts_at)->format('H:i') }}</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Свободные места --}}
+                                                        <div class="col-md-2 mb-2 mb-md-0">
+                                                            <div class="d-flex align-items-center">
+                                                                <i class="fas fa-users text-info mr-2"></i>
+                                                                <div>
+                                                                    @php
+                                                                        $available = $group->max_people - $group->current_people;
+                                                                        $percentage = ($available / $group->max_people) * 100;
+                                                                    @endphp
+                                                                    <span
+                                                                        class="badge badge-{{ $percentage > 50 ? 'success' : ($percentage > 20 ? 'warning' : 'danger') }}">
+                                                                        {{ $available }} / {{ $group->max_people }}
+                                                                        {{ __('messages.seats') ?? 'мест' }}
+                                                                    </span>
+                                                                    <small
+                                                                        class="d-block text-muted">{{ __('messages.available') ?? 'свободно' }}</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Цена --}}
+                                                        <div class="col-md-3 mb-2 mb-md-0">
+                                                            <div class="d-flex flex-column">
+
+                                                                {{-- 2 Prices Display --}}
+                                                                @if($group->max_people > 1)
+                                                                    <div class="d-flex flex-column">
+                                                                        <span
+                                                                            class="badge bg-secondary border border-secondary text-secondary mb-1 font-weight-normal text-left"
+                                                                            style="background-color: #f8f9fa;">
+                                                                            <i class="fas fa-user"></i> 1
+                                                                            {{ __('messages.person') ?? 'чел.' }}:
+                                                                            <strong>${{ $group->price_max }}</strong>
+                                                                        </span>
+                                                                        <span
+                                                                            class="badge bg-success border border-success text-success mb-1 font-weight-normal text-left"
+                                                                            style="background-color: #f8fff9;">
+                                                                            <i class="fas fa-users"></i> {{ $group->max_people }}
+                                                                            {{ __('messages.people') ?? 'чел.' }}:
+                                                                            <strong>${{ $group->price_min }}</strong>
+                                                                        </span>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- Кнопка бронирования --}}
+                                                        <div class="col-md-4">
+                                                            @if($available > 0)
+                                                                <button type="button" href="#" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+                                                                    <i class="fas fa-ticket-alt mr-1"></i>
+                                                                    {{ __('messages.book_now') ?? 'Забронировать' }}
+                                                                </button>
+                                                            @else
+                                                                <button class="btn btn-secondary btn-block" disabled>
+                                                                    <i class="fas fa-times-circle mr-1"></i>
+                                                                    {{ __('messages.sold_out') ?? 'Мест нет' }}
+                                                                </button>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </div>
+                            </div>
+                            @if($tour->groupsOpen->count() > 3)
+                                <div class="card-footer text-center p-0 m-0">
+                                    <button class="btn btn-link text-primary m-1 p-2" type="button" data-toggle="collapse" data-target="#moreGroupDates" aria-expanded="false" aria-controls="moreGroupDates">
+                                        <span class="when-collapsed">
+                                            {{ __('messages.view_all_dates') ?? 'Смотреть все даты' }}
+                                            <i class="fas fa-chevron-down ml-1"></i>
+                                        </span>
+                                        <span class="when-expanded" style="display: none;">
+                                            {{ __('messages.hide_dates') ?? 'Скрыть' }}
+                                            <i class="fas fa-chevron-up ml-1"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            @endif
+                            <div class="card-footer text-muted small">
+                                <i class="fas fa-info-circle"></i>
+                                {{ __('messages.booking_info') ?? 'Выберите удобную дату и забронируйте место в группе' }}
                             </div>
                         </div>
                     @else
@@ -292,13 +387,16 @@
                             <div class="card">
                                 <div class="card-header p-0" id="headingInclusions">
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInclusions" aria-expanded="true" aria-controls="collapseInclusions">
-                                            <h6 class="mb-0">{{ __('messages.what_is_included_not_included') }}</h6>
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInclusions" aria-expanded="false" aria-controls="collapseInclusions">
+                                            <h6 class="mb-0">
+                                                {{ __('messages.what_is_included_not_included') }}
+                                                <i class="fas fa-chevron-down ml-2 chevron-icon"></i>
+                                            </h6>
                                         </button>
                                     </h5>
                                 </div>
 
-                                <div id="collapseInclusions" class="collapse show" aria-labelledby="headingInclusions" data-parent="#accordionInclusions">
+                                <div id="collapseInclusions" class="collapse" aria-labelledby="headingInclusions" data-parent="#accordionInclusions">
                                     <div class="card-body">
                                         <div class="row text-center mb-3">
                                             <div class="col-sm-6">
@@ -524,4 +622,30 @@
             </script>
         @endpush
     @endif
+
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                // Toggle chevron icon for group dates
+                $('#moreGroupDates').on('show.bs.collapse', function () {
+                    $('[data-target="#moreGroupDates"]').find('.when-collapsed').hide();
+                    $('[data-target="#moreGroupDates"]').find('.when-expanded').show();
+                });
+
+                $('#moreGroupDates').on('hide.bs.collapse', function () {
+                    $('[data-target="#moreGroupDates"]').find('.when-collapsed').show();
+                    $('[data-target="#moreGroupDates"]').find('.when-expanded').hide();
+                });
+
+                // Toggle chevron icon for inclusions block
+                $('#collapseInclusions').on('show.bs.collapse', function () {
+                    $('[data-target="#collapseInclusions"]').find('.chevron-icon').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+                });
+
+                $('#collapseInclusions').on('hide.bs.collapse', function () {
+                    $('[data-target="#collapseInclusions"]').find('.chevron-icon').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                });
+            });
+        </script>
+    @endpush
 </div>

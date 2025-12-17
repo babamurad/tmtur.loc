@@ -107,5 +107,6 @@ return [
 
     'view_all_groups' => '모든 그룹 날짜 보기',
     'view_all_dates' => '모든 날짜 보기',
+    'hide_dates' => '숨기기',
 
 ];

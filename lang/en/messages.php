@@ -109,5 +109,6 @@ return [
 
     'view_all_groups' => 'View all group dates',
     'view_all_dates' => 'View all dates',
+    'hide_dates' => 'Hide',
 
 ];
