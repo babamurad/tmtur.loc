@@ -8,4 +8,7 @@ return [
     'your_email' => '이메일',
     'copyright' => 'TmTourism. 판권 소유.',
     'follow_us' => '우리를 따르십시오',
+    '404_title' => '페이지를 찾을 수 없습니다',
+    '404_message' => '죄송합니다. 찾고 있는 페이지가 존재하지 않거나 이동되었습니다.',
+    '404_back_home' => '홈으로 돌아가기',
 ];
