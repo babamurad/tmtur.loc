@@ -61,6 +61,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cristma.css') }}">
     <style>
         body {
             padding-top: 72px;
@@ -98,6 +99,26 @@
 </head>
 
 <body data-spy="scroll" data-target="#mainNav">
+        <ul class="lightrope">
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+</ul>
 
     <!-- ========== НАВБАР ========== -->
     @livewire('front.navbar-component')
