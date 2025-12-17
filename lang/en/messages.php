@@ -108,5 +108,6 @@ return [
     'home_why_choose_list_6' => 'Care for every guest — for us you are not a client, but our guest',
 
     'view_all_groups' => 'View all group dates',
+    'view_all_dates' => 'View all dates',
 
 ];

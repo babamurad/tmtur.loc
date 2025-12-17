@@ -106,5 +106,6 @@ return [
     'home_why_choose_list_6' => '모든 게스트에 대한 배려 — 고객이 아닌 우리의 게스트로 대우',
 
     'view_all_groups' => '모든 그룹 날짜 보기',
+    'view_all_dates' => '모든 날짜 보기',
 
 ];
