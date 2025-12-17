@@ -157,6 +157,7 @@ Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.
 Route::get('gallery', \App\Livewire\Front\ProductGallery::class)->name('gallery');
 
 Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
+Route::get('about', \App\Livewire\Front\AboutComponent::class)->name('about');
 
 Route::middleware('guest')->group(function () {
     Route::get('auth/register', FrontRegisterComponent::class)->name('front.register');

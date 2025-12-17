@@ -109,4 +109,40 @@ return [
     'view_all_dates' => '모든 날짜 보기',
     'hide_dates' => '숨기기',
 
+    // About Page
+    'about_title' => '여행자들이 TM Tourism을 선택하는 이유',
+    'about_intro' => '우리는 투르크메니스탄의 소규모 현지 팀입니다. 그렇기 때문에 각 게스트에게 최대한의 관심을 기울일 수 있습니다. 우리는 신속하게 응답하고, 유연하게 경로를 구성하며, 첫 메시지부터 여행이 끝날 때까지 여러분과 함께합니다.',
+
+    'about_approach_title' => '우리의 접근 방식',
+    'about_approach_1' => '날짜, 속도 및 관심사에 맞춘 맞춤형 일정',
+    'about_approach_2' => '서두르거나 "체크리스트 채우기" 식의 여행이 아닌 현실적인 일정',
+    'about_approach_3' => '24/7 연락 가능하며, 조직자와 직접 소통합니다',
+
+    'about_borders_title' => '비자, LOI 및 국경',
+    'about_borders_1' => '귀하에게 필요한 서류를 안내해 드립니다',
+    'about_borders_2' => '절차와 기한을 미리 설명해 드립니다',
+    'about_borders_3' => 'LOI를 도와드리고 투르크메니스탄 국경 측에서 동행합니다 (허가 조건에 따라)',
+
+    'about_transparency_title' => '투명성과 신뢰',
+    'about_transparency_1' => '투명한 가격 및 조건 - 투어 시작 전에 모든 것을 합의합니다',
+    'about_transparency_2' => '숨겨진 비용 없음: 무엇이 포함되고 무엇이 포함되지 않는지 미리 알 수 있습니다',
+    'about_transparency_3' => '예산에 맞는 호텔/캠프/유르트에 대한 정직한 추천',
+
+    'about_comfort_title' => '도로 위의 편안함과 안전',
+    'about_comfort_1' => '검증된 물류: 이동, 정차, 경로상의 물/식사',
+    'about_comfort_2' => '비표준 상황에서의 도움 및 세부 사항에 대한 주의',
+    'about_comfort_3' => '피로가 아닌 인상과 휴식을 얻을 수 있도록 경로를 구성합니다',
+
+    'about_work_title' => '우리가 일하는 방식',
+    'about_work_step_1_title' => '신청',
+    'about_work_step_1_text' => '날짜와 보고 싶은 것을 적어주세요',
+    'about_work_step_2_title' => '조율',
+    'about_work_step_2_text' => '프로그램과 비용을 제안하고 세부 사항을 합의합니다',
+    'about_work_step_3_title' => '여행',
+    'about_work_step_3_text' => '예약을 확정하고 여행에 동행합니다',
+
+    'about_cta_title' => '여행을 떠날 준비가 되셨나요?',
+    'about_cta_btn' => '프로그램 및 가격 받기',
+    'about_email_label' => '이메일:',
+
 ];

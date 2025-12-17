@@ -1,5 +1,5 @@
 <div>
-
+    <!-- ABOUT -->
     <section class="py-5 bg-white" id="about">
         <div class="container py-4">
             <div class="row align-items-center gy-5">
@@ -30,7 +30,14 @@
                         <li class="mb-0">{{ __('messages.home_why_choose_list_5') }}</li>
                         <li class="mb-0">{{ __('messages.home_why_choose_list_6') }}</li>
                     </ul>
+
+                    <div class="mt-4">
+                        <a href="{{ route('about') }}" class="btn btn-outline-danger btn-sm">
+                            Подробнее о нас
+                        </a>
+                    </div>
                 </div>
+                <!-- /About -->
 
                 <!-- RIGHT SIDE — IMAGE GRID -->
                 <div class="col-lg-6">
@@ -134,8 +141,8 @@
 
                                 <!-- SHORT DESCRIPTION -->
                                 <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                                    {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                                </p> -->
+                                                                                            {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
+                                                                                        </p> -->
 
                                 <!-- DURATION & TYPE -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -263,9 +270,8 @@
                                         @endif
 
                                         <button type="button"
-                                           class="btn tm-order-btn btn-sm mt-1 text-white {{ $isFull ? 'disabled' : '' }}"
-                                           wire:click="openBookingModal({{ $group->id }})"
-                                           @if($isFull) disabled @endif>
+                                            class="btn tm-order-btn btn-sm mt-1 text-white {{ $isFull ? 'disabled' : '' }}"
+                                            wire:click="openBookingModal({{ $group->id }})" @if($isFull) disabled @endif>
                                             <i class="fas fa-ticket-alt mr-1"></i>
                                             {{ $isFull ? __('messages.no_seats') : __('messages.order_button') }}
                                         </button>

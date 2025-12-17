@@ -111,4 +111,40 @@ return [
     'view_all_dates' => 'View all dates',
     'hide_dates' => 'Hide',
 
+    // About Page
+    'about_title' => 'Why travelers choose TM Tourism',
+    'about_intro' => 'We are a small local team in Turkmenistan. That is why we can pay maximum attention to each guest: we respond quickly, build routes flexibly, and accompany you from the first message to the end of the trip.',
+
+    'about_approach_title' => 'Our approach',
+    'about_approach_1' => 'Individual itineraries tailored to your dates, pace, and interests',
+    'about_approach_2' => 'Realistic timing without rushing or "chasing checkmarks"',
+    'about_approach_3' => 'We are in touch 24/7, and you communicate directly with the organizer',
+
+    'about_borders_title' => 'Visa, LOI and borders',
+    'about_borders_1' => 'We will tell you what documents you need',
+    'about_borders_2' => 'We explain steps and deadlines in advance',
+    'about_borders_3' => 'We help with LOI and accompany you on the Turkmen side of the border (subject to permission conditions)',
+
+    'about_transparency_title' => 'Transparency and trust',
+    'about_transparency_1' => 'Transparent prices and conditions - we agree on everything before the tour starts',
+    'about_transparency_2' => 'No hidden fees: you know in advance what is included and what is not',
+    'about_transparency_3' => 'Honest recommendations for hotels/camps/yurts to suit your budget',
+
+    'about_comfort_title' => 'Comfort and safety on the road',
+    'about_comfort_1' => 'Proven logistics: transport, stops, water/meals along the route',
+    'about_comfort_2' => 'Help in non-standard situations and attention to detail',
+    'about_comfort_3' => 'We build the route so that you get impressions and rest, not fatigue',
+
+    'about_work_title' => 'How we work',
+    'about_work_step_1_title' => 'Request',
+    'about_work_step_1_text' => 'You write us dates and what you want to see',
+    'about_work_step_2_title' => 'Coordination',
+    'about_work_step_2_text' => 'We offer a program and cost, agree on details',
+    'about_work_step_3_title' => 'Trip',
+    'about_work_step_3_text' => 'We confirm the booking and accompany you on the trip',
+
+    'about_cta_title' => 'Ready to go on a trip?',
+    'about_cta_btn' => 'Get program and price',
+    'about_email_label' => 'Email:',
+
 ];
