@@ -1,16 +1,5 @@
-@php
-    // Обработка смены языка через POST
-    if (request()->isMethod('post') && request()->has('locale')) {
-        $locale = request()->input('locale');
-        if (in_array($locale, config('app.available_locales'))) {
-            session()->put('locale', $locale);
-            app()->setLocale($locale);
-        }
-        return redirect(request()->url());
-    }
-@endphp
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
 
 <head>
     <!-- Google tag (gtag.js) -->
@@ -47,7 +36,7 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <meta charset="utf-8">
-    <title>{{ __('layout.404_title') }} | TmTourism</title>
+    <title>Page Not Found | TmTourism</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -233,53 +222,6 @@
             }
         }
 
-        .language-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .language-switcher .dropdown-toggle {
-            padding: 8px 16px;
-            font-weight: 600;
-            border-radius: 8px;
-            background: white;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            color: #667eea;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .language-switcher .dropdown-toggle:hover {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .language-switcher .dropdown-menu {
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            border: none;
-            padding: 8px;
-        }
-
-        .language-switcher .dropdown-item {
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .language-switcher .dropdown-item:hover {
-            background: rgba(102, 126, 234, 0.1);
-        }
-
-        .language-switcher .dropdown-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
         @media (max-width: 768px) {
             .error-code {
                 font-size: 100px;
@@ -297,43 +239,11 @@
                 width: 200px;
                 height: 200px;
             }
-
-            .language-switcher {
-                top: 15px;
-                right: 15px;
-            }
-
-            .language-switcher .dropdown-toggle {
-                padding: 6px 12px;
-                font-size: 14px;
-            }
         }
     </style>
 </head>
 
 <body>
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <form method="POST" action="{{ request()->url() }}" id="locale-form">
-            @csrf
-            <input type="hidden" name="locale" id="locale-input">
-        </form>
-        <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ strtoupper(app()->getLocale()) }}
-            </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
-                @foreach(config('app.available_locales') as $locale)
-                    <button type="button" 
-                            class="dropdown-item text-center {{ app()->getLocale() === $locale ? 'active' : '' }}"
-                            onclick="document.getElementById('locale-input').value='{{ $locale }}'; document.getElementById('locale-form').submit();">
-                        {{ strtoupper($locale) }}
-                    </button>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
     <div class="floating-elements">
         <div class="floating-element"></div>
         <div class="floating-element"></div>
@@ -376,13 +286,13 @@
         </div>
 
         <div class="error-code">404</div>
-        
-        <h1 class="error-title">{{ __('layout.404_title') }}</h1>
-        
-        <p class="error-message">{{ __('layout.404_message') }}</p>
-        
+
+        <h1 class="error-title">Page Not Found</h1>
+
+        <p class="error-message">Sorry, the page you are looking for doesn't exist or has been moved.</p>
+
         <a href="{{ route('home') }}" class="btn-home">
-            <i class="fas fa-home mr-2"></i>{{ __('layout.404_back_home') }}
+            <i class="fas fa-home mr-2"></i>Back to Home
         </a>
     </div>
 
