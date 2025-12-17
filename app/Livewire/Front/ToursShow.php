@@ -28,7 +28,17 @@ class ToursShow extends Component
 
     public function mount(Tour $tour)
     {
-        $this->tour = $tour->load('groupsOpen', 'categories', 'itineraryDays', 'inclusions', 'accommodations', 'orderedMedia');
+        // Загружаем связи, для groupsOpen берем только последние 3 записи
+        $this->tour = $tour->load([
+            'groupsOpen' => function ($query) {
+                $query->take(3);
+            },
+            'categories',
+            'itineraryDays',
+            'inclusions',
+            'accommodations',
+            'orderedMedia'
+        ]);
     }
 
     public function resetForm()
@@ -140,6 +150,14 @@ class ToursShow extends Component
         return TourGroupService::with('service')
             ->where('tour_group_id', $this->selectedGroupId)
             ->get();
+    }
+
+    public function getTotalOpenGroupsCountProperty()
+    {
+        return TourGroup::where('tour_id', $this->tour->id)
+            ->where('status', 'open')
+            ->where('starts_at', '>', now())
+            ->count();
     }
 
     public function addToCart()

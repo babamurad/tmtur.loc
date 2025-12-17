@@ -154,7 +154,7 @@
                             <div class="border rounded py-3">
                                 <i class="fas fa-users fa-2x text-info mb-2"></i>
                                 <div class="h5 mb-0">
-                                    {{ $tour->groupsOpen ? $tour->groupsOpen->count() : 0 }}
+                                    {{ $this->totalOpenGroupsCount }}
                                 </div>
                                 <small class="text-muted">{{ __('messages.groups') }}</small>
                             </div>
@@ -265,8 +265,18 @@
                                 </div>
                             </div>
                             <div class="card-footer text-muted small">
-                                <i class="fas fa-info-circle"></i>
-                                {{ __('messages.booking_info') ?? 'Выберите удобную дату и забронируйте место в группе' }}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="fas fa-info-circle"></i>
+                                        {{ __('messages.booking_info') ?? 'Выберите удобную дату и забронируйте место в группе' }}
+                                    </div>
+                                    @if($this->totalOpenGroupsCount > 3)
+                                        <a href="{{ route('front.tour-groups') }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-calendar-alt mr-1"></i>
+                                            {{ __('messages.view_all_dates') ?? 'Смотреть все даты' }}
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     @else
