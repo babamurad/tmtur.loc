@@ -6,6 +6,7 @@ use App\Models\TourGroup;
 use App\Models\ContactMessage;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,7 +21,10 @@ class TourGroupsIndexComponent extends Component
     public string $title = 'titles.tours';
 
     // Фильтры
+    #[Url(except: '')]
     public ?string $month = null;
+
+    #[Url(except: '')]
     public ?string $year = null;
     public int $perPage = 9;
 
@@ -35,11 +39,6 @@ class TourGroupsIndexComponent extends Component
     public string $booking_guests = '1';
     public string $booking_message = '';
     public bool $gdpr_consent = false;
-
-    protected $queryString = [
-        'month' => ['except' => null],
-        'year' => ['except' => null],
-    ];
 
     protected function rules(): array
     {
