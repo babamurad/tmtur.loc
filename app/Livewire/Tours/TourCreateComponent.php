@@ -39,6 +39,10 @@ class TourCreateComponent extends Component
     // Поля для аккомодаций
     public $accommodations = [];
 
+    // SEO поля
+    public $seo_title;
+    public $seo_description;
+
     /* мультиязычные значения */
     public array $trans = [];
 
@@ -53,6 +57,9 @@ class TourCreateComponent extends Component
             'is_published' => 'boolean',
             'base_price_cents' => 'nullable|integer|min:0',
             'duration_days' => 'nullable|integer|min:0',
+
+            'seo_title' => 'nullable|string|max:255',
+            'seo_description' => 'nullable|string|max:255',
 
             'itinerary_days.*.day_number' => 'required|integer|min:1',
 
@@ -93,7 +100,7 @@ class TourCreateComponent extends Component
             $this->trans[$locale]['title'] = '';
             $this->trans[$locale]['short_description'] = '';
         }
-        
+
         $this->available_inclusions = Inclusion::all();
     }
 
@@ -115,6 +122,10 @@ class TourCreateComponent extends Component
     public function updatedTitle($value)
     {
         $this->slug = Str::slug($value, language: 'ru');
+        // Автозаполнение SEO заголовка если он пуст
+        if (empty($this->seo_title)) {
+            $this->seo_title = $value;
+        }
     }
 
     public function addItineraryDay()
@@ -126,7 +137,7 @@ class TourCreateComponent extends Component
                 'description' => ''
             ];
         }
-        
+
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
             'trans' => $trans
@@ -163,7 +174,7 @@ class TourCreateComponent extends Component
                 'comfort_options' => ''
             ];
         }
-        
+
         $this->accommodations[] = [
             'nights_count' => 1,
             'trans' => $trans
@@ -192,6 +203,14 @@ class TourCreateComponent extends Component
             'short_description' => $this->trans[config('app.fallback_locale')]['short_description'] ?? '',
         ]);
 
+        // Сохранение SEO
+        if ($this->seo_title || $this->seo_description) {
+            $tour->seo()->create([
+                'title' => $this->seo_title,
+                'description' => $this->seo_description,
+            ]);
+        }
+
         $fallbackLocale = config('app.fallback_locale');
         $this->trans[$fallbackLocale]['title'] = $this->title;
 
@@ -211,7 +230,7 @@ class TourCreateComponent extends Component
                 'title' => $dayData['trans'][$fallbackLocale]['title'] ?? '',
                 'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
             ]);
-            
+
             foreach ($dayData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $day->setTr($field, $locale, $value);
@@ -237,7 +256,7 @@ class TourCreateComponent extends Component
                 'standard_options' => $accData['trans'][$fallbackLocale]['standard_options'] ?? '',
                 'comfort_options' => $accData['trans'][$fallbackLocale]['comfort_options'] ?? '',
             ]);
-            
+
             foreach ($accData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $accommodation->setTr($field, $locale, $value);
@@ -255,11 +274,11 @@ class TourCreateComponent extends Component
 
                 Media::create([
                     'model_type' => Tour::class,
-                    'model_id'   => $tour->id,
-                    'file_path'  => $path,
-                    'file_name'  => $file->getClientOriginalName(),
-                    'mime_type'  => $file->getClientMimeType(),
-                    'order'      => $idx,
+                    'model_id' => $tour->id,
+                    'file_path' => $path,
+                    'file_name' => $file->getClientOriginalName(),
+                    'mime_type' => $file->getClientMimeType(),
+                    'order' => $idx,
                 ]);
             }
         }

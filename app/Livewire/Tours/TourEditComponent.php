@@ -22,12 +22,12 @@ class TourEditComponent extends Component
     public Tour $tour;
 
     /* Основные поля */
-    public string $title          = '';
-    public ?string $slug          = null;
-    public array $category_id      = [];
-    public bool $is_published     = true;
+    public string $title = '';
+    public ?string $slug = null;
+    public array $category_id = [];
+    public bool $is_published = true;
     public ?int $base_price_cents = null;
-    public ?int $duration_days    = null;
+    public ?int $duration_days = null;
 
 
     /* Изображения */
@@ -36,41 +36,48 @@ class TourEditComponent extends Component
     public $imagesToDelete = [];   // ID изображений для удаления
 
     /* Динамические массивы */
-    public array $itinerary_days  = [];
-    public array $inclusions      = [];
+    public array $itinerary_days = [];
+    public array $inclusions = [];
     public array $available_inclusions = []; // List of all available inclusions
-    public array $accommodations  = [];
+    public array $accommodations = [];
     /* мультиязычные значения */
     public array $trans = [];   // [ru][title], [en][title] …
+
+    // SEO
+    public $seo_title;
+    public $seo_description;
 
     /* Правила */
     protected function rules(): array
     {
         $rules = [
-            'title'                => 'required|min:3|max:255',
-            'slug'                 => 'nullable|min:3|max:255|unique:tours,slug,'.$this->tour->id,
-            'category_id'          => 'required|array|min:1',
-            'category_id.*'        => 'integer|exists:tour_categories,id',
-            'is_published'         => 'boolean',
-            'base_price_cents'     => 'required|integer|min:0',
-            'duration_days'        => 'required|integer|min:1',
-            'newImages'            => 'nullable|array',
-            'newImages.*'          => 'nullable|image|max:2048',
+            'title' => 'required|min:3|max:255',
+            'slug' => 'nullable|min:3|max:255|unique:tours,slug,' . $this->tour->id,
+            'category_id' => 'required|array|min:1',
+            'category_id.*' => 'integer|exists:tour_categories,id',
+            'is_published' => 'boolean',
+            'base_price_cents' => 'required|integer|min:0',
+            'duration_days' => 'required|integer|min:1',
+            'newImages' => 'nullable|array',
+            'newImages.*' => 'nullable|image|max:2048',
 
-            'itinerary_days'              => 'nullable|array',
+            'seo_title' => 'nullable|string|max:255',
+            'seo_description' => 'nullable|string|max:255',
+
+            'itinerary_days' => 'nullable|array',
             'itinerary_days.*.day_number' => 'required|integer|min:1',
 
-            'inclusions'                  => 'nullable|array',
-            'inclusions.*.inclusion_id'   => 'required|exists:inclusions,id',
-            'inclusions.*.is_included'    => 'required|boolean',
+            'inclusions' => 'nullable|array',
+            'inclusions.*.inclusion_id' => 'required|exists:inclusions,id',
+            'inclusions.*.is_included' => 'required|boolean',
 
-            'accommodations'              => 'nullable|array',
+            'accommodations' => 'nullable|array',
             'accommodations.*.nights_count' => 'required|integer|min:1',
         ];
 
         /* переводы для основного тура */
         foreach (config('app.available_locales') as $l) {
-            $rules["trans.$l.title"]       = 'nullable|string|max:255';
+            $rules["trans.$l.title"] = 'nullable|string|max:255';
             $rules["trans.$l.short_description"] = 'nullable|string';
         }
 
@@ -105,16 +112,21 @@ class TourEditComponent extends Component
         $tour = Tour::findOrFail($id);
         $this->tour = $tour;
 
-        $this->title             = $tour->title;
-        $this->slug              = $tour->slug;
-        $this->is_published      = $tour->is_published;
-        $this->base_price_cents  = $tour->base_price_cents;
-        $this->duration_days     = $tour->duration_days;
+        $this->title = $tour->title;
+        $this->slug = $tour->slug;
+        $this->is_published = $tour->is_published;
+        $this->base_price_cents = $tour->base_price_cents;
+        $this->duration_days = $tour->duration_days;
+
+        if ($tour->seo) {
+            $this->seo_title = $tour->seo->title;
+            $this->seo_description = $tour->seo->description;
+        }
 
         $this->category_id = $tour->categories->pluck('id')->toArray();
-        
+
         // Загружаем существующие изображения
-        $this->existingImages = $tour->orderedMedia->map(function($media) {
+        $this->existingImages = $tour->orderedMedia->map(function ($media) {
             return [
                 'id' => $media->id,
                 'url' => asset('uploads/' . $media->file_path),
@@ -125,7 +137,7 @@ class TourEditComponent extends Component
         })->toArray();
 
         // Загружаем дни итинерария с переводами
-        $this->itinerary_days = $tour->itineraryDays->map(function($item) {
+        $this->itinerary_days = $tour->itineraryDays->map(function ($item) {
             $trans = [];
             foreach (config('app.available_locales') as $locale) {
                 $trans[$locale] = [
@@ -144,7 +156,7 @@ class TourEditComponent extends Component
         $this->available_inclusions = Inclusion::all()->all();
 
         // Загружаем привязанные включения
-        $this->inclusions = $tour->inclusions->map(function($item) {
+        $this->inclusions = $tour->inclusions->map(function ($item) {
             return [
                 'inclusion_id' => $item->id,
                 'is_included' => $item->pivot->is_included,
@@ -152,7 +164,7 @@ class TourEditComponent extends Component
         })->all();
 
         // Загружаем размещение с переводами
-        $this->accommodations = $tour->accommodations->map(function($item) {
+        $this->accommodations = $tour->accommodations->map(function ($item) {
             $trans = [];
             foreach (config('app.available_locales') as $locale) {
                 $trans[$locale] = [
@@ -169,7 +181,7 @@ class TourEditComponent extends Component
         })->all();
 
         foreach (config('app.available_locales') as $locale) {
-            $this->trans[$locale]['title']       = $this->tour->tr('title', $locale);
+            $this->trans[$locale]['title'] = $this->tour->tr('title', $locale);
             $this->trans[$locale]['short_description'] = $this->tour->tr('short_description', $locale);
         }
     }
@@ -189,7 +201,7 @@ class TourEditComponent extends Component
                 'description' => ''
             ];
         }
-        
+
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
             'trans' => $trans
@@ -228,7 +240,7 @@ class TourEditComponent extends Component
                 'comfort_options' => ''
             ];
         }
-        
+
         $this->accommodations[] = [
             'nights_count' => 1,
             'trans' => $trans
@@ -245,8 +257,8 @@ class TourEditComponent extends Component
     public function makeMain($mediaId)
     {
         $media = Media::where('model_type', Tour::class)
-                      ->where('model_id', $this->tour->id)
-                      ->findOrFail($mediaId);
+            ->where('model_id', $this->tour->id)
+            ->findOrFail($mediaId);
 
         // Сдвигаем все на +1, что были до выбранной
         $this->tour->media()->where('order', '<', $media->order)->increment('order');
@@ -255,7 +267,7 @@ class TourEditComponent extends Component
         $media->update(['order' => 0]);
 
         // Перезагружаем список
-        $this->existingImages = $this->tour->fresh()->orderedMedia->map(function($media) {
+        $this->existingImages = $this->tour->fresh()->orderedMedia->map(function ($media) {
             return [
                 'id' => $media->id,
                 'url' => asset('uploads/' . $media->file_path),
@@ -276,9 +288,9 @@ class TourEditComponent extends Component
     public function deleteImage($mediaId)
     {
         $this->imagesToDelete[] = $mediaId;
-        
+
         // Удаляем из отображаемого списка
-        $this->existingImages = array_filter($this->existingImages, function($img) use ($mediaId) {
+        $this->existingImages = array_filter($this->existingImages, function ($img) use ($mediaId) {
             return $img['id'] !== $mediaId;
         });
         $this->existingImages = array_values($this->existingImages);
@@ -286,14 +298,14 @@ class TourEditComponent extends Component
 
     public function undoDelete($mediaId)
     {
-        $this->imagesToDelete = array_filter($this->imagesToDelete, function($id) use ($mediaId) {
+        $this->imagesToDelete = array_filter($this->imagesToDelete, function ($id) use ($mediaId) {
             return $id !== $mediaId;
         });
-        
+
         // Перезагружаем список
         $this->existingImages = $this->tour->fresh()->orderedMedia
             ->whereNotIn('id', $this->imagesToDelete)
-            ->map(function($media) {
+            ->map(function ($media) {
                 return [
                     'id' => $media->id,
                     'url' => asset('uploads/' . $media->file_path),
@@ -308,18 +320,24 @@ class TourEditComponent extends Component
     {
         $fallback = config('app.fallback_locale');
         $this->trans[$fallback]['title'] = $this->title;
-        
+
         $this->validate();
 
         // 1. только технические / не-переводимые поля
         // обновляем оригинал значением fallback-языка
         $fallbackLocale = config('app.fallback_locale');
         $this->tour->update([
-            'title'             => $this->trans[$fallbackLocale]['title'],
+            'title' => $this->trans[$fallbackLocale]['title'],
             'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
-            'is_published'      => $this->is_published,
-            'base_price_cents'  => $this->base_price_cents,
-            'duration_days'     => $this->duration_days,
+            'is_published' => $this->is_published,
+            'base_price_cents' => $this->base_price_cents,
+            'duration_days' => $this->duration_days,
+        ]);
+
+        // Сохраняем SEO
+        $this->tour->seo()->updateOrCreate([], [
+            'title' => $this->seo_title,
+            'description' => $this->seo_description,
         ]);
 
         // сохраняем переводы (включая fallback – на всякий случай)
@@ -346,14 +364,14 @@ class TourEditComponent extends Component
                     'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
                 ]
             );
-            
+
             // Сохраняем переводы
             foreach ($dayData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $day->setTr($field, $locale, $value);
                 }
             }
-            
+
             $keepDays[] = $day->id;
         }
         TourItineraryDay::where('tour_id', $this->tour->id)
@@ -375,20 +393,20 @@ class TourEditComponent extends Component
             $acc = TourAccommodation::updateOrCreate(
                 ['id' => $a['id'] ?? null, 'tour_id' => $this->tour->id],
                 [
-                    'nights_count'     => $a['nights_count'],
-                    'location'         => $a['trans'][$fallbackLocale]['location'] ?? '',
+                    'nights_count' => $a['nights_count'],
+                    'location' => $a['trans'][$fallbackLocale]['location'] ?? '',
                     'standard_options' => $a['trans'][$fallbackLocale]['standard_options'] ?? '',
-                    'comfort_options'  => $a['trans'][$fallbackLocale]['comfort_options'] ?? '',
+                    'comfort_options' => $a['trans'][$fallbackLocale]['comfort_options'] ?? '',
                 ]
             );
-            
+
             // Сохраняем переводы
             foreach ($a['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
                     $acc->setTr($field, $locale, $value);
                 }
             }
-            
+
             $keepAcc[] = $acc->id;
         }
         TourAccommodation::where('tour_id', $this->tour->id)
@@ -406,7 +424,7 @@ class TourEditComponent extends Component
         // Загрузка новых изображений
         if ($this->newImages && count($this->newImages) > 0) {
             $orderBase = $this->tour->media()->max('order') + 1;
-            
+
             foreach ($this->newImages as $idx => $file) {
                 $path = Storage::disk('public_uploads')->putFileAs(
                     'tours/' . $this->tour->id,
@@ -416,11 +434,11 @@ class TourEditComponent extends Component
 
                 Media::create([
                     'model_type' => Tour::class,
-                    'model_id'   => $this->tour->id,
-                    'file_path'  => $path,
-                    'file_name'  => $file->getClientOriginalName(),
-                    'mime_type'  => $file->getClientMimeType(),
-                    'order'      => $orderBase + $idx,
+                    'model_id' => $this->tour->id,
+                    'file_path' => $path,
+                    'file_name' => $file->getClientOriginalName(),
+                    'mime_type' => $file->getClientMimeType(),
+                    'order' => $orderBase + $idx,
                 ]);
             }
         }
@@ -444,7 +462,7 @@ class TourEditComponent extends Component
         $this->save();
         session()->flash('saved', [
             'title' => 'Тур обновлён!',
-            'text'  => 'Все изменения сохранены.',
+            'text' => 'Все изменения сохранены.',
         ]);
 
         return redirect()->route('admin.tours.index');
