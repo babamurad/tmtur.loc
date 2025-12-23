@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class TourGroupsIndexComponent extends Component
 {
@@ -180,6 +181,10 @@ class TourGroupsIndexComponent extends Component
 
     public function render()
     {
+        SEOTools::setTitle(__($this->title) ?? 'Тур Группы');
+        SEOTools::setDescription('Расписание групповых туров по Туркменистану. Присоединяйтесь к нам!');
+        SEOTools::opengraph()->setUrl(route('front.tour-groups'));
+
         $groups = TourGroup::with('tour')
             ->when($this->month, function ($query) {
                 $query->whereMonth('starts_at', $this->month);
@@ -195,8 +200,7 @@ class TourGroupsIndexComponent extends Component
             'months' => $this->getMonths(),
             'years' => $this->getYears(),
         ])
-            ->layout($this->layout, $this->layoutData)
-            ->title(__($this->title));
+            ->layout($this->layout, $this->layoutData);
     }
 
     private function getMonths(): array

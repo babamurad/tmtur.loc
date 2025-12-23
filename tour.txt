@@ -1,5 +1,10 @@
 
 github token
+
+cd /home/u960938720/domains/tmtourism.com/public_html
+git remote set-url origin https://github.com/babamurad/tmtur.loc.git  # или git clone, если ещё не клонировали
+git pull
+
 cd /home/u960938720/tmtourism.com
 git pull
 chmod -R 755 storage bootstrap/cache
@@ -9,8 +14,16 @@ php artisan view:clear
 php artisan route:clear
 php artisan optimize:clear
 
+cd /home/u960938720/domains/tmtourism.com/public_html/resto
+git clone https://github.com/babamurad/rest.loc.git .   # точка в конце
+git pull   # в будущем подтягивает ИМЕННО rest.loc
 
-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
+composer install
+cp .env.example .env
+php artisan key:generate
+npm install && npm run build   # если используется фронтенд‑сборка
+php artisan migrate --force    # если нужна БД и миграции
+
 
 Guides
 Routes
