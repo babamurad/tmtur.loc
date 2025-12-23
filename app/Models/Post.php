@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use App\Traits\HasSeo;
 
 class Post extends Model
 {
+    use HasSeo;
     use \App\Models\Traits\Translatable;
 
     public $fields = ['title', 'content'];
