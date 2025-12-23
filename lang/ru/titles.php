@@ -7,9 +7,10 @@ return [
     'visa' => 'Виза в Туркменистан | TmTourism',
     'gallery' => 'Туркменистан в фотографиях | TmTourism',
     'contact' => 'Контакты | TmTourism',
+    'about' => 'О нас | TmTourism',
     'cart' => 'Корзина | TmTourism',
     'blog' => 'Блог о Туркменистане | TmTourism',
-    
+
     // Шаблоны для динамических заголовков
     'tour_show' => ':tour | TmTourism',
     'post_show' => ':post | Блог',

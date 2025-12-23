@@ -132,7 +132,7 @@ class HomeComponent extends Component
     public function render()
     {
         SEOTools::setTitle(__('titles.home') ?? 'Home');
-        SEOTools::setDescription(__('messages.home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism.');
+        SEOTools::setDescription(__('messages.seo_home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism with TmTourism.');
         SEOTools::opengraph()->setUrl(route('home'));
 
         $tours = Tour::with('media', 'groupsOpen')->orderBy('id', 'desc')->limit(3)->get();

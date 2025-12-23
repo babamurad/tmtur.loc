@@ -104,6 +104,7 @@ return [
     'home_why_choose_list_4' => '맞춤형 여행 코스 — 여러분의 속도, 관심사 및 예산에 맞춤',
     'home_why_choose_list_5' => '24/7 빠른 소통 — 항상 조직자와 직접 소통',
     'home_why_choose_list_6' => '모든 게스트에 대한 배려 — 고객이 아닌 우리의 게스트로 대우',
+    'seo_home_description' => 'TmTourism과 함께 투르크메니스탄의 아름다움을 발견해 보세요. 잊을 수 없는 투어와 여행 경험을 위한 최고의 가이드입니다.',
 
     'view_all_groups' => '모든 그룹 날짜 보기',
     'view_all_dates' => '모든 날짜 보기',
