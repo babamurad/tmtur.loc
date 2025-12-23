@@ -34,9 +34,11 @@ class PostsIndex extends Component
         $posts = $baseQuery->orderBy('published_at', 'desc')
             ->paginate(2);
 
-        $categories = Category::withCount(['posts' => function($query) {
-            $query->where('status', true);
-        }])->where('is_published', true)->get();
+        $categories = Category::withCount([
+            'posts' => function ($query) {
+                $query->where('status', true);
+            }
+        ])->where('is_published', true)->get();
 
         // Определяем title
         $title = __('titles.blog');
@@ -47,12 +49,15 @@ class PostsIndex extends Component
             }
         }
 
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle($title);
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription("Read our latest blog posts and updates.");
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(request()->url());
+
         return view('livewire.front.posts-index', [
             'posts' => $posts,
             'categories' => $categories,
             'totalPosts' => $totalPosts,
         ])
-            ->layout('layouts.front-app', ['hideCarousel' => true])
-            ->title($title);
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

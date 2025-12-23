@@ -106,6 +106,7 @@ return [
     'home_why_choose_list_4' => 'Custom routes — tailored to your pace, interests and budget',
     'home_why_choose_list_5' => 'Fast communication 24/7 — you always communicate directly with the organizer',
     'home_why_choose_list_6' => 'Care for every guest — for us you are not a client, but our guest',
+    'seo_home_description' => 'Discover the beauty of Turkmenistan with TmTourism, your premier guide to unforgettable tours and travel experiences.',
 
     'view_all_groups' => 'View all group dates',
     'view_all_dates' => 'View all dates',

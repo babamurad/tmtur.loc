@@ -470,6 +470,40 @@
 
                 {{-- Sidebar Column --}}
                 <div class="col-lg-4">
+                    {{-- SEO Settings Section --}}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-search-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                SEO настройки
+                            </h5>
+
+                            <div class="form-group">
+                                <label for="seo_title">SEO Заголовок</label>
+                                <input type="text"
+                                       id="seo_title"
+                                       wire:model.defer="seo_title"
+                                       class="form-control @error('seo_title') is-invalid @enderror"
+                                       placeholder="SEO Title">
+                                @error('seo_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seo_description">SEO Описание</label>
+                                <textarea id="seo_description"
+                                          wire:model.defer="seo_description"
+                                          class="form-control @error('seo_description') is-invalid @enderror"
+                                          rows="4"
+                                          placeholder="SEO Description"></textarea>
+                                @error('seo_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- Image Gallery Section --}}
                     <div class="card">
                         <div class="card-body">

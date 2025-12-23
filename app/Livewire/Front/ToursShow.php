@@ -23,7 +23,7 @@ class ToursShow extends Component
 
     protected $rules = [
         'selectedGroupId' => 'required|exists:tour_groups,id',
-        'peopleCount'     => 'required|integer|min:1|max:9',
+        'peopleCount' => 'required|integer|min:1|max:9',
     ];
 
     public function mount(Tour $tour)
@@ -49,7 +49,7 @@ class ToursShow extends Component
     }
 
     public function closeModal()
-    {        
+    {
         $this->resetForm();
     }
 
@@ -59,11 +59,11 @@ class ToursShow extends Component
         $this->sending = true;
         // валидация ТОЛЬКО полей формы
         $this->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
-            'phone'   => 'nullable|string|max:50',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
             'message' => 'nullable|string|max:5000',
-            'hp'      => 'nullable|prohibited',
+            'hp' => 'nullable|prohibited',
         ]);
 
         // extra spam check: if honeypot filled — abort quietly
@@ -107,7 +107,7 @@ class ToursShow extends Component
                 'user_agent' => request()->header('User-Agent'),
             ]);
         } catch (\Throwable $e) {
-            \Log::error('ContactMessage save error: '.$e->getMessage());
+            \Log::error('ContactMessage save error: ' . $e->getMessage());
         }
 
         // Reset form and show success immediately for better UX
@@ -138,13 +138,14 @@ class ToursShow extends Component
             }
         } catch (\Throwable $e) {
             // Log error but don't break user experience
-            \Log::error('Contact email send error: '.$e->getMessage());
+            \Log::error('Contact email send error: ' . $e->getMessage());
         }
     }
 
     public function getAvailableServicesProperty()
     {
-        if(!$this->selectedGroupId) return collect();
+        if (!$this->selectedGroupId)
+            return collect();
         return TourGroupService::with('service')
             ->where('tour_group_id', $this->selectedGroupId)
             ->get();
@@ -164,7 +165,7 @@ class ToursShow extends Component
 
         $group = TourGroup::findOrFail($this->selectedGroupId);
 
-        if($group->freePlaces() < $this->peopleCount) {
+        if ($group->freePlaces() < $this->peopleCount) {
             session()->flash('error', 'Недостаточно свободных мест');
             return;
         }
@@ -173,8 +174,8 @@ class ToursShow extends Component
         $cart = session()->get('cart', []);
         $cart[] = [
             'tour_group_id' => $this->selectedGroupId,
-            'people'        => $this->peopleCount,
-            'services'      => array_keys(array_filter($this->services)),
+            'people' => $this->peopleCount,
+            'services' => array_keys(array_filter($this->services)),
         ];
         session()->put('cart', $cart);
 
@@ -185,9 +186,19 @@ class ToursShow extends Component
     public function render()
     {
         // dd($this->tour->tr('title'));
+        $title = $this->tour->tr('title');
+
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle($title);
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription($this->tour->tr('short_description') ?? $title);
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(route('tours.show', $this->tour->slug));
+
+        // Попытка добавить изображение если оно есть (предполагая что в модели есть метод или атрибут для полного url)
+        // Если есть Spatie Media Library: $this->tour->getFirstMediaUrl('tours') или похожее.
+        // Здесь используем просто поле image если оно есть, или заглушку.
+        // \Artesaos\SEOTools\Facades\SEOTools::opengraph()->addImage(asset('path/to/image'));
+
         $categories = TourCategory::with('tours')->get();
         return view('livewire.front.tours-show', compact('categories'))
-            ->layout('layouts.front-app', ['hideCarousel' => true])
-            ->title(__('titles.tour_show', ['tour' => $this->tour->tr('title')]));
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

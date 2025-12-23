@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Translatable;
+use App\Traits\HasSeo;
 
 class TourAccommodation extends Model
 {
-    use HasFactory, Translatable;
+    use HasFactory, Translatable, HasSeo;
 
     public $fields = ['location', 'standard_options', 'comfort_options'];
 

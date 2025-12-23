@@ -97,8 +97,11 @@ class VisaComponent extends Component
 
     public function render()
     {
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle(__('titles.visa') ?? 'Visa Information');
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription('Visa requirements and support for Turkmenistan.');
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(route('visa'));
+
         return view('livewire.front.visa-component')
-            ->layout('layouts.front-app', ['hideCarousel' => true])
-            ->title(__('titles.visa'));
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

@@ -7,9 +7,10 @@ return [
     'visa' => 'Visa to Turkmenistan | TmTourism',
     'gallery' => 'Turkmenistan Gallery | TmTourism',
     'contact' => 'Contact Us | TmTourism',
+    'about' => 'About Us | TmTourism',
     'cart' => 'Shopping Cart | TmTourism',
     'blog' => 'Blog about Turkmenistan | TmTourism',
-    
+
     // Templates for dynamic titles
     'tour_show' => ':tour | TmTourism',
     'post_show' => ':post | Blog',

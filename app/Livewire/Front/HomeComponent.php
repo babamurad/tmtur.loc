@@ -9,6 +9,7 @@ use App\Models\ContactMessage;
 use App\Models\Customer;
 use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class HomeComponent extends Component
 {
@@ -130,6 +131,10 @@ class HomeComponent extends Component
 
     public function render()
     {
+        SEOTools::setTitle(__('titles.home') ?? 'Home');
+        SEOTools::setDescription(__('messages.seo_home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism with TmTourism.');
+        SEOTools::opengraph()->setUrl(route('home'));
+
         $tours = Tour::with('media', 'groupsOpen')->orderBy('id', 'desc')->limit(3)->get();
         $fotos = \App\Models\TurkmenistanGallery::where('is_featured', 1)->orderBy('order')->get();
         // Ближайшие групповые туры (5 записей)
@@ -142,7 +147,6 @@ class HomeComponent extends Component
 
         //        $guides = Guide::where('is_active', true)->orderBy('sort_order')->get();
         return view('livewire.front.home-component', compact('tours', 'fotos', 'groups'))
-            ->layout('layouts.front-app')
-            ->title(__('titles.home'));
+            ->layout('layouts.front-app');
     }
 }

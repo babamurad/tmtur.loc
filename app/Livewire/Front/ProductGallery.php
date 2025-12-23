@@ -22,8 +22,11 @@ class ProductGallery extends Component
 
     public function render()
     {
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle(__('titles.gallery') ?? 'Gallery');
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription('Photo gallery of Turkmenistan.');
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(route('gallery'));
+
         return view('livewire.front.product-gallery')
-            ->layout('layouts.front-app', ['hideCarousel' => true])
-            ->title(__('titles.gallery'));
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

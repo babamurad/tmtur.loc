@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Traits\HasSeo;
 
 class Tour extends Model
 {
+    use HasSeo;
     use HasFactory;
     use Translatable;
 
@@ -18,7 +20,7 @@ class Tour extends Model
     protected $fillable = [
         'title',
         'slug',
-//        'tour_category_id',
+        //        'tour_category_id',
         'short_description',
         'is_published',
         'base_price_cents',
@@ -33,14 +35,14 @@ class Tour extends Model
         'tour_category_id' => 'integer'
     ];
 
-//    public function category(): BelongsTo
+    //    public function category(): BelongsTo
 //    {
 //        return $this->belongsTo(TourCategory::class, 'tour_category_id');
 //    }
 
     protected static function booted()
     {
-        static::deleted(fn ($model) => $model->translations()->delete());
+        static::deleted(fn($model) => $model->translations()->delete());
     }
 
     /**
@@ -72,15 +74,15 @@ class Tour extends Model
     public function media()
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
-                    ->where('model_type', Tour::class);
+            ->where('model_type', Tour::class);
     }
 
     // Медиафайлы, отсортированные по order
     public function orderedMedia()
     {
         return $this->hasMany(Media::class, 'model_id', 'id')
-                    ->where('model_type', Tour::class)
-                    ->orderBy('order');
+            ->where('model_type', Tour::class)
+            ->orderBy('order');
     }
 
     public function getFirstMediaUrl($collectionName = 'default')
@@ -139,8 +141,8 @@ class Tour extends Model
     }
 
     // Связь: тур может иметь много услуг через группы (опционально, если нужно через промежуточную таблицу)
-     public function services()
-     {
-         return $this->hasManyThrough(Service::class, TourGroup::class);
-     }
+    public function services()
+    {
+        return $this->hasManyThrough(Service::class, TourGroup::class);
+    }
 }

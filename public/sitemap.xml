@@ -6,7 +6,7 @@
 
     <!-- Home Page -->
     <url>
-        <loc>https://tmtourism.com/</loc>
+        <loc>https://www.tmtourism.com</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
     <!-- Tours Section -->
     <url>
-        <loc>https://tmtourism.com/all-categories</loc>
+        <loc>https://www.tmtourism.com/all-categories</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
     <!-- Tour Groups -->
     <url>
-        <loc>https://tmtourism.com/tour-groups-date</loc>
+        <loc>https://www.tmtourism.com/tour-groups-date</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
@@ -30,15 +30,21 @@
 
     <!-- Blog Section -->
     <url>
-        <loc>https://tmtourism.com/blog</loc>
+        <loc>https://www.tmtourism.com/blog</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.tmtourism.com/blog/granicy-turkmenistana-2025-polnyi-gid-po-perexodu-cerez-farap-savat-i-artyk</loc>
+        <lastmod>2025-12-15</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Gallery -->
     <url>
-        <loc>https://tmtourism.com/gallery</loc>
+        <loc>https://www.tmtourism.com/gallery</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
@@ -46,7 +52,7 @@
 
     <!-- Visa Information -->
     <url>
-        <loc>https://tmtourism.com/visa</loc>
+        <loc>https://www.tmtourism.com/visa</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -54,7 +60,7 @@
 
     <!-- Cart -->
     <url>
-        <loc>https://tmtourism.com/cart</loc>
+        <loc>https://www.tmtourism.com/cart</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
@@ -62,14 +68,14 @@
 
     <!-- Authentication Pages -->
     <url>
-        <loc>https://tmtourism.com/auth/login</loc>
+        <loc>https://www.tmtourism.com/auth/login</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.4</priority>
     </url>
 
     <url>
-        <loc>https://tmtourism.com/auth/register</loc>
+        <loc>https://www.tmtourism.com/auth/register</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.4</priority>
@@ -80,7 +86,7 @@
     
     Individual Tours:
     <url>
-        <loc>https://tmtourism.com/tours/ashgabat-city-tour</loc>
+        <loc>https://www.tmtourism.com/tours/ashgabat-city-tour</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -88,7 +94,7 @@
     
     Tour Categories:
     <url>
-        <loc>https://tmtourism.com/tours/category/cultural-tours</loc>
+        <loc>https://www.tmtourism.com/tours/category/cultural-tours</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
@@ -96,7 +102,7 @@
     
     Blog Posts:
     <url>
-        <loc>https://tmtourism.com/blog/discover-turkmenistan</loc>
+        <loc>https://www.tmtourism.com/blog/discover-turkmenistan</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
@@ -104,7 +110,7 @@
     
     Blog Categories:
     <url>
-        <loc>https://tmtourism.com/blog/category/travel-tips</loc>
+        <loc>https://www.tmtourism.com/blog/category/travel-tips</loc>
         <lastmod>2025-12-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

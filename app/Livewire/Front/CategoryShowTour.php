@@ -37,13 +37,17 @@ class CategoryShowTour extends Component
             ->with(['media', 'groupsOpen'])
             ->paginate(4);
 
+        $catTitle = $this->category->tr('title');
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle($catTitle);
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription("Tours in category: $catTitle");
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(route('tours.category.show', $this->category->slug));
+
         return view('livewire.front.category-show-tour', [
             'categories' => $categories,
             'category' => $this->category,
             'tours' => $tours,
             'view' => $this->view,
         ])
-            ->layout('layouts.front-app', ['hideCarousel' => true])
-            ->title(__('titles.category_tours', ['category' => $this->category->tr('title')]));
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

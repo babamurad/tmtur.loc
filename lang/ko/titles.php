@@ -7,9 +7,10 @@ return [
     'visa' => '투르크메니스탄 비자 | TurkmenTravel',
     'gallery' => '투르크메니스탄 갤러리 | TurkmenTravel',
     'contact' => '연락처 | TurkmenTravel',
+    'about' => '설명 | TurkmenTravel',
     'cart' => '장바구니 | TurkmenTravel',
     'blog' => '투르크메니스탄 블로그 | TurkmenTravel',
-    
+
     // 동적 제목 템플릿
     'tour_show' => ':tour | TurkmenTravel',
     'post_show' => ':post | 블로그',

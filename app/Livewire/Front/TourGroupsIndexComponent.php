@@ -6,8 +6,10 @@ use App\Models\TourGroup;
 use App\Models\ContactMessage;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class TourGroupsIndexComponent extends Component
 {
@@ -20,7 +22,10 @@ class TourGroupsIndexComponent extends Component
     public string $title = 'titles.tours';
 
     // Фильтры
+    #[Url(except: '')]
     public ?string $month = null;
+
+    #[Url(except: '')]
     public ?string $year = null;
     public int $perPage = 9;
 
@@ -35,11 +40,6 @@ class TourGroupsIndexComponent extends Component
     public string $booking_guests = '1';
     public string $booking_message = '';
     public bool $gdpr_consent = false;
-
-    protected $queryString = [
-        'month' => ['except' => null],
-        'year' => ['except' => null],
-    ];
 
     protected function rules(): array
     {
@@ -181,6 +181,10 @@ class TourGroupsIndexComponent extends Component
 
     public function render()
     {
+        SEOTools::setTitle(__($this->title) ?? 'Тур Группы');
+        SEOTools::setDescription('Расписание групповых туров по Туркменистану. Присоединяйтесь к нам!');
+        SEOTools::opengraph()->setUrl(route('front.tour-groups'));
+
         $groups = TourGroup::with('tour')
             ->when($this->month, function ($query) {
                 $query->whereMonth('starts_at', $this->month);
@@ -196,8 +200,7 @@ class TourGroupsIndexComponent extends Component
             'months' => $this->getMonths(),
             'years' => $this->getYears(),
         ])
-            ->layout($this->layout, $this->layoutData)
-            ->title(__($this->title));
+            ->layout($this->layout, $this->layoutData);
     }
 
     private function getMonths(): array
