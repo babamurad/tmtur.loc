@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\CheckRole;
-use App\Http\Middleware\EnsureWww;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -18,8 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => CheckRole::class,
             'locale' => SetLocale::class,
         ]);
+        $middleware->append(\App\Http\Middleware\ForceWww::class);
         $middleware->appendToGroup('web', [
-            EnsureWww::class,
             SetLocale::class,
         ]);
     })
