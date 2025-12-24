@@ -14,6 +14,7 @@ php artisan view:clear
 php artisan route:clear
 php artisan optimize:clear
 
+
 cd /home/u960938720/domains/tmtourism.com/public_html/resto
 git clone https://github.com/babamurad/rest.loc.git .   # точка в конце
 git pull   # в будущем подтягивает ИМЕННО rest.loc
