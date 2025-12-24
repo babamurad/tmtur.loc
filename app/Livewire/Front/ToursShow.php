@@ -185,17 +185,25 @@ class ToursShow extends Component
 
     public function render()
     {
-        // dd($this->tour->tr('title'));
-        $title = $this->tour->tr('title');
+        // 1. Попытка взять данные из таблицы seo_metas (Poly relation)
+        $seo = $this->tour->loadMissing('seo')->seo;
+
+        if ($seo) {
+            $title = $seo->title ?: $this->tour->tr('title');
+            $description = $seo->description ?: ($this->tour->tr('short_description') ?? $title);
+            $image = $seo->og_image ? asset('storage/' . $seo->og_image) : $this->tour->first_media_url;
+        } else {
+            // 2. Фоллбэк на данные модели
+            $title = $this->tour->tr('title');
+            $description = $this->tour->tr('short_description') ?? $title;
+            // Accessor getFirstMediaUrlAttribute
+            $image = $this->tour->first_media_url;
+        }
 
         \Artesaos\SEOTools\Facades\SEOTools::setTitle($title);
-        \Artesaos\SEOTools\Facades\SEOTools::setDescription($this->tour->tr('short_description') ?? $title);
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription($description);
         \Artesaos\SEOTools\Facades\SEOTools::opengraph()->setUrl(route('tours.show', $this->tour->slug));
-
-        // Попытка добавить изображение если оно есть (предполагая что в модели есть метод или атрибут для полного url)
-        // Если есть Spatie Media Library: $this->tour->getFirstMediaUrl('tours') или похожее.
-        // Здесь используем просто поле image если оно есть, или заглушку.
-        // \Artesaos\SEOTools\Facades\SEOTools::opengraph()->addImage(asset('path/to/image'));
+        \Artesaos\SEOTools\Facades\SEOTools::opengraph()->addImage($image);
 
         $categories = TourCategory::with('tours')->get();
         return view('livewire.front.tours-show', compact('categories'))
