@@ -3,9 +3,9 @@
 
         <div class="row justify-content-center mb-3">
             <div class="col-lg-8 text-center">
-                <h2 class="tm-section-title mb-2">
+                <h1 class="tm-section-title mb-2">
                     {{ __('messages.available_dates') }}
-                </h2>
+                </h1>
                 <p class="tm-section-subtitle">
                     {{ __('messages.group_dates_subtitle') }}
                 </p>

@@ -60,7 +60,7 @@
                         </p>
                     </div>
 
-                    <h2 class="fw-bold mt-3"><strong>{{ $post->tr('title') }}</strong></h2>
+                    <h1 class="fw-bold mt-3"><strong>{{ $post->tr('title') }}</strong></h1>
                     <hr class="border-danger border-2 opacity-75">
 
                     @if($post->image)

@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-md-8">
-            <h2 class="text-center mb-3">{{ $category->tr('title') }}</h2>
+            <h1 class="text-center mb-3">{{ $category->tr('title') }}</h1>
             <div class="text-center mb-4">
                 {!! $category->tr('content') !!}
             </div>

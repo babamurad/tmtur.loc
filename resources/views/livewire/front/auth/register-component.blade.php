@@ -8,7 +8,7 @@
                             <div class="auth-icon mb-3">
                                 <i class="fa-regular fa-id-card fa-lg"></i>
                             </div>
-                            <h2 class="mb-2 text-center font-weight-bold">{{ __('auth.register_title') }}</h2>
+                            <h1 class="mb-2 text-center font-weight-bold">{{ __('auth.register_title') }}</h1>
                             <p class="text-muted text-center mb-1 small">{{ __('auth.register_subtitle') }}</p>
                             <p class="text-muted small mb-0">{{ __('auth.have_account') }} <a href="{{ route('front.login') }}" class="font-weight-bold" wire:navigate>{{ __('auth.sign_in_link') }}</a></p>
                         </div>

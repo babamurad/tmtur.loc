@@ -11,7 +11,7 @@
     <div class="row">
 
         <div class="col-md-8">
-            <h2 class="text-center mb-4">{{ __('messages.all_tours') }}</h2>
+            <h1 class="text-center mb-4">{{ __('messages.all_tours') }}</h1>
 
             {{-- VIEW SWITCHER --}}
             <div class="d-flex justify-content-end mb-3">

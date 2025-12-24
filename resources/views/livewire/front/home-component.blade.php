@@ -6,9 +6,9 @@
 
                 <!-- LEFT SIDE — TEXT -->
                 <div class="col-lg-6">
-                    <h2 class="fw-bold mb-4" style="font-size: 2rem; color: #212529;">
+                    <h1 class="fw-bold mb-4" style="font-size: 2rem; color: #212529;">
                         {{ __('messages.home_discover_title') }}
-                    </h2>
+                    </h1>
 
                     <p class="text-muted mb-0"
                         style="font-size: 1.05rem; line-height: 1.7; text-indent: 1.5rem; text-align: justify;">

@@ -1,4 +1,7 @@
 <div class="simple-gallery mt-5 pt-3">
+    <div class="container">
+        <h1 class="text-center mb-4">{{ __('menu.gallery') ?? 'Gallery' }}</h1>
+    </div>
     @push('quill-css')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     @endpush

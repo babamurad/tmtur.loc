@@ -14,7 +14,7 @@
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000"
                 style="background-image: url({{ asset('uploads/' . $carousel->image) }}); background-size: cover; background-position: center;">
                 <div class="carousel-caption text-center">
-                    <h1 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h1>
+                    <h2 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h2>
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center">
                         <a href="{{ route('tours.category.index') }}"
