@@ -160,8 +160,8 @@
     <script>
         // Функция для инициализации Bootstrap компонентов
         function initBootstrapComponents() {
-            // Реинициализация всех dropdown элементов
-            $('.dropdown-toggle').each(function () {
+            // Реинициализация всех dropdown элементов (только тех, что используют data-toggle)
+            $('.dropdown-toggle[data-toggle="dropdown"]').each(function () {
                 $(this).dropdown();
             });
 

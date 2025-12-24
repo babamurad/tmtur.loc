@@ -19,21 +19,23 @@
                     <a class="nav-link" href="/#about">{{ __('menu.about') }}</a>
                 </li> -->
 
-                {{-- Выпадающий пункт «Туры» --}}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                {{-- Выпадающий пункт «Туры» (Alpine.js) --}}
+                <li class="nav-item dropdown" x-data="{ open: false }" @click.outside="open = false" @mouseleave="open = false">
+                    <a class="nav-link dropdown-toggle" href="#" id="toursDropdown" role="button"
+                       @click.prevent="open = !open"
+                       :class="{ 'show': open }"
+                       :aria-expanded="open.toString()">
                         {{ __('menu.tours') }}
                     </a>
 
-                    <div class="dropdown-menu mega-dropdown" aria-labelledby="toursDropdown">
+                    <div class="dropdown-menu mega-dropdown" :class="{ 'show': open }" aria-labelledby="toursDropdown">
                         <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">
                             {{ __('menu.tours') }}
                         </div>
                         <div class="dropdown-grid px-2 pb-2">
                             @foreach($categories as $category)
                                 <a class="dropdown-item d-flex align-items-center "
-                                    href="{{ route('tours.category.show', $category->slug) }}" wire:navigate>
+                                    href="{{ route('tours.category.show', $category->slug) }}" wire:navigate @click="open = false">
                                     <span class="badge-dot mr-2"></span>
                                     <span class="category">{{ $category->tr('title') }}</span>
                                 </a>
@@ -42,12 +44,12 @@
 
                         <div class="dropdown-footer border-top px-3 py-2">
                             <a class="dropdown-item font-weight-semibold d-flex align-items-center"
-                                href="{{ route('tours.category.index') }}" wire:navigate>
+                                href="{{ route('tours.category.index') }}" wire:navigate @click="open = false">
                                 <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
                                     {{ __('menu.all_tours') }}
                                 </span></a>
                             <a class="dropdown-item font-weight-semibold d-flex align-items-center"
-                                href="{{ route('front.tour-groups') }}" wire:navigate>
+                                href="{{ route('front.tour-groups') }}" wire:navigate @click="open = false">
                                 <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
                                     {{ __('menu.tour_groups') }}
                                 </span></a>
@@ -74,12 +76,14 @@
 
             <div class="ml-lg-3 d-flex align-items-center nav-auth-actions">
                 @auth
-                    <div class="dropdown">
+                    <div class="dropdown" x-data="{ open: false }" @click.outside="open = false">
                         <a class="btn btn-outline-primary btn-sm dropdown-toggle" href="#" role="button" id="accountMenu"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           @click.prevent="open = !open"
+                           :class="{ 'show': open }"
+                           :aria-expanded="open.toString()">
                             {{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountMenu">
+                        <div class="dropdown-menu dropdown-menu-right" :class="{ 'show': open }" aria-labelledby="accountMenu">
                             <form method="POST" action="{{ route('logout') }}" class="px-3 py-2">
                                 @csrf
                                 <button type="submit"
