@@ -17,7 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => CheckRole::class,
             'locale' => SetLocale::class,
         ]);
-        $middleware->append(\App\Http\Middleware\ForceWww::class);
         $middleware->appendToGroup('web', [
             SetLocale::class,
         ]);
