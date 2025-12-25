@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => CheckRole::class,
             'locale' => SetLocale::class,
+            'cache.response' => \App\Http\Middleware\CacheResponse::class,
         ]);
         $middleware->appendToGroup('web', [
             SetLocale::class,

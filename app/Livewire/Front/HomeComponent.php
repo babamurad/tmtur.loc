@@ -9,6 +9,7 @@ use App\Models\ContactMessage;
 use App\Models\Customer;
 use Livewire\Component;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Artesaos\SEOTools\Facades\SEOTools;
 
 class HomeComponent extends Component
@@ -135,15 +136,23 @@ class HomeComponent extends Component
         SEOTools::setDescription(__('messages.seo_home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism with TmTourism.');
         SEOTools::opengraph()->setUrl(route('home'));
 
-        $tours = Tour::with('media', 'groupsOpen')->orderBy('id', 'desc')->limit(3)->get();
-        $fotos = \App\Models\TurkmenistanGallery::where('is_featured', 1)->orderBy('order')->get();
+        $tours = Cache::remember('home_tours', 3600, function () {
+            return Tour::with('media', 'groupsOpen')->orderBy('id', 'desc')->limit(3)->get();
+        });
+
+        $fotos = Cache::remember('home_gallery', 3600, function () {
+            return \App\Models\TurkmenistanGallery::where('is_featured', 1)->orderBy('order')->get();
+        });
+
         // Ближайшие групповые туры (5 записей)
-        $groups = TourGroup::with('tour')
-            ->where('status', 'open')
-            ->where('starts_at', '>=', now())
-            ->orderBy('starts_at')
-            ->limit(5)
-            ->get();
+        $groups = Cache::remember('home_groups', 3600, function () {
+            return TourGroup::with('tour')
+                ->where('status', 'open')
+                ->where('starts_at', '>=', now())
+                ->orderBy('starts_at')
+                ->limit(5)
+                ->get();
+        });
 
         //        $guides = Guide::where('is_active', true)->orderBy('sort_order')->get();
         return view('livewire.front.home-component', compact('tours', 'fotos', 'groups'))

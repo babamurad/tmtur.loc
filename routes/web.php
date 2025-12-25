@@ -136,28 +136,28 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 //    Route::get('/', HomeComponent::class);
 //});
 
-Route::get('/', HomeComponent::class)->name('home');
-//Route::get('our-tours/{id}', \App\Livewire\Front\TourComponent::class)->name('tours.show');
+Route::middleware(['cache.response:3600'])->group(function () {
+    Route::get('/', HomeComponent::class)->name('home');
 
-Route::get('tours/{tour:slug}', \App\Livewire\Front\ToursShow::class)->name('tours.show');
-Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
-Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
+    Route::get('tours/{tour:slug}', \App\Livewire\Front\ToursShow::class)->name('tours.show');
+    Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
+    Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
-// Тур-группы (публичная страница)
-Route::get('tour-groups-date', TourGroupsIndexComponent::class)->name('front.tour-groups');
+    // Тур-группы (публичная страница)
+    Route::get('tour-groups-date', TourGroupsIndexComponent::class)->name('front.tour-groups');
+
+    Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
+    Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
+    Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
+
+    Route::get('gallery', \App\Livewire\Front\ProductGallery::class)->name('gallery');
+
+    Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
+    Route::get('about', \App\Livewire\Front\AboutComponent::class)->name('about');
+});
 
 Route::get('cart', \App\Livewire\Front\CartComponent::class)->name('cart.index');
 Route::post('checkout', [\App\Livewire\Front\CartComponent::class, 'checkout'])->name('cart.checkout');
-//Route::get('payment/{ids}',          \App\Livewire\Payment\Form::class)->name('payment.form');
-
-Route::get('blog', \App\Livewire\Front\PostsIndex::class)->name('blog.index');
-Route::get('blog/category/{categorySlug}', \App\Livewire\Front\PostsIndex::class)->name('blog.category');
-Route::get('blog/{post:slug}', \App\Livewire\Front\PostShow::class)->name('blog.show');
-
-Route::get('gallery', \App\Livewire\Front\ProductGallery::class)->name('gallery');
-
-Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
-Route::get('about', \App\Livewire\Front\AboutComponent::class)->name('about');
 
 Route::middleware('guest')->group(function () {
     Route::get('auth/register', FrontRegisterComponent::class)->name('front.register');
