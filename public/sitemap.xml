@@ -1,121 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-    <!-- Home Page -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-        <loc>https://www.tmtourism.com</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-
-    <!-- Tours Section -->
+    <loc>https://tmtourism.com</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/all-categories</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Tour Groups -->
+    <loc>https://tmtourism.com/about</loc>
+    <priority>0.8</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/tour-groups-date</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Blog Section -->
+    <loc>https://tmtourism.com/visa</loc>
+    <priority>0.8</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/blog</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
+    <loc>https://tmtourism.com/gallery</loc>
+    <priority>0.8</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/blog/granicy-turkmenistana-2025-polnyi-gid-po-perexodu-cerez-farap-savat-i-artyk</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Gallery -->
+    <loc>https://tmtourism.com/blog</loc>
+    <priority>0.8</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/gallery</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Visa Information -->
+    <loc>https://tmtourism.com/tour-groups-date</loc>
+    <priority>0.8</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/visa</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Cart -->
+    <loc>https://tmtourism.com/tours/doroga-k-vratam-ada-JqvH</loc>
+    <lastmod>2025-12-17T09:44:43+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/cart</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <!-- Authentication Pages -->
+    <loc>https://tmtourism.com/tours/ashhabad-belomramornaya-stolitsa-2YJs</loc>
+    <lastmod>2025-11-22T21:17:33+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/auth/login</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.4</priority>
-    </url>
-
+    <loc>https://tmtourism.com/tours/prazdnik-navruz-v-ashhabade-9VoG</loc>
+    <lastmod>2025-11-22T21:16:45+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/auth/register</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.4</priority>
-    </url>
-
-    <!-- 
-    Dynamic URLs (examples - replace with actual data):
-    
-    Individual Tours:
+    <loc>https://tmtourism.com/tours/5-day-tour-farab-merv-turkmenbashi-yangikala-darvaza-ashgabat-introduction</loc>
+    <lastmod>2025-11-22T21:17:11+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/tours/ashgabat-city-tour</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    Tour Categories:
+    <loc>https://tmtourism.com/tours/corporis-consequatur</loc>
+    <lastmod>2025-11-27T11:15:54+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/tours/category/cultural-tours</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    Blog Posts:
+    <loc>https://tmtourism.com/tours/puteshestvie-v-darva</loc>
+    <lastmod>2025-11-22T13:51:11+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/blog/discover-turkmenistan</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    
-    Blog Categories:
+    <loc>https://tmtourism.com/tours/ullamco-numquam-sed</loc>
+    <lastmod>2025-11-19T18:09:13+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
     <url>
-        <loc>https://www.tmtourism.com/blog/category/travel-tips</loc>
-        <lastmod>2025-12-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    -->
-
+    <loc>https://tmtourism.com/tours/sit-aut-magna-aut</loc>
+    <lastmod>2025-12-05T05:51:38+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/tours/ipsa-irure-ad-est-a</loc>
+    <lastmod>2025-11-27T16:38:41+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/tours/obcaecati-cum-molestika</loc>
+    <lastmod>2025-12-17T09:42:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/staryy-merv-5-000-let</loc>
+    <lastmod>2025-11-24T07:27:35+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/ashhabad-za-24-chasa</loc>
+    <lastmod>2025-12-05T06:39:52+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/dzip-tur-karakumy-ekspress-3-dnia-bez-dorog-po-barxanam</loc>
+    <lastmod>2025-12-15T10:28:38+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/voluptas-sequi-exception</loc>
+    <lastmod>2025-12-05T00:42:40+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/do-dolore-rerum-consp</loc>
+    <lastmod>2025-12-15T10:39:06+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>https://tmtourism.com/blog/rem-tenetur-cupidita</loc>
+    <lastmod>2025-12-15T10:40:26+00:00</lastmod>
+    <priority>0.7</priority>
+            </url>
 </urlset>
-
