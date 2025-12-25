@@ -13,6 +13,9 @@ php artisan config:clear
 php artisan view:clear
 php artisan route:clear
 php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
 
 cd /home/u960938720/domains/tmtourism.com/public_html/resto
