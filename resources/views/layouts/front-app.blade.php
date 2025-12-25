@@ -47,17 +47,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 4.6 CSS -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/mdb-pro.min.css') }}">
-
     <!-- FontAwesome -->
     {{--
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
             padding-top: 72px;
@@ -146,11 +141,8 @@
     </footer>
 
     <!-- ========== SCRIPTS ========== -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ asset('js/popper.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/mdb.min.js') }}"></script>
+    <!-- Scripts loaded via Vite -->
+    <script src="{{ asset('js/mdb.min.js') }}" defer></script>
 
     <script>
         // Animation init

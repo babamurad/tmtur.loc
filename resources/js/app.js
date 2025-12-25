@@ -1,4 +1,11 @@
 import './bootstrap';
-import Swal from 'sweetalert2'
+import jQuery from 'jquery';
+window.$ = window.jQuery = jQuery;
 
-window.Swal = Swal
+import Popper from 'popper.js';
+window.Popper = Popper;
+
+import 'bootstrap';
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;

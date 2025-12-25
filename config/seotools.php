@@ -15,7 +15,7 @@ return [
             'description' => 'Discover the beauty of Turkmenistan with TmTourism, your premier guide to unforgettable tours and travel experiences.', // set false to total remove
             'separator' => ' - ',
             'keywords' => [],
-            'canonical' => null, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
+            'canonical' => 'current', // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'robots' => false, // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
         /*

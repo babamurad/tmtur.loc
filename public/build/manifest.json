@@ -1,14 +1,150 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BDjuFaBL.css",
+    "file": "assets/app-DCgJ6JP3.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
       "app.css"
     ]
   },
+  "resources/font/roboto/Roboto-Bold.eot": {
+    "file": "assets/Roboto-Bold-DevbHkwX.eot",
+    "src": "resources/font/roboto/Roboto-Bold.eot"
+  },
+  "resources/font/roboto/Roboto-Bold.ttf": {
+    "file": "assets/Roboto-Bold-BnxJmI4l.ttf",
+    "src": "resources/font/roboto/Roboto-Bold.ttf"
+  },
+  "resources/font/roboto/Roboto-Bold.woff": {
+    "file": "assets/Roboto-Bold-JM7-EGMe.woff",
+    "src": "resources/font/roboto/Roboto-Bold.woff"
+  },
+  "resources/font/roboto/Roboto-Bold.woff2": {
+    "file": "assets/Roboto-Bold-_WiWGEWZ.woff2",
+    "src": "resources/font/roboto/Roboto-Bold.woff2"
+  },
+  "resources/font/roboto/Roboto-Light.eot": {
+    "file": "assets/Roboto-Light-C1pk2yko.eot",
+    "src": "resources/font/roboto/Roboto-Light.eot"
+  },
+  "resources/font/roboto/Roboto-Light.ttf": {
+    "file": "assets/Roboto-Light-1woA-s5f.ttf",
+    "src": "resources/font/roboto/Roboto-Light.ttf"
+  },
+  "resources/font/roboto/Roboto-Light.woff": {
+    "file": "assets/Roboto-Light-5iSNYNTC.woff",
+    "src": "resources/font/roboto/Roboto-Light.woff"
+  },
+  "resources/font/roboto/Roboto-Light.woff2": {
+    "file": "assets/Roboto-Light-CdpWJUPc.woff2",
+    "src": "resources/font/roboto/Roboto-Light.woff2"
+  },
+  "resources/font/roboto/Roboto-Medium.eot": {
+    "file": "assets/Roboto-Medium-BNTeuPlX.eot",
+    "src": "resources/font/roboto/Roboto-Medium.eot"
+  },
+  "resources/font/roboto/Roboto-Medium.ttf": {
+    "file": "assets/Roboto-Medium-Pi4wemCf.ttf",
+    "src": "resources/font/roboto/Roboto-Medium.ttf"
+  },
+  "resources/font/roboto/Roboto-Medium.woff": {
+    "file": "assets/Roboto-Medium-ViuIU878.woff",
+    "src": "resources/font/roboto/Roboto-Medium.woff"
+  },
+  "resources/font/roboto/Roboto-Medium.woff2": {
+    "file": "assets/Roboto-Medium-BEk0VOHb.woff2",
+    "src": "resources/font/roboto/Roboto-Medium.woff2"
+  },
+  "resources/font/roboto/Roboto-Regular.eot": {
+    "file": "assets/Roboto-Regular-DaGtpSi8.eot",
+    "src": "resources/font/roboto/Roboto-Regular.eot"
+  },
+  "resources/font/roboto/Roboto-Regular.ttf": {
+    "file": "assets/Roboto-Regular-B22Zl-NA.ttf",
+    "src": "resources/font/roboto/Roboto-Regular.ttf"
+  },
+  "resources/font/roboto/Roboto-Regular.woff": {
+    "file": "assets/Roboto-Regular-CqJLzpjj.woff",
+    "src": "resources/font/roboto/Roboto-Regular.woff"
+  },
+  "resources/font/roboto/Roboto-Regular.woff2": {
+    "file": "assets/Roboto-Regular-BUNS1grN.woff2",
+    "src": "resources/font/roboto/Roboto-Regular.woff2"
+  },
+  "resources/font/roboto/Roboto-Thin.eot": {
+    "file": "assets/Roboto-Thin-CxnOzl5C.eot",
+    "src": "resources/font/roboto/Roboto-Thin.eot"
+  },
+  "resources/font/roboto/Roboto-Thin.ttf": {
+    "file": "assets/Roboto-Thin-CxxL7hmv.ttf",
+    "src": "resources/font/roboto/Roboto-Thin.ttf"
+  },
+  "resources/font/roboto/Roboto-Thin.woff": {
+    "file": "assets/Roboto-Thin-BNQJSlBe.woff",
+    "src": "resources/font/roboto/Roboto-Thin.woff"
+  },
+  "resources/font/roboto/Roboto-Thin.woff2": {
+    "file": "assets/Roboto-Thin-CEr1s5x5.woff2",
+    "src": "resources/font/roboto/Roboto-Thin.woff2"
+  },
+  "resources/img/lightbox/default-skin.png": {
+    "file": "assets/default-skin-xVIwaS7p.png",
+    "src": "resources/img/lightbox/default-skin.png"
+  },
+  "resources/img/lightbox/default-skin.svg": {
+    "file": "assets/default-skin-IfmqqLPT.svg",
+    "src": "resources/img/lightbox/default-skin.svg"
+  },
+  "resources/img/lightbox/preloader.gif": {
+    "file": "assets/preloader-DYW9ma1C.gif",
+    "src": "resources/img/lightbox/preloader.gif"
+  },
+  "resources/img/overlays/01.png": {
+    "file": "assets/01-Bf4cYaop.png",
+    "src": "resources/img/overlays/01.png"
+  },
+  "resources/img/overlays/02.png": {
+    "file": "assets/02-CA11sZD5.png",
+    "src": "resources/img/overlays/02.png"
+  },
+  "resources/img/overlays/03.png": {
+    "file": "assets/03-BHBCQz-U.png",
+    "src": "resources/img/overlays/03.png"
+  },
+  "resources/img/overlays/04.png": {
+    "file": "assets/04-DmS8GTfO.png",
+    "src": "resources/img/overlays/04.png"
+  },
+  "resources/img/overlays/05.png": {
+    "file": "assets/05-CF0JtZFR.png",
+    "src": "resources/img/overlays/05.png"
+  },
+  "resources/img/overlays/06.png": {
+    "file": "assets/06-kwGqgHMU.png",
+    "src": "resources/img/overlays/06.png"
+  },
+  "resources/img/overlays/07.png": {
+    "file": "assets/07-GrRQu8_4.png",
+    "src": "resources/img/overlays/07.png"
+  },
+  "resources/img/overlays/08.png": {
+    "file": "assets/08-CD0Xeay1.png",
+    "src": "resources/img/overlays/08.png"
+  },
+  "resources/img/overlays/09.png": {
+    "file": "assets/09-Dh1aIr7b.png",
+    "src": "resources/img/overlays/09.png"
+  },
+  "resources/img/svg/arrow_left.svg": {
+    "file": "assets/arrow_left-DL3Txs_X.svg",
+    "src": "resources/img/svg/arrow_left.svg"
+  },
+  "resources/img/svg/arrow_right.svg": {
+    "file": "assets/arrow_right-CX4XXOTQ.svg",
+    "src": "resources/img/svg/arrow_right.svg"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-1KhOi99u.js",
+    "file": "assets/app-aa60_ML1.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
