@@ -11,9 +11,13 @@
     <!-- Слайды -->
     <div class="carousel-inner">
         @foreach($carousels as $carousel)
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000"
-                style="background-image: url({{ asset('uploads/' . $carousel->image) }}); background-size: cover; background-position: center;">
-                <div class="carousel-caption text-center">
+            <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000" style="position: relative;">
+                <img src="{{ asset('uploads/' . $carousel->image) }}" 
+                     alt="{{ $carousel->tr('title') }}"
+                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;"
+                     @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif
+                >
+                <div class="carousel-caption text-center" style="position: relative; z-index: 1;">
                     <h2 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h2>
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center">
