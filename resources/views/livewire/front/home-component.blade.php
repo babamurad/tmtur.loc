@@ -43,16 +43,17 @@
                 <div class="col-lg-6">
                     <div class="about-grid">
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/i.webp') }}" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/i.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/81.webp') }}" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/81.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/darvaza.jpg') }}" alt="Turkmenistan">
+                            <img src="{{ asset('assets/images/tmfotos/darvaza.jpg') }}" alt="Turkmenistan"
+                                loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -141,8 +142,8 @@
 
                                 <!-- SHORT DESCRIPTION -->
                                 <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                                            {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                                        </p> -->
+                                                                                                {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
+                                                                                            </p> -->
 
                                 <!-- DURATION & TYPE -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
