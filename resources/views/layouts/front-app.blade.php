@@ -173,7 +173,11 @@
 
     <script>
         // Animation init
-        new WOW().init();
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            }
+        });
     </script>
 
     <script>
@@ -202,8 +206,10 @@
         }
 
         // Инициализация при первой загрузке страницы
-        $(document).ready(function () {
-            initBootstrapComponents();
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof $ !== 'undefined') {
+                initBootstrapComponents();
+            }
         });
 
         // Реинициализация после навигации Livewire
