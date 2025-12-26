@@ -250,21 +250,44 @@
     </script>
 
     <script>
-        function updateNavbarState() {
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+
+        function updateNavbarState(scrollPos) {
             var navbar = document.getElementById('mainNav');
             if (!navbar) return;
 
-            if (window.scrollY > 10) {
+            if (scrollPos > 10) {
                 navbar.classList.add('navbar-scrolled');
             } else {
                 navbar.classList.remove('navbar-scrolled');
             }
         }
 
-        document.addEventListener('DOMContentLoaded', updateNavbarState);
-        document.addEventListener('scroll', updateNavbarState);
-        document.addEventListener('livewire:navigated', updateNavbarState);
+        document.addEventListener('scroll', function(e) {
+            lastKnownScrollPosition = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateNavbarState(lastKnownScrollPosition);
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavbarState(window.scrollY);
+        });
+        
+        // Check on navigation
+        document.addEventListener('livewire:navigated', function() {
+            updateNavbarState(window.scrollY);
+        });
     </script>
+
 
     @stack('quill-js')
     @stack('scripts')
