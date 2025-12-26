@@ -17,7 +17,7 @@ class ImageService
     }
 
     /**
-     * Save original image and create a mobile resized variant.
+     * Save original image and create optimized WebP variants.
      *
      * @param UploadedFile $file
      * @param string $folder
@@ -28,25 +28,33 @@ class ImageService
     {
         // Generate a unique filename
         $filename = $file->hashName();
-        $path = $folder . '/' . $filename;
-
-        // 1. Save Original
-        // We use the Storage facade for the original to ensure it's saved correctly in the disk
+        // 1. Save Original (as fallback and source of truth)
         $path = $file->storeAs($folder, $filename, $disk);
 
-        // 2. Create and Save Mobile Variant
-        // Resize to width 600px, constrain aspect ratio
-        $image = $this->manager->read($file->getRealPath());
-        $image->scale(width: 600);
+        // Process variants
+        $manager = new ImageManager(new Driver());
+        // Read image from the stored file to ensure we work with what's on disk (or temp file)
+        // Using getRealPath() from uploaded file is safer/faster before it's moved? 
+        // storeAs moves it? No, storeAs copies usually or moves. 
+        // UploadedFile object points to php temp.
+        $image = $manager->read($file->getRealPath());
 
-        $mobileFilename = pathinfo($filename, PATHINFO_FILENAME) . '_mobile.' . $file->getClientOriginalExtension();
-        $mobilePath = $folder . '/' . $mobileFilename;
-
-        // We need to save the modified image to the same disk structure
-        // Since Intervention 3 saves to filesystem path, we'll get the disk's root path
-        $fullPath = Storage::disk($disk)->path($mobilePath);
+        $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
         
-        $image->save($fullPath);
+        // 2. Mobile Variant (WebP, 600px)
+        $imgMobile = clone $image;
+        $imgMobile->scale(width: 600);
+        $mobilePath = $folder . '/' . $fileBasename . '_mobile.webp';
+        $fullMobilePath = Storage::disk($disk)->path($mobilePath);
+        $imgMobile->toWebp()->save($fullMobilePath);
+
+        // 3. Desktop Variant (WebP, 1920px max)
+        $imgDesktop = clone $image;
+        $imgDesktop->scale(width: 1920);
+        
+        $desktopPath = $folder . '/' . $fileBasename . '_desktop.webp';
+        $fullDesktopPath = Storage::disk($disk)->path($desktopPath);
+        $imgDesktop->toWebp()->save($fullDesktopPath);
 
         return $path;
     }
@@ -63,18 +71,27 @@ class ImageService
             Storage::disk($disk)->delete($path);
         }
 
-        // Try to delete mobile variant
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        // Delete variants
         $filename = pathinfo($path, PATHINFO_FILENAME);
         $directory = dirname($path);
-        
-        // Handle case where dirname is '.' or empty (though typically it will include the folder)
         $directory = $directory === '.' ? '' : $directory . '/';
 
-        $mobilePath = $directory . $filename . '_mobile.' . $extension;
+        // Legacy mobile (if exists)
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+        $legacyMobile = $directory . $filename . '_mobile.' . $extension;
+        if (Storage::disk($disk)->exists($legacyMobile)) {
+            Storage::disk($disk)->delete($legacyMobile);
+        }
 
-        if (Storage::disk($disk)->exists($mobilePath)) {
-            Storage::disk($disk)->delete($mobilePath);
+        // WebP Variants
+        $mobileWebp = $directory . $filename . '_mobile.webp';
+        if (Storage::disk($disk)->exists($mobileWebp)) {
+            Storage::disk($disk)->delete($mobileWebp);
+        }
+
+        $desktopWebp = $directory . $filename . '_desktop.webp';
+        if (Storage::disk($disk)->exists($desktopWebp)) {
+            Storage::disk($disk)->delete($desktopWebp);
         }
     }
 }

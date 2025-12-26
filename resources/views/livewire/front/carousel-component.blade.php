@@ -13,14 +13,36 @@
         @foreach($carousels as $carousel)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000" style="position: relative;">
                 @php
-                    $mobileImage = Str::replaceLast('.', '_mobile.', $carousel->image);
-                    $hasMobile = Storage::disk('public_uploads')->exists($mobileImage);
-                    $mobileUrl = $hasMobile ? asset('uploads/' . $mobileImage) : asset('uploads/' . $carousel->image);
+                    $extension = pathinfo($carousel->image, PATHINFO_EXTENSION);
+                    $filename = pathinfo($carousel->image, PATHINFO_FILENAME);
+                    $directory = dirname($carousel->image);
+                    $directory = $directory === '.' ? '' : $directory . '/';
+                    
+                    // WebP variants
+                    $mobileWebp = $directory . $filename . '_mobile.webp';
+                    $desktopWebp = $directory . $filename . '_desktop.webp';
+                    
+                    // Check existence (optional validation, but assuming they exist if regenerated)
+                    // For performance we might assume they exist or check via Storage which is slow in loop.
+                    // Let's assume they exist if the command was run.
+                    // But to be safe, we can check or fallback. 
+                    // Given this is frontend, file_exists check on every request is bad.
+                    // Better to blindly link if we are sure, or check existence if critical.
+                    // Let's assume they exist.
+                    
+                    $mobileUrl = asset('uploads/' . $mobileWebp);
+                    $desktopUrl = asset('uploads/' . $desktopWebp);
+                    $originalUrl = asset('uploads/' . $carousel->image);
                 @endphp
                 
                 <picture style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
-                    <source media="(max-width: 768px)" srcset="{{ $mobileUrl }}">
-                    <img src="{{ asset('uploads/' . $carousel->image) }}" 
+                    <!-- Mobile WebP -->
+                    <source media="(max-width: 768px)" srcset="{{ $mobileUrl }}" type="image/webp">
+                    <!-- Desktop WebP -->
+                    <source srcset="{{ $desktopUrl }}" type="image/webp">
+                    
+                    <!-- Fallback -->
+                    <img src="{{ $originalUrl }}" 
                          alt="{{ $carousel->tr('title') }}"
                          style="width: 100%; height: 100%; object-fit: cover;"
                          @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif

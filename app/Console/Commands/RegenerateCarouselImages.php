@@ -49,29 +49,32 @@ class RegenerateCarouselImages extends Command
                 continue;
             }
 
-            // Construct mobile path
-            $mobileImage = Str::replaceLast('.', '_mobile.', $slide->image);
-
-            // Skip if already exists (optional, but good for idempotency)
-            // if ($disk->exists($mobileImage)) {
-            //     $this->line("Mobile variant already exists for slide ID: {$slide->id}");
-            //     continue;
-            // }
-
             try {
                 $this->line("Processing slide ID: {$slide->id}...");
 
                 // Read original
                 $originalPath = $disk->path($slide->image);
+                $fileBasename = pathinfo($slide->image, PATHINFO_FILENAME);
+                $folder = dirname($slide->image);
+                $folder = $folder === '.' ? '' : $folder . '/';
+
+                // We need to read the image once
                 $image = $manager->read($originalPath);
 
-                // Resize
-                $image->scale(width: 600);
+                // 1. Mobile Variant (WebP, 600px)
+                $mobileImageName = $folder . $fileBasename . '_mobile.webp';
+                $imgMobile = clone $image;
+                $imgMobile->scale(width: 600);
+                $imgMobile->toWebp()->save($disk->path($mobileImageName));
+                $this->info("Generated: {$mobileImageName}");
 
-                // Save mobile variant
-                $image->save($disk->path($mobileImage));
+                // 2. Desktop Variant (WebP, 1920px)
+                $desktopImageName = $folder . $fileBasename . '_desktop.webp';
+                $imgDesktop = clone $image;
+                $imgDesktop->scale(width: 1920);
+                $imgDesktop->toWebp()->save($disk->path($desktopImageName));
+                $this->info("Generated: {$desktopImageName}");
 
-                $this->info("Generated: {$mobileImage}");
                 $count++;
             } catch (\Exception $e) {
                 $this->error("Failed to process slide ID: {$slide->id}. Error: " . $e->getMessage());
