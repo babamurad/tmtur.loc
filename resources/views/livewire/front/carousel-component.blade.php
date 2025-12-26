@@ -12,11 +12,21 @@
     <div class="carousel-inner">
         @foreach($carousels as $carousel)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}" data-interval="5000" style="position: relative;">
-                <img src="{{ asset('uploads/' . $carousel->image) }}" 
-                     alt="{{ $carousel->tr('title') }}"
-                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;"
-                     @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif
-                >
+                @php
+                    $mobileImage = Str::replaceLast('.', '_mobile.', $carousel->image);
+                    $hasMobile = Storage::disk('public_uploads')->exists($mobileImage);
+                    $mobileUrl = $hasMobile ? asset('uploads/' . $mobileImage) : asset('uploads/' . $carousel->image);
+                @endphp
+                
+                <picture style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+                    <source media="(max-width: 768px)" srcset="{{ $mobileUrl }}">
+                    <img src="{{ asset('uploads/' . $carousel->image) }}" 
+                         alt="{{ $carousel->tr('title') }}"
+                         style="width: 100%; height: 100%; object-fit: cover;"
+                         @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif
+                    >
+                </picture>
+
                 <div class="carousel-caption text-center" style="position: relative; z-index: 1;">
                     <h2 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h2>
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>

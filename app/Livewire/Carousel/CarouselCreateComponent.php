@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Carousel;
 
+use App\Services\ImageService;
 use App\Models\CarouselSlide;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -61,15 +62,16 @@ class CarouselCreateComponent extends Component
         $this->validate();
 
         $imagePath = null;
+        $imagePath = null;
         if ($this->image) {
-            $imageName = 'carousel/' . Carbon::now()->timestamp . '.' . $this->image->extension();
-            $imagePath = $this->image->storeAs($imageName); // Store in public/uploads/carousel
+            $imageService = new ImageService();
+            $imagePath = $imageService->saveAndResize($this->image, 'carousel');
         }
 
         $carouselSlide = CarouselSlide::create([
             'title' => $this->title,
             'description' => $this->description,
-            'image' => $imageName, // Save only the file name
+            'image' => $imagePath, // Save full path relative to disk root
             'button_text' => $this->button_text,
             'button_link' => $this->button_link,
             'sort_order' => $this->sort_order,

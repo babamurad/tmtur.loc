@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Carousel;
 
+use App\Services\ImageService;
 use App\Models\CarouselSlide;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -77,15 +78,14 @@ class CarouselEditComponent extends Component
 
         /* если загружен новый файл – заменяем */
         if ($this->newPhoto) {
+            $imageService = new ImageService();
+
             /* удаляем старый */
             if ($this->carouselSlide->image) {
-                Storage::disk('public_uploads')->delete($this->carouselSlide->image);
+                $imageService->delete($this->carouselSlide->image);
             }
 
-            $path     = $this->newPhoto->store('carousel', 'public_uploads');
-            $fileName = $this->newPhoto->getClientOriginalName();
-            $mime     = $this->newPhoto->getMimeType();
-            $size     = $this->newPhoto->getSize();
+            $path = $imageService->saveAndResize($this->newPhoto, 'carousel');
 
             $this->carouselSlide->update([
                 'image' => $path,
