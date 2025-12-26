@@ -2,14 +2,42 @@
 <html lang="{{ app()->getLocale() }}">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW"></script>
+    <!-- Optimized Google Tag Manager & Analytics (Lazy Load) -->
     <script>
+        // Init dataLayer immediately
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
+        
+        // Record start time and config immediately
+        dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
         gtag('js', new Date());
-
         gtag('config', 'G-C5C6D1TJJW');
+        
+        // Lazy load function
+        function loadAnalytics() {
+             if (window.analyticsLoaded) return;
+             window.analyticsLoaded = true;
+
+            // Load GTag Script
+            var s1 = document.createElement('script');
+            s1.async = true;
+            s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW';
+            document.head.appendChild(s1);
+
+            // Load GTM Script
+            var s2 = document.createElement('script');
+            s2.async = true;
+            s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TJZ6LF4Z';
+            document.head.appendChild(s2);
+        }
+
+        // Trigger on interaction or timeout
+        var events = ["mouseover", "keydown", "touchstart", "touchmove", "wheel"];
+        events.forEach(function(e) {
+            window.addEventListener(e, loadAnalytics, { passive: true, once: true });
+        });
+        
+        setTimeout(loadAnalytics, 4000);
     </script>
 
     <!-- Start cookieyes banner -->
@@ -19,16 +47,7 @@
     @endif
     <!-- End cookieyes banner -->
 
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TJZ6LF4Z');</script>
-    <!-- End Google Tag Manager -->
+
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJZ6LF4Z" height="0" width="0"
