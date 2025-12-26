@@ -27,7 +27,7 @@
                     >
                 </picture>
 
-                <div class="carousel-caption text-center" style="position: relative; z-index: 1;">
+                <div class="carousel-caption text-center" style="position: relative; z-index: 1; left: 0; right: 0; top:20%;">
                     <h2 class="display-3 font-weight-bold">{{ $carousel->tr('title') }}</h2>
                     <p class="lead mb-4">{{ $carousel->tr('description') }}</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center">
