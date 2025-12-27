@@ -3,6 +3,7 @@
 
 <head>
     <!-- Optimized Google Tag Manager & Analytics (Lazy Load) -->
+    <link rel="preconnect" href="https://cdn-cookieyes.com">
     <script>
         // Init dataLayer immediately
         window.dataLayer = window.dataLayer || [];
@@ -40,10 +41,22 @@
         setTimeout(loadAnalytics, 4000);
     </script>
 
-    <!-- Start cookieyes banner -->
+    <!-- Start cookieyes banner (Lazy Load) -->
     @if(config('app.env') === 'production')
-        <script id="cookieyes" type="text/javascript"
-            src="https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js" defer></script>
+        <script>
+            function loadCookieYes() {
+                if (document.getElementById('cookieyes')) return;
+                var s = document.createElement('script');
+                s.id = 'cookieyes';
+                s.type = 'text/javascript';
+                s.src = 'https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js';
+                s.defer = true; 
+                document.body.appendChild(s);
+            }
+            // Delay loading to prioritize LCP (Hero Image)
+            // 3500ms is enough for the main paint to finish
+            setTimeout(loadCookieYes, 3500);
+        </script>
     @endif
     <!-- End cookieyes banner -->
 
