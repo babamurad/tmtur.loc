@@ -141,14 +141,10 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/106058932" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
      
 </head>
 
 <body data-spy="scroll" data-target="#mainNav">
-    <!-- webmaster.yandex.ru -->
-    Verification: 8582c99414673d3c
 
     <!-- ========== НАВБАР ========== -->
     @livewire('front.navbar-component')
