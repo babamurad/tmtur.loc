@@ -147,5 +147,6 @@ return [
     'about_cta_title' => 'Ready to go on a trip?',
     'about_cta_btn' => 'Get program and price',
     'about_email_label' => 'Email:',
+    'on_request' => 'On request',
 
 ];

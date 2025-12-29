@@ -147,5 +147,6 @@ return [
     'about_cta_title' => 'Готовы отправиться в путешествие?',
     'about_cta_btn' => 'Получить программу и цену',
     'about_email_label' => 'Почта:',
+    'on_request' => 'По запросу',
 
 ];

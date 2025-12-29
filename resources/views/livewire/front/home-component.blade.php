@@ -120,75 +120,85 @@
                             </div>
 
                             <!-- BODY -->
-                            <div class="card-body" style="padding: 1.25rem 1.25rem 0.5rem;">
+                            <div class="card-body d-flex flex-column" style="padding: 1.25rem;">
 
                                 <!-- TITLE -->
                                 <a href="{{ route('tours.show', $tour->slug) }}" class="text-decoration-none text-dark">
-                                    <h5 class="fw-bold mb-2" style="font-size: 1.15rem; line-height: 1.3;">
+                                    <h5 class="fw-bold mb-3"
+                                        style="font-size: 1.1rem; line-height: 1.4; min-height: 3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                         {{ $tour->tr('title') }}
                                     </h5>
                                 </a>
 
-                                <!-- ICONS (jeep, border, crater, hotel, train) -->
-                                <div class="mb-3" style="font-size: 1rem; color:#444;">
-                                    <i class="fa-solid fa-car-side mr-2"></i>
-                                    <i class="fa-solid fa-passport mr-2"></i>
-                                    <i class="fa-solid fa-fire-flame-curved mr-2"></i>
-                                    <i class="fa-solid fa-hotel mr-2"></i>
-                                    <i class="fa-solid fa-bus mr-2"></i>
-                                    <i class="fas fa-campground mr-2"></i>
+                                <!-- ICONS -->
+                                <div class="mb-3 text-secondary" style="font-size: 0.95rem;">
+                                    <i class="fa-solid fa-car-side mr-2" title="Transport"></i>
+                                    <i class="fa-solid fa-passport mr-2" title="Visa Support"></i>
+                                    <i class="fa-solid fa-fire-flame-curved mr-2" title="Attractions"></i>
+                                    <i class="fa-solid fa-hotel mr-2" title="Accommodation"></i>
+                                    <i class="fa-solid fa-bus mr-2" title="Transfers"></i>
+                                    <i class="fas fa-campground mr-2" title="Camping"></i>
                                 </div>
 
-                                <!-- SHORT DESCRIPTION -->
-                                <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                                                    {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                                                </p> -->
+                                <!-- INFO GRID -->
+                                <div class="row g-2 mt-auto">
 
-                                <!-- DURATION & TYPE -->
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="d-flex flex-column">
-                                        <span class="small text-muted">
-                                            <i class="far fa-clock mr-1"></i>
-                                            {{ $tour->days ?? '2-3' }} {{ __('messages.days_label') ?? 'days' }}
-                                        </span>
-                                        <span class="small text-muted">
-                                            <i class="fas fa-users mr-1"></i>
-                                            {{ __('messages.small_group') ?? 'Small group tour' }}
-                                        </span>
+                                    <!-- LEFT COL: Duration & Type -->
+                                    <div class="col-6 border-right pr-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="far fa-clock text-primary mr-2"
+                                                style="width: 16px; text-align: center;"></i>
+                                            <span class="small text-muted lh-1">
+                                                {{ $tour->days ?? '2-3' }} {{ __('messages.days_label') ?? 'days' }}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-users text-primary mr-2"
+                                                style="width: 16px; text-align: center;"></i>
+                                            <span class="small text-muted lh-1">
+                                                {{ __('messages.small_group') ?? 'Small group' }}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <!-- PRICE (from tour or group) -->
-                                    @if($nextGroup = $tour->groupsOpen->first())
-                                        <div class="d-flex flex-column mb-3">
-
+                                    <!-- RIGHT COL: Next & Price -->
+                                    <div class="col-6 pl-3">
+                                        @if($nextGroup = $tour->groupsOpen->first())
                                             <!-- Next Departure -->
-                                            <div class="mb-2 d-flex align-items-center justify-content-between"
-                                                style="font-size: 0.9rem;">
-                                                <span class="text-muted">
-                                                    <i class="fas fa-calendar-alt text-primary mr-1"></i>
-                                                    {{ __('messages.next_departure') ?? 'Ближайший выезд' }}
-                                                </span>
-                                                <strong
-                                                    class="ml-2">{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
+                                            <div class="mb-2">
+                                                <div class="text-xs text-muted text-uppercase fw-bold"
+                                                    style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                                                    {{ __('messages.next_departure') ?? 'Start' }}
+                                                </div>
+                                                <div class="fw-bold text-dark" style="font-size: 0.9rem;">
+                                                    {{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}
+                                                </div>
                                             </div>
 
-                                            <!-- Цена за 1 человека -->
-                                            <div class="price-chip-single mb-1">
-                                                <i class="fas fa-user mr-1"></i>
-                                                1 {{ __('messages.person') ?? 'чел.' }}:
-                                                <strong>${{ $nextGroup->price_max }}</strong>
+                                            <!-- Prices -->
+                                            <div class="d-flex flex-column">
+                                                <!-- Single -->
+                                                <div class="d-flex justify-content-between align-items-center small mb-1">
+                                                    <span class="text-muted"><i class="fas fa-user-alt fa-xs mr-1"></i>
+                                                        1:</span>
+                                                    <span class="fw-bold">${{ $nextGroup->price_max }}</span>
+                                                </div>
+                                                <!-- Group -->
+                                                <div
+                                                    class="d-flex justify-content-between align-items-center small text-success">
+                                                    <span class="fw-bold"><i class="fas fa-users fa-xs mr-1"></i> 4+:</span>
+                                                    <span
+                                                        class="fw-bold bg-success-subtle px-1 rounded">${{ $nextGroup->price_min }}</span>
+                                                </div>
                                             </div>
-
-                                            <!-- Цена за группу -->
-                                            <div class="price-chip-group">
-                                                <i class="fas fa-users mr-1"></i>
-                                                {{ $nextGroup->max_people }}
-                                                {{ __('messages.people') ?? 'чел.' }}:
-                                                <strong>${{ $nextGroup->price_min }}</strong>
+                                        @else
+                                            <div
+                                                class="h-100 d-flex align-items-center justify-content-center text-muted small fst-italic">
+                                                {{ (__('messages.on_request') !== 'messages.on_request') ? __('messages.on_request') : 'По запросу' }}
                                             </div>
+                                        @endif
+                                    </div>
 
-                                        </div>
-                                    @endif
                                 </div>
 
                             </div>

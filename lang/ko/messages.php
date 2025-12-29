@@ -145,5 +145,6 @@ return [
     'about_cta_title' => '여행을 떠날 준비가 되셨나요?',
     'about_cta_btn' => '프로그램 및 가격 받기',
     'about_email_label' => '이메일:',
+    'on_request' => '요청 시',
 
 ];
