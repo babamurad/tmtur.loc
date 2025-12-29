@@ -94,6 +94,12 @@
                     {{-- текст поста --}}
                     <div class="row mx-md-4 px-4 mt-3">
                         <div class="col-12">
+                            <style>
+                                .article img {
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            </style>
                             <div class="text-dark article">{!! $post->tr('content') !!}</div>
                         </div>
                     </div>

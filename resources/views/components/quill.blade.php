@@ -194,10 +194,10 @@
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
 
-                        // Calculate new dimensions (max 1800px)
+                        // Calculate new dimensions (max 600px)
                         let width = img.width;
                         let height = img.height;
-                        const maxSize = 1800;
+                        const maxSize = 600;
 
                         if (width > maxSize || height > maxSize) {
                             if (width > height) {
@@ -212,9 +212,9 @@
                         canvas.width = width;
                         canvas.height = height;
 
-                        // Draw and compress (75% quality)
+                        // Draw and compress (80% quality, WebP)
                         ctx.drawImage(img, 0, 0, width, height);
-                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                        const compressedDataUrl = canvas.toDataURL('image/webp', 0.8);
 
                         resolve(compressedDataUrl);
                     };

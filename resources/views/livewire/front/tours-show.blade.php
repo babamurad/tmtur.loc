@@ -3,7 +3,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('menu.home') }}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('tours.category.index') }}">{{ __('menu.tours') }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('tours.category.index') }}">{{ __('menu.tours') }}</a>
+                </li>
                 <li class="breadcrumb-item active">{{ $tour->tr('title') }}</li>
             </ol>
         </nav>
@@ -13,63 +14,72 @@
         <div class="col-md-8">
 
 
-    {{-- модалка --}}
-    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ __('messages.modal_book_tour_title') }}</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            {{-- модалка --}}
+            <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ __('messages.modal_book_tour_title') }}</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted text-center">{{ __('messages.modal_book_tour_description') }}</p>
+                            <form>
+                                {{-- honeypot --}}
+                                <div style="position:absolute; left:-9999px;">
+                                    <input type="text" wire:model.defer="hp" tabindex="-1">
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control @error('name') is-invalid @enderror"
+                                        wire:model.defer="name"
+                                        placeholder="{{ __('messages.modal_name_placeholder') }}">
+                                    @error('name') <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                        wire:model.defer="email" placeholder="Email">
+                                    @error('email') <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="tel" class="form-control @error('phone') is-invalid @enderror"
+                                        wire:model.defer="phone"
+                                        placeholder="{{ __('messages.modal_phone_placeholder') }}">
+                                    @error('phone') <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea class="form-control @error('message') is-invalid @enderror"
+                                        wire:model.defer="message" rows="4"
+                                        placeholder="{{ __('messages.modal_message_placeholder') }}"></textarea>
+                                    @error('message') <span class="invalid-feedback d-block">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">{{ __('messages.modal_cancel_button') }}</button>
+                                    <button type="button" class="btn btn-primary"
+                                        wire:click="sendMessage()">{{ __('messages.modal_send_button') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            <p class="text-muted text-center">{{ __('messages.modal_book_tour_description') }}</p>
-                <form>
-                {{-- honeypot --}}
-                <div style="position:absolute; left:-9999px;">
-                    <input type="text" wire:model.defer="hp" tabindex="-1">
-                </div>
 
-                <div class="form-group">
-                    <input class="form-control @error('name') is-invalid @enderror"
-                        wire:model.defer="name" placeholder="{{ __('messages.modal_name_placeholder') }}">
-                    @error('name') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="form-group">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                        wire:model.defer="email" placeholder="Email">
-                    @error('email') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="form-group">
-                    <input type="tel" class="form-control @error('phone') is-invalid @enderror"
-                        wire:model.defer="phone" placeholder="{{ __('messages.modal_phone_placeholder') }}">
-                    @error('phone') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="form-group">
-                    <textarea class="form-control @error('message') is-invalid @enderror"
-                            wire:model.defer="message" rows="4" placeholder="{{ __('messages.modal_message_placeholder') }}"></textarea>
-                    @error('message') <span class="invalid-feedback d-block">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('messages.modal_cancel_button') }}</button>
-                    <button type="button" class="btn btn-primary" wire:click="sendMessage()">{{ __('messages.modal_send_button') }}</button>
-                </div>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            Livewire.on('close-modal', () => {
-                $('#exampleModal').modal('hide');
-            });
-        });
-    </script>
+            <script>
+                document.addEventListener('livewire:initialized', () => {
+                    Livewire.on('close-modal', () => {
+                        $('#exampleModal').modal('hide');
+                    });
+                });
+            </script>
 
 
             {{-- КАРТОЧКА ТУРА --}}
@@ -132,6 +142,12 @@
                     <h1 class="card-title mb-3">{{ $tour->tr('title') }}</h1>
 
                     {{-- КОРОТКОЕ ОПИСАНИЕ --}}
+                    <style>
+                        .short_description img {
+                            max-width: 100%;
+                            height: auto;
+                        }
+                    </style>
                     <div class="mb-4 short_description">
                         {!! $tour->tr('short_description') !!}
                     </div>
@@ -254,7 +270,8 @@
                                                 {{-- Кнопка бронирования --}}
                                                 <div class="col-md-4">
                                                     @if($available > 0)
-                                                        <button type="button" href="#" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+                                                        <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
+                                                            data-toggle="modal" data-target="#exampleModal">
                                                             <i class="fas fa-ticket-alt mr-1"></i>
                                                             {{ __('messages.book_now') ?? 'Забронировать' }}
                                                         </button>
@@ -337,7 +354,8 @@
                                                         {{-- Кнопка бронирования --}}
                                                         <div class="col-md-4">
                                                             @if($available > 0)
-                                                                <button type="button" href="#" class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+                                                                <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
+                                                                    data-toggle="modal" data-target="#exampleModal">
                                                                     <i class="fas fa-ticket-alt mr-1"></i>
                                                                     {{ __('messages.book_now') ?? 'Забронировать' }}
                                                                 </button>
@@ -357,7 +375,8 @@
                             </div>
                             @if($tour->groupsOpen->count() > 3)
                                 <div class="card-footer text-center p-0 m-0">
-                                    <button class="btn btn-link text-primary m-1 p-2" type="button" data-toggle="collapse" data-target="#moreGroupDates" aria-expanded="false" aria-controls="moreGroupDates">
+                                    <button class="btn btn-link text-primary m-1 p-2" type="button" data-toggle="collapse"
+                                        data-target="#moreGroupDates" aria-expanded="false" aria-controls="moreGroupDates">
                                         <span class="when-collapsed">
                                             {{ __('messages.view_all_dates') ?? 'Смотреть все даты' }}
                                             <i class="fas fa-chevron-down ml-1"></i>
@@ -387,7 +406,9 @@
                             <div class="card">
                                 <div class="card-header p-0" id="headingInclusions">
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseInclusions" aria-expanded="false" aria-controls="collapseInclusions">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                            data-target="#collapseInclusions" aria-expanded="false"
+                                            aria-controls="collapseInclusions">
                                             <h6 class="mb-0">
                                                 {{ __('messages.what_is_included_not_included') }}
                                                 <i class="fas fa-chevron-down ml-2 chevron-icon"></i>
@@ -396,11 +417,13 @@
                                     </h5>
                                 </div>
 
-                                <div id="collapseInclusions" class="collapse" aria-labelledby="headingInclusions" data-parent="#accordionInclusions">
+                                <div id="collapseInclusions" class="collapse" aria-labelledby="headingInclusions"
+                                    data-parent="#accordionInclusions">
                                     <div class="card-body">
                                         <div class="row text-center mb-3">
                                             <div class="col-sm-6">
-                                                <h6 class="text-uppercase text-muted mb-2 text-left">{{ __('messages.what_is_included') }}
+                                                <h6 class="text-uppercase text-muted mb-2 text-left">
+                                                    {{ __('messages.what_is_included') }}
                                                 </h6>
                                                 <ul class="list-unstyled text-left">
                                                     @foreach($tour->inclusions as $item)
@@ -447,7 +470,7 @@
                                 <div class="card-header p-0" id="heading{{ $idx }}">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left d-flex justify-content-between align-items-center
-                                           text-decoration-none text-dark" type="button" data-toggle="collapse"
+                                               text-decoration-none text-dark" type="button" data-toggle="collapse"
                                             data-target="#collapse{{ $idx }}"
                                             aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
                                             aria-controls="collapse{{ $idx }}">
@@ -500,7 +523,8 @@
                             <h5 class="mb-2"><i class="bx bx-purchase-tag-alt text-primary mr-1"></i> Теги:</h5>
                             <div>
                                 @foreach($tour->tags as $tag)
-                                    <a href="{{ route('tours.tag.show', $tag->id) }}" class="badge badge-info p-2 mr-1 mb-1" style="font-size: 0.9rem;">
+                                    <a href="{{ route('tours.tag.show', $tag->id) }}" class="badge badge-info p-2 mr-1 mb-1"
+                                        style="font-size: 0.9rem;">
                                         {{ $tag->tr('name') }}
                                     </a>
                                 @endforeach
@@ -570,10 +594,10 @@
                                         <img src="{{ asset('uploads/' . $media->file_path) }}" class="d-block w-100"
                                             alt="{{ $media->file_name }}" style="max-height: 80vh; object-fit: contain;">
                                         <!-- @if($media->file_name)
-                                                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                                                <p class="mb-0">{{ $media->file_name }}</p>
-                                                            </div>
-                                                        @endif -->
+                                                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+                                                                        <p class="mb-0">{{ $media->file_name }}</p>
+                                                                    </div>
+                                                                @endif -->
                                     </div>
                                 @endforeach
                             </div>
@@ -638,7 +662,7 @@
 
     @push('scripts')
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Toggle chevron icon for group dates
                 $('#moreGroupDates').on('show.bs.collapse', function () {
                     $('[data-target="#moreGroupDates"]').find('.when-collapsed').hide();
