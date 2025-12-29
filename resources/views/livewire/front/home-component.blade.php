@@ -310,7 +310,7 @@
     @if($showBookingModal)
         <div class="modal fade show d-block tm-modal" tabindex="-1" role="dialog" aria-modal="true"
             style="background: rgba(0,0,0,0.55);">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
 
                     <div class="tm-modal-header">
@@ -334,7 +334,7 @@
                         </div>
                     </div>
 
-                    <form wire:submit.prevent="submitBooking" novalidate>
+                    <form wire:submit.prevent="submitBooking" novalidate class="d-flex flex-column flex-grow-1 overflow-auto">
                         <div class="tm-modal-body">
                             @if($selectedGroup)
                                 <div class="tm-tour-summary">
