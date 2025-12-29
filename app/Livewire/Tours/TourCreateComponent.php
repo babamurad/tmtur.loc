@@ -39,6 +39,9 @@ class TourCreateComponent extends Component
     // Поля для аккомодаций
     public $accommodations = [];
 
+    // Теги
+    public $tags_selected = [];
+
     // SEO поля
     public $seo_title;
     public $seo_description;
@@ -71,6 +74,9 @@ class TourCreateComponent extends Component
 
             'category_id' => 'required|array|min:1',
             'category_id.*' => 'integer|exists:tour_categories,id',
+
+            'tags_selected' => 'nullable|array',
+            'tags_selected.*' => 'integer|exists:tags,id',
         ];
 
         foreach (config('app.available_locales') as $l) {
@@ -82,8 +88,6 @@ class TourCreateComponent extends Component
             $rules["itinerary_days.*.trans.$l.title"] = 'required|string|max:255';
             $rules["itinerary_days.*.trans.$l.description"] = 'nullable|string';
         }
-
-        // Removed translation rules for inclusions as they are now managed separately
 
         foreach (config('app.available_locales') as $l) {
             $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255';
@@ -114,8 +118,10 @@ class TourCreateComponent extends Component
     public function render()
     {
         $categories = TourCategory::all();
+        $tags = \App\Models\Tag::all(); // Load all tags
         return view('livewire.tours.tour-create-component', [
             'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 
@@ -221,6 +227,11 @@ class TourCreateComponent extends Component
         }
 
         $tour->categories()->sync($this->category_id);
+
+        // Process Tags
+        if ($this->tags_selected) {
+            $tour->tags()->sync($this->tags_selected);
+        }
 
         foreach ($this->itinerary_days as $dayData) {
             $fallbackLocale = config('app.fallback_locale');

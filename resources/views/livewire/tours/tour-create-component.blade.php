@@ -142,7 +142,7 @@
                                     <div class="form-group" wire:ignore>
                                         <label>Категория <span class="text-danger">*</span></label>
                                         <select class="form-control select2 @error('category_id') is-invalid @enderror"
-                                            wire:model.defer="category_id" name="states[]" multiple="multiple">
+                                            wire:model.defer="category_id" data-model="category_id" name="states[]" multiple="multiple">
                                             <option>Выберите категорию</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">
@@ -593,6 +593,28 @@
                         </div>
                     </div>
 
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-purchase-tag-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                Теги
+                            </h5>
+
+                            <div class="form-group mb-0" wire:ignore>
+                                <label for="tags_selected">Теги</label>
+                                <select class="form-control select2" id="tags_selected"
+                                    wire:model.defer="tags_selected" data-model="tags_selected" multiple="multiple">
+                                    @foreach($tags as $tag)
+                                        <option value="{{ $tag->id }}">
+                                            {{ $tag->tr('name') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <small class="text-muted">Выберите теги из списка</small>
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- Settings Section --}}
                     <div class="card">
                         <div class="card-body">
@@ -653,11 +675,15 @@
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
         $(document).ready(function () {
-            let select2 = $('.select2');
-            select2.select2();
-            select2.on('change', function (e) {
-                let data = $(this).val() || [];
-                @this.set('category_id', data);
+            $('.select2').each(function() {
+                 $(this).select2();
+                 $(this).on('change', function (e) {
+                    let data = $(this).val();
+                    let model = $(this).data('model'); // Generic model binding
+                    if(model) {
+                         @this.set(model, data);
+                    }
+                });
             });
         });
     </script>
