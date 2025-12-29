@@ -52,8 +52,7 @@
                             <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/gate.webp') }}" alt="Turkmenistan"
-                                loading="lazy">
+                            <img src="{{ asset('assets/images/tmfotos/gate.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                     </div>
                 </div>
@@ -142,8 +141,8 @@
 
                                 <!-- SHORT DESCRIPTION -->
                                 <!-- <p class="text-muted small mb-3" style="line-height: 1.45;">
-                                                                                                {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
-                                                                                            </p> -->
+                                                                                                    {!! Str::words(strip_tags($tour->tr('short_description')), 15, '...') !!}
+                                                                                                </p> -->
 
                                 <!-- DURATION & TYPE -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -159,22 +158,33 @@
                                     </div>
 
                                     <!-- PRICE (from tour or group) -->
-                                    @if($tour->groupsOpen->first())
+                                    @if($nextGroup = $tour->groupsOpen->first())
                                         <div class="d-flex flex-column mb-3">
+
+                                            <!-- Next Departure -->
+                                            <div class="mb-2 d-flex align-items-center justify-content-between"
+                                                style="font-size: 0.9rem;">
+                                                <span class="text-muted">
+                                                    <i class="fas fa-calendar-alt text-primary mr-1"></i>
+                                                    {{ __('messages.next_departure') ?? 'Ближайший выезд' }}
+                                                </span>
+                                                <strong
+                                                    class="ml-2">{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
+                                            </div>
 
                                             <!-- Цена за 1 человека -->
                                             <div class="price-chip-single mb-1">
                                                 <i class="fas fa-user mr-1"></i>
                                                 1 {{ __('messages.person') ?? 'чел.' }}:
-                                                <strong>${{ $tour->groupsOpen->first()->price_max }}</strong>
+                                                <strong>${{ $nextGroup->price_max }}</strong>
                                             </div>
 
                                             <!-- Цена за группу -->
                                             <div class="price-chip-group">
                                                 <i class="fas fa-users mr-1"></i>
-                                                {{ $tour->groupsOpen->first()->max_people }}
+                                                {{ $nextGroup->max_people }}
                                                 {{ __('messages.people') ?? 'чел.' }}:
-                                                <strong>${{ $tour->groupsOpen->first()->price_min }}</strong>
+                                                <strong>${{ $nextGroup->price_min }}</strong>
                                             </div>
 
                                         </div>
