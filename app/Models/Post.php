@@ -9,7 +9,7 @@ use App\Traits\HasSeo;
 
 class Post extends Model
 {
-    use HasSeo;
+    use HasSeo, SoftDeletes;
     use \App\Models\Traits\Translatable;
 
     public $fields = ['title', 'content'];
