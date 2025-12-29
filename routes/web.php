@@ -98,6 +98,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('inclusions/edit/{id}', App\Livewire\Inclusions\InclusionEditComponent::class)->name('inclusions.edit');
 
     Route::get('tags', App\Livewire\Tags\TagIndexComponent::class)->name('admin.tags.index');
+    Route::get('tags/create', App\Livewire\Tags\TagCreateComponent::class)->name('admin.tags.create');
     Route::get('tags/edit/{id}', App\Livewire\Tags\TagEditComponent::class)->name('admin.tags.edit');
 
     Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');

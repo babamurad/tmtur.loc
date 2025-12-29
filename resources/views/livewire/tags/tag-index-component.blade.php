@@ -6,9 +6,9 @@
             <div class="col-12">
                 <div class="page-title-box d-flex justify-content-between align-items-center">
                     <h4 class="mb-0 font-size-18">Теги</h4>
-                    {{-- <a href="#" class="btn btn-success">
+                    <a href="{{ route('admin.tags.create') }}" class="btn btn-success">
                         <i class="bx bx-plus-circle"></i> Создать
-                    </a> --}}
+                    </a>
                     {{-- Creation happens usually via Tour, but we could add a modal here. --}}
                 </div>
             </div>
