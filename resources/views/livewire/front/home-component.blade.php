@@ -194,7 +194,7 @@
                                         @else
                                             <div
                                                 class="h-100 d-flex align-items-center justify-content-center text-muted small fst-italic">
-                                                {{ (__('messages.on_request') !== 'messages.on_request') ? __('messages.on_request') : 'По запросу' }}
+                                                {{ __('messages.on_request') }}
                                             </div>
                                         @endif
                                     </div>
