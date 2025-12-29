@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use App\Models\TurkmenistanGallery;
+use App\Services\ImageService;
 
 class GalleryEdit extends Component
 {
@@ -15,8 +16,8 @@ class GalleryEdit extends Component
 
     /* редактируемые поля */
     public string $title = '';
-    public int    $order = 0;
-    public bool   $is_featured = false;
+    public int $order = 0;
+    public bool $is_featured = false;
 
     /* новый файл (если пользователь загрузит) */
     public $newPhoto = null;
@@ -74,33 +75,32 @@ class GalleryEdit extends Component
 
         /* если загружен новый файл – заменяем */
         if ($this->newPhoto) {
+            $imageService = new ImageService();
             /* удаляем старый */
             if ($this->photo->file_path) {
+                // Assuming simple delete, or use ImageService::delete if applicable for Gallery logic
                 Storage::disk('public_uploads')->delete($this->photo->file_path);
             }
 
-            $path      = $this->newPhoto->store('gallery', 'public_uploads');
-            $fileName  = $this->newPhoto->getClientOriginalName();
-            $mime      = $this->newPhoto->getMimeType();
-            $size      = $this->newPhoto->getSize();
+            $optimized = $imageService->saveOptimized($this->newPhoto, 'gallery');
 
             $this->photo->update([
-                'file_path' => $path,
-                'file_name' => $fileName,
-                'mime_type' => $mime,
-                'size'      => $size,
+                'file_path' => $optimized['path'],
+                'file_name' => $optimized['file_name'],
+                'mime_type' => $optimized['mime_type'],
+                'size' => $optimized['size'],
             ]);
         }
 
         /* обновляем остальные поля */
         $this->photo->update([
-            'title'        => $this->trans[$fallback]['title'],
-            'description'  => $this->trans[$fallback]['description'] ?? '',
-            'location'     => $this->trans[$fallback]['location'] ?? '',
+            'title' => $this->trans[$fallback]['title'],
+            'description' => $this->trans[$fallback]['description'] ?? '',
+            'location' => $this->trans[$fallback]['location'] ?? '',
             'photographer' => $this->trans[$fallback]['photographer'] ?? '',
-            'alt_text'     => $this->trans[$fallback]['alt_text'] ?? '',
-            'order'        => $this->order,
-            'is_featured'  => $this->is_featured,
+            'alt_text' => $this->trans[$fallback]['alt_text'] ?? '',
+            'order' => $this->order,
+            'is_featured' => $this->is_featured,
         ]);
 
         // Сохраняем переводы

@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use App\Models\TurkmenistanGallery;
+use App\Services\ImageService;
 use Illuminate\Validation\Rule;
 
 class GalleryCreate extends Component
@@ -14,8 +15,8 @@ class GalleryCreate extends Component
 
     /* основные поля */
     public string $title = '';
-    public int    $order = 0;
-    public bool   $is_featured = false;
+    public int $order = 0;
+    public bool $is_featured = false;
 
     /* загружаемый файл */
     public $photo;
@@ -64,25 +65,23 @@ class GalleryCreate extends Component
         $this->validate();
 
         /* загрузка файла */
-        $path      = $this->photo->store('gallery', 'public_uploads');
-        $fileName  = $this->photo->getClientOriginalName();
-        $mime      = $this->photo->getMimeType();
-        $size      = $this->photo->getSize();
+        $imageService = new ImageService();
+        $optimized = $imageService->saveOptimized($this->photo, 'gallery');
 
         /* запись в БД */
         $gallery = TurkmenistanGallery::create([
-            'title'        => $this->trans[$fallback]['title'],
+            'title' => $this->trans[$fallback]['title'],
             // 'slug'         => Str::slug($this->title),
-            'description'  => $this->trans[$fallback]['description'] ?? '',
-            'file_path'    => $path,
-            'file_name'    => $fileName,
-            'mime_type'    => $mime,
-            'size'         => $size,
-            'alt_text'     => $this->trans[$fallback]['alt_text'] ?? '',
-            'location'     => $this->trans[$fallback]['location'] ?? '',
+            'description' => $this->trans[$fallback]['description'] ?? '',
+            'file_path' => $optimized['path'],
+            'file_name' => $optimized['file_name'],
+            'mime_type' => $optimized['mime_type'],
+            'size' => $optimized['size'],
+            'alt_text' => $this->trans[$fallback]['alt_text'] ?? '',
+            'location' => $this->trans[$fallback]['location'] ?? '',
             'photographer' => $this->trans[$fallback]['photographer'] ?? '',
-            'order'        => $this->order,
-            'is_featured'  => $this->is_featured,
+            'order' => $this->order,
+            'is_featured' => $this->is_featured,
         ]);
 
         // Сохраняем переводы

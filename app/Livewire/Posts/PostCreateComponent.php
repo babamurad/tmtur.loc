@@ -7,6 +7,7 @@ use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use App\Services\ImageService;
 
 class PostCreateComponent extends Component
 {
@@ -33,7 +34,7 @@ class PostCreateComponent extends Component
     {
         $rules = [
             'title' => 'required|string|max:255|unique:posts',
-            'slug'  => 'nullable|string|max:255|unique:posts',
+            'slug' => 'nullable|string|max:255|unique:posts',
             'category_id' => 'required|exists:categories,id',
             'content' => 'nullable|string',
             'status' => 'boolean',
@@ -71,7 +72,7 @@ class PostCreateComponent extends Component
     public function save()
     {
         $fallback = config('app.fallback_locale');
-        
+
         // Sync fallback locale data from trans array to main model fields
         $this->title = $this->trans[$fallback]['title'] ?? '';
         $this->content = $this->trans[$fallback]['content'] ?? '';
@@ -87,11 +88,9 @@ class PostCreateComponent extends Component
             $path = null;
             if ($this->image) {
                 \Log::debug('Начало загрузки изображения');
-                $path = $this->image->storeAs(
-                    'posts',
-                    \Illuminate\Support\Str::uuid() . '.' . $this->image->extension(),
-                    'public_uploads'
-                );
+                $imageService = new ImageService();
+                $optimized = $imageService->saveOptimized($this->image, 'posts');
+                $path = $optimized['path'];
                 \Log::debug('Изображение загружено', ['path' => $path]);
             }
 
@@ -99,9 +98,9 @@ class PostCreateComponent extends Component
             $postData = [
                 'title' => $this->title,
                 'slug' => $this->slug ?: \Str::slug($this->title),
-                'category_id' => (int)$this->category_id,
+                'category_id' => (int) $this->category_id,
                 'content' => $this->content,
-                'status' => (bool)$this->status,
+                'status' => (bool) $this->status,
                 'published_at' => $this->published_at,
                 'image' => $path,
                 'user_id' => auth()->id(),

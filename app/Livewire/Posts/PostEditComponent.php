@@ -4,6 +4,7 @@ namespace App\Livewire\Posts;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\ImageService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -67,7 +68,7 @@ class PostEditComponent extends Component
         $this->title = $this->post->title;
         $this->slug = $this->post->slug;
         $this->category_id = $this->post->category_id;
-        $this->status = (bool)$this->post->status;
+        $this->status = (bool) $this->post->status;
         $this->published_at = $this->post->published_at->format('Y-m-d\TH:i');
         $this->currentImage = $this->post->image;
 
@@ -81,7 +82,7 @@ class PostEditComponent extends Component
     public function save()
     {
         $fallback = config('app.fallback_locale');
-        
+
         // Sync fallback locale data from trans array to main model fields
         $this->title = $this->trans[$fallback]['title'] ?? $this->title;
         $this->content = $this->trans[$fallback]['content'] ?? '';
@@ -100,12 +101,14 @@ class PostEditComponent extends Component
         // Обработка загрузки изображения
         if ($this->newImage) {
             // Удаляем старое изображение, если оно есть
+            $imageService = new ImageService();
             if ($this->currentImage) {
-                \Illuminate\Support\Facades\Storage::disk('public_uploads')->delete($this->currentImage);
+                $imageService->delete($this->currentImage);
             }
 
             // Сохраняем новое изображение
-            $data['image'] = $this->newImage->store('posts', 'public_uploads');
+            $optimized = $imageService->saveOptimized($this->newImage, 'posts');
+            $data['image'] = $optimized['path'];
         }
 
         // Обновляем запись

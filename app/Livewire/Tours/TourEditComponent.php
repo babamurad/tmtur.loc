@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Models\Media;
+use App\Services\ImageService;
 use App\Models\TourItineraryDay;
 use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
@@ -440,19 +441,17 @@ class TourEditComponent extends Component
         if ($this->newImages && count($this->newImages) > 0) {
             $orderBase = $this->tour->media()->max('order') + 1;
 
+            $imageService = new ImageService();
             foreach ($this->newImages as $idx => $file) {
-                $path = Storage::disk('public_uploads')->putFileAs(
-                    'tours/' . $this->tour->id,
-                    $file,
-                    $file->hashName()
-                );
+                $optimized = $imageService->saveOptimized($file, 'tours/' . $this->tour->id);
 
                 Media::create([
                     'model_type' => Tour::class,
                     'model_id' => $this->tour->id,
-                    'file_path' => $path,
-                    'file_name' => $file->getClientOriginalName(),
-                    'mime_type' => $file->getClientMimeType(),
+                    'file_path' => $optimized['path'],
+                    'file_name' => $optimized['file_name'],
+                    'mime_type' => $optimized['mime_type'],
+                    'size' => $optimized['size'],
                     'order' => $orderBase + $idx,
                 ]);
             }

@@ -40,7 +40,7 @@ class ImageService
         $image = $manager->read($file->getRealPath());
 
         $fileBasename = pathinfo($filename, PATHINFO_FILENAME);
-        
+
         // 2. Mobile Variant (WebP, 600px)
         $imgMobile = clone $image;
         $imgMobile->scale(width: 600);
@@ -51,12 +51,54 @@ class ImageService
         // 3. Desktop Variant (WebP, 1920px max)
         $imgDesktop = clone $image;
         $imgDesktop->scale(width: 1920);
-        
+
         $desktopPath = $folder . '/' . $fileBasename . '_desktop.webp';
         $fullDesktopPath = Storage::disk($disk)->path($desktopPath);
         $imgDesktop->toWebp()->save($fullDesktopPath);
 
         return $path;
+    }
+
+    /**
+     * Save image with optimization: Resize to max 1200px width, convert to WebP, compress.
+     *
+     * @param UploadedFile $file
+     * @param string $folder
+     * @param string $disk
+     * @return array {path, filename, mime_type}
+     */
+    public function saveOptimized(UploadedFile $file, string $folder, string $disk = 'public_uploads'): array
+    {
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($file->getRealPath());
+
+        // Optimize: Scale to max width 1200px, resize only if larger
+        if ($image->width() > 1200) {
+            $image->scale(width: 1200);
+        }
+
+        // Generate filename with .webp extension
+        $filename = pathinfo($file->hashName(), PATHINFO_FILENAME) . '.webp';
+        $path = $folder . '/' . $filename;
+
+        // Ensure directory exists - Storage::put handles this but verify just in case not needed for put
+        $fullPath = Storage::disk($disk)->path($path);
+
+        // Ensure the directory exists
+        $directory = dirname($fullPath);
+        if (!is_dir($directory)) {
+            mkdir($directory, 0755, true);
+        }
+
+        // Save as WebP with 80% quality
+        $image->toWebp(quality: 80)->save($fullPath);
+
+        return [
+            'path' => $path,
+            'file_name' => $filename,
+            'mime_type' => 'image/webp',
+            'size' => filesize($fullPath), // Get actual size of the new file
+        ];
     }
 
     /**
