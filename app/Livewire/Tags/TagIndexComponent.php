@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class TagIndexComponent extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
 
     public int $perPage = 10;

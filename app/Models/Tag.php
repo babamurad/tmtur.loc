@@ -31,7 +31,7 @@ class Tag extends Model
         $value = $this->$field;
 
         if (is_array($value)) {
-            return $value[$locale] ?? $value[config('app.fallback_locale')] ?? array_first($value) ?? null;
+            return $value[$locale] ?? $value[config('app.fallback_locale')] ?? \Illuminate\Support\Arr::first($value) ?? null;
         }
 
         return $value;
