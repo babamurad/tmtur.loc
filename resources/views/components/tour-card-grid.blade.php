@@ -65,21 +65,30 @@
         </div>
 
         {{-- 2 Prices Display --}}
-        @if($tour->groupsOpen->first())
+        @if($nextGroup = $tour->groupsOpen->first())
+            <!-- Next Departure -->
+            <div class="mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.9rem;">
+                <span class="text-muted">
+                    <i class="fas fa-calendar-alt text-primary mr-1"></i>
+                    {{ __('messages.next_departure') ?? 'Ближайший выезд' }}
+                </span>
+                <strong>{{ \Carbon\Carbon::parse($nextGroup->starts_at)->format('d.m.Y') }}</strong>
+            </div>
+
             <div class="tour-price-box d-flex flex-column mb-3">
 
                 <!-- Цена за 1 человека -->
                 <div class="price-chip-single mb-1">
                     <i class="fas fa-user mr-1"></i>
                     1 {{ __('messages.person') ?? 'чел.' }}:
-                    <strong>${{ $tour->groupsOpen->first()->price_max }}</strong>
+                    <strong>${{ $nextGroup->price_max }}</strong>
                 </div>
 
                 <!-- Цена за группу -->
                 <div class="price-chip-group">
                     <i class="fas fa-users mr-1"></i>
-                    {{ $tour->groupsOpen->first()->max_people }} {{ __('messages.people') ?? 'чел.' }}:
-                    <strong>${{ $tour->groupsOpen->first()->price_min }}</strong>
+                    {{ $nextGroup->max_people }} {{ __('messages.people') ?? 'чел.' }}:
+                    <strong>${{ $nextGroup->price_min }}</strong>
                 </div>
 
             </div>

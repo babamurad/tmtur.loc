@@ -58,6 +58,11 @@ class Tour extends Model
         );
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'tour_tag');
+    }
+
     /**
      * Отношение "многие ко многим" с категориями.
      */

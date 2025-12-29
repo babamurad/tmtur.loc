@@ -47,3 +47,12 @@ https://blog.ostrovok.ru/top-10-dostoprimechatelnostej-turkmenistana/
 
 давай сделаем Сжатие изображений на сервере: Сейчас загружаются оригиналы. 
 Можно настроить автоматическое создание уменьшенных копий (thumbnails) для мобильных.
+
+/visa/
+/all-categories/
+/tours/category/darvaza-gas-crater/
+/tour-groups-date?month=&year=/
+/tours/doroga-k-vratam-ada-4ylO/
+/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap/
+/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan/
+/blog/

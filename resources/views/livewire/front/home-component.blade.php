@@ -52,7 +52,7 @@
                             <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan" loading="lazy">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/darvaza.jpg') }}" alt="Turkmenistan"
+                            <img src="{{ asset('assets/images/tmfotos/gate.webp') }}" alt="Turkmenistan"
                                 loading="lazy">
                         </div>
                     </div>

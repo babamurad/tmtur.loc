@@ -35,7 +35,8 @@ class ToursShow extends Component
             'itineraryDays',
             'inclusions',
             'accommodations',
-            'orderedMedia'
+            'orderedMedia',
+            'tags'
         ]);
     }
 

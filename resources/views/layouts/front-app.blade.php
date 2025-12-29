@@ -2,33 +2,65 @@
 <html lang="{{ app()->getLocale() }}">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW"></script>
+    <!-- Optimized Google Tag Manager & Analytics (Lazy Load) -->
+    <link rel="preconnect" href="https://cdn-cookieyes.com">
     <script>
+        // Init dataLayer immediately
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
+        
+        // Record start time and config immediately
+        dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
         gtag('js', new Date());
-
         gtag('config', 'G-C5C6D1TJJW');
+        
+        // Lazy load function
+        function loadAnalytics() {
+             if (window.analyticsLoaded) return;
+             window.analyticsLoaded = true;
+
+            // Load GTag Script
+            var s1 = document.createElement('script');
+            s1.async = true;
+            s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW';
+            document.head.appendChild(s1);
+
+            // Load GTM Script
+            var s2 = document.createElement('script');
+            s2.async = true;
+            s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TJZ6LF4Z';
+            document.head.appendChild(s2);
+        }
+
+        // Trigger on interaction or timeout
+        var events = ["mouseover", "keydown", "touchstart", "touchmove", "wheel"];
+        events.forEach(function(e) {
+            window.addEventListener(e, loadAnalytics, { passive: true, once: true });
+        });
+        
+        setTimeout(loadAnalytics, 4000);
     </script>
 
-    <!-- Start cookieyes banner -->
+    <!-- Start cookieyes banner (Lazy Load) -->
     @if(config('app.env') === 'production')
-        <script id="cookieyes" type="text/javascript"
-            src="https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js" defer></script>
+        <script>
+            function loadCookieYes() {
+                if (document.getElementById('cookieyes')) return;
+                var s = document.createElement('script');
+                s.id = 'cookieyes';
+                s.type = 'text/javascript';
+                s.src = 'https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js';
+                s.defer = true; 
+                document.body.appendChild(s);
+            }
+            // Delay loading to prioritize LCP (Hero Image)
+            // 3500ms is enough for the main paint to finish
+            setTimeout(loadCookieYes, 3500);
+        </script>
     @endif
     <!-- End cookieyes banner -->
 
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TJZ6LF4Z');</script>
-    <!-- End Google Tag Manager -->
+
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJZ6LF4Z" height="0" width="0"
@@ -94,7 +126,22 @@
             cursor: wait;
         }
     </style>
-    @stack('quill-css')
+    <!-- @stack('quill-css') -->
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106058932', 'ym');
+
+        ym(106058932, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106058932" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+     
 </head>
 
 <body data-spy="scroll" data-target="#mainNav">
@@ -154,7 +201,11 @@
 
     <script>
         // Animation init
-        new WOW().init();
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            }
+        });
     </script>
 
     <script>
@@ -183,8 +234,10 @@
         }
 
         // Инициализация при первой загрузке страницы
-        $(document).ready(function () {
-            initBootstrapComponents();
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof $ !== 'undefined') {
+                initBootstrapComponents();
+            }
         });
 
         // Реинициализация после навигации Livewire
@@ -225,21 +278,44 @@
     </script>
 
     <script>
-        function updateNavbarState() {
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+
+        function updateNavbarState(scrollPos) {
             var navbar = document.getElementById('mainNav');
             if (!navbar) return;
 
-            if (window.scrollY > 10) {
+            if (scrollPos > 10) {
                 navbar.classList.add('navbar-scrolled');
             } else {
                 navbar.classList.remove('navbar-scrolled');
             }
         }
 
-        document.addEventListener('DOMContentLoaded', updateNavbarState);
-        document.addEventListener('scroll', updateNavbarState);
-        document.addEventListener('livewire:navigated', updateNavbarState);
+        document.addEventListener('scroll', function(e) {
+            lastKnownScrollPosition = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateNavbarState(lastKnownScrollPosition);
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavbarState(window.scrollY);
+        });
+        
+        // Check on navigation
+        document.addEventListener('livewire:navigated', function() {
+            updateNavbarState(window.scrollY);
+        });
     </script>
+
 
     @stack('quill-js')
     @stack('scripts')

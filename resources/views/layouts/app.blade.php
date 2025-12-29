@@ -13,7 +13,7 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    <!-- @vite(['resources/js/app.js', 'resources/css/app.css']) -->
 
     <!-- App css -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -59,6 +59,8 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('tour-categories.index') }}"><i
                                             class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
+                                <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i> Теги</a></li>
+                                
                                 <li><a href="{{ route('admin.tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a>
                                 </li>
                                 <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы

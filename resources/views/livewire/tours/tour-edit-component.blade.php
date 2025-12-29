@@ -145,6 +145,7 @@
                                         <label for="category_ids_select2">Категория <span class="text-danger">*</span></label>
                                         <select id="category_ids_select2"
                                                 class="form-control select2 @error('category_id') is-invalid @enderror"
+                                                data-model="category_id"
                                                 name="category_id[]"
                                                 multiple="multiple">
                                             @foreach($categories as $category)
@@ -635,6 +636,29 @@
                         </div>
                     </div>
 
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                <i class="bx bx-purchase-tag-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                Теги
+                            </h5>
+
+                            <div class="form-group mb-0" wire:ignore>
+                                <label for="tags_selected">Теги</label>
+                                <select class="form-control select2" id="tags_selected"
+                                    wire:model.defer="tags_selected" data-model="tags_selected" multiple="multiple">
+                                    @foreach($tags as $tag)
+                                        <option value="{{ $tag->id }}"
+                                            @if(in_array($tag->id, $tags_selected)) selected @endif>
+                                            {{ $tag->tr('name') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <small class="text-muted">Выберите теги из списка</small>
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- Settings Section --}}
                     <div class="card">
                         <div class="card-body">
@@ -684,9 +708,9 @@
                                 </span>
                             </button>
                             <a href="{{ route('admin.tours.index') }}"
-                               class="btn btn-secondary btn-block waves-effect waves-light mt-2"
-                               wire:loading.attr="disabled"
-                               wire:target="newImages">
+                                class="btn btn-secondary btn-block waves-effect waves-light mt-2"
+                                wire:loading.attr="disabled"
+                                wire:target="newImages">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                 Отмена
                             </a>
@@ -703,16 +727,19 @@
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            let select2 = $('#category_ids_select2');
-            select2.select2();
-
-            select2.on('change', function (e) {
-                let data = $(this).val() || [];
-                @this.set('category_id', data);
+            $('.select2').each(function() {
+                 $(this).select2();
+                 $(this).on('change', function (e) {
+                    let data = $(this).val();
+                    let model = $(this).data('model'); // Generic model binding
+                    if(model) {
+                         @this.set(model, data);
+                    }
+                });
             });
 
             Livewire.hook('element.updated', (el, component) => {
-                if (el.id === 'category_ids_select2') {
+                if (el.classList && el.classList.contains('select2')) {
                     $(el).select2();
                 }
             });

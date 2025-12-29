@@ -97,6 +97,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('inclusions/create', App\Livewire\Inclusions\InclusionCreateComponent::class)->name('inclusions.create');
     Route::get('inclusions/edit/{id}', App\Livewire\Inclusions\InclusionEditComponent::class)->name('inclusions.edit');
 
+    Route::get('tags', App\Livewire\Tags\TagIndexComponent::class)->name('admin.tags.index');
+    Route::get('tags/create', App\Livewire\Tags\TagCreateComponent::class)->name('admin.tags.create');
+    Route::get('tags/edit/{id}', App\Livewire\Tags\TagEditComponent::class)->name('admin.tags.edit');
+
     Route::get('services', App\Livewire\Services\ServiceIndexComponent::class)->name('services.index');
     Route::get('services/create', App\Livewire\Services\ServiceCreateComponent::class)->name('services.create');
     Route::get('services/edit/{service}', App\Livewire\Services\ServiceEditComponent::class)->name('services.edit');
@@ -141,6 +145,7 @@ Route::middleware(['cache.response:3600'])->group(function () {
 
     Route::get('tours/{tour:slug}', \App\Livewire\Front\ToursShow::class)->name('tours.show');
     Route::get('tours/category/{slug}', CategoryShowTour::class)->name('tours.category.show');
+    Route::get('tours/tag/{id}', \App\Livewire\Front\TagShowTour::class)->name('tours.tag.show');
     Route::get('/all-categories', CategoryIndex::class)->name('tours.category.index');
 
     // Тур-группы (публичная страница)

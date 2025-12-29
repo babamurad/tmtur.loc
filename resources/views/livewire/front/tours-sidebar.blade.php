@@ -32,6 +32,19 @@
         </ul>
     </section>
 
+    {{--  TAGS WIDGET  --}}
+    <section class="section mb-5">
+        <h4 class="fw-bold mt-2"><strong>{{ __('Теги') }}</strong></h4>
+        <hr class="border-danger border-2 opacity-75">
+        <div class="d-flex flex-wrap mt-4" style="gap: 10px;">
+            @foreach($tags as $tag)
+                <a href="{{ route('tours.tag.show', $tag->id) }}" class="btn btn-outline-danger btn-sm rounded-pill">
+                    {{ $tag->tr('name') }} <span class="badge bg-danger text-white ms-1">{{ $tag->tours_count }}</span>
+                </a>
+            @endforeach
+        </div>
+    </section>
+
     {{--  POPULAR TOURS WIDGET  --}}
     <section class="section widget-content">
         <h4 class="fw-bold pt-2"><strong>{{ __('messages.popular_tours') }}</strong></h4>

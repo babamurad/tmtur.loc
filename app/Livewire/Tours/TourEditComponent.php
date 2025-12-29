@@ -40,6 +40,7 @@ class TourEditComponent extends Component
     public array $inclusions = [];
     public array $available_inclusions = []; // List of all available inclusions
     public array $accommodations = [];
+    public array $tags_selected = [];
     /* мультиязычные значения */
     public array $trans = [];   // [ru][title], [en][title] …
 
@@ -73,6 +74,9 @@ class TourEditComponent extends Component
 
             'accommodations' => 'nullable|array',
             'accommodations.*.nights_count' => 'required|integer|min:1',
+
+            'tags_selected' => 'nullable|array',
+            'tags_selected.*' => 'integer|exists:tags,id',
         ];
 
         /* переводы для основного тура */
@@ -184,6 +188,10 @@ class TourEditComponent extends Component
             $this->trans[$locale]['title'] = $this->tour->tr('title', $locale);
             $this->trans[$locale]['short_description'] = $this->tour->tr('short_description', $locale);
         }
+
+        // Load Tags
+        // Load Tags
+        $this->tags_selected = $this->tour->tags->pluck('id')->toArray();
     }
 
     public function generateSlug()
@@ -352,6 +360,13 @@ class TourEditComponent extends Component
 
         $this->tour->categories()->sync($this->category_id);
 
+        // Process Tags
+        if ($this->tags_selected) {
+            $this->tour->tags()->sync($this->tags_selected);
+        } else {
+            $this->tour->tags()->detach();
+        }
+
         // Itinerary
         $keepDays = [];
         foreach ($this->itinerary_days as $dayData) {
@@ -471,9 +486,11 @@ class TourEditComponent extends Component
     public function render()
     {
         $categories = TourCategory::select('id', 'title')->get();
+        $tags = \App\Models\Tag::all();
 
         return view('livewire.tours.tour-edit-component', [
             'categories' => $categories,
+            'tags' => $tags,
         ]);
     }
 }

@@ -24,5 +24,6 @@ Homestead.yaml
 Thumbs.db
 tour.txt
 tour.txt
-/public/uploads
+/public/uploads/*
+!/public/uploads/carousel
 /public/sitemap.xml
