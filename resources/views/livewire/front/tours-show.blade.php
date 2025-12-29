@@ -493,7 +493,6 @@
                             @endforeach
                         </ul>
                     @endif
-                    @endif
 
                     {{-- TAGS --}}
                     @if($tour->tags && $tour->tags->count() > 0)
@@ -534,7 +533,6 @@
             </div>
 
             {{-- BOOKING FORM (Livewire component) --}}
-            {{-- @livewire('front.tour-booking', ['tour' => $tour], key($tour->id))--}}
         </div>
 
         {{-- RIGHT: SIDEBAR --}}
