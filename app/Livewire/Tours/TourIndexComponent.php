@@ -15,16 +15,24 @@ class TourIndexComponent extends Component
     public $delId;
     public $perPage = 12;
     public $search = '';
+    public $showTrashed = false;
+
+    protected $listeners = ['tourDelete', 'tourForceDelete'];
 
     public function render()
     {
-        // Обновляем запрос, чтобы использовать short_description вместо description
-        $tours = Tour::with('categories', 'media') // Обновляем связь на 'category'
-        ->when($this->search, function ($query) {
-            $query->where('title', 'like', '%' . $this->search . '%')
-                // Ищем в short_description, если поле теперь хранит краткое описание
-                ->orWhere('short_description', 'like', '%' . $this->search . '%');
-            // Если вы храните изображения в другой таблице (например, media), добавьте JOIN или используйте отношения для поиска по названию файла
+        //🐪
+        $query = Tour::with('categories', 'media');
+
+        if ($this->showTrashed) {
+            $query->onlyTrashed();
+        }
+
+        $tours = $query->when($this->search, function ($query) {
+            $query->where(function($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                  ->orWhere('short_description', 'like', '%' . $this->search . '%');
+            });
         })
             ->orderBy('id', 'desc')
             ->paginate($this->perPage);
@@ -32,6 +40,12 @@ class TourIndexComponent extends Component
         return view('livewire.tours.tour-index-component', [
             'tours' => $tours,
         ]);
+    }
+
+    public function toggleTrashed()
+    {
+        $this->showTrashed = !$this->showTrashed;
+        $this->resetPage();
     }
 
     public function mount()
@@ -59,24 +73,59 @@ class TourIndexComponent extends Component
 
     public function delete($id)
     {
-        info("Delete: " . $id);
         $this->delId = $id;
-        LivewireAlert::title('Удалить?')
-            ->text('Вы уверены, что хотите удалить тур?')
+
+        if ($this->showTrashed) {
+            // Force Delete Confirmation
+             LivewireAlert::title('Удалить навсегда?')
+            ->text('Это действие необратимо!')
+            ->timer(5000)
+            ->withConfirmButton('Да, удалить')
+            ->withCancelButton('Отмена')
+            ->onConfirm('tourForceDelete')
+            ->show(null, ['backdrop' => true]);
+        } else {
+            // Soft Delete Confirmation
+            LivewireAlert::title('Удалить?')
+            ->text('Вы уверены, что хотите удалить тур? Он будет перемещен в корзину.')
             ->timer(5000)
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
             ->onConfirm('tourDelete')
             ->show(null, ['backdrop' => true]);
+        }
     }
 
     public function tourDelete()
     {
         $tour = Tour::findOrFail($this->delId);
-        info("Deleting tour: " . $tour->title); // Лучше логировать название, чем объект
-        $tour->delete(); // Это каскадно удалит связанные записи в tour_itinerary_days, tour_inclusions, tour_accommodations и tour_groups (если настроено)
+        $tour->delete(); 
 
-        LivewireAlert::title('Тур удален.')
+        LivewireAlert::title('Тур перемещен в корзину.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    public function tourForceDelete()
+    {
+        $tour = Tour::withTrashed()->findOrFail($this->delId);
+        $tour->forceDelete();
+
+        LivewireAlert::title('Тур удален навсегда.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    public function restore($id)
+    {
+        $tour = Tour::withTrashed()->findOrFail($id);
+        $tour->restore();
+
+         LivewireAlert::title('Тур восстановлен.')
             ->success()
             ->toast()
             ->position('top-end')

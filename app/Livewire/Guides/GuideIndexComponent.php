@@ -11,6 +11,10 @@ class GuideIndexComponent extends Component
 {
     use WithPagination;
 
+    public $showTrashed = false;
+
+    protected $listeners = ['destroy', 'forceDestroy'];
+
     public $search = '';
     public $perPage = 8;
     public $delId;
@@ -19,6 +23,12 @@ class GuideIndexComponent extends Component
 
     public function updatingSearch()
     {
+        $this->resetPage();
+    }
+
+    public function toggleTrashed()
+    {
+        $this->showTrashed = !$this->showTrashed;
         $this->resetPage();
     }
 
@@ -35,7 +45,13 @@ class GuideIndexComponent extends Component
 
     public function render()
     {
-        $guides = Guide::when($this->search, function ($q) {
+        $query = Guide::query();
+
+        if ($this->showTrashed) {
+            $query->onlyTrashed();
+        }
+
+        $guides = $query->when($this->search, function ($q) {
             $q->where('name', 'like', "%{$this->search}%")
                 ->orWhere('specialization', 'like', "%{$this->search}%")
                 ->orWhereJsonContains('languages', $this->search);
@@ -51,25 +67,53 @@ class GuideIndexComponent extends Component
     public function delete($id)
     {
         $this->delId = $id;
-        LivewireAlert::title('Удалить гида?')
+
+        if ($this->showTrashed) {
+             LivewireAlert::title('Удалить навсегда?')
+            ->text('Это действие необратимо!')
+            ->timer(null)
+            ->withConfirmButton('Да, удалить')
+            ->withCancelButton('Отмена')
+            ->onConfirm('forceDestroy')
+            ->show();
+        } else {
+             LivewireAlert::title('Удалить гида?')
+            ->text('Гид будет перемещен в корзину.')
             ->timer(null)
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
             ->onConfirm('destroy')
             ->show();
+        }
     }
 
     public function destroy()
     {
         $guide = Guide::findOrFail($this->delId);
+        $guide->delete();
 
+        LivewireAlert::title('Гид перемещен в корзину')->success()->toast()->position('top-end')->show();
+    }
+
+    public function forceDestroy()
+    {
+        $guide = Guide::withTrashed()->findOrFail($this->delId);
+        
         // удаляем картинку
         if ($guide->image && Storage::disk('public_uploads')->exists($guide->image)) {
             Storage::disk('public_uploads')->delete($guide->image);
         }
 
-        $guide->delete();
+        $guide->forceDelete();
 
-        LivewireAlert::title('Гид удалён')->success()->toast()->position('top-end')->show();
+        LivewireAlert::title('Гид удален навсегда')->success()->toast()->position('top-end')->show();
+    }
+
+    public function restore($id)
+    {
+        $guide = Guide::withTrashed()->findOrFail($id);
+        $guide->restore();
+
+        LivewireAlert::title('Гид восстановлен')->success()->toast()->position('top-end')->show();
     }
 }
