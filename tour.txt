@@ -48,26 +48,26 @@ https://blog.ostrovok.ru/top-10-dostoprimechatelnostej-turkmenistana/
 давай сделаем Сжатие изображений на сервере: Сейчас загружаются оригиналы. 
 Можно настроить автоматическое создание уменьшенных копий (thumbnails) для мобильных.
 
-/visa/
-/all-categories/
-/tours/category/darvaza-gas-crater/
-/tour-groups-date?month=&year=/
-/tours/doroga-k-vratam-ada-4ylO/
-/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap/
-/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan/
-/blog/
+https://tmtourism.com/visa/
+https://tmtourism.com/all-categories/
+https://tmtourism.com/tours/category/darvaza-gas-crater/
+https://tmtourism.com/tour-groups-date?month=&year=/
+https://tmtourism.com/tours/doroga-k-vratam-ada-4ylO/
+https://tmtourism.com/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap/
+https://tmtourism.com/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan/
+https://tmtourism.com/blog/
 
-/blog/marsrut-7-dnei-po-turkmenistanu-savat-darvaza-asxabad-merv-farap
-/blog/granicy-turkmenistana-2025-polnyi-gid-po-perexodu-cerez-farap-savat-i-artyk
-/blog/viza-v-turkmenistan-2025-polnoe-rukovodstvo-po-poluceniiu-loi-i-vieezdu
-/blog/sovety-dlia-turistov-kak-podgotovitsia-k-putesestviiu-v-turkmenistan
-/tours/darvaza-merv-i-gonur-depe-5-dnevnoe-puteshestvie-po-glavnym-mestam-turkmenistana
-/tours/5-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-yangykala-nohur-turkmenbashi-kov-ata
-/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap
-/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan
-/tours/10-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-i-merv-koytendag-yangykala-nohur-novruz
-/tours/shavat-darvaza-ashhabad-merv-mary-turkmenabad-farap-4-dnevnyy-tur-po-pustyne-drevnim-gorodam-i-velikomu-shelkovomu-puti
-/tours/doroga-k-vratam-ada-4ylO
-/tours/khwarezm-the-burning-darvaza-3-days-via-shavat
-/tours/3-day-cross-turkmenistan-journey-darvaza-ashgabat-ancient-merv
-/tours/door-to-hell-ashgabat-2-day-adventure
+https://tmtourism.com/blog/marsrut-7-dnei-po-turkmenistanu-savat-darvaza-asxabad-merv-farap
+https://tmtourism.com/blog/granicy-turkmenistana-2025-polnyi-gid-po-perexodu-cerez-farap-savat-i-artyk
+https://tmtourism.com/blog/viza-v-turkmenistan-2025-polnoe-rukovodstvo-po-poluceniiu-loi-i-vieezdu
+https://tmtourism.com/blog/sovety-dlia-turistov-kak-podgotovitsia-k-putesestviiu-v-turkmenistan
+https://tmtourism.com/tours/darvaza-merv-i-gonur-depe-5-dnevnoe-puteshestvie-po-glavnym-mestam-turkmenistana
+https://tmtourism.com/tours/5-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-yangykala-nohur-turkmenbashi-kov-ata
+https://tmtourism.com/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap
+https://tmtourism.com/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan
+https://tmtourism.com/tours/10-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-i-merv-koytendag-yangykala-nohur-novruz
+https://tmtourism.com/tours/shavat-darvaza-ashhabad-merv-mary-turkmenabad-farap-4-dnevnyy-tur-po-pustyne-drevnim-gorodam-i-velikomu-shelkovomu-puti
+https://tmtourism.com/tours/doroga-k-vratam-ada-4ylO
+https://tmtourism.com/tours/khwarezm-the-burning-darvaza-3-days-via-shavat
+https://tmtourism.com/tours/3-day-cross-turkmenistan-journey-darvaza-ashgabat-ancient-merv
+https://tmtourism.com/tours/door-to-hell-ashgabat-2-day-adventure
