@@ -43,6 +43,7 @@
 
         <!-- ICONS -->
         <div class="mb-3 text-secondary" style="font-size: 0.95rem;">
+            #{{ $tour->id }}    
             <i class="fa-solid fa-car-side mr-2" title="Transport"></i>
             <i class="fa-solid fa-passport mr-2" title="Visa Support"></i>
             <i class="fa-solid fa-fire-flame-curved mr-2" title="Attractions"></i>
