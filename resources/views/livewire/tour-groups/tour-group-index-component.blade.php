@@ -110,11 +110,13 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @foreach($tourGroup->tour->categories as $category)
-                                            <span class="badge badge-soft-info font-size-12">
-                                                {{ $category->title }}
-                                            </span>
-                                        @endforeach
+                                        @if($tourGroup->tour)
+                                            @foreach($tourGroup->tour->categories as $category)
+                                                <span class="badge badge-soft-info font-size-12">
+                                                    {{ $category->title }}
+                                                </span>
+                                            @endforeach
+                                        @endif
                                     </td>
                                     <td>
                                             <span class="badge badge-soft-primary font-size-12">
