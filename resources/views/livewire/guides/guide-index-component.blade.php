@@ -31,6 +31,11 @@
 
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
+                                    <button class="btn btn-outline-secondary waves-effect waves-light btn-sm me-2" wire:click="toggleTrashed">
+                                        <i class="fas fa-trash-alt me-1"></i> 
+                                        {{ $showTrashed ? 'Назад к списку' : 'Корзина (' . \App\Models\Guide::onlyTrashed()->count() . ')' }}
+                                    </button>
+
                                     <span class="text-muted small px-1">Показать</span>
                                     <select class="form-select form-select-sm" wire:model.live="perPage" style="width: auto;">
                                         <option value="8">8</option>
@@ -80,14 +85,25 @@
                         </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ route('guides.edit', $g->id) }}"
-                                               class="btn btn-sm btn-outline-primary waves-effect waves-light">
-                                                <i class="bx bx-pencil"></i>
-                                            </a>
-                                            <button class="btn btn-sm btn-outline-danger waves-effect waves-light"
-                                                    wire:click="delete({{ $g->id }})">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
+                                            @if($showTrashed)
+                                                <button class="btn btn-sm btn-outline-success waves-effect waves-light"
+                                                        wire:click="restore({{ $g->id }})" title="Восстановить">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                        wire:click="delete({{ $g->id }})" title="Удалить навсегда">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            @else
+                                                <a href="{{ route('guides.edit', $g->id) }}"
+                                                   class="btn btn-sm btn-outline-primary waves-effect waves-light">
+                                                    <i class="bx bx-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                        wire:click="delete({{ $g->id }})">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty
