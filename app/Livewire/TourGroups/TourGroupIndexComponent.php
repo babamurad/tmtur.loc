@@ -16,16 +16,22 @@ class TourGroupIndexComponent extends Component
     public $delId;
     public $perPage = 10;
     public $search = '';
+    public $showTrash = false;
 
     public function render()
     {
         $tourGroups = TourGroup::with('tour')
+            ->when($this->showTrash, function ($query) {
+                $query->onlyTrashed();
+            })
             ->when($this->search, function ($query) {
-                $query->where('starts_at', 'like', '%' . $this->search . '%')
-                    ->orWhere('status', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('tour', function ($q) {
-                        $q->where('title', 'like', '%' . $this->search . '%');
-                    });
+                $query->where(function ($q) {
+                    $q->where('starts_at', 'like', '%' . $this->search . '%')
+                        ->orWhere('status', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('tour', function ($sq) {
+                            $sq->where('title', 'like', '%' . $this->search . '%');
+                        });
+                });
             })
             ->orderBy('id', 'desc')
             ->paginate($this->perPage);
@@ -76,9 +82,54 @@ class TourGroupIndexComponent extends Component
             ->withConfirmButton('Да')
             ->withCancelButton('Отмена')
             ->onConfirm('tourGroupDelete')
+            ->onConfirm('tourGroupDelete')
             ->show();
     }
 
+    public function toggleTrash()
+    {
+        $this->showTrash = !$this->showTrash;
+        $this->resetPage();
+    }
+
+    public function restore($id)
+    {
+        $tourGroup = TourGroup::onlyTrashed()->findOrFail($id);
+        $tourGroup->restore();
+
+        LivewireAlert::title('Группа восстановлена.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    public function forceDelete($id)
+    {
+        $this->delId = $id;
+        LivewireAlert::title('Удалить навсегда?')
+            ->text('Это действие необратимо!')
+            ->timer(5000)
+            ->withConfirmButton('Да, удалить')
+            ->withCancelButton('Отмена')
+            ->onConfirm('tourGroupForceDelete')
+            ->show();
+    }
+
+    #[On('tourGroupForceDelete')]
+    public function tourGroupForceDelete()
+    {
+        $tourGroup = TourGroup::onlyTrashed()->findOrFail($this->delId);
+        $tourGroup->forceDelete();
+
+        LivewireAlert::title('Группа удалена навсегда.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    #[On('tourGroupDelete')]
     public function tourGroupDelete()
     {
         $tourGroup = TourGroup::findOrFail($this->delId);

@@ -74,6 +74,11 @@
                                         </select>
                                         <span class="text-muted small">из {{ $tourGroups->total() }} результатов</span>
                                     </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <button wire:click="toggleTrash" class="btn btn-sm {{ $showTrash ? 'btn-danger' : 'btn-outline-secondary' }}">
+                                            <i class="fas fa-trash"></i> {{ $showTrash ? 'Назад' : 'Корзина' }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -157,19 +162,32 @@
                                         @endswitch
                                     </td>
 
-                                    {{-- Кнопки действий --}}
                                     <td class="text-center">
-                                        <a href="{{ route('tour-groups.edit', $tourGroup) }}"
-                                           class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                           data-toggle="tooltip" title="Редактировать">
-                                            <i class="bx bx-pencil font-size-14"></i>
-                                        </a>
+                                        @if($showTrash)
+                                            <button wire:click="restore({{ $tourGroup->id }})"
+                                                    class="btn btn-sm btn-outline-success waves-effect waves-light mx-1"
+                                                    data-toggle="tooltip" title="Восстановить">
+                                                <i class="bx bx-undo font-size-14"></i>
+                                            </button>
 
-                                        <button wire:click="delete({{ $tourGroup->id }})"
-                                                class="btn btn-sm btn-outline-danger waves-effect waves-light"
-                                                data-toggle="tooltip" title="Удалить">
-                                            <i class="bx bx-trash font-size-14"></i>
-                                        </button>
+                                            <button wire:click="forceDelete({{ $tourGroup->id }})"
+                                                    class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                    data-toggle="tooltip" title="Удалить навсегда">
+                                                <i class="bx bx-trash font-size-14"></i>
+                                            </button>
+                                        @else
+                                            <a href="{{ route('tour-groups.edit', $tourGroup) }}"
+                                               class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
+                                               data-toggle="tooltip" title="Редактировать">
+                                                <i class="bx bx-pencil font-size-14"></i>
+                                            </a>
+
+                                            <button wire:click="delete({{ $tourGroup->id }})"
+                                                    class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                    data-toggle="tooltip" title="Удалить">
+                                                <i class="bx bx-trash font-size-14"></i>
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
