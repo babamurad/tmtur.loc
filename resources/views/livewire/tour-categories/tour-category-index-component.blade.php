@@ -10,8 +10,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Категории туров</h4>
 
-                    <a href="{{ route('tour-categories.create') }}"
-                       class="btn btn-success waves-effect waves-light">
+                    <a href="{{ route('tour-categories.create') }}" class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
                         Создать
                     </a>
@@ -35,12 +34,9 @@
                                                 <i class="fas fa-search"></i>
                                             </span>
                                         </div>
-                                        <input type="text"
-                                               name="search"
-                                               value="{{ request('search') }}"
-                                               class="form-control"
-                                               placeholder="Поиск категорий туров…"
-                                               aria-label="Поиск">
+                                        <input type="text" name="search" value="{{ request('search') }}"
+                                            class="form-control" placeholder="Поиск категорий туров…"
+                                            aria-label="Поиск">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" type="submit">
                                                 Найти
@@ -50,11 +46,20 @@
                                 </form>
                             </div>
 
-                            {{-- можно сюда добавить фильтры или экспорт --}}
+                            {{-- 2.1b Tabs for Active/Trash --}}
                             <div class="col-md-6 text-md-right mt-2 mt-md-0">
-                                <span class="text-muted font-size-12">
-                                    Найдено: <strong>{{ $tourCategories->total() }}</strong>
-                                </span>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button"
+                                        class="btn btn-{{ $status === 'active' ? 'secondary' : 'light' }}"
+                                        wire:click="$set('status', 'active')">
+                                        Все ({{ \App\Models\TourCategory::count() }})
+                                    </button>
+                                    <button type="button"
+                                        class="btn btn-{{ $status === 'trashed' ? 'secondary' : 'light' }}"
+                                        wire:click="$set('status', 'trashed')">
+                                        Корзина ({{ \App\Models\TourCategory::onlyTrashed()->count() }})
+                                    </button>
+                                </div>
                             </div>
                         </div>{{-- /.row --}}
 
@@ -72,40 +77,63 @@
 
                                 <tbody>
                                     @forelse($tourCategories as $tourCategory)
-                                    <tr>
-                                        <td>{{ $tourCategory->id }}</td>
-                                        <td>
-                                            <a href="{{ route('tour-categories.edit', $tourCategory->id) }}">
-                                                <span class="font-weight-semibold">
-                                                    {{ $tourCategory->title }}
+                                        <tr>
+                                            <td>{{ $tourCategory->id }}</td>
+                                            <td>
+                                                @if($status === 'trashed')
+                                                    <span class="font-weight-semibold text-muted">
+                                                        {{ $tourCategory->title }}
+                                                    </span>
+                                                @else
+                                                    <a href="{{ route('tour-categories.edit', $tourCategory->id) }}">
+                                                        <span class="font-weight-semibold">
+                                                            {{ $tourCategory->title }}
+                                                        </span>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ $tourCategory->slug }}
                                                 </span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="text-muted">
-                                                {{ $tourCategory->slug }}
-                                            </span>
-                                        </td>
+                                            </td>
 
-                                        {{-- Кнопки действий --}}
-                                        <td class="text-center">
-                                            <a href="{{ route('tour-categories.edit', $tourCategory->id) }}"
-                                               class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Редактировать">
-                                                <i class="bx bx-pencil font-size-14"></i>
-                                            </a>
+                                            {{-- Кнопки действий --}}
+                                            <td class="text-center">
+                                                @if($status === 'trashed')
+                                                    {{-- Restore --}}
+                                                    <button wire:click="restore({{ $tourCategory->id }})"
+                                                        class="btn btn-sm btn-outline-success waves-effect waves-light mx-1"
+                                                        data-toggle="tooltip" title="Восстановить">
+                                                        <i class="bx bx-undo font-size-14"></i>
+                                                    </button>
 
-                                            <button wire:click="delete({{ $tourCategory->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
-                                                <i class="bx bx-trash font-size-14"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                                    {{-- Force Delete --}}
+                                                    <button wire:click="forceDeleteRequest({{ $tourCategory->id }})"
+                                                        class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                        data-toggle="tooltip" title="Удалить навсегда">
+                                                        <i class="bx bx-trash font-size-14"></i>
+                                                    </button>
+                                                @else
+                                                    <a href="{{ route('tour-categories.edit', $tourCategory->id) }}"
+                                                        class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
+                                                        data-toggle="tooltip" title="Редактировать">
+                                                        <i class="bx bx-pencil font-size-14"></i>
+                                                    </a>
+
+                                                    <button wire:click="delete({{ $tourCategory->id }})"
+                                                        class="btn btn-sm btn-outline-danger waves-effect waves-light">
+                                                        <i class="bx bx-trash font-size-14"></i>
+                                                    </button>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted py-4">
-                                            Категории туров не найдены.
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">
+                                                Категории туров не найдены.
+                                            </td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -113,9 +141,9 @@
 
                         {{-- 2.3 Пагинация --}}
                         @if($tourCategories->hasPages())
-                        <div class="pt-3">
-                            {{ $tourCategories->links('pagination::bootstrap-4') }}
-                        </div>
+                            <div class="pt-3">
+                                {{ $tourCategories->links('pagination::bootstrap-4') }}
+                            </div>
                         @endif
 
                     </div>{{-- /.card-body --}}
