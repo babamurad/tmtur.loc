@@ -93,9 +93,23 @@
                             <thead class="thead-light">
                             <tr>
                                 <th style="width: 60px">#</th>
-                                <th>Тур</th>
-                                <th>Категория</th>
-                                <th>Начало</th>
+                                <th wire:click="sortBy('tour_title')" style="cursor: pointer;">
+                                    Тур
+                                    @if ($sortColumn === 'tour_title')
+                                        <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
+                                    @else
+                                        <i class="fas fa-sort text-muted"></i>
+                                    @endif
+                                </th>
+                                <th wire:click="sortBy('starts_at')" style="cursor: pointer;">
+                                    Начало
+                                    @if ($sortColumn === 'starts_at')
+                                        <i class="fas fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"></i>
+                                    @else
+                                        <i class="fas fa-sort text-muted"></i>
+                                    @endif
+                                </th>
+                                <th>Категория</th>                                
                                 <th>Кол-во людей <br> текущее|максимум</th>
                                 <th>Цена <br> min|max</th>
                                 <th>Статус</th>
@@ -115,6 +129,11 @@
                                         </a>
                                     </td>
                                     <td>
+                                            <span class="badge badge-soft-primary font-size-12">
+                                                {{ \Carbon\Carbon::parse($tourGroup->starts_at)->format('d.m.Y') }}
+                                            </span>
+                                    </td>
+                                    <td>
                                         @if($tourGroup->tour)
                                             @foreach($tourGroup->tour->categories as $category)
                                                 <span class="badge badge-soft-info font-size-12">
@@ -122,12 +141,7 @@
                                                 </span>
                                             @endforeach
                                         @endif
-                                    </td>
-                                    <td>
-                                            <span class="badge badge-soft-primary font-size-12">
-                                                {{ \Carbon\Carbon::parse($tourGroup->starts_at)->format('d.m.Y') }}
-                                            </span>
-                                    </td>
+                                    </td>                                    
                                     <td>
                                             <span class="badge badge-soft-primary font-size-12">
                                                 {{ $tourGroup->current_people }}/{{ $tourGroup->max_people }}

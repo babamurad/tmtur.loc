@@ -18,23 +18,48 @@ class TourGroupIndexComponent extends Component
     public $search = '';
     public $showTrash = false;
 
+    public $sortColumn = 'id';
+    public $sortDirection = 'desc';
+
+    public function sortBy($column)
+    {
+        if ($this->sortColumn === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+            $this->sortColumn = $column;
+        }
+    }
+
     public function render()
     {
-        $tourGroups = TourGroup::with('tour')
-            ->when($this->showTrash, function ($query) {
-                $query->onlyTrashed();
-            })
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('starts_at', 'like', '%' . $this->search . '%')
-                        ->orWhere('status', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('tour', function ($sq) {
-                            $sq->where('title', 'like', '%' . $this->search . '%');
-                        });
-                });
-            })
-            ->orderBy('id', 'desc')
-            ->paginate($this->perPage);
+        $query = TourGroup::query()
+            ->select('tour_groups.*') // Explicitly select tour_groups columns
+            ->with(['tour']);
+
+        if ($this->showTrash) {
+            $query->onlyTrashed();
+        }
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('starts_at', 'like', '%' . $this->search . '%')
+                    ->orWhere('status', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('tour', function ($sq) {
+                        $sq->where('title', 'like', '%' . $this->search . '%');
+                    });
+            });
+        }
+
+        // Sorting Logic
+        if ($this->sortColumn === 'tour_title') {
+            $query->leftJoin('tours', 'tour_groups.tour_id', '=', 'tours.id')
+                ->orderBy('tours.title', $this->sortDirection);
+        } else {
+            $query->orderBy($this->sortColumn, $this->sortDirection);
+        }
+
+        $tourGroups = $query->paginate($this->perPage);
 
         return view('livewire.tour-groups.tour-group-index-component', [
             'tourGroups' => $tourGroups,
