@@ -71,3 +71,6 @@ https://tmtourism.com/tours/doroga-k-vratam-ada-4ylO
 https://tmtourism.com/tours/khwarezm-the-burning-darvaza-3-days-via-shavat
 https://tmtourism.com/tours/3-day-cross-turkmenistan-journey-darvaza-ashgabat-ancient-merv
 https://tmtourism.com/tours/door-to-hell-ashgabat-2-day-adventure
+
+нужно сделать функционал чтобы пользователи могли оставлять отзывы. 
+Миграции должны быть проверь. Пока ничего не надо делать просто план. Отзывы оставляют клиенты на фронте
