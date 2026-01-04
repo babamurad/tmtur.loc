@@ -179,7 +179,7 @@
                     {{-- 2.3 Пагинация --}}
                     @if($tours->hasPages())
                         <div class="pt-3">
-                            {{ $tours->links('pagination::bootstrap-4') }}
+                            {{ $tours->links() }}
                         </div>
                     @endif
 

@@ -254,9 +254,9 @@
                                 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                                     <div class="mb-2 mb-md-0 pr-md-3">
                                         <div class="tm-group-title">
-                                            <a href="{{ route('tours.show', $group->tour?->slug) }}">
+                                            
                                                 {{ $group->tour?->tr('title') ?? $group->tour?->title }}
-                                            </a>
+                                            
                                         </div>
 
                                         <div class="tm-group-meta-line mt-1">

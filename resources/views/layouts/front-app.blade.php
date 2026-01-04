@@ -3,7 +3,9 @@
 
 <head>
     <!-- Optimized Google Tag Manager & Analytics (Lazy Load) -->
+    @production
     <link rel="preconnect" href="https://cdn-cookieyes.com">
+    
     <script>
         // Init dataLayer immediately
         window.dataLayer = window.dataLayer || [];
@@ -40,7 +42,7 @@
         
         setTimeout(loadAnalytics, 4000);
     </script>
-
+    @endproduction
     <!-- Start cookieyes banner (Lazy Load) -->
     @if(config('app.env') === 'production')
         <script>
