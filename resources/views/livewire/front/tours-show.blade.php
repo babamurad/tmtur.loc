@@ -13,6 +13,24 @@
         {{-- LEFT: TOUR DETAILS --}}
         <div class="col-md-8">
 
+            @if(session()->has('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle mr-2"></i> {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
 
             {{-- модалка --}}
             <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
@@ -354,11 +372,23 @@
                                                         {{-- Кнопка бронирования --}}
                                                         <div class="col-md-4">
                                                             @if($available > 0)
-                                                                <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
-                                                                    data-toggle="modal" data-target="#exampleModal">
-                                                                    <i class="fas fa-ticket-alt mr-1"></i>
-                                                                    {{ __('messages.book_now') ?? 'Забронировать' }}
+                                                                <button type="button" 
+                                                                    wire:click="$set('selectedGroupId', {{ $group->id }})"
+                                                                    class="btn btn-sm btn-outline-primary btn-block mb-2">
+                                                                    <i class="fas fa-check mr-1"></i> Выбрать
                                                                 </button>
+                                                                
+                                                                @if($selectedGroupId === $group->id)
+                                                                    <div class="mt-2 animate__animated animate__fadeIn">
+                                                                        <div class="form-group mb-2">
+                                                                            <label class="small">Кол-во людей:</label>
+                                                                            <input type="number" wire:model.live="peopleCount" class="form-control form-control-sm" min="1" max="{{ $available }}">
+                                                                        </div>
+                                                                        <button wire:click="addToCart" class="btn btn-sm btn-primary btn-block">
+                                                                            <i class="fas fa-shopping-cart mr-1"></i> В корзину
+                                                                        </button>
+                                                                    </div>
+                                                                @endif
                                                             @else
                                                                 <button class="btn btn-secondary btn-block" disabled>
                                                                     <i class="fas fa-times-circle mr-1"></i>

@@ -179,6 +179,9 @@ class ToursShow extends Component
             'services' => array_keys(array_filter($this->services)),
         ];
         session()->put('cart', $cart);
+        session()->save(); // Force save just in case
+        
+        \Log::info('Added to cart', ['cart' => $cart]);
 
         $this->dispatch('cartUpdated');
         session()->flash('message', 'Добавлено в корзину');

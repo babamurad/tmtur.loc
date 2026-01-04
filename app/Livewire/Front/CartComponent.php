@@ -3,6 +3,11 @@
 namespace App\Livewire\Front;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use App\Models\TourGroup;
+use App\Models\TourGroupService;
+use App\Models\Booking;
+use App\Models\BookingService;
 
 class CartComponent extends Component
 {
@@ -57,7 +62,7 @@ class CartComponent extends Component
         return view('livewire.front.cart-component', [
             'rows' => collect(session('cart', [])),
         ])
-            ->layout('layouts.front-app')
+            ->layout('layouts.front-app', ['hideCarousel' => true])
             ->title(__('titles.cart'));
     }
 }

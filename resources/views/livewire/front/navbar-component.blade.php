@@ -68,6 +68,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/#contact">{{ __('menu.contact') }}</a>
                 </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="{{ route('cart.index') }}" wire:navigate>
+                        <i class="fas fa-shopping-cart fa-lg text-primary"></i>
+                        @if($cartCount > 0)
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                                  style="font-size: 0.6rem; top: 5px !important; right: -5px;">
+                                {{ $cartCount }}
+                            </span>
+                        @endif
+                    </a>
+                </li>
 
             </ul>
 
