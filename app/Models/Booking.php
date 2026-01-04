@@ -17,7 +17,9 @@ class Booking extends Model
         'status',
         'notes',
         'confirmed_at',
-        'cancelled_at'
+        'confirmed_at',
+        'cancelled_at',
+        'referer',
     ];
 
     protected $casts = [

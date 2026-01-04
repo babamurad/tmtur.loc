@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e1d3df891811b8558632b632bf8f3cc",
+    "content-hash": "aa7b7fecdf577b7fda9a03cc73247151",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -4091,6 +4091,77 @@
                 }
             ],
             "time": "2025-07-17T15:46:43+00:00"
+        },
+        {
+            "name": "spatie/laravel-referer",
+            "version": "1.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-referer.git",
+                "reference": "0f37bc6509483ae0f729a6f97ac96f1f8f009c72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-referer/zipball/0f37bc6509483ae0f729a6f97ac96f1f8f009c72",
+                "reference": "0f37bc6509483ae0f729a6f97ac96f1f8f009c72",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.73|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/http": "^8.73|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "^8.73|^9.0|^10.0|^11.0|^12.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.5|^10.5|^11.5.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Referer\\RefererServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Referer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Keep a visitor's original referer in session",
+            "homepage": "https://github.com/spatie/laravel-referer",
+            "keywords": [
+                "laravel-referer",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-referer/issues",
+                "source": "https://github.com/spatie/laravel-referer/tree/1.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-20T13:41:02+00:00"
         },
         {
             "name": "spatie/laravel-sitemap",

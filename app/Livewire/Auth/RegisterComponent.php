@@ -32,6 +32,7 @@ class RegisterComponent extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'role' => 0, // обычный пользователь
+            'referer' => app(\Spatie\Referer\Referer::class)->get(),
         ]);
 
         session()->flash('registered', [

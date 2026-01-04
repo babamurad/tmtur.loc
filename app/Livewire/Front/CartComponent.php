@@ -35,6 +35,7 @@ class CartComponent extends Component
                     'people_count'    => $row['people'],
                     'total_price_cents'=> $total,
                     'status'          => 'pending',
+                    'referer'         => app(\Spatie\Referer\Referer::class)->get(),
                 ]);
 
                 foreach ($services as $s) {

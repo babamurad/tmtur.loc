@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', [
             SetLocale::class,
             RemoveWww::class,
+            \Spatie\Referer\CaptureReferer::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

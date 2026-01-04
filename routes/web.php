@@ -129,6 +129,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('newsletter-subscribers', \App\Livewire\Admin\NewsletterSubscribersCrud::class)->name('admin.newsletter-subscribers');
 
+    Route::get('link-generator', \App\Livewire\Admin\LinkGeneratorComponent::class)->name('admin.link-generator');
+
     //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 

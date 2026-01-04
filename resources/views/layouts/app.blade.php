@@ -54,6 +54,10 @@
                                     class='bx bx-home-smile'></i><span>Дашборд</span></a>
                         </li>
                         <li>
+                            <a href="{{ route('bookings.index') }}" class="waves-effect"><i
+                                    class='bx bx-calendar-check'></i><span>Бронирования</span></a>
+                        </li>
+                        <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-world"></i><span>Туры и услуги</span></a>
                             <ul class="sub-menu" aria-expanded="false">
@@ -98,6 +102,8 @@
                         </li>
                         <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
                                 Подписчики</a></li>
+                        <li><a href="{{ route('admin.link-generator') }}"><i class="bx bx-link"></i>
+                                Генератор ссылок</a></li>
 
 
                     </ul>
