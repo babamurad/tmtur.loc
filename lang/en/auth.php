@@ -34,4 +34,5 @@ return [
     'sign_up_link' => 'Register',
     'sign_in_link' => 'Sign in',
     'agree_terms' => 'I accept the terms and conditions',
+    'or_continue' => 'Or continue',
 ];

@@ -22,4 +22,5 @@ return [
     'sign_up_link' => 'Создать',
     'sign_in_link' => 'Войти',
     'agree_terms' => 'Я принимаю условия использования',
+    'or_continue' => 'Или продолжить',
 ];

@@ -22,4 +22,5 @@ return [
     'sign_up_link' => '가입하기',
     'sign_in_link' => '로그인',
     'agree_terms' => '이용 약관에 동의합니다',
+    'or_continue' => '또는 계속',
 ];
