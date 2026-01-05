@@ -25,6 +25,11 @@ class UserProfileDropdown extends Component
     protected function loadUserData()
     {
         $user = Auth::user();
+
+        if (!$user) {
+            return;
+        }
+
         $this->name = $user->name;
         $this->avatarUrl = $user->avatar
             ? $user->avatar->url

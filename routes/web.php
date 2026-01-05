@@ -43,8 +43,8 @@ use App\Livewire\Customers\CustomerEditComponent;
 use App\Livewire\Reviews\ReviewIndexComponent;
 use App\Livewire\Reviews\ReviewCreateComponent;
 use App\Livewire\Reviews\ReviewEditComponent;
-// use App\Http\Livewire\RouteIndexComponent;
-// use App\Http\Livewire\RouteShowComponent;
+use App\Livewire\Front\Privacy;
+use App\Livewire\Front\Terms;
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -181,5 +181,7 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+Route::get('privacy', Privacy::class)->name('privacy');
+Route::get('terms', Terms::class)->name('terms');
 
 Route::get('sitemap.xml', fn() => response()->file(public_path('sitemap.xml')));

@@ -14,13 +14,13 @@ class RegisterComponent extends Component
     public $email;
     public $password;
     public $password_confirmation;
-    public $agree;
+
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:6|confirmed',
-        'agree' => 'accepted',
+
     ];
 
     public function register()

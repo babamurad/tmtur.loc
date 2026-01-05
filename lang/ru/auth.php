@@ -21,6 +21,6 @@ return [
     'have_account' => 'Уже есть аккаунт?',
     'sign_up_link' => 'Создать',
     'sign_in_link' => 'Войти',
-    'agree_terms' => 'Я принимаю условия использования',
+    'agree_terms' => 'Регистрируясь, вы соглашаетесь с <a href=":terms_url" target="_blank">Условиями использования</a> и обработкой данных согласно <a href=":privacy_url" target="_blank">Политике конфиденциальности</a>.',
     'or_continue' => 'Или продолжить',
 ];
