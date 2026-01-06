@@ -82,7 +82,7 @@
                     <p>Для реализации своих прав или получения разъяснений по вопросам конфиденциальности, вы можете
                         направить запрос нашей администрации:</p>
                     <div class="alert alert-light border">
-                        <p class="mb-1"><strong>Email:</strong> babamurad2010@yandex.ru</p>
+                        <p class="mb-1"><strong>Email:</strong> tmtourism24@gmail.com</p>
                         <p class="mb-0"><strong>Наименование сервиса:</strong> TmTourism</p>
                     </div>
                 </div>

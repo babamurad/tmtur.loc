@@ -75,7 +75,7 @@
                     <p>По всем вопросам, связанным с работой Сервиса или условиями данного Соглашения, Пользователь
                         может обратиться в службу поддержки:</p>
                     <div class="alert alert-light border">
-                        <p class="mb-1"><strong>Email:</strong> babamurad2010@yandex.ru</p>
+                        <p class="mb-1"><strong>Email:</strong> tmtourism24@gmail.com</p>
                         <p class="mb-0"><strong>Сайт:</strong> TmTourism</p>
                     </div>
                 </div>

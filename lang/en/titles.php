@@ -10,6 +10,8 @@ return [
     'about' => 'About Us | TmTourism',
     'cart' => 'Shopping Cart | TmTourism',
     'blog' => 'Blog about Turkmenistan | TmTourism',
+    'terms' => 'Terms of Service | TmTourism',
+    'privacy' => 'Privacy Policy | TmTourism',
 
     // Templates for dynamic titles
     'tour_show' => ':tour | TmTourism',

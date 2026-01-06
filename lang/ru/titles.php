@@ -10,6 +10,8 @@ return [
     'about' => 'О нас | TmTourism',
     'cart' => 'Корзина | TmTourism',
     'blog' => 'Блог о Туркменистане | TmTourism',
+    'terms' => 'Пользовательское соглашение | TmTourism',
+    'privacy' => 'Политика конфиденциальности | TmTourism',
 
     // Шаблоны для динамических заголовков
     'tour_show' => ':tour | TmTourism',
