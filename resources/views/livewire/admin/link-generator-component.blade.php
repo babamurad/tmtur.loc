@@ -75,7 +75,9 @@
                                         <th>Дата</th>
                                         <th>Источник</th>
                                         <th>Ссылка</th>
-                                        <th class="text-center">Переходы</th>
+                                        <th class="text-center">Клики</th>
+                                        <th class="text-center">Заказы</th>
+                                        <th class="text-right">Баланс</th>
                                         <th style="width: 100px;">Действия</th>
                                     </tr>
                                 </thead>
@@ -107,9 +109,34 @@
                                             </td>
                                             <td class="text-center">
                                                 <span
-                                                    class="badge badge-pill badge-success font-size-12">{{ $link->click_count }}</span>
+                                                    class="badge badge-pill badge-primary font-size-12">{{ $link->click_count }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-pill badge-success font-size-12">
+                                                    {{ $link->bookings->where('status', '!=', 'cancelled')->count() }}
+                                                </span>
+                                            </td>
+                                            <td class="text-right">
+                                                @if($link->balance > 0)
+                                                    <span
+                                                        class="text-success font-weight-bold">${{ number_format($link->balance, 2) }}</span>
+                                                    <br>
+                                                    <button class="btn btn-xs btn-outline-success mt-1"
+                                                        wire:click="openPayoutModal({{ $link->id }})">
+                                                        Выплатить
+                                                    </button>
+                                                @else
+                                                    <span class="text-muted text-nowrap">
+                                                        Всего: ${{ number_format($link->total_earnings, 2) }}
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>
+                                                <a href="{{ route('admin.link-generator.stats', $link->id) }}"
+                                                    class="btn btn-sm btn-outline-primary waves-effect waves-light"
+                                                    title="Статистика">
+                                                    <i class="bx bx-stats font-size-16"></i>
+                                                </a>
                                                 <button wire:click="delete({{ $link->id }})"
                                                     wire:confirm="Удалить эту ссылку?"
                                                     class="btn btn-sm btn-outline-danger waves-effect waves-light"
@@ -138,7 +165,55 @@
 
     </div>
 
+    <!-- Payout Modal -->
+    <div wire:ignore.self class="modal fade" id="payoutModal" tabindex="-1" role="dialog"
+        aria-labelledby="payoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="payoutModalLabel">Оформить выплату</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if($payoutLink)
+                        <div class="alert alert-info">
+                            Источник: <strong>{{ $payoutLink->source }}</strong><br>
+                            Баланс: ${{ number_format($payoutLink->balance, 2) }}
+                        </div>
+                    @endif
+
+                    <div class="form-group">
+                        <label>Сумма выплаты ($)</label>
+                        <input type="number" step="0.01" class="form-control" wire:model="payoutAmount">
+                        @error('payoutAmount') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Комментарий / Заметка</label>
+                        <textarea class="form-control" rows="3" wire:model="payoutNotes"
+                            placeholder="Например: Передано наличными в офисе"></textarea>
+                        @error('payoutNotes') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-success" wire:click="savePayout">Подтвердить выплату</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        window.addEventListener('open-payout-modal', event => {
+            $('#payoutModal').modal('show');
+        });
+
+        window.addEventListener('close-payout-modal', event => {
+            $('#payoutModal').modal('hide');
+        });
+
         function copyResult() {
             copyLink("generatedLink");
         }

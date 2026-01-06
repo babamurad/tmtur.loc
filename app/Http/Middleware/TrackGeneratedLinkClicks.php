@@ -58,6 +58,17 @@ class TrackGeneratedLinkClicks
 
             if ($link) {
                 $link->increment('click_count');
+
+                // Record detailed click
+                \App\Models\GeneratedLinkClick::create([
+                    'generated_link_id' => $link->id,
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'location' => null, // Placeholder for GeoIP if needed
+                ]);
+
+                // Store in session for attribution
+                session()->put('generated_link_id', $link->id);
             }
         }
 

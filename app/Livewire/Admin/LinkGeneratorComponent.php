@@ -43,7 +43,7 @@ class LinkGeneratorComponent extends Component
 
         $separator = parse_url($url, PHP_URL_QUERY) ? '&' : '?';
         $fullUrl = $url . $separator . 'utm_source=' . urlencode($source);
-        
+
         $this->result = $fullUrl;
 
         // Save to DB
@@ -59,9 +59,9 @@ class LinkGeneratorComponent extends Component
             ->toast()
             ->position('top-end')
             ->show();
-            
+
         $this->source = ''; // Clear source input
-        $this->resetPage(); 
+        $this->resetPage();
     }
 
     public function delete($id)
@@ -74,10 +74,46 @@ class LinkGeneratorComponent extends Component
             ->show();
     }
 
+    public $payoutLink;
+    public $payoutAmount;
+    public $payoutNotes;
+
+    public function openPayoutModal($id)
+    {
+        $this->payoutLink = GeneratedLink::findOrFail($id);
+        $this->payoutAmount = $this->payoutLink->balance > 0 ? $this->payoutLink->balance : '';
+        $this->payoutNotes = '';
+        $this->dispatch('open-payout-modal');
+    }
+
+    public function savePayout()
+    {
+        $this->validate([
+            'payoutAmount' => 'required|numeric|min:0.01',
+            'payoutNotes' => 'nullable|string'
+        ]);
+
+        $this->payoutLink->payouts()->create([
+            'amount' => $this->payoutAmount,
+            'notes' => $this->payoutNotes,
+            'paid_at' => now(),
+        ]);
+
+        $this->dispatch('close-payout-modal');
+
+        LivewireAlert::title('Выплата сохранена')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+
+        $this->reset(['payoutLink', 'payoutAmount', 'payoutNotes']);
+    }
+
     public function render()
     {
         return view('livewire.admin.link-generator-component', [
-            'links' => GeneratedLink::latest()->paginate(10)
+            'links' => GeneratedLink::latest()->with(['bookings', 'payouts'])->paginate(10)
         ])->layout('layouts.app');
     }
 }
