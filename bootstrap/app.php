@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             SetLocale::class,
             RemoveWww::class,
             \Spatie\Referer\CaptureReferer::class,
+            \App\Http\Middleware\TrackGeneratedLinkClicks::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
