@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TmTourism - Admin & Dashboard</title>
+    <title>{{ $title ?? 'TmTourism - Admin & Dashboard' }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="MyraStudio" name="author" />
@@ -27,25 +27,25 @@
 
 <body class="bg-primary">
 
-<div>
+    <div>
 
-    {{ $slot }}
+        {{ $slot }}
 
-</div>
-<!-- END layout-wrapper -->
-
-
-
-<!-- jQuery  -->
-<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/js/metismenu.min.js') }}"></script>
-<script src="{{ asset('assets/js/waves.js') }}"></script>
-<script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
+    </div>
+    <!-- END layout-wrapper -->
 
 
-<!-- App js -->
-<script src="{{ asset('assets/js/theme.js') }}"></script>
+
+    <!-- jQuery  -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/metismenu.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waves.js') }}"></script>
+    <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
+
+
+    <!-- App js -->
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
 </body>
 
 </html>

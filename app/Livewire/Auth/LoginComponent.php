@@ -30,7 +30,7 @@ class LoginComponent extends Component
                 'text' => 'Регистрация успешна завершена!',
             ]);
 
-//            dd($user->role);
+            //            dd($user->role);
 
             return match ($user->role) {
                 'admin' => redirect()->route('dashboard'),
@@ -48,6 +48,8 @@ class LoginComponent extends Component
 
     public function render()
     {
-        return view('livewire.auth.login-component')->layout('layouts.guest-app');
+        return view('livewire.auth.login-component')->layout('layouts.guest-app', [
+            'title' => 'Вход в панель управления',
+        ]);
     }
 }

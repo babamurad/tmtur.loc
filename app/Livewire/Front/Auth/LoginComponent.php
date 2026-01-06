@@ -8,10 +8,13 @@ class LoginComponent extends BaseLoginComponent
 {
     public function render()
     {
+        $title = __('auth.login_title');
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle($title);
+
         return view('livewire.front.auth.login-component')
             ->layout('layouts.front-app', [
                 'hideCarousel' => true,
-                'title' => __('auth.login_title') ?? 'Login',
+                'title' => $title,
             ]);
     }
 }
