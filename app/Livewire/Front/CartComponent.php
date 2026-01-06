@@ -17,7 +17,8 @@ class CartComponent extends Component
         if (empty($cart))
             return;
 
-        DB::transaction(function () use (&$bookingIds) {
+        DB::transaction(function () use ($cart, &$bookingIds) {
+            \Illuminate\Support\Facades\Log::info('Cart Checkout initiated. Session Link ID: ' . session('generated_link_id') . ' Session ID: ' . session()->getId());
             foreach ($cart as $row) {
                 $group = TourGroup::findOrFail($row['tour_group_id']);
 

@@ -96,6 +96,9 @@
                     Livewire.on('close-modal', () => {
                         $('#exampleModal').modal('hide');
                     });
+                    Livewire.on('open-modal', () => {
+                        $('#exampleModal').modal('show');
+                    });
                 });
             </script>
 
@@ -289,7 +292,7 @@
                                                 <div class="col-md-4">
                                                     @if($available > 0)
                                                         <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
-                                                            data-toggle="modal" data-target="#exampleModal">
+                                                            wire:click.prevent="openBookModal({{ $group->id }})">
                                                             <i class="fas fa-ticket-alt mr-1"></i>
                                                             {{ __('messages.book_now') ?? 'Забронировать' }}
                                                         </button>

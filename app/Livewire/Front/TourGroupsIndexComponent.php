@@ -5,6 +5,7 @@ namespace App\Livewire\Front;
 use App\Models\TourGroup;
 use App\Models\ContactMessage;
 use App\Models\Customer;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -154,7 +155,7 @@ class TourGroupsIndexComponent extends Component
         ]);
 
         // Сохраняем или обновляем клиента
-        Customer::updateOrCreate(
+        $customer = Customer::updateOrCreate(
             ['email' => $validated['booking_email']],
             [
                 'full_name' => $validated['booking_name'],
@@ -162,6 +163,22 @@ class TourGroupsIndexComponent extends Component
                 'gdpr_consent_at' => now(),
             ]
         );
+
+        // Calculate price and create Booking
+        $totalPriceCents = $this->selectedGroup->getPriceForPeople($guests);
+        $generatedLinkId = session('generated_link_id');
+
+        $booking = Booking::create([
+            'customer_id' => $customer->id,
+            'tour_group_id' => $this->selectedGroup->id,
+            'people_count' => $guests,
+            'total_price_cents' => $totalPriceCents,
+            'currency' => 'EUR', // Default currency
+            'status' => 'pending',
+            'generated_link_id' => $generatedLinkId,
+        ]);
+
+        \Log::info('Booking created via TourGroupsIndexComponent. ID: ' . $booking->id);
 
         // Отправляем email админу (на почту из config/mail.php)
         $adminEmail = config('mail.from.address');

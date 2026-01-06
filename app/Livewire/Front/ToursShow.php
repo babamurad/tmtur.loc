@@ -4,7 +4,7 @@ namespace App\Livewire\Front;
 
 use Livewire\Component;
 use App\Mail\ContactReceived;
-use App\Models\{Category, ContactMessage, Tour, TourCategory, TourGroup, TourGroupService};
+use App\Models\{Category, ContactMessage, Tour, TourCategory, TourGroup, TourGroupService, Booking, Customer};
 use Illuminate\Support\Facades\Mail;
 
 class ToursShow extends Component
@@ -54,9 +54,16 @@ class ToursShow extends Component
         $this->resetForm();
     }
 
+    public function openBookModal($groupId)
+    {
+        \Log::info('openBookModal called with ID: ' . $groupId);
+        $this->selectedGroupId = $groupId;
+        $this->dispatch('open-modal');
+    }
+
     public function sendMessage()
     {
-        \Log::info('sendMessage called');
+        \Log::info('sendMessage called. SelectedGroupId: ' . var_export($this->selectedGroupId, true));
         $this->sending = true;
         // валидация ТОЛЬКО полей формы
         $this->validate([
@@ -87,7 +94,7 @@ class ToursShow extends Component
             'tour_id' => $this->tour->id,
             'tour_title' => $this->tour->tr('title'),
             'tour_group_id' => $this->selectedGroupId,
-            'tour_group_title' => $tourGroup ? $tourGroup->tr('title') : null,
+            'tour_group_title' => $tourGroup ? ($tourGroup->tour?->tr('title') ?? $tourGroup->tour?->title) : null,
             'people_count' => $this->peopleCount,
             'services' => array_keys(array_filter($this->services)),
         ];
@@ -109,6 +116,44 @@ class ToursShow extends Component
             ]);
         } catch (\Throwable $e) {
             \Log::error('ContactMessage save error: ' . $e->getMessage());
+        }
+
+        // Create Booking if group is selected
+        if ($tourGroup) {
+            try {
+                \Log::info('Attempting to create booking for group: ' . $tourGroup->id);
+
+                // Find or create Customer
+                $customer = Customer::firstOrCreate(
+                    ['email' => $data['email']],
+                    [
+                        'full_name' => $data['name'],
+                        'phone' => $data['phone'] ?? '',
+                    ]
+                );
+
+                \Log::info('Customer ID: ' . $customer->id);
+
+                // Calculate price
+                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count']);
+                $totalPriceCents = $pricePerPerson * $data['people_count'] * 100;
+
+                // Create Booking
+                $booking = Booking::create([
+                    'tour_group_id' => $tourGroup->id,
+                    'customer_id' => $customer->id,
+                    'people_count' => $data['people_count'],
+                    'total_price_cents' => $totalPriceCents,
+                    'status' => 'pending',
+                    'notes' => $data['message'],
+                    'referer' => app(\Spatie\Referer\Referer::class)->get(),
+                    'generated_link_id' => session('generated_link_id'),
+                ]);
+
+                \Log::info('Booking created successfully. ID: ' . $booking->id);
+            } catch (\Throwable $e) {
+                \Log::error('Booking creation error in sendMessage: ' . $e->getMessage());
+            }
         }
 
         // Reset form and show success immediately for better UX
@@ -180,7 +225,7 @@ class ToursShow extends Component
         ];
         session()->put('cart', $cart);
         session()->save(); // Force save just in case
-        
+
         \Log::info('Added to cart', ['cart' => $cart]);
 
         $this->dispatch('cartUpdated');

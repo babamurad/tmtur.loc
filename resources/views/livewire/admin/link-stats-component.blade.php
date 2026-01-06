@@ -42,7 +42,8 @@
                                 </div>
                                 <h5 class="font-size-15 text-truncate">ID: {{ $link->id }}</h5>
                                 <p class="text-muted mb-0 text-truncate">Создано:
-                                    {{ $link->created_at->format('d.m.Y') }}</p>
+                                    {{ $link->created_at->format('d.m.Y') }}
+                                </p>
                             </div>
 
                             <div class="col-sm-6">
@@ -136,6 +137,55 @@
                         </div>
                         <div class="mt-3">
                             {{ $clicks->links() }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">История заказов (Bookings)</h4>
+                        <div class="table-responsive">
+                            <table class="table table-centered table-nowrap mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Клиент</th>
+                                        <th>Сумма</th>
+                                        <th>Статус</th>
+                                        <th>Дата</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($link->bookings()->latest()->get() as $booking)
+                                        <tr>
+                                            <td><a href="{{ route('bookings.edit', $booking->id) }}"
+                                                    class="text-body font-weight-bold">#{{ $booking->id }}</a></td>
+                                            <td>
+                                                {{ $booking->customer->name ?? 'Гость' }}
+                                                <small
+                                                    class="d-block text-muted">{{ $booking->customer->email ?? '' }}</small>
+                                            </td>
+                                            <td>
+                                                ${{ number_format($booking->total_price_cents / 100, 2) }}
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="badge badge-pill badge-soft-{{ $booking->status === 'confirmed' ? 'success' : ($booking->status === 'cancelled' ? 'danger' : 'warning') }} font-size-12">
+                                                    {{ $booking->status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {{ $booking->created_at->format('d.m.Y H:i') }}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted py-4">Заказов пока нет
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

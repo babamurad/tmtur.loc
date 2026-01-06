@@ -69,6 +69,7 @@ class TrackGeneratedLinkClicks
 
                 // Store in session for attribution
                 session()->put('generated_link_id', $link->id);
+                \Illuminate\Support\Facades\Log::info('Link tracked in middleware: ' . $link->id . ' Session ID: ' . session()->getId());
             }
         }
 
