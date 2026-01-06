@@ -63,8 +63,9 @@
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('tour-categories.index') }}"><i
                                             class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
-                                <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i> Теги</a></li>
-                                
+                                <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i>
+                                        Теги</a></li>
+
                                 <li><a href="{{ route('admin.tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a>
                                 </li>
                                 <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы
@@ -275,7 +276,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="text-sm-right d-none d-sm-block">
-                                Дизайн и разработка: Bobo
+                                Дизайн и разработка: tmtourism.com
                             </div>
                         </div>
                     </div>
