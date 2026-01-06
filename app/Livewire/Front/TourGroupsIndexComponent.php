@@ -186,6 +186,7 @@ class TourGroupsIndexComponent extends Component
         SEOTools::opengraph()->setUrl(route('front.tour-groups'));
 
         $groups = TourGroup::with('tour')
+            ->has('tour')
             ->when($this->month, function ($query) {
                 $query->whereMonth('starts_at', $this->month);
             })
