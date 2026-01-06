@@ -62,6 +62,7 @@ class LinkGeneratorComponent extends Component
 
         $this->source = ''; // Clear source input
         $this->resetPage();
+        $this->dispatch('close-create-modal');
     }
 
     public function delete($id)

@@ -6,7 +6,10 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Генератор ссылок</h4>
-                    <div class="page-title-right">
+                    <div class="page-title-right d-flex align-items-center">
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light mr-3" data-toggle="modal" data-target="#createLinkModal">
+                            <i class="bx bx-plus font-size-16 align-middle mr-1"></i> Создать ссылку
+                        </button>
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.link-generator') }}">Инструменты</a>
                             </li>
@@ -18,52 +21,8 @@
         </div>
 
         <div class="row">
-            <!-- Left Column: Generator Form -->
-            <div class="col-xl-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Создать новую ссылку</h4>
-                        <p class="card-title-desc">Добавьте UTM-метку для отслеживания источника.</p>
-
-                        <div class="form-group">
-                            <label for="targetUrl">Целевая страница</label>
-                            <input class="form-control @error('targetUrl') is-invalid @enderror" type="url"
-                                wire:model.blur="targetUrl" id="targetUrl" placeholder="https://tmtourism.com/...">
-                            @error('targetUrl') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="source">Источник (Source)</label>
-                            <input class="form-control @error('source') is-invalid @enderror" type="text"
-                                wire:model.blur="source" id="source" placeholder="instagram">
-                            @error('source') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                            <small class="form-text text-muted">Например: instagram, email, partner_name</small>
-                        </div>
-
-                        <button class="btn btn-primary waves-effect waves-light w-100" wire:click="generate">
-                            <i class="bx bx-check-double font-size-16 align-middle mr-2"></i> Сгенерировать
-                        </button>
-
-                        @if($result)
-                            <div class="alert alert-success mt-4 mb-0">
-                                <label><strong>Готовая ссылка:</strong></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" value="{{ $result }}" id="generatedLink"
-                                        readonly>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" onclick="copyResult()">
-                                            <i class="bx bx-copy"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: History List -->
-            <div class="col-xl-7">
+            <!-- History List -->
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">История ({{ $links->total() }})</h4>
@@ -165,6 +124,44 @@
 
     </div>
 
+    <!-- Create Link Modal -->
+    <div wire:ignore.self class="modal fade" id="createLinkModal" tabindex="-1" role="dialog" aria-labelledby="createLinkModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createLinkModalLabel">Создать новую ссылку</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Добавьте UTM-метку для отслеживания источника.</p>
+
+                    <div class="form-group">
+                        <label for="targetUrl">Целевая страница</label>
+                        <input class="form-control @error('targetUrl') is-invalid @enderror" type="url"
+                            wire:model.blur="targetUrl" id="targetUrl" placeholder="https://tmtourism.com/...">
+                        @error('targetUrl') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="source">Источник (Source)</label>
+                        <input class="form-control @error('source') is-invalid @enderror" type="text"
+                            wire:model.blur="source" id="source" placeholder="instagram">
+                        @error('source') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                        <small class="form-text text-muted">Например: instagram, email, partner_name</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" wire:click="generate">
+                        <i class="bx bx-check-double font-size-16 align-middle mr-2"></i> Сгенерировать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Payout Modal -->
     <div wire:ignore.self class="modal fade" id="payoutModal" tabindex="-1" role="dialog"
         aria-labelledby="payoutModalLabel" aria-hidden="true">
@@ -206,6 +203,10 @@
     </div>
 
     <script>
+        window.addEventListener('close-create-modal', event => {
+            $('#createLinkModal').modal('hide');
+        });
+
         window.addEventListener('open-payout-modal', event => {
             $('#payoutModal').modal('show');
         });
