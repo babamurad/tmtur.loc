@@ -208,111 +208,120 @@
 
                     {{-- Itinerary Section --}}
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">
+                        <div class="card-header pointer-cursor d-flex justify-content-between align-items-center" 
+                             data-toggle="collapse" 
+                             data-target="#programCollapse" 
+                             aria-expanded="true" 
+                             style="cursor: pointer;">
+                            <h5 class="card-title mb-0">
                                 <i class="bx bx-list-ul font-size-18 align-middle mr-1 text-primary"></i>
                                 Программа тура
                             </h5>
-                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addItineraryDay">
-                                <i class="bx bx-plus"></i> Добавить день
-                            </button>
-                            
-                            @foreach($itinerary_days as $index => $day)
-                                <div class="card border mb-2">
-                                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                        <strong>День {{ $index + 1 }}</strong>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col-md-12">
-                                                <label class="form-label">Номер дня</label>
-                                                <input type="number" 
-                                                       wire:model.defer="itinerary_days.{{ $index }}.day_number" 
-                                                       class="form-control form-control-sm" 
-                                                       placeholder="№" 
-                                                       min="1">
-                                                @error("itinerary_days.{$index}.day_number") 
-                                                <div class="text-danger small">{{ $message }}</div> 
-                                                @enderror
-                                            </div>
+                            <i class="bx bx-chevron-down font-size-18"></i>
+                        </div>
+                        <div id="programCollapse" class="collapse show">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addItineraryDay">
+                                    <i class="bx bx-plus"></i> Добавить день
+                                </button>
+                                
+                                @foreach($itinerary_days as $index => $day)
+                                    <div class="card border mb-2">
+                                        <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                            <strong>День {{ $index + 1 }}</strong>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
                                         </div>
-
-                                        {{-- Language Tabs --}}
-                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
-                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
-                                                </a>
-                                            </li>
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Номер дня</label>
+                                                    <input type="number" 
+                                                           wire:model.defer="itinerary_days.{{ $index }}.day_number" 
+                                                           class="form-control form-control-sm" 
+                                                           placeholder="№" 
+                                                           min="1">
+                                                    @error("itinerary_days.{$index}.day_number") 
+                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    @enderror
+                                                </div>
+                                            </div>
+    
+                                            {{-- Language Tabs --}}
+                                            <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ $locale }}" role="tab">
-                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                                    <a class="nav-link active" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
+                                                        <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
                                                     </a>
                                                 </li>
-                                            @endforeach
-                                        </ul>
-
-                                        {{-- Tab Content --}}
-                                        <div class="tab-content">
-                                            {{-- Default Language Tab --}}
-                                            <div class="tab-pane active" id="edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
-                                                <div class="form-group">
-                                                    <label>Заголовок <span class="text-danger">*</span></label>
-                                                    <input type="text" 
-                                                           wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.title" 
-                                                           class="form-control form-control-sm" 
-                                                           placeholder="Заголовок дня">
-                                                    @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".title") 
-                                                    <div class="text-danger small">{{ $message }}</div> 
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Описание</label>
-                                                    <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.description" 
-                                                              class="form-control form-control-sm" 
-                                                              placeholder="Описание дня" 
-                                                              rows="3"></textarea>
-                                                    @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".description") 
-                                                    <div class="text-danger small">{{ $message }}</div> 
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            {{-- Other Language Tabs --}}
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
-                                                <div class="tab-pane" id="edit-day-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
+                                                @foreach(config('app.available_locales') as $locale)
+                                                    @continue($locale === config('app.fallback_locale'))
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ $locale }}" role="tab">
+                                                            <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+    
+                                            {{-- Tab Content --}}
+                                            <div class="tab-content">
+                                                {{-- Default Language Tab --}}
+                                                <div class="tab-pane active" id="edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
                                                     <div class="form-group">
                                                         <label>Заголовок <span class="text-danger">*</span></label>
                                                         <input type="text" 
-                                                               wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.title" 
+                                                               wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.title" 
                                                                class="form-control form-control-sm" 
-                                                               placeholder="Заголовок на {{ strtoupper($locale) }}">
-                                                        @error("itinerary_days.{$index}.trans.{$locale}.title") 
+                                                               placeholder="Заголовок дня">
+                                                        @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".title") 
                                                         <div class="text-danger small">{{ $message }}</div> 
                                                         @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Описание</label>
-                                                        <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.description" 
+                                                        <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ config('app.fallback_locale') }}.description" 
                                                                   class="form-control form-control-sm" 
-                                                                  placeholder="Описание на {{ strtoupper($locale) }}" 
+                                                                  placeholder="Описание дня" 
                                                                   rows="3"></textarea>
-                                                        @error("itinerary_days.{$index}.trans.{$locale}.description") 
+                                                        @error("itinerary_days.{$index}.trans.".config('app.fallback_locale').".description") 
                                                         <div class="text-danger small">{{ $message }}</div> 
                                                         @enderror
                                                     </div>
                                                 </div>
-                                            @endforeach
+    
+                                                {{-- Other Language Tabs --}}
+                                                @foreach(config('app.available_locales') as $locale)
+                                                    @continue($locale === config('app.fallback_locale'))
+                                                    <div class="tab-pane" id="edit-day-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
+                                                        <div class="form-group">
+                                                            <label>Заголовок <span class="text-danger">*</span></label>
+                                                            <input type="text" 
+                                                                   wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.title" 
+                                                                   class="form-control form-control-sm" 
+                                                                   placeholder="Заголовок на {{ strtoupper($locale) }}">
+                                                            @error("itinerary_days.{$index}.trans.{$locale}.title") 
+                                                            <div class="text-danger small">{{ $message }}</div> 
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Описание</label>
+                                                            <textarea wire:model.defer="itinerary_days.{{ $index }}.trans.{{ $locale }}.description" 
+                                                                      class="form-control form-control-sm" 
+                                                                      placeholder="Описание на {{ strtoupper($locale) }}" 
+                                                                      rows="3"></textarea>
+                                                            @error("itinerary_days.{$index}.trans.{$locale}.description") 
+                                                            <div class="text-danger small">{{ $message }}</div> 
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 
@@ -379,99 +388,108 @@
 
                     {{-- Accommodations Section --}}
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">
+                        <div class="card-header pointer-cursor d-flex justify-content-between align-items-center" 
+                             data-toggle="collapse" 
+                             data-target="#accommodationCollapse" 
+                             aria-expanded="true" 
+                             style="cursor: pointer;">
+                            <h5 class="card-title mb-0">
                                 <i class="bx bx-hotel font-size-18 align-middle mr-1 text-primary"></i>
                                 Размещение
                             </h5>
-                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addAccommodation">
-                                <i class="bx bx-plus"></i> Добавить отель
-                            </button>
-                            
-                            @foreach($accommodations as $index => $acc)
-                                <div class="card border mb-2">
-                                    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                        <strong>Отель {{ $index + 1 }}</strong>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label class="form-label">Количество ночей <span class="text-danger">*</span></label>
-                                                <input type="number"
-                                                    wire:model.defer="accommodations.{{ $index }}.nights_count"
-                                                    class="form-control form-control-sm" placeholder="Кол-во ночей" min="1">
-                                                @error("accommodations.{$index}.nights_count")
-                                                    <div class="text-danger small">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Локация <span class="text-danger">*</span></label>
-                                                    <select wire:model.live="accommodations.{{ $index }}.location_id"
-                                                        class="form-control form-control-sm">
-                                                        <option value="">Выберите локацию</option>
-                                                        @foreach($locations as $loc)
-                                                            <option value="{{ $loc->id }}">{{ $loc->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error("accommodations.{$index}.location_id")
+                            <i class="bx bx-chevron-down font-size-18"></i>
+                        </div>
+                        <div id="accommodationCollapse" class="collapse show">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addAccommodation">
+                                    <i class="bx bx-plus"></i> Добавить отель
+                                </button>
+                                
+                                @foreach($accommodations as $index => $acc)
+                                    <div class="card border mb-2">
+                                        <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                            <strong>Отель {{ $index + 1 }}</strong>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Количество ночей <span class="text-danger">*</span></label>
+                                                    <input type="number"
+                                                        wire:model.defer="accommodations.{{ $index }}.nights_count"
+                                                        class="form-control form-control-sm" placeholder="Кол-во ночей" min="1">
+                                                    @error("accommodations.{$index}.nights_count")
                                                         <div class="text-danger small">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                            </div>
-
-                                            @php
-                                                $selectedLocId = $accommodations[$index]['location_id'] ?? null;
-                                                $selectedLoc = $locations->find($selectedLocId);
-                                            @endphp
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Отель (Стандарт)</label>
-                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_standard_id"
-                                                        class="form-control form-control-sm">
-                                                        <option value="">Выберите...</option>
-                                                        @if($selectedLoc)
-                                                            @foreach($selectedLoc->hotels as $hotel)
-                                                                @if($hotel->category === \App\Enums\HotelCategory::STANDARD)
-                                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                                                @endif
+    
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Локация <span class="text-danger">*</span></label>
+                                                        <select wire:model.live="accommodations.{{ $index }}.location_id"
+                                                            class="form-control form-control-sm">
+                                                            <option value="">Выберите локацию</option>
+                                                            @foreach($locations as $loc)
+                                                                <option value="{{ $loc->id }}">{{ $loc->name }}</option>
                                                             @endforeach
-                                                        @endif
-                                                    </select>
-                                                    @error("accommodations.{$index}.hotel_standard_id")
-                                                        <div class="text-danger small">{{ $message }}</div>
-                                                    @enderror
+                                                        </select>
+                                                        @error("accommodations.{$index}.location_id")
+                                                            <div class="text-danger small">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Отель (Комфорт)</label>
-                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_comfort_id"
-                                                        class="form-control form-control-sm">
-                                                        <option value="">Выберите...</option>
-                                                        @if($selectedLoc)
-                                                            @foreach($selectedLoc->hotels as $hotel)
-                                                                @if($hotel->category === \App\Enums\HotelCategory::COMFORT)
-                                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                                                @endif
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                    @error("accommodations.{$index}.hotel_comfort_id")
-                                                        <div class="text-danger small">{{ $message }}</div>
-                                                    @enderror
+    
+                                                @php
+                                                    $selectedLocId = $accommodations[$index]['location_id'] ?? null;
+                                                    $selectedLoc = $locations->find($selectedLocId);
+                                                @endphp
+    
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Отель (Стандарт)</label>
+                                                        <select wire:model.defer="accommodations.{{ $index }}.hotel_standard_id"
+                                                            class="form-control form-control-sm">
+                                                            <option value="">Выберите...</option>
+                                                            @if($selectedLoc)
+                                                                @foreach($selectedLoc->hotels as $hotel)
+                                                                    @if($hotel->category === \App\Enums\HotelCategory::STANDARD)
+                                                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                        @error("accommodations.{$index}.hotel_standard_id")
+                                                            <div class="text-danger small">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Отель (Комфорт)</label>
+                                                        <select wire:model.defer="accommodations.{{ $index }}.hotel_comfort_id"
+                                                            class="form-control form-control-sm">
+                                                            <option value="">Выберите...</option>
+                                                            @if($selectedLoc)
+                                                                @foreach($selectedLoc->hotels as $hotel)
+                                                                    @if($hotel->category === \App\Enums\HotelCategory::COMFORT)
+                                                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                        @error("accommodations.{$index}.hotel_comfort_id")
+                                                            <div class="text-danger small">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
