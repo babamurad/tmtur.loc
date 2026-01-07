@@ -122,6 +122,14 @@ class TourCreateComponent extends Component
         }
 
         $this->available_inclusions = Inclusion::all();
+
+        // Автоматически добавляем все включения при создании тура
+        foreach ($this->available_inclusions as $inclusion) {
+            $this->inclusions[] = [
+                'inclusion_id' => $inclusion->id,
+                'is_included' => 1 // По умолчанию все включения отмечены как включенные
+            ];
+        }
     }
 
     protected $listeners = ['quillUpdated' => 'updateQuillField'];
@@ -405,7 +413,10 @@ class TourCreateComponent extends Component
 
             foreach ($dayData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
-                    $day->setTr($field, $locale, $value);
+                    // Пропускаем пустые значения
+                    if ($value !== null && $value !== '') {
+                        $day->setTr($field, $locale, $value);
+                    }
                 }
             }
         }
@@ -431,7 +442,10 @@ class TourCreateComponent extends Component
 
             foreach ($accData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
-                    $accommodation->setTr($field, $locale, $value);
+                    // Пропускаем пустые значения
+                    if ($value !== null && $value !== '') {
+                        $accommodation->setTr($field, $locale, $value);
+                    }
                 }
             }
         }
