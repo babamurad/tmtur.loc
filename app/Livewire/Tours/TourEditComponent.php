@@ -15,6 +15,7 @@ use App\Services\ImageService;
 use App\Models\TourItineraryDay;
 use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
+use App\Services\GeminiTranslationService;
 
 class TourEditComponent extends Component
 {
@@ -323,6 +324,133 @@ class TourEditComponent extends Component
                     'order' => $media->order,
                 ];
             })->toArray();
+    }
+
+    // === Методы для AI-перевода ===
+
+    /**
+     * Автоперевод на английский через Gemini AI
+     */
+    public function autoTranslateToEnglish(GeminiTranslationService $translator)
+    {
+        $fallbackLocale = config('app.fallback_locale');
+
+        if (empty($this->trans[$fallbackLocale]['title'])) {
+            session()->flash('error', 'Заполните русскую версию перед переводом.');
+            return;
+        }
+
+        $translations = $translator->translateFields([
+            'title' => $this->trans[$fallbackLocale]['title'],
+            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
+        ], 'English', 'Тур');
+
+        if ($translations['title']) {
+            $this->trans['en']['title'] = $translations['title'];
+            $this->trans['en']['short_description'] = $translations['short_description'];
+
+            LivewireAlert::title('Перевод выполнен')
+                ->text('Перевод на английский успешно выполнен!')
+                ->success()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        } else {
+            LivewireAlert::title('Ошибка перевода')
+                ->text('Не удалось выполнить перевод. Попробуйте позже.')
+                ->error()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        }
+    }
+
+    /**
+     * Автоперевод на корейский через Gemini AI
+     */
+    public function autoTranslateToKorean(GeminiTranslationService $translator)
+    {
+        $fallbackLocale = config('app.fallback_locale');
+
+        if (empty($this->trans[$fallbackLocale]['title'])) {
+            session()->flash('error', 'Заполните русскую версию перед переводом.');
+            return;
+        }
+
+        $translations = $translator->translateFields([
+            'title' => $this->trans[$fallbackLocale]['title'],
+            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
+        ], 'Korean', 'Тур');
+
+        if ($translations['title']) {
+            $this->trans['ko']['title'] = $translations['title'];
+            $this->trans['ko']['short_description'] = $translations['short_description'];
+
+            LivewireAlert::title('Перевод выполнен')
+                ->text('Перевод на корейский успешно выполнен!')
+                ->success()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        } else {
+            LivewireAlert::title('Ошибка перевода')
+                ->text('Не удалось выполнить перевод. Попробуйте позже.')
+                ->error()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        }
+    }
+
+    /**
+     * Автоперевод на все языки сразу
+     */
+    public function translateToAllLanguages(GeminiTranslationService $translator)
+    {
+        $fallbackLocale = config('app.fallback_locale');
+
+        if (empty($this->trans[$fallbackLocale]['title'])) {
+            session()->flash('error', 'Заполните русскую версию перед переводом.');
+            return;
+        }
+
+        // Перевод на английский
+        $englishTranslations = $translator->translateFields([
+            'title' => $this->trans[$fallbackLocale]['title'],
+            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
+        ], 'English', 'Тур');
+
+        if ($englishTranslations['title']) {
+            $this->trans['en']['title'] = $englishTranslations['title'];
+            $this->trans['en']['short_description'] = $englishTranslations['short_description'];
+        }
+
+        // Перевод на корейский
+        $koreanTranslations = $translator->translateFields([
+            'title' => $this->trans[$fallbackLocale]['title'],
+            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
+        ], 'Korean', 'Тур');
+
+        if ($koreanTranslations['title']) {
+            $this->trans['ko']['title'] = $koreanTranslations['title'];
+            $this->trans['ko']['short_description'] = $koreanTranslations['short_description'];
+        }
+
+        if ($englishTranslations['title'] && $koreanTranslations['title']) {
+            LivewireAlert::title('Перевод выполнен')
+                ->text('Переводы на все языки успешно выполнены!')
+                ->success()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        } else {
+            LivewireAlert::title('Частичный перевод')
+                ->text('Некоторые переводы не удалось выполнить.')
+                ->warning()
+                ->toast()
+                ->position('top-end')
+                ->show();
+        }
     }
 
     public function save()

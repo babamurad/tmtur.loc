@@ -7,9 +7,11 @@ use App\Models\Location;
 use App\Enums\PlaceType;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use App\Livewire\Traits\HasGeminiTranslation;
 
 class PlaceEditComponent extends Component
 {
+    use HasGeminiTranslation;
     public $place_id;
 
     #[Rule('required')]
@@ -83,6 +85,16 @@ class PlaceEditComponent extends Component
 
         session()->flash('message', __('locations.place_updated'));
         return redirect()->route('admin.places.index');
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Место';
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
     }
 
     public function render()

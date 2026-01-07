@@ -7,9 +7,11 @@ use App\Models\Location;
 use App\Enums\HotelCategory;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use App\Livewire\Traits\HasGeminiTranslation;
 
 class HotelEditComponent extends Component
 {
+    use HasGeminiTranslation;
     public $hotel_id;
 
     #[Rule('required')]
@@ -78,6 +80,16 @@ class HotelEditComponent extends Component
 
         session()->flash('message', __('locations.hotel_updated'));
         return redirect()->route('admin.hotels.index');
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Отель';
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
     }
 
     public function render()

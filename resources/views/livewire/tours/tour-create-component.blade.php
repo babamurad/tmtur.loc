@@ -56,6 +56,9 @@
                                 @endforeach
                             </ul>
 
+                            {{-- AI Translation Buttons --}}
+                            <x-gemini-translation-buttons />
+
                             {{-- Tab Content --}}
                             <div class="tab-content">
                                 {{-- Default Language Tab --}}
@@ -86,8 +89,8 @@
                                     <div class="tab-pane" id="lang-{{ $locale }}" role="tabpanel">
                                         <div class="form-group">
                                             <label>Название <span class="text-danger">*</span></label>
-                                            <input type="text" wire:model.defer="trans.{{ $locale }}.title"
-                                                class="form-control" placeholder="Название на {{ strtoupper($locale) }}">
+                                            <input type="text" wire:model="trans.{{ $locale }}.title" class="form-control"
+                                                placeholder="Название на {{ strtoupper($locale) }}">
                                             @error("trans.$locale.title") <span
                                             class="text-danger small">{{ $message }}</span> @enderror
                                         </div>
@@ -142,7 +145,8 @@
                                     <div class="form-group" wire:ignore>
                                         <label>Категория <span class="text-danger">*</span></label>
                                         <select class="form-control select2 @error('category_id') is-invalid @enderror"
-                                            wire:model.defer="category_id" data-model="category_id" name="states[]" multiple="multiple">
+                                            wire:model.defer="category_id" data-model="category_id" name="states[]"
+                                            multiple="multiple">
                                             <option>Выберите категорию</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">
@@ -602,8 +606,8 @@
 
                             <div class="form-group mb-0" wire:ignore>
                                 <label for="tags_selected">Теги</label>
-                                <select class="form-control select2" id="tags_selected"
-                                    wire:model.defer="tags_selected" data-model="tags_selected" multiple="multiple">
+                                <select class="form-control select2" id="tags_selected" wire:model.defer="tags_selected"
+                                    data-model="tags_selected" multiple="multiple">
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}">
                                             {{ $tag->tr('name') }}
@@ -675,13 +679,13 @@
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('.select2').each(function() {
-                 $(this).select2();
-                 $(this).on('change', function (e) {
+            $('.select2').each(function () {
+                $(this).select2();
+                $(this).on('change', function (e) {
                     let data = $(this).val();
                     let model = $(this).data('model'); // Generic model binding
-                    if(model) {
-                         @this.set(model, data);
+                    if (model) {
+                        @this.set(model, data);
                     }
                 });
             });

@@ -36,6 +36,9 @@
                                 @endforeach
                             </ul>
 
+                            {{-- AI Translation Buttons --}}
+                            <x-gemini-translation-buttons />
+
                             <div class="tab-content">
                                 @foreach(config('app.available_locales') as $index => $locale)
                                     <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="tab-{{ $locale }}"

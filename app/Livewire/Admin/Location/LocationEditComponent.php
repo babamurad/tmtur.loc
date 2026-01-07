@@ -6,9 +6,11 @@ use App\Models\Location;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Rule;
+use App\Livewire\Traits\HasGeminiTranslation;
 
 class LocationEditComponent extends Component
 {
+    use HasGeminiTranslation;
     public $location_id;
 
     #[Rule('required')]
@@ -73,6 +75,16 @@ class LocationEditComponent extends Component
 
         session()->flash('message', __('locations.location_updated'));
         return redirect()->route('admin.locations.index');
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Локация';
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name', 'description'];
     }
 
     public function render()
