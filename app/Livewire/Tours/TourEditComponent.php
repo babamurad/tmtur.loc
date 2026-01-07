@@ -97,15 +97,9 @@ class TourEditComponent extends Component
 
         // Removed translation rules for inclusions
 
-        /* переводы для размещения */
-        foreach (config('app.available_locales') as $l) {
-            // $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255'; // Removed in favor of location_id
-            $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
-            $rules["accommodations.*.trans.$l.comfort_options"] = 'nullable|string';
-        }
-
         $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
-        $rules['accommodations.*.hotel_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_standard_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_comfort_id'] = 'nullable|exists:hotels,id';
 
         return $rules;
     }
@@ -187,21 +181,14 @@ class TourEditComponent extends Component
             ];
         })->all();
 
-        // Загружаем размещение с переводами
+        // Загружаем размещение
         $this->accommodations = $tour->accommodations->map(function ($item) {
-            $trans = [];
-            foreach (config('app.available_locales') as $locale) {
-                $trans[$locale] = [
-                    'standard_options' => $item->tr('standard_options', $locale),
-                    'comfort_options' => $item->tr('comfort_options', $locale),
-                ];
-            }
             return [
                 'id' => $item->id,
                 'nights_count' => $item->nights_count,
                 'location_id' => $item->location_id,
-                'hotel_id' => $item->hotel_id,
-                'trans' => $trans
+                'hotel_standard_id' => $item->hotel_standard_id,
+                'hotel_comfort_id' => $item->hotel_comfort_id,
             ];
         })->all();
 
@@ -261,20 +248,11 @@ class TourEditComponent extends Component
     // === Методы для Accommodations ===
     public function addAccommodation()
     {
-        $trans = [];
-        foreach (config('app.available_locales') as $locale) {
-            $trans[$locale] = [
-                'location' => '',
-                'standard_options' => '',
-                'comfort_options' => ''
-            ];
-        }
-
         $this->accommodations[] = [
             'nights_count' => 1,
             'location_id' => null,
-            'hotel_id' => null,
-            'trans' => $trans
+            'hotel_standard_id' => null,
+            'hotel_comfort_id' => null,
         ];
     }
 
@@ -568,20 +546,22 @@ class TourEditComponent extends Component
                     'location_id' => $a['location_id'] ?? null,
                     'hotel_id' => $a['hotel_id'] ?? null,
                     'location' => '', // Deprecated
-                    'standard_options' => $a['trans'][$fallbackLocale]['standard_options'] ?? '',
-                    'comfort_options' => $a['trans'][$fallbackLocale]['comfort_options'] ?? '',
+                    // 'standard_options' => ..., // Removed
+                    // 'comfort_options' => ..., // Removed
                 ]
             );
 
-            // Сохраняем переводы
-            foreach ($a['trans'] as $locale => $fields) {
-                foreach ($fields as $field => $value) {
-                    // Пропускаем пустые значения
-                    if ($value !== null && $value !== '') {
-                        $acc->setTr($field, $locale, $value);
-                    }
-                }
-            }
+            $acc = TourAccommodation::updateOrCreate(
+                ['id' => $a['id'] ?? null, 'tour_id' => $this->tour->id],
+                [
+                    'nights_count' => $a['nights_count'],
+                    'location_id' => $a['location_id'] ?? null,
+                    'hotel_standard_id' => $a['hotel_standard_id'] ?? null,
+                    'hotel_comfort_id' => $a['hotel_comfort_id'] ?? null,
+                ]
+            );
+
+            // Removing translation saving loop as standard/comfort options are removed
 
             $keepAcc[] = $acc->id;
         }

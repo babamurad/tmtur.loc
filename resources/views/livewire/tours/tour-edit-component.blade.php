@@ -397,26 +397,22 @@
                                         </button>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-3">
                                                 <label class="form-label">Количество ночей <span class="text-danger">*</span></label>
-                                                <input type="number" 
-                                                       wire:model.defer="accommodations.{{ $index }}.nights_count" 
-                                                       class="form-control form-control-sm" 
-                                                       placeholder="Кол-во ночей" 
-                                                       min="1">
-                                                @error("accommodations.{$index}.nights_count") 
-                                                <div class="text-danger small">{{ $message }}</div> 
+                                                <input type="number"
+                                                    wire:model.defer="accommodations.{{ $index }}.nights_count"
+                                                    class="form-control form-control-sm" placeholder="Кол-во ночей" min="1">
+                                                @error("accommodations.{$index}.nights_count")
+                                                    <div class="text-danger small">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                        </div>
 
-                                        <div class="row mb-2">
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Локация <span class="text-danger">*</span></label>
                                                     <select wire:model.live="accommodations.{{ $index }}.location_id"
-                                                            class="form-control form-control-sm">
+                                                        class="form-control form-control-sm">
                                                         <option value="">Выберите локацию</option>
                                                         @foreach($locations as $loc)
                                                             <option value="{{ $loc->id }}">{{ $loc->name }}</option>
@@ -427,112 +423,51 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+
+                                            @php
+                                                $selectedLocId = $accommodations[$index]['location_id'] ?? null;
+                                                $selectedLoc = $locations->find($selectedLocId);
+                                            @endphp
+
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label>Отель</label>
-                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_id"
-                                                            class="form-control form-control-sm">
-                                                        <option value="">Выберите отель</option>
-                                                        @php
-                                                            $selectedLocId = $accommodations[$index]['location_id'] ?? null;
-                                                            $selectedLoc = $locations->find($selectedLocId);
-                                                        @endphp
+                                                    <label>Отель (Стандарт)</label>
+                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_standard_id"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Выберите...</option>
                                                         @if($selectedLoc)
                                                             @foreach($selectedLoc->hotels as $hotel)
-                                                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                @if($hotel->category === \App\Enums\HotelCategory::STANDARD)
+                                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                @endif
                                                             @endforeach
                                                         @endif
                                                     </select>
-                                                    @error("accommodations.{$index}.hotel_id")
+                                                    @error("accommodations.{$index}.hotel_standard_id")
                                                         <div class="text-danger small">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {{-- Language Tabs --}}
-                                        <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#edit-acc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
-                                                    <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
-                                                </a>
-                                            </li>
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#edit-acc-{{ $index }}-lang-{{ $locale }}" role="tab">
-                                                        <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-
-                                        {{-- Tab Content --}}
-                                        <div class="tab-content">
-                                            {{-- Default Language Tab --}}
-                                            <div class="tab-pane active" id="edit-acc-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tabpanel">
-                                                
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Стандарт</label>
-                                                            <input type="text" 
-                                                                   wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.standard_options" 
-                                                                   class="form-control form-control-sm" 
-                                                                   placeholder="Стандарт">
-                                                            @error("accommodations.{$index}.trans.".config('app.fallback_locale').".standard_options") 
-                                                            <div class="text-danger small">{{ $message }}</div> 
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Комфорт</label>
-                                                            <input type="text" 
-                                                                   wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.comfort_options" 
-                                                                   class="form-control form-control-sm" 
-                                                                   placeholder="Комфорт">
-                                                            @error("accommodations.{$index}.trans.".config('app.fallback_locale').".comfort_options") 
-                                                            <div class="text-danger small">{{ $message }}</div> 
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Отель (Комфорт)</label>
+                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_comfort_id"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Выберите...</option>
+                                                        @if($selectedLoc)
+                                                            @foreach($selectedLoc->hotels as $hotel)
+                                                                @if($hotel->category === \App\Enums\HotelCategory::COMFORT)
+                                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                    @error("accommodations.{$index}.hotel_comfort_id")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
-
-                                            {{-- Other Language Tabs --}}
-                                            @foreach(config('app.available_locales') as $locale)
-                                                @continue($locale === config('app.fallback_locale'))
-                                                <div class="tab-pane" id="edit-acc-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Стандарт</label>
-                                                                <input type="text" 
-                                                                       wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.standard_options" 
-                                                                       class="form-control form-control-sm" 
-                                                                       placeholder="Стандарт на {{ strtoupper($locale) }}">
-                                                                @error("accommodations.{$index}.trans.{$locale}.standard_options") 
-                                                                <div class="text-danger small">{{ $message }}</div> 
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Комфорт</label>
-                                                                <input type="text" 
-                                                                       wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.comfort_options" 
-                                                                       class="form-control form-control-sm" 
-                                                                       placeholder="Комфорт на {{ strtoupper($locale) }}">
-                                                                @error("accommodations.{$index}.trans.{$locale}.comfort_options") 
-                                                                <div class="text-danger small">{{ $message }}</div> 
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

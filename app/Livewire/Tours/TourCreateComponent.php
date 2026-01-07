@@ -94,14 +94,9 @@ class TourCreateComponent extends Component
             $rules["itinerary_days.*.trans.$l.description"] = 'nullable|string';
         }
 
-        foreach (config('app.available_locales') as $l) {
-            // $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255'; // Removed in favor of location_id
-            $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
-            $rules["accommodations.*.trans.$l.comfort_options"] = 'nullable|string';
-        }
-
         $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
-        $rules['accommodations.*.hotel_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_standard_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_comfort_id'] = 'nullable|exists:hotels,id';
 
         return $rules;
     }
@@ -204,20 +199,11 @@ class TourCreateComponent extends Component
 
     public function addAccommodation()
     {
-        $trans = [];
-        foreach (config('app.available_locales') as $locale) {
-            $trans[$locale] = [
-                'location' => '',
-                'standard_options' => '',
-                'comfort_options' => ''
-            ];
-        }
-
         $this->accommodations[] = [
             'nights_count' => 1,
             'location_id' => null,
-            'hotel_id' => null,
-            'trans' => $trans
+            'hotel_standard_id' => null,
+            'hotel_comfort_id' => null,
         ];
     }
 
@@ -441,25 +427,13 @@ class TourCreateComponent extends Component
         $tour->inclusions()->sync($syncData);
 
         foreach ($this->accommodations as $accData) {
-            $fallbackLocale = config('app.fallback_locale');
-            $accommodation = TourAccommodation::create([
+            TourAccommodation::create([
                 'tour_id' => $tour->id,
                 'nights_count' => $accData['nights_count'],
                 'location_id' => $accData['location_id'] ?? null,
-                'hotel_id' => $accData['hotel_id'] ?? null,
-                'location' => '', // Deprecated or filled from relation if needed
-                'standard_options' => $accData['trans'][$fallbackLocale]['standard_options'] ?? '',
-                'comfort_options' => $accData['trans'][$fallbackLocale]['comfort_options'] ?? '',
+                'hotel_standard_id' => $accData['hotel_standard_id'] ?? null,
+                'hotel_comfort_id' => $accData['hotel_comfort_id'] ?? null,
             ]);
-
-            foreach ($accData['trans'] as $locale => $fields) {
-                foreach ($fields as $field => $value) {
-                    // Пропускаем пустые значения
-                    if ($value !== null && $value !== '') {
-                        $accommodation->setTr($field, $locale, $value);
-                    }
-                }
-            }
         }
 
         if ($this->images && count($this->images) > 0) {
