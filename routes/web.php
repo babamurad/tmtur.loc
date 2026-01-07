@@ -132,6 +132,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('link-generator', \App\Livewire\Admin\LinkGeneratorComponent::class)->name('admin.link-generator');
     Route::get('link-generator/{id}/stats', \App\Livewire\Admin\LinkStatsComponent::class)->name('admin.link-generator.stats');
 
+    Route::get('locations', \App\Livewire\Admin\Location\LocationIndexComponent::class)->name('admin.locations.index');
+    Route::get('locations/create', \App\Livewire\Admin\Location\LocationCreateComponent::class)->name('admin.locations.create');
+    Route::get('locations/edit/{location_id}', \App\Livewire\Admin\Location\LocationEditComponent::class)->name('admin.locations.edit');
+
+    Route::get('hotels', \App\Livewire\Admin\Hotel\HotelIndexComponent::class)->name('admin.hotels.index');
+    Route::get('hotels/create', \App\Livewire\Admin\Hotel\HotelCreateComponent::class)->name('admin.hotels.create');
+    Route::get('hotels/edit/{hotel_id}', \App\Livewire\Admin\Hotel\HotelEditComponent::class)->name('admin.hotels.edit');
+
+    Route::get('places', \App\Livewire\Admin\Place\PlaceIndexComponent::class)->name('admin.places.index');
+    Route::get('places/create', \App\Livewire\Admin\Place\PlaceCreateComponent::class)->name('admin.places.create');
+    Route::get('places/edit/{place_id}', \App\Livewire\Admin\Place\PlaceEditComponent::class)->name('admin.places.edit');
+
     //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 
