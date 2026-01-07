@@ -10,13 +10,17 @@ enum HotelCategory: string
     public function label(): string
     {
         return match ($this) {
-            self::STANDARD => 'Standard',
-            self::COMFORT => 'Comfort',
+            self::STANDARD => __('locations.category_standard'),
+            self::COMFORT => __('locations.category_comfort'),
         };
     }
 
     public static function options(): array
     {
-        return array_column(self::cases(), 'value', 'value');
+        $options = [];
+        foreach (self::cases() as $case) {
+            $options[$case->value] = $case->label();
+        }
+        return $options;
     }
 }

@@ -13,7 +13,7 @@ class PlaceIndexComponent extends Component
     public function delete($id)
     {
         Place::find($id)->delete();
-        session()->flash('message', 'Place has been deleted successfully!');
+        session()->flash('message', __('locations.place_deleted'));
     }
 
     public function render()

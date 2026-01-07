@@ -13,7 +13,7 @@ class HotelIndexComponent extends Component
     public function delete($id)
     {
         Hotel::find($id)->delete();
-        session()->flash('message', 'Hotel has been deleted successfully!');
+        session()->flash('message', __('locations.hotel_deleted'));
     }
 
     public function render()

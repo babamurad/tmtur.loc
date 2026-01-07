@@ -1,45 +1,119 @@
-<div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                        <h3>Edit Hotel</h3>
-                        <a href="{{ route('admin.hotels.index') }}" class="btn btn-primary">All Hotels</a>
-                    </div>
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Редактировать отель</h4>
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.hotels.index') }}">Отели</a></li>
+                        <li class="breadcrumb-item active">Редактирование</li>
+                    </ol>
                 </div>
-                <div class="card-body">
-                    @if(Session::has('message'))
-                        <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-                    @endif
-                    <form wire:submit.prevent="updateHotel">
-                        <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control" placeholder="Enter hotel name" wire:model="name">
-                            @error('name') <p class="text-danger">{{ $message }}</p> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Location</label>
-                            <select class="form-control" wire:model="location_id">
-                                <option value="">Select Location</option>
-                                @foreach($locations as $location)
-                                    <option value="{{ $location->id }}">{{ $location->name }}</option>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Данные отеля</h5>
+
+                        @if(Session::has('message'))
+                            <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                        @endif
+
+                        <form wire:submit.prevent="updateHotel">
+                            {{-- Language Tabs --}}
+                            <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
+                                @foreach(config('app.available_locales') as $index => $locale)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" data-toggle="tab"
+                                            href="#tab-{{ $locale }}" role="tab">
+                                            {{ strtoupper($locale) }}
+                                        </a>
+                                    </li>
                                 @endforeach
-                            </select>
-                            @error('location_id') <p class="text-danger">{{ $message }}</p> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Category</label>
-                            <select class="form-control" wire:model="category">
-                                <option value="">Select Category</option>
-                                @foreach($categories as $value => $label)
-                                    <option value="{{ $value }}">{{ $label }}</option>
+                            </ul>
+
+                            <div class="tab-content">
+                                @foreach(config('app.available_locales') as $index => $locale)
+                                    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="tab-{{ $locale }}"
+                                        role="tabpanel">
+
+                                        @if($locale === config('app.fallback_locale'))
+                                            {{-- Main locale fields --}}
+                                            <div class="form-group">
+                                                <label class="form-label">Название <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                    placeholder="Введите название отеля" wire:model="name">
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        @else
+                                            {{-- Translation fields --}}
+                                            <div class="form-group">
+                                                <label>Название</label>
+                                                <input type="text" wire:model.defer="trans.{{ $locale }}.name"
+                                                    class="form-control" placeholder="Название на {{ $locale }}">
+                                                @error("trans.$locale.name") <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endforeach
-                            </select>
-                            @error('category') <p class="text-danger">{{ $message }}</p> @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
+                            </div>
+
+                            {{-- Location --}}
+                            <div class="form-group">
+                                <label class="form-label">Локация <span class="text-danger">*</span></label>
+                                <select class="form-control @error('location_id') is-invalid @enderror"
+                                    wire:model="location_id">
+                                    <option value="">Выберите локацию</option>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('location_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            {{-- Category --}}
+                            <div class="form-group">
+                                <label class="form-label">Категория <span class="text-danger">*</span></label>
+                                <div>
+                                    @foreach($categories as $value => $label)
+                                        <div class="custom-control custom-radio mb-2">
+                                            <input type="radio" id="category-{{ $value }}" name="category"
+                                                class="custom-control-input @error('category') is-invalid @enderror"
+                                                wire:model="category" value="{{ $value }}">
+                                            <label class="custom-control-label" for="category-{{ $value }}">
+                                                {{ $label }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                    @error('category')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Buttons --}}
+                            <div class="form-group mb-0 mt-4">
+                                <button type="submit" class="btn btn-success waves-effect waves-light mr-2">
+                                    <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
+                                    Обновить
+                                </button>
+                                <a href="{{ route('admin.hotels.index') }}"
+                                    class="btn btn-secondary waves-effect waves-light">
+                                    <i class="bx bx-x font-size-16 align-middle mr-1"></i>
+                                    Отмена
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
