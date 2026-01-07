@@ -15,6 +15,8 @@ use App\Services\ImageService;
 use App\Models\TourItineraryDay;
 use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
+use App\Models\Location;
+use App\Models\Hotel;
 use App\Services\GeminiTranslationService;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
@@ -93,10 +95,13 @@ class TourCreateComponent extends Component
         }
 
         foreach (config('app.available_locales') as $l) {
-            $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255';
+            // $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255'; // Removed in favor of location_id
             $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
             $rules["accommodations.*.trans.$l.comfort_options"] = 'nullable|string';
         }
+
+        $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
+        $rules['accommodations.*.hotel_id'] = 'nullable|exists:hotels,id';
 
         return $rules;
     }
@@ -143,9 +148,12 @@ class TourCreateComponent extends Component
     {
         $categories = TourCategory::all();
         $tags = \App\Models\Tag::all(); // Load all tags
+        $locations = Location::orderBy('name')->with('hotels')->get(); // Load locations with hotels
+
         return view('livewire.tours.tour-create-component', [
             'categories' => $categories,
             'tags' => $tags,
+            'locations' => $locations,
         ]);
     }
 
@@ -207,6 +215,8 @@ class TourCreateComponent extends Component
 
         $this->accommodations[] = [
             'nights_count' => 1,
+            'location_id' => null,
+            'hotel_id' => null,
             'trans' => $trans
         ];
     }
@@ -435,7 +445,9 @@ class TourCreateComponent extends Component
             $accommodation = TourAccommodation::create([
                 'tour_id' => $tour->id,
                 'nights_count' => $accData['nights_count'],
-                'location' => $accData['trans'][$fallbackLocale]['location'] ?? '',
+                'location_id' => $accData['location_id'] ?? null,
+                'hotel_id' => $accData['hotel_id'] ?? null,
+                'location' => '', // Deprecated or filled from relation if needed
                 'standard_options' => $accData['trans'][$fallbackLocale]['standard_options'] ?? '',
                 'comfort_options' => $accData['trans'][$fallbackLocale]['comfort_options'] ?? '',
             ]);

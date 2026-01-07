@@ -15,6 +15,8 @@ use App\Services\ImageService;
 use App\Models\TourItineraryDay;
 use App\Models\Inclusion; // Changed from TourInclusion
 use App\Models\TourAccommodation;
+use App\Models\Location;
+use App\Models\Hotel;
 use App\Services\GeminiTranslationService;
 
 class TourEditComponent extends Component
@@ -97,10 +99,13 @@ class TourEditComponent extends Component
 
         /* переводы для размещения */
         foreach (config('app.available_locales') as $l) {
-            $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255';
+            // $rules["accommodations.*.trans.$l.location"] = 'required|string|max:255'; // Removed in favor of location_id
             $rules["accommodations.*.trans.$l.standard_options"] = 'nullable|string';
             $rules["accommodations.*.trans.$l.comfort_options"] = 'nullable|string';
         }
+
+        $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
+        $rules['accommodations.*.hotel_id'] = 'nullable|exists:hotels,id';
 
         return $rules;
     }
@@ -187,7 +192,6 @@ class TourEditComponent extends Component
             $trans = [];
             foreach (config('app.available_locales') as $locale) {
                 $trans[$locale] = [
-                    'location' => $item->tr('location', $locale),
                     'standard_options' => $item->tr('standard_options', $locale),
                     'comfort_options' => $item->tr('comfort_options', $locale),
                 ];
@@ -195,6 +199,8 @@ class TourEditComponent extends Component
             return [
                 'id' => $item->id,
                 'nights_count' => $item->nights_count,
+                'location_id' => $item->location_id,
+                'hotel_id' => $item->hotel_id,
                 'trans' => $trans
             ];
         })->all();
@@ -266,6 +272,8 @@ class TourEditComponent extends Component
 
         $this->accommodations[] = [
             'nights_count' => 1,
+            'location_id' => null,
+            'hotel_id' => null,
             'trans' => $trans
         ];
     }
@@ -557,7 +565,9 @@ class TourEditComponent extends Component
                 ['id' => $a['id'] ?? null, 'tour_id' => $this->tour->id],
                 [
                     'nights_count' => $a['nights_count'],
-                    'location' => $a['trans'][$fallbackLocale]['location'] ?? '',
+                    'location_id' => $a['location_id'] ?? null,
+                    'hotel_id' => $a['hotel_id'] ?? null,
+                    'location' => '', // Deprecated
                     'standard_options' => $a['trans'][$fallbackLocale]['standard_options'] ?? '',
                     'comfort_options' => $a['trans'][$fallbackLocale]['comfort_options'] ?? '',
                 ]
@@ -636,10 +646,12 @@ class TourEditComponent extends Component
     {
         $categories = TourCategory::select('id', 'title')->get();
         $tags = \App\Models\Tag::all();
+        $locations = Location::orderBy('name')->with('hotels')->get();
 
         return view('livewire.tours.tour-edit-component', [
             'categories' => $categories,
             'tags' => $tags,
+            'locations' => $locations,
         ]);
     }
 }

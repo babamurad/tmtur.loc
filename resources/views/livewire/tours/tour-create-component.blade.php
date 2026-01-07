@@ -282,57 +282,65 @@
 
                     {{-- Inclusions Section --}}
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">
+                        <div class="card-header pointer-cursor d-flex justify-content-between align-items-center"
+                            data-toggle="collapse" data-target="#inclusionsCollapse" aria-expanded="false"
+                            style="cursor: pointer;">
+                            <h5 class="card-title mb-0">
                                 <i class="bx bx-check-circle font-size-18 align-middle mr-1 text-primary"></i>
                                 Что включено / не включено
                             </h5>
-                            <button type="button" class="btn btn-sm btn-outline-success mb-3" wire:click="addInclusion">
-                                <i class="bx bx-plus"></i> Добавить пункт
-                            </button>
+                            <i class="bx bx-chevron-down font-size-18"></i>
+                        </div>
+                        <div id="inclusionsCollapse" class="collapse">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-sm btn-outline-success mb-3"
+                                    wire:click="addInclusion">
+                                    <i class="bx bx-plus"></i> Добавить пункт
+                                </button>
 
-                            @foreach($inclusions as $index => $inc)
-                                <div class="card border mb-2">
-                                    <div
-                                        class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                        <strong>Пункт {{ $index + 1 }}</strong>
-                                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                            wire:click="removeInclusion({{ $index }})">
-                                            <i class="bx bx-trash"></i>
-                                        </button>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <label class="form-label">Включение</label>
-                                                <select wire:model.defer="inclusions.{{ $index }}.inclusion_id"
-                                                    class="form-control form-control-sm">
-                                                    <option value="">Выберите...</option>
-                                                    @foreach($available_inclusions as $availInc)
-                                                        <option value="{{ $availInc->id }}">
-                                                            {{ $availInc->tr('title') }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                @error("inclusions.{$index}.inclusion_id")
-                                                    <div class="text-danger small">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label">Тип</label>
-                                                <select wire:model.defer="inclusions.{{ $index }}.is_included"
-                                                    class="form-control form-control-sm">
-                                                    <option value="1">Включено</option>
-                                                    <option value="0">Не включено</option>
-                                                </select>
-                                                @error("inclusions.{$index}.is_included")
-                                                    <div class="text-danger small">{{ $message }}</div>
-                                                @enderror
+                                @foreach($inclusions as $index => $inc)
+                                    <div class="card border mb-2">
+                                        <div
+                                            class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+                                            <strong>Пункт {{ $index + 1 }}</strong>
+                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                wire:click="removeInclusion({{ $index }})">
+                                                <i class="bx bx-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <label class="form-label">Включение</label>
+                                                    <select wire:model.defer="inclusions.{{ $index }}.inclusion_id"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Выберите...</option>
+                                                        @foreach($available_inclusions as $availInc)
+                                                            <option value="{{ $availInc->id }}">
+                                                                {{ $availInc->tr('title') }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error("inclusions.{$index}.inclusion_id")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Тип</label>
+                                                    <select wire:model.defer="inclusions.{{ $index }}.is_included"
+                                                        class="form-control form-control-sm">
+                                                        <option value="1">Включено</option>
+                                                        <option value="0">Не включено</option>
+                                                    </select>
+                                                    @error("inclusions.{$index}.is_included")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 
@@ -393,21 +401,52 @@
                                             @endforeach
                                         </ul>
 
+                                        <div class="row mb-2">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Локация <span class="text-danger">*</span></label>
+                                                    <select wire:model.live="accommodations.{{ $index }}.location_id"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Выберите локацию</option>
+                                                        @foreach($locations as $loc)
+                                                            <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error("accommodations.{$index}.location_id")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Отель</label>
+                                                    <select wire:model.defer="accommodations.{{ $index }}.hotel_id"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Выберите отель</option>
+                                                        @php
+                                                            $selectedLocId = $accommodations[$index]['location_id'] ?? null;
+                                                            $selectedLoc = $locations->find($selectedLocId);
+                                                        @endphp
+                                                        @if($selectedLoc)
+                                                            @foreach($selectedLoc->hotels as $hotel)
+                                                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                    @error("accommodations.{$index}.hotel_id")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         {{-- Tab Content --}}
                                         <div class="tab-content">
                                             {{-- Default Language Tab --}}
                                             <div class="tab-pane active"
                                                 id="acc-{{ $index }}-lang-{{ config('app.fallback_locale') }}"
                                                 role="tabpanel">
-                                                <div class="form-group">
-                                                    <label>Локация <span class="text-danger">*</span></label>
-                                                    <input type="text"
-                                                        wire:model.defer="accommodations.{{ $index }}.trans.{{ config('app.fallback_locale') }}.location"
-                                                        class="form-control form-control-sm" placeholder="Локация">
-                                                    @error("accommodations.{$index}.trans." . config('app.fallback_locale') . ".location")
-                                                        <div class="text-danger small">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -438,16 +477,7 @@
                                             @foreach(config('app.available_locales') as $locale)
                                                 @continue($locale === config('app.fallback_locale'))
                                                 <div class="tab-pane" id="acc-{{ $index }}-lang-{{ $locale }}" role="tabpanel">
-                                                    <div class="form-group">
-                                                        <label>Локация <span class="text-danger">*</span></label>
-                                                        <input type="text"
-                                                            wire:model.defer="accommodations.{{ $index }}.trans.{{ $locale }}.location"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="Локация на {{ strtoupper($locale) }}">
-                                                        @error("accommodations.{$index}.trans.{$locale}.location")
-                                                            <div class="text-danger small">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
