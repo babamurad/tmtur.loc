@@ -19,9 +19,9 @@ trait Translatable
         return Cache::remember($key, now()->addDay(), function () use ($field, $locale) {
             $translation = Translation::where([
                 'translatable_type' => static::class,
-                'translatable_id'   => $this->id,
-                'locale'            => $locale,
-                'field'             => $field,
+                'translatable_id' => $this->id,
+                'locale' => $locale,
+                'field' => $field,
             ])->value('value');
 
             return $translation ?? $this->$field;
@@ -36,9 +36,9 @@ trait Translatable
         Translation::updateOrCreate(
             [
                 'translatable_type' => static::class,
-                'translatable_id'   => $this->id,
-                'locale'            => $locale,
-                'field'             => $field,
+                'translatable_id' => $this->id,
+                'locale' => $locale,
+                'field' => $field,
             ],
             ['value' => $value]
         );
@@ -57,7 +57,7 @@ trait Translatable
     public function flushTrCache(): void
     {
         foreach (config('app.available_locales') as $locale) {
-            foreach ($this->fields ?? ['title','description'] as $field) {
+            foreach ($this->fields ?? ['title', 'description'] as $field) {
                 Cache::forget("t.{$locale}." . static::class . ".{$this->id}.{$field}");
             }
         }

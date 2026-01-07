@@ -83,7 +83,7 @@ class TourCreateComponent extends Component
         ];
 
         foreach (config('app.available_locales') as $l) {
-            $rules["trans.$l.title"] = 'nullable|string|max:255';
+            $rules["trans.$l.title"] = 'required|string|max:255';
             $rules["trans.$l.short_description"] = 'nullable|string';
         }
 
@@ -99,6 +99,19 @@ class TourCreateComponent extends Component
         }
 
         return $rules;
+    }
+
+    protected function messages(): array
+    {
+        $messages = [];
+
+        foreach (config('app.available_locales') as $locale) {
+            $langName = strtoupper($locale);
+            $messages["trans.$locale.title.required"] = "Название на $langName обязательно для заполнения";
+            $messages["trans.$locale.title.max"] = "Название на $langName не должно превышать 255 символов";
+        }
+
+        return $messages;
     }
 
     public function mount()
@@ -367,7 +380,10 @@ class TourCreateComponent extends Component
 
         foreach ($this->trans as $locale => $fields) {
             foreach ($fields as $field => $value) {
-                $tour->setTr($field, $locale, $value);
+                // Пропускаем пустые значения - не сохраняем переводы без перевода
+                if ($value !== null && $value !== '') {
+                    $tour->setTr($field, $locale, $value);
+                }
             }
         }
 
