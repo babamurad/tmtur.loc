@@ -48,6 +48,42 @@ class TrackGeneratedLinkClicks
                 ->where('target_url', $finalUrl)
                 ->first();
 
+            if (!$link) {
+                // Try alternate URL (toggle trailing slash)
+                $altUrl = str_ends_with($finalUrl, '/')
+                    ? substr($finalUrl, 0, -1)
+                    : $finalUrl . '/';
+
+                \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: Exact match failed, trying alternate URL: {$altUrl}");
+
+                $link = GeneratedLink::where('source', $source)
+                    ->where('target_url', $altUrl)
+                    ->first();
+            }
+
+            if (!$link) {
+                // Debugging: Log what we DO have for this source to help user diagnose (e.g. http vs https)
+                $candidates = GeneratedLink::where('source', $source)->get();
+                if ($candidates->isNotEmpty()) {
+                    \Illuminate\Support\Facades\Log::warning("TrackGeneratedLinkClicks: Mismatch! found candidates for source '{$source}': " . $candidates->pluck('target_url')->implode(', '));
+
+                    // Fallback: Try to match without scheme to handle http/https proxy issues
+                    // This is risky if you have same URL on http and https as different links, but unlikely for this app.
+                    foreach ($candidates as $candidate) {
+                        $cUrl = $candidate->target_url;
+                        // normalize both to remove scheme and trailing slash for comparison
+                        $cNorm = preg_replace('#^https?://#', '', rtrim($cUrl, '/'));
+                        $fNorm = preg_replace('#^https?://#', '', rtrim($finalUrl, '/'));
+
+                        if ($cNorm === $fNorm) {
+                            $link = $candidate;
+                            \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: Fuzzy matched link ID: {$link->id} (Scheme/Protocol mismatch ignored)");
+                            break;
+                        }
+                    }
+                }
+            }
+
             if ($link) {
                 \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: Link found ID: {$link->id}, Current Click Count: " . ($link->click_count ?? 'NULL'));
 
