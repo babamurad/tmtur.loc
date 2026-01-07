@@ -8,6 +8,53 @@
             font-weight: 400 !important; /* Explicit Regular weight */
             letter-spacing: 0.02em; /* Premium spacing */
         }
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: #ffffff;
+                padding: 20px;
+                margin-top: 15px;
+                border-radius: 12px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+                border: 1px solid rgba(0,0,0,0.03);
+            }
+            .nav-item {
+                border-bottom: 1px solid rgba(0,0,0,0.03);
+            }
+            .nav-link {
+                padding-top: 15px !important;
+                padding-bottom: 15px !important;
+                font-size: 16px !important;
+            }
+            .nav-right-block {
+                flex-direction: column;
+                align-items: flex-start !important;
+                margin-top: 15px;
+                width: 100%;
+            }
+            .nav-right-block > a, .nav-right-block > div {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                margin-bottom: 15px;
+            }
+            .nav-auth-actions {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+            .nav-auth-actions .btn {
+                width: 100%;
+                display: block;
+                margin-left: 0 !important;
+            }
+            .navbar-toggler {
+                border: none !important;
+                padding: 0;
+            }
+            .navbar-toggler:focus {
+                outline: none;
+                box-shadow: none;
+            }
+        }
     </style>
     <div class="container-fluid px-lg-5">
         <a class="navbar-brand font-weight-bold d-flex align-items-center" href="/#home">
@@ -83,7 +130,7 @@
 
             </ul>
             
-            <div class="d-flex align-items-center ml-auto">
+            <div class="d-flex align-items-center ml-auto nav-right-block">
                 <a class="nav-link position-relative mr-3 p-0" href="{{ route('cart.index') }}" wire:navigate>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 22px; height: 22px; color: #6B7280;">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
