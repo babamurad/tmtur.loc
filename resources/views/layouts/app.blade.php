@@ -98,6 +98,7 @@
                                 <li><a href="{{ route('admin.locations.index') }}"><i class="bx bx-map"></i> Локации</a></li>
                                 <li><a href="{{ route('admin.hotels.index') }}"><i class="bx bx-building-house"></i> Отели</a></li>
                                 <li><a href="{{ route('admin.places.index') }}"><i class="bx bx-diamond"></i> Места</a></li>
+                                <li><a href=""><i class="bx bx-customize"></i> Программа тура</a></li>
                             </ul>
                         </li>
 

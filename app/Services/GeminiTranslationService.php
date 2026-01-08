@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 
 class GeminiTranslationService
 {
+    private array $imageMap = [];
+
     /**
      * Универсальный метод для перевода текста.
      */
@@ -45,16 +47,6 @@ class GeminiTranslationService
             return null;
         }
     }
-
-    /**
-     * Метод для массового перевода (например, перевод всего объекта сразу).
-     */
-    /**
-     * Метод для массового перевода массива полей за один запрос.
-     * Принимает ассоциативный массив ['key' => 'text'].
-     * Возвращает ассоциативный массив ['key' => 'translated_text'].
-     */
-    private array $imageMap = [];
 
     /**
      * Метод для массового перевода массива полей за один запрос.

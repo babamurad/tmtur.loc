@@ -24,14 +24,17 @@
                         @endif
 
                         <form wire:submit.prevent="storeLocation">
+                            {{-- AI Translation Buttons --}}
+                            <div class="mb-3 text-end">
+                                <x-gemini-translation-buttons :duration="$translationDuration" />
+                            </div>
+
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
                                 @foreach(config('app.available_locales') as $index => $locale)
                                     <li class="nav-item">
-                                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" 
-                                           data-toggle="tab" 
-                                           href="#tab-{{ $locale }}" 
-                                           role="tab">
+                                        <a class="nav-link {{ $index === 0 ? 'active' : '' }}" data-toggle="tab"
+                                            href="#tab-{{ $locale }}" role="tab">
                                             {{ strtoupper($locale) }}
                                         </a>
                                     </li>
@@ -40,52 +43,47 @@
 
                             <div class="tab-content">
                                 @foreach(config('app.available_locales') as $index => $locale)
-                                    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" 
-                                         id="tab-{{ $locale }}" 
-                                         role="tabpanel">
-                                        
+                                    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="tab-{{ $locale }}"
+                                        role="tabpanel">
+
                                         @if($locale === config('app.fallback_locale'))
                                             {{-- Main locale fields --}}
                                             <div class="form-group">
                                                 <label class="form-label">Название <span class="text-danger">*</span></label>
-                                                <input type="text" 
-                                                       class="form-control @error('name') is-invalid @enderror" 
-                                                       placeholder="Введите название локации" 
-                                                       wire:model="name">
-                                                @error('name') 
-                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                    placeholder="Введите название локации" wire:model="name">
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                                 <small class="text-muted">Slug будет сгенерирован автоматически</small>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="form-label">Описание</label>
-                                                <textarea class="form-control @error('description') is-invalid @enderror" 
-                                                          placeholder="Введите описание локации" 
-                                                          wire:model="description"
-                                                          rows="4"></textarea>
-                                                @error('description') 
-                                                    <div class="invalid-feedback">{{ $message }}</div> 
+                                                <textarea class="form-control @error('description') is-invalid @enderror"
+                                                    placeholder="Введите описание локации" wire:model="description"
+                                                    rows="4"></textarea>
+                                                @error('description')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         @else
                                             {{-- Translation fields --}}
                                             <div class="form-group">
                                                 <label>Название</label>
-                                                <input type="text"
-                                                       wire:model.defer="trans.{{ $locale }}.name"
-                                                       class="form-control"
-                                                       placeholder="Название на {{ $locale }}">
-                                                @error("trans.$locale.name") <span class="text-danger">{{ $message }}</span> @enderror
+                                                <input type="text" wire:model.defer="trans.{{ $locale }}.name"
+                                                    class="form-control" placeholder="Название на {{ $locale }}">
+                                                @error("trans.$locale.name") <span class="text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Описание</label>
                                                 <textarea wire:model.defer="trans.{{ $locale }}.description"
-                                                          class="form-control"
-                                                          placeholder="Описание на {{ $locale }}"
-                                                          rows="4"></textarea>
-                                                @error("trans.$locale.description") <span class="text-danger">{{ $message }}</span> @enderror
+                                                    class="form-control" placeholder="Описание на {{ $locale }}"
+                                                    rows="4"></textarea>
+                                                @error("trans.$locale.description") <span
+                                                class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         @endif
                                     </div>
@@ -98,7 +96,13 @@
                                     <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
                                     Сохранить
                                 </button>
-                                <a href="{{ route('admin.locations.index') }}" class="btn btn-secondary waves-effect waves-light">
+                                <button type="button" wire:click="storeLocation(true)"
+                                    class="btn btn-primary waves-effect waves-light mr-2">
+                                    <i class="bx bx-plus font-size-16 align-middle mr-1"></i>
+                                    Сохранить и создать
+                                </button>
+                                <a href="{{ route('admin.locations.index') }}"
+                                    class="btn btn-secondary waves-effect waves-light">
                                     <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                     Отмена
                                 </a>

@@ -9,6 +9,8 @@ use Livewire\Attributes\Rule;
 
 class LocationCreateComponent extends Component
 {
+    use \App\Livewire\Traits\HasGeminiTranslation;
+
     #[Rule('required')]
     public $name;
 
@@ -44,7 +46,7 @@ class LocationCreateComponent extends Component
         $this->slug = Str::slug($this->name);
     }
 
-    public function storeLocation()
+    public function storeLocation($new = false)
     {
         $this->validate();
 
@@ -68,7 +70,22 @@ class LocationCreateComponent extends Component
         }
 
         session()->flash('message', __('locations.location_created'));
+
+        if ($new) {
+            return redirect()->route('admin.locations.create');
+        }
+
         return redirect()->route('admin.locations.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name', 'description'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Локация';
     }
 
     public function render()

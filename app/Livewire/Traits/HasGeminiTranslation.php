@@ -7,19 +7,16 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 trait HasGeminiTranslation
 {
+    public $translationDuration = null;
+
     /**
      * Автоперевод на английский через Gemini AI
      */
     public function autoTranslateToEnglish(GeminiTranslationService $translator)
     {
-        $fallbackLocale = config('app.fallback_locale');
-
-        $fields = $this->getTranslatableFields();
-        $sourceData = [];
-
-        foreach ($fields as $field) {
-            $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
-        }
+        $startTime = microtime(true);
+        $sourceData = $this->getSourceData();
+        $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
             LivewireAlert::title('Ошибка')
@@ -49,6 +46,8 @@ trait HasGeminiTranslation
             ->toast()
             ->position('top-end')
             ->show();
+
+        $this->translationDuration = round(microtime(true) - $startTime, 2);
     }
 
     /**
@@ -56,14 +55,9 @@ trait HasGeminiTranslation
      */
     public function autoTranslateToKorean(GeminiTranslationService $translator)
     {
-        $fallbackLocale = config('app.fallback_locale');
-
-        $fields = $this->getTranslatableFields();
-        $sourceData = [];
-
-        foreach ($fields as $field) {
-            $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
-        }
+        $startTime = microtime(true);
+        $sourceData = $this->getSourceData();
+        $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
             LivewireAlert::title('Ошибка')
@@ -93,6 +87,8 @@ trait HasGeminiTranslation
             ->toast()
             ->position('top-end')
             ->show();
+
+        $this->translationDuration = round(microtime(true) - $startTime, 2);
     }
 
     /**
@@ -100,14 +96,9 @@ trait HasGeminiTranslation
      */
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
-        $fallbackLocale = config('app.fallback_locale');
-
-        $fields = $this->getTranslatableFields();
-        $sourceData = [];
-
-        foreach ($fields as $field) {
-            $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
-        }
+        $startTime = microtime(true);
+        $sourceData = $this->getSourceData();
+        $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
             LivewireAlert::title('Ошибка')
@@ -143,6 +134,27 @@ trait HasGeminiTranslation
             ->toast()
             ->position('top-end')
             ->show();
+
+        $this->translationDuration = round(microtime(true) - $startTime, 2);
+    }
+
+    /**
+     * Сбор данных для перевода из свойств компонента или массива переводов
+     */
+    protected function getSourceData(): array
+    {
+        $fallbackLocale = config('app.fallback_locale');
+        $fields = $this->getTranslatableFields();
+        $sourceData = [];
+
+        foreach ($fields as $field) {
+            if (property_exists($this, $field)) {
+                $sourceData[$field] = $this->$field;
+            } else {
+                $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
+            }
+        }
+        return $sourceData;
     }
 
     /**
