@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <button class="btn btn-sm btn-secondary dropdown-toggle font-weight-bold rounded" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-link text-decoration-none dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="box-shadow: none; color: #6B7280; padding-left: 0 !important; text-align: left;">
         {{ strtoupper($current) }}
     </button>
     <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="languageDropdown">
