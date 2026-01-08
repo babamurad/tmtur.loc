@@ -51,6 +51,8 @@ class TourCreateComponent extends Component
     public $seo_title;
     public $seo_description;
 
+    public $last_translation_duration;
+
     /* мультиязычные значения */
     public array $trans = [];
 
@@ -218,18 +220,53 @@ class TourCreateComponent extends Component
     /**
      * Автоперевод на английский через Gemini AI
      */
-    public function autoTranslateToEnglish(GeminiTranslationService $translator)
+    /**
+     * Helper to gather all fields, translate them in one batch, and assign back.
+     */
+    protected function performBatchTranslation(GeminiTranslationService $translator, string $targetLangCode, string $targetLangName)
     {
         $fallbackLocale = config('app.fallback_locale');
 
-        // Sync main title to trans array ensuring it's not empty for translation
+        // 1. Prepare Validation & Source Data
         if (!empty($this->title)) {
             $this->trans[$fallbackLocale]['title'] = $this->title;
         }
-
         if (empty($this->trans[$fallbackLocale]['title'])) {
+            session()->flash('error', 'Заполните русскую версию перед переводом.');
+            return;
+        }
+
+        // 2. Aggregate ALL fields into one flattened array
+        $fieldsToTranslate = [];
+
+        // Main fields
+        $fieldsToTranslate['main_title'] = $this->trans[$fallbackLocale]['title'];
+        $fieldsToTranslate['main_desc'] = $this->trans[$fallbackLocale]['short_description'] ?? '';
+
+        // Itinerary fields
+        foreach ($this->itinerary_days as $index => $day) {
+            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+
+            // Use unique keys for each day field
+            $fieldsToTranslate["day_{$index}_title"] = $dayTitle;
+            $fieldsToTranslate["day_{$index}_desc"] = $dayDesc;
+        }
+
+        \Illuminate\Support\Facades\Log::info("Gemini Batch Input ({$targetLangName}):", $fieldsToTranslate);
+
+        // 3. Call Service ONCE
+        $startTime = microtime(true);
+        $translated = $translator->translateFields($fieldsToTranslate, $targetLangName, 'Тур и программа тура');
+
+        // Save duration
+        $this->last_translation_duration = round(microtime(true) - $startTime, 2);
+
+        \Illuminate\Support\Facades\Log::info("Gemini Batch Output ({$targetLangName}):", $translated);
+
+        if (empty($translated)) {
             LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
+                ->text("Не удалось получить перевод на $targetLangName. Проверьте логи.")
                 ->error()
                 ->toast()
                 ->position('top-end')
@@ -237,48 +274,42 @@ class TourCreateComponent extends Component
             return;
         }
 
-        // 1. Перевод основных полей
-        $translations = $translator->translateFields([
-            'title' => $this->trans[$fallbackLocale]['title'],
-            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
-        ], 'English', 'Тур');
+        // 4. Map Results Back
 
-        if ($translations['title']) {
-            $this->trans['en']['title'] = $translations['title'];
-            $this->trans['en']['short_description'] = $translations['short_description'] ?? '';
-            $this->dispatch('refresh-quill');
-
-            LivewireAlert::title('Перевод выполнен')
-                ->text('Перевод на английский успешно выполнен!')
-                ->success()
-                ->toast()
-                ->position('top-end')
-                ->show();
-        } else {
-            LivewireAlert::title('Ошибка')
-                ->text('Не удалось получить перевод. Проверьте логи.')
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
+        // Main
+        if (isset($translated['main_title'])) {
+            $this->trans[$targetLangCode]['title'] = $translated['main_title'];
+        }
+        if (isset($translated['main_desc'])) {
+            $this->trans[$targetLangCode]['short_description'] = $translated['main_desc'];
         }
 
-        // 2. Перевод дней программы
+        // Itinerary
         foreach ($this->itinerary_days as $index => $day) {
-            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
-            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
-
-            if ($dayTitle || $dayDesc) {
-                $dayTrans = $translator->translateFields([
-                    'title' => $dayTitle,
-                    'description' => $dayDesc,
-                ], 'English', 'День тура');
-
-                $this->itinerary_days[$index]['trans']['en']['title'] = $dayTrans['title'] ?? '';
-                $this->itinerary_days[$index]['trans']['en']['description'] = $dayTrans['description'] ?? '';
+            if (isset($translated["day_{$index}_title"])) {
+                $this->itinerary_days[$index]['trans'][$targetLangCode]['title'] = $translated["day_{$index}_title"];
+            }
+            if (isset($translated["day_{$index}_desc"])) {
+                $this->itinerary_days[$index]['trans'][$targetLangCode]['description'] = $translated["day_{$index}_desc"];
             }
         }
 
+        $this->dispatch('refresh-quill');
+
+        LivewireAlert::title('Перевод выполнен')
+            ->text("Перевод на $targetLangName успешно выполнен!")
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    /**
+     * Автоперевод на английский через Gemini AI
+     */
+    public function autoTranslateToEnglish(GeminiTranslationService $translator)
+    {
+        $this->performBatchTranslation($translator, 'en', 'English');
     }
 
     /**
@@ -286,65 +317,7 @@ class TourCreateComponent extends Component
      */
     public function autoTranslateToKorean(GeminiTranslationService $translator)
     {
-        $fallbackLocale = config('app.fallback_locale');
-
-        // Sync main title
-        if (!empty($this->title)) {
-            $this->trans[$fallbackLocale]['title'] = $this->title;
-        }
-
-        if (empty($this->trans[$fallbackLocale]['title'])) {
-            LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
-            return;
-        }
-
-        // 1. Перевод основных полей
-        $translations = $translator->translateFields([
-            'title' => $this->trans[$fallbackLocale]['title'],
-            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
-        ], 'Korean', 'Тур');
-
-        if ($translations['title']) {
-            $this->trans['ko']['title'] = $translations['title'];
-            $this->trans['ko']['short_description'] = $translations['short_description'] ?? '';
-            $this->dispatch('refresh-quill');
-
-            LivewireAlert::title('Перевод выполнен')
-                ->text('Перевод на корейский успешно выполнен!')
-                ->success()
-                ->toast()
-                ->position('top-end')
-                ->show();
-        } else {
-            LivewireAlert::title('Ошибка')
-                ->text('Не удалось получить перевод. Проверьте логи.')
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
-        }
-
-        // 2. Перевод дней программы
-        foreach ($this->itinerary_days as $index => $day) {
-            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
-            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
-
-            if ($dayTitle || $dayDesc) {
-                $dayTrans = $translator->translateFields([
-                    'title' => $dayTitle,
-                    'description' => $dayDesc,
-                ], 'Korean', 'День тура');
-
-                $this->itinerary_days[$index]['trans']['ko']['title'] = $dayTrans['title'] ?? '';
-                $this->itinerary_days[$index]['trans']['ko']['description'] = $dayTrans['description'] ?? '';
-            }
-        }
-
+        $this->performBatchTranslation($translator, 'ko', 'Korean');
     }
 
     /**
@@ -352,82 +325,8 @@ class TourCreateComponent extends Component
      */
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
-        $fallbackLocale = config('app.fallback_locale');
-
-        // Sync main title
-        if (!empty($this->title)) {
-            $this->trans[$fallbackLocale]['title'] = $this->title;
-        }
-
-        if (empty($this->trans[$fallbackLocale]['title'])) {
-            LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
-            return;
-        }
-
-        // --- English ---
-        // 1. Main fields
-        $enTranslations = $translator->translateFields([
-            'title' => $this->trans[$fallbackLocale]['title'],
-            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
-        ], 'English', 'Тур');
-
-        if (isset($enTranslations['title'])) {
-            $this->trans['en']['title'] = $enTranslations['title'];
-            $this->trans['en']['short_description'] = $enTranslations['short_description'] ?? '';
-        }
-
-        // 2. Itinerary
-        foreach ($this->itinerary_days as $index => $day) {
-            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
-            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
-            if ($dayTitle || $dayDesc) {
-                $dayTrans = $translator->translateFields([
-                    'title' => $dayTitle,
-                    'description' => $dayDesc,
-                ], 'English', 'День тура');
-                $this->itinerary_days[$index]['trans']['en']['title'] = $dayTrans['title'] ?? '';
-                $this->itinerary_days[$index]['trans']['en']['description'] = $dayTrans['description'] ?? '';
-            }
-        }
-
-        // --- Korean ---
-        // 1. Main fields
-        $koTranslations = $translator->translateFields([
-            'title' => $this->trans[$fallbackLocale]['title'],
-            'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
-        ], 'Korean', 'Тур');
-
-        if (isset($koTranslations['title'])) {
-            $this->trans['ko']['title'] = $koTranslations['title'];
-            $this->trans['ko']['short_description'] = $koTranslations['short_description'] ?? '';
-        }
-        $this->dispatch('refresh-quill');
-
-        // 2. Itinerary
-        foreach ($this->itinerary_days as $index => $day) {
-            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
-            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
-            if ($dayTitle || $dayDesc) {
-                $dayTrans = $translator->translateFields([
-                    'title' => $dayTitle,
-                    'description' => $dayDesc,
-                ], 'Korean', 'День тура');
-                $this->itinerary_days[$index]['trans']['ko']['title'] = $dayTrans['title'] ?? '';
-                $this->itinerary_days[$index]['trans']['ko']['description'] = $dayTrans['description'] ?? '';
-            }
-        }
-
-        LivewireAlert::title('Перевод выполнен')
-            ->text('Переводы на все языки успешно выполнены!')
-            ->success()
-            ->toast()
-            ->position('top-end')
-            ->show();
+        $this->performBatchTranslation($translator, 'en', 'English');
+        $this->performBatchTranslation($translator, 'ko', 'Korean');
     }
 
     public function save()

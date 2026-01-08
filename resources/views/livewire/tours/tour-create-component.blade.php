@@ -57,7 +57,7 @@
                             </ul>
 
                             {{-- AI Translation Buttons --}}
-                            <x-gemini-translation-buttons />
+                            <x-gemini-translation-buttons :duration="$last_translation_duration" />
 
                             {{-- Tab Content --}}
                             <div class="tab-content">

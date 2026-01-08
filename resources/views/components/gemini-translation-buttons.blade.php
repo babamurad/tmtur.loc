@@ -1,4 +1,5 @@
 {{-- AI Translation Buttons Component --}}
+@props(['duration' => null])
 <div class="mb-3 d-flex flex-wrap gap-2">
     <button type="button" wire:click="autoTranslateToEnglish" wire:loading.attr="disabled"
         class="btn btn-sm btn-outline-primary" title="Автоматический перевод на английский через Gemini AI">
@@ -29,4 +30,10 @@
             <i class="fas fa-spinner fa-spin"></i> Перевожу все...
         </span>
     </button>
+
+    @if($duration)
+        <span class="text-success small align-self-center font-weight-bold" wire:loading.remove>
+            <i class="bx bx-time-five"></i> {{ $duration }} сек.
+        </span>
+    @endif
 </div>
