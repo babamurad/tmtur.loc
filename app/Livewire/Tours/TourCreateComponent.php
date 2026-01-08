@@ -222,6 +222,11 @@ class TourCreateComponent extends Component
     {
         $fallbackLocale = config('app.fallback_locale');
 
+        // Sync main title to trans array ensuring it's not empty for translation
+        if (!empty($this->title)) {
+            $this->trans[$fallbackLocale]['title'] = $this->title;
+        }
+
         if (empty($this->trans[$fallbackLocale]['title'])) {
             LivewireAlert::title('Ошибка')
                 ->text('Заполните русскую версию перед переводом.')
@@ -232,6 +237,7 @@ class TourCreateComponent extends Component
             return;
         }
 
+        // 1. Перевод основных полей
         $translations = $translator->translateFields([
             'title' => $this->trans[$fallbackLocale]['title'],
             'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
@@ -239,7 +245,8 @@ class TourCreateComponent extends Component
 
         if ($translations['title']) {
             $this->trans['en']['title'] = $translations['title'];
-            $this->trans['en']['short_description'] = $translations['short_description'];
+            $this->trans['en']['short_description'] = $translations['short_description'] ?? '';
+            $this->dispatch('refresh-quill');
 
             LivewireAlert::title('Перевод выполнен')
                 ->text('Перевод на английский успешно выполнен!')
@@ -248,13 +255,30 @@ class TourCreateComponent extends Component
                 ->position('top-end')
                 ->show();
         } else {
-            LivewireAlert::title('Ошибка перевода')
-                ->text('Не удалось выполнить перевод. Попробуйте позже.')
+            LivewireAlert::title('Ошибка')
+                ->text('Не удалось получить перевод. Проверьте логи.')
                 ->error()
                 ->toast()
                 ->position('top-end')
                 ->show();
         }
+
+        // 2. Перевод дней программы
+        foreach ($this->itinerary_days as $index => $day) {
+            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+
+            if ($dayTitle || $dayDesc) {
+                $dayTrans = $translator->translateFields([
+                    'title' => $dayTitle,
+                    'description' => $dayDesc,
+                ], 'English', 'День тура');
+
+                $this->itinerary_days[$index]['trans']['en']['title'] = $dayTrans['title'] ?? '';
+                $this->itinerary_days[$index]['trans']['en']['description'] = $dayTrans['description'] ?? '';
+            }
+        }
+
     }
 
     /**
@@ -264,6 +288,11 @@ class TourCreateComponent extends Component
     {
         $fallbackLocale = config('app.fallback_locale');
 
+        // Sync main title
+        if (!empty($this->title)) {
+            $this->trans[$fallbackLocale]['title'] = $this->title;
+        }
+
         if (empty($this->trans[$fallbackLocale]['title'])) {
             LivewireAlert::title('Ошибка')
                 ->text('Заполните русскую версию перед переводом.')
@@ -274,6 +303,7 @@ class TourCreateComponent extends Component
             return;
         }
 
+        // 1. Перевод основных полей
         $translations = $translator->translateFields([
             'title' => $this->trans[$fallbackLocale]['title'],
             'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
@@ -281,7 +311,8 @@ class TourCreateComponent extends Component
 
         if ($translations['title']) {
             $this->trans['ko']['title'] = $translations['title'];
-            $this->trans['ko']['short_description'] = $translations['short_description'];
+            $this->trans['ko']['short_description'] = $translations['short_description'] ?? '';
+            $this->dispatch('refresh-quill');
 
             LivewireAlert::title('Перевод выполнен')
                 ->text('Перевод на корейский успешно выполнен!')
@@ -290,13 +321,30 @@ class TourCreateComponent extends Component
                 ->position('top-end')
                 ->show();
         } else {
-            LivewireAlert::title('Ошибка перевода')
-                ->text('Не удалось выполнить перевод. Попробуйте позже.')
+            LivewireAlert::title('Ошибка')
+                ->text('Не удалось получить перевод. Проверьте логи.')
                 ->error()
                 ->toast()
                 ->position('top-end')
                 ->show();
         }
+
+        // 2. Перевод дней программы
+        foreach ($this->itinerary_days as $index => $day) {
+            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+
+            if ($dayTitle || $dayDesc) {
+                $dayTrans = $translator->translateFields([
+                    'title' => $dayTitle,
+                    'description' => $dayDesc,
+                ], 'Korean', 'День тура');
+
+                $this->itinerary_days[$index]['trans']['ko']['title'] = $dayTrans['title'] ?? '';
+                $this->itinerary_days[$index]['trans']['ko']['description'] = $dayTrans['description'] ?? '';
+            }
+        }
+
     }
 
     /**
@@ -306,6 +354,11 @@ class TourCreateComponent extends Component
     {
         $fallbackLocale = config('app.fallback_locale');
 
+        // Sync main title
+        if (!empty($this->title)) {
+            $this->trans[$fallbackLocale]['title'] = $this->title;
+        }
+
         if (empty($this->trans[$fallbackLocale]['title'])) {
             LivewireAlert::title('Ошибка')
                 ->text('Заполните русскую версию перед переводом.')
@@ -316,43 +369,65 @@ class TourCreateComponent extends Component
             return;
         }
 
-        // Перевод на английский
-        $englishTranslations = $translator->translateFields([
+        // --- English ---
+        // 1. Main fields
+        $enTranslations = $translator->translateFields([
             'title' => $this->trans[$fallbackLocale]['title'],
             'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
         ], 'English', 'Тур');
 
-        if ($englishTranslations['title']) {
-            $this->trans['en']['title'] = $englishTranslations['title'];
-            $this->trans['en']['short_description'] = $englishTranslations['short_description'];
+        if (isset($enTranslations['title'])) {
+            $this->trans['en']['title'] = $enTranslations['title'];
+            $this->trans['en']['short_description'] = $enTranslations['short_description'] ?? '';
         }
 
-        // Перевод на корейский
-        $koreanTranslations = $translator->translateFields([
+        // 2. Itinerary
+        foreach ($this->itinerary_days as $index => $day) {
+            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+            if ($dayTitle || $dayDesc) {
+                $dayTrans = $translator->translateFields([
+                    'title' => $dayTitle,
+                    'description' => $dayDesc,
+                ], 'English', 'День тура');
+                $this->itinerary_days[$index]['trans']['en']['title'] = $dayTrans['title'] ?? '';
+                $this->itinerary_days[$index]['trans']['en']['description'] = $dayTrans['description'] ?? '';
+            }
+        }
+
+        // --- Korean ---
+        // 1. Main fields
+        $koTranslations = $translator->translateFields([
             'title' => $this->trans[$fallbackLocale]['title'],
             'short_description' => $this->trans[$fallbackLocale]['short_description'] ?? '',
         ], 'Korean', 'Тур');
 
-        if ($koreanTranslations['title']) {
-            $this->trans['ko']['title'] = $koreanTranslations['title'];
-            $this->trans['ko']['short_description'] = $koreanTranslations['short_description'];
+        if (isset($koTranslations['title'])) {
+            $this->trans['ko']['title'] = $koTranslations['title'];
+            $this->trans['ko']['short_description'] = $koTranslations['short_description'] ?? '';
+        }
+        $this->dispatch('refresh-quill');
+
+        // 2. Itinerary
+        foreach ($this->itinerary_days as $index => $day) {
+            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+            if ($dayTitle || $dayDesc) {
+                $dayTrans = $translator->translateFields([
+                    'title' => $dayTitle,
+                    'description' => $dayDesc,
+                ], 'Korean', 'День тура');
+                $this->itinerary_days[$index]['trans']['ko']['title'] = $dayTrans['title'] ?? '';
+                $this->itinerary_days[$index]['trans']['ko']['description'] = $dayTrans['description'] ?? '';
+            }
         }
 
-        if ($englishTranslations['title'] && $koreanTranslations['title']) {
-            LivewireAlert::title('Перевод выполнен')
-                ->text('Переводы на все языки успешно выполнены!')
-                ->success()
-                ->toast()
-                ->position('top-end')
-                ->show();
-        } else {
-            LivewireAlert::title('Частичный перевод')
-                ->text('Некоторые переводы не удалось выполнить.')
-                ->warning()
-                ->toast()
-                ->position('top-end')
-                ->show();
-        }
+        LivewireAlert::title('Перевод выполнен')
+            ->text('Переводы на все языки успешно выполнены!')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 
     public function save()

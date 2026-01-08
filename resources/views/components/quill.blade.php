@@ -180,6 +180,17 @@
                     editor.root.innerHTML = value;
                 }
             });
+
+            // Listen for refresh event
+            Livewire.on('refresh-quill', () => {
+                let wireModel = '{{ $attributes->wire('model')->value() }}';
+                let newValue = @this.get(wireModel);
+                
+                if (newValue !== editor.root.innerHTML) {
+                    editor.root.innerHTML = newValue || '';
+                    this.content = newValue || '';
+                }
+            });
         },
 
         // Image processing function

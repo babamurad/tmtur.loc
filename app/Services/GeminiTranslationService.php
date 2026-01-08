@@ -21,31 +21,23 @@ class GeminiTranslationService
         $prompt = "You are a translator. Translate to {$targetLanguage}. Output ONLY the translated text with no explanations, no variants, no numbering:\n\n{$text}";
 
         try {
-            // Используем актуальную быструю модель
+            // Используем актуальную быструю модель (gemini-2.5-flash)
             $result = Gemini::generativeModel(model: 'gemini-2.5-flash')
                 ->generateContent($prompt);
 
             $translation = trim($result->text());
 
-            // Агрессивная очистка от лишнего текста
-            // Удаляем все до первого перевода (если AI дал варианты)
+            // Агрессивная очистка от вводных фраз (если AI дал варианты или начал болтать)
             if (preg_match('/^\d+\.\s+\*\*(.+?)\*\*/u', $translation, $matches)) {
-                // Если есть нумерованный список с жирным текстом
+                // Если есть нумерованный список с жирным текстом - берем первое
                 $translation = $matches[1];
             } elseif (preg_match('/^(?:Here.*?:|Translation:|Перевод:)\s*(.+)/isu', $translation, $matches)) {
-                // Если есть вводные слова
-                $translation = trim($matches[1]);
-            } elseif (preg_match('/^\d+\.\s+(.+?)(?:\n|$)/u', $translation, $matches)) {
-                // Если просто нумерованный список
                 $translation = trim($matches[1]);
             }
 
-            // Удаляем кавычки и звездочки (markdown)
-            $translation = preg_replace('/^["\'«\*]+|["\'»\*]+$/u', '', $translation);
-
-            // Берем только первую строку, если AI вернул несколько вариантов
-            $lines = explode("\n", $translation);
-            $translation = trim($lines[0]);
+            // Удаляем кавычки и звездочки (markdown) только если это явно одна строка и похоже на мусор
+            // Но для описаний markdown может быть нужен. Пока оставим базовую чистку оберток
+            $translation = preg_replace('/^["\'«]+|["\'»]+$/u', '', $translation);
 
             return $translation;
         } catch (Exception $e) {
