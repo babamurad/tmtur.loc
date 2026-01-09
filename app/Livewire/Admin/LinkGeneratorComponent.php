@@ -114,7 +114,7 @@ class LinkGeneratorComponent extends Component
     public function render()
     {
         return view('livewire.admin.link-generator-component', [
-            'links' => GeneratedLink::latest()->orderBy('click_count')->with(['bookings', 'payouts'])->paginate(10)
+            'links' => GeneratedLink::orderBy('click_count', 'desc')->latest()->with(['bookings', 'payouts'])->paginate(10)
         ])->layout('layouts.app');
     }
 }
