@@ -31,7 +31,7 @@
                 @endforelse
             </div>
 
-            {{ $tours->links('pagination::bootstrap-4') }}
+            {{ $tours->links() }}
         </div>
 
         @livewire('front.tours-sidebar')
