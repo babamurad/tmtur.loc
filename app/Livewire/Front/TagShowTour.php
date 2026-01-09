@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class TagShowTour extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public Tag $tag;
     public string $view = 'grid';
