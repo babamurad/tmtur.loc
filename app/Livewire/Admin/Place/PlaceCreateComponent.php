@@ -76,7 +76,10 @@ class PlaceCreateComponent extends Component
             }
         }
 
-        session()->flash('success', __('locations.place_created'));
+        session()->flash('saved', [
+            'title' => 'Место создано!',
+            'text' => __('locations.place_created'),
+        ]);
         return redirect()->route('admin.places.index');
     }
 

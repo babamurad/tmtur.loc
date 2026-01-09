@@ -79,7 +79,11 @@ class HotelEditComponent extends Component
             }
         }
 
-        return $this->flash('success', __('locations.hotel_updated'), [], route('admin.hotels.index'));
+        session()->flash('saved', [
+            'title' => 'Отель обновлен!',
+            'text' => __('locations.hotel_updated'),
+        ]);
+        return redirect()->route('admin.hotels.index');
     }
 
     protected function getTranslationContext(): string

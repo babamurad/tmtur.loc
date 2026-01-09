@@ -1,8 +1,5 @@
 <div class="page-content">
     <div class="container-fluid">
-        @if(session('message'))
-            <div class="alert alert-success">{{ session('message') }}</div>
-        @endif
 
         <div class="row">
             <div class="col-12">
@@ -48,10 +45,9 @@
                                                 <a href="{{ route('admin.places.edit', ['place_id' => $place->id]) }}"
                                                     class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                                     data-toggle="tooltip" title="Редактировать">
-                                                     <i class="bx bx-pencil font-size-14"></i>
+                                                    <i class="bx bx-pencil font-size-14"></i>
                                                 </a>
                                                 <button wire:click.prevent="delete({{ $place->id }})"
-                                                    onclick="confirm('Вы уверены, что хотите удалить эту достопримечательность?') || event.stopImmediatePropagation()"
                                                     class="btn btn-sm btn-outline-danger waves-effect waves-light"
                                                     data-toggle="tooltip" title="Удалить">
                                                     <i class="bx bx-trash font-size-14"></i>

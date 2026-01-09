@@ -73,7 +73,25 @@ class LocationCreateComponent extends Component
         $message = __('locations.location_created');
         $route = $new ? route('admin.locations.create') : route('admin.locations.index');
 
-        return $this->flash('success', $message, [], $route);
+        if ($new) {
+            LivewireAlert::title($message)
+                ->success()
+                ->toast()
+                ->position('top-end')
+                ->show();
+
+            $this->reset(['name', 'description']);
+            foreach (config('app.available_locales') as $locale) {
+                $this->trans[$locale]['name'] = '';
+                $this->trans[$locale]['description'] = '';
+            }
+        } else {
+            session()->flash('saved', [
+                'title' => 'Локация создана!',
+                'text' => $message,
+            ]);
+            return redirect()->route('admin.locations.index');
+        }
     }
 
     protected function getTranslatableFields(): array

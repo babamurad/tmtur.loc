@@ -74,7 +74,11 @@ class LocationEditComponent extends Component
             }
         }
 
-        return $this->flash('success', __('locations.location_updated'), [], route('admin.locations.index'));
+        session()->flash('saved', [
+            'title' => 'Локация обновлена!',
+            'text' => __('locations.location_updated'),
+        ]);
+        return redirect()->route('admin.locations.index');
     }
 
     protected function getTranslationContext(): string

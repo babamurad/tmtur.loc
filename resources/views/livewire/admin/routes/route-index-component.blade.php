@@ -56,7 +56,7 @@
                                                     class="btn btn-sm btn-info">
                                                     <i class="bx bx-edit"></i>
                                                 </a>
-                                                <button wire:click="delete({{ $route->id }})" wire:confirm="Вы уверены?"
+                                                <button wire:click.prevent="delete({{ $route->id }})"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="bx bx-trash"></i>
                                                 </button>

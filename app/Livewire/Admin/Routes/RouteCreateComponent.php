@@ -120,6 +120,10 @@ class RouteCreateComponent extends Component
             }
         }
 
+        session()->flash('saved', [
+            'title' => 'Маршрут создан!',
+            'text' => 'Маршрут успешно добавлен в программу.',
+        ]);
         return redirect()->route('admin.routes.index');
     }
 

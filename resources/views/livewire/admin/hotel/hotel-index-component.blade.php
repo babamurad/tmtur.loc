@@ -1,8 +1,5 @@
 <div class="page-content">
     <div class="container-fluid">
-        @if(session('message'))
-            <div class="alert alert-success">{{ session('message') }}</div>
-        @endif
 
         <div class="row">
             <div class="col-12">
@@ -49,7 +46,6 @@
                                                     <i class="bx bx-pencil font-size-14"></i>
                                                 </a>
                                                 <button wire:click.prevent="delete({{ $hotel->id }})"
-                                                    onclick="confirm('Вы уверены, что хотите удалить этот отель?') || event.stopImmediatePropagation()"
                                                     class="btn btn-sm btn-outline-danger waves-effect waves-light"
                                                     data-toggle="tooltip" title="Удалить">
                                                     <i class="bx bx-trash font-size-14"></i>

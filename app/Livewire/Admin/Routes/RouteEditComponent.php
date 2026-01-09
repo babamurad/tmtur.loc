@@ -148,6 +148,10 @@ class RouteEditComponent extends Component
             }
         }
 
+        session()->flash('saved', [
+            'title' => 'Маршрут обновлен!',
+            'text' => 'Маршрут успешно обновлен.',
+        ]);
         return redirect()->route('admin.routes.index');
     }
 

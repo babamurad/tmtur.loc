@@ -84,7 +84,11 @@ class PlaceEditComponent extends Component
             }
         }
 
-        return $this->flash('success', __('locations.place_updated'), [], route('admin.places.index'));
+        session()->flash('saved', [
+            'title' => 'Место обновлено!',
+            'text' => __('locations.place_updated'),
+        ]);
+        return redirect()->route('admin.places.index');
     }
 
     protected function getTranslationContext(): string

@@ -73,7 +73,12 @@ class HotelCreateComponent extends Component
             }
         }
 
-        return $this->flash('success', __('locations.hotel_created'), [], route('admin.hotels.index'));
+        session()->flash('saved', [
+            'title' => 'Отель создан!',
+            'text' => __('locations.hotel_created'),
+        ]);
+        \Illuminate\Support\Facades\Log::info('HotelCreateComponent: Flash set', session('saved'));
+        return redirect()->route('admin.hotels.index');
     }
 
     public function render()
