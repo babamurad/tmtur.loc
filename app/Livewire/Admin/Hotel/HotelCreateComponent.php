@@ -11,6 +11,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class HotelCreateComponent extends Component
 {
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     #[Rule('required')]
     public $name;
@@ -89,5 +90,15 @@ class HotelCreateComponent extends Component
     public function render()
     {
         return view('livewire.admin.hotel.hotel-create-component')->layout('layouts.app');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Отель';
     }
 }
