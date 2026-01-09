@@ -25,7 +25,7 @@ class RouteCreateComponent extends Component
         'days.*.day_number' => 'required|integer',
         'days.*.location_id' => 'required|exists:locations,id',
         'days.*.title' => 'nullable|string',
-        'days.*.description' => 'nullable|string',
+        'days.*.description' => 'required|string',
         'days.*.place_ids' => 'nullable|array',
         'days.*.hotel_ids' => 'nullable|array',
     ];

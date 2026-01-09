@@ -55,7 +55,7 @@
                             </div>
 
                             @foreach($days as $index => $day)
-                                <div class="card border mb-3">
+                                <div class="card border mb-3" wire:key="day-{{ $index }}">
                                     <div
                                         class="card-header bg-light d-flex justify-content-between align-items-center py-2">
                                         <strong>Остановка {{ $index + 1 }} <span
@@ -97,6 +97,12 @@
                                             <label>Заголовок (опционально)</label>
                                             <input type="text" class="form-control form-control-sm"
                                                 wire:model="days.{{ $index }}.title" placeholder="Заголовок дня">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Описание <span class="text-danger">*</span></label>
+                                            <x-quill wire:model.defer="days.{{ $index }}.description" />
+                                            @error("days.$index.description") <span class="text-danger small">{{ $message }}</span> @enderror
                                         </div>
 
                                         @php
