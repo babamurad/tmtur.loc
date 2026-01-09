@@ -509,6 +509,26 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Pricing Section --}}
+                    <div class="card">
+                        <div class="card-header pointer-cursor d-flex justify-content-between align-items-center" 
+                             data-toggle="collapse" 
+                             data-target="#pricingCollapse" 
+                             aria-expanded="false" 
+                             style="cursor: pointer;">
+                            <h5 class="card-title mb-0">
+                                <i class="bx bx-dollar-circle font-size-18 align-middle mr-1 text-primary"></i>
+                                Ценообразование
+                            </h5>
+                            <i class="bx bx-chevron-down font-size-18"></i>
+                        </div>
+                        <div id="pricingCollapse" class="collapse">
+                            <div class="card-body">
+                                <livewire:admin.tours.tour-pricing-tab :tour="$tour" wire:key="tour-pricing-{{ $tour->id }}" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Sidebar Column --}}

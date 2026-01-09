@@ -27,6 +27,10 @@ class Tour extends Model
         'is_published',
         'base_price_cents',
         'duration_days',
+        'cost_transport_cents',
+        'cost_guide_cents',
+        'cost_meal_per_day_cents',
+        'company_margin_percent',
     ];
 
     protected $casts = [
@@ -34,7 +38,11 @@ class Tour extends Model
         'base_price_cents' => 'integer',
         'duration_days' => 'integer',
         'slug' => 'string',
-        'tour_category_id' => 'integer'
+        'tour_category_id' => 'integer',
+        'cost_transport_cents' => 'integer',
+        'cost_guide_cents' => 'integer',
+        'cost_meal_per_day_cents' => 'integer',
+        'company_margin_percent' => 'decimal:2',
     ];
 
     //    public function category(): BelongsTo
@@ -160,5 +168,10 @@ class Tour extends Model
             ->filter()
             ->unique()
             ->join(' -> ');
+    }
+
+    public function prices(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TourPrice::class);
     }
 }
