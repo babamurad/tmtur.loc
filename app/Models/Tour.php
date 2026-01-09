@@ -152,4 +152,13 @@ class Tour extends Model
     {
         return $this->hasManyThrough(Service::class, TourGroup::class);
     }
+
+    public function getRouteStringAttribute(): string
+    {
+        return $this->itineraryDays->loadMissing('location')
+            ->pluck('location.name')
+            ->filter()
+            ->unique()
+            ->join(' -> ');
+    }
 }

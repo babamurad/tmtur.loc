@@ -8,6 +8,7 @@ use App\Enums\PlaceType;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
 use App\Livewire\Traits\HasGeminiTranslation;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class PlaceEditComponent extends Component
 {
@@ -83,8 +84,7 @@ class PlaceEditComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.place_updated'));
-        return redirect()->route('admin.places.index');
+        return $this->flash('success', __('locations.place_updated'), [], route('admin.places.index'));
     }
 
     protected function getTranslationContext(): string

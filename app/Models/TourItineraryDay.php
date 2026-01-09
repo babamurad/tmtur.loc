@@ -17,11 +17,27 @@ class TourItineraryDay extends Model
         'day_number',
         'title',
         'description',
+        'location_id',
     ];
 
     // Связь: один день итинерария принадлежит одному туру
     public function tour()
     {
         return $this->belongsTo(Tour::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    public function places()
+    {
+        return $this->belongsToMany(Place::class, 'tour_itinerary_day_place');
+    }
+
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'tour_itinerary_day_hotel');
     }
 }

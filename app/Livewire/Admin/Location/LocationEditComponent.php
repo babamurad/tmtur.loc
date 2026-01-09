@@ -7,6 +7,7 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Rule;
 use App\Livewire\Traits\HasGeminiTranslation;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class LocationEditComponent extends Component
 {
@@ -73,8 +74,7 @@ class LocationEditComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.location_updated'));
-        return redirect()->route('admin.locations.index');
+        return $this->flash('success', __('locations.location_updated'), [], route('admin.locations.index'));
     }
 
     protected function getTranslationContext(): string

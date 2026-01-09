@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Enums\PlaceType;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class PlaceCreateComponent extends Component
 {
@@ -75,7 +76,7 @@ class PlaceCreateComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.place_created'));
+        session()->flash('success', __('locations.place_created'));
         return redirect()->route('admin.places.index');
     }
 

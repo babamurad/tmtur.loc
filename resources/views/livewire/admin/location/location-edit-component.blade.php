@@ -19,9 +19,7 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4">Данные локации</h5>
 
-                        @if(Session::has('message'))
-                            <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
-                        @endif
+
 
                         <form wire:submit.prevent="updateLocation">
                             {{-- Language Tabs --}}

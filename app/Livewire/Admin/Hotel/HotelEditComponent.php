@@ -8,6 +8,7 @@ use App\Enums\HotelCategory;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
 use App\Livewire\Traits\HasGeminiTranslation;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class HotelEditComponent extends Component
 {
@@ -78,8 +79,7 @@ class HotelEditComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.hotel_updated'));
-        return redirect()->route('admin.hotels.index');
+        return $this->flash('success', __('locations.hotel_updated'), [], route('admin.hotels.index'));
     }
 
     protected function getTranslationContext(): string

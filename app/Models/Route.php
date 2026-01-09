@@ -12,18 +12,29 @@ class Route extends Model
     protected $fillable = [
         'title',
         'description',
-        'day_number',
-        'location',
         'activities',
         'is_active',
-        'sort_order'
+        'sort_order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'day_number' => 'integer',
-        'sort_order' => 'integer'
     ];
+
+    public function days()
+    {
+        return $this->hasMany(RouteDay::class)->orderBy('day_number');
+    }
+
+    // Proxy to get route string from days
+    public function getRouteStringAttribute(): string
+    {
+        return $this->days->loadMissing('location')
+            ->pluck('location.name')
+            ->filter()
+            ->unique()
+            ->join(' → ');
+    }
 
     public function scopeActive($query)
     {
@@ -32,6 +43,6 @@ class Route extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('day_number')->orderBy('sort_order');
+        return $query->orderBy('sort_order');
     }
 }

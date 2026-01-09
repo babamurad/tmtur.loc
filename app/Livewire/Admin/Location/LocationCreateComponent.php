@@ -6,6 +6,7 @@ use App\Models\Location;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Rule;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class LocationCreateComponent extends Component
 {
@@ -69,13 +70,10 @@ class LocationCreateComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.location_created'));
+        $message = __('locations.location_created');
+        $route = $new ? route('admin.locations.create') : route('admin.locations.index');
 
-        if ($new) {
-            return redirect()->route('admin.locations.create');
-        }
-
-        return redirect()->route('admin.locations.index');
+        return $this->flash('success', $message, [], $route);
     }
 
     protected function getTranslatableFields(): array

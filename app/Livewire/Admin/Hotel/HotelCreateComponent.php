@@ -7,9 +7,11 @@ use App\Models\Location;
 use App\Enums\HotelCategory;
 use Livewire\Component;
 use Livewire\Attributes\Rule;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class HotelCreateComponent extends Component
 {
+
     #[Rule('required')]
     public $name;
 
@@ -71,8 +73,7 @@ class HotelCreateComponent extends Component
             }
         }
 
-        session()->flash('message', __('locations.hotel_created'));
-        return redirect()->route('admin.hotels.index');
+        return $this->flash('success', __('locations.hotel_created'), [], route('admin.hotels.index'));
     }
 
     public function render()

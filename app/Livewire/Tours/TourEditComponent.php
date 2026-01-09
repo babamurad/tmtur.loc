@@ -73,6 +73,11 @@ class TourEditComponent extends Component
 
             'itinerary_days' => 'nullable|array',
             'itinerary_days.*.day_number' => 'required|integer|min:1',
+            'itinerary_days.*.location_id' => 'nullable|exists:locations,id',
+            'itinerary_days.*.place_ids' => 'nullable|array',
+            'itinerary_days.*.place_ids.*' => 'exists:places,id',
+            'itinerary_days.*.hotel_ids' => 'nullable|array',
+            'itinerary_days.*.hotel_ids.*' => 'exists:hotels,id',
 
             'inclusions' => 'nullable|array',
             'inclusions.*.inclusion_id' => 'required|exists:inclusions,id',
@@ -156,7 +161,8 @@ class TourEditComponent extends Component
             ];
         })->toArray();
 
-        // Загружаем дни итинерария с переводами
+        // Загружаем дни итинерария с переводами и связями
+        $tour->load(['itineraryDays.places', 'itineraryDays.hotels']);
         $this->itinerary_days = $tour->itineraryDays->map(function ($item) {
             $trans = [];
             foreach (config('app.available_locales') as $locale) {
@@ -168,6 +174,9 @@ class TourEditComponent extends Component
             return [
                 'id' => $item->id,
                 'day_number' => $item->day_number,
+                'location_id' => $item->location_id,
+                'place_ids' => $item->places->pluck('id')->toArray(),
+                'hotel_ids' => $item->hotels->pluck('id')->toArray(),
                 'trans' => $trans
             ];
         })->all();
@@ -209,6 +218,19 @@ class TourEditComponent extends Component
         $this->slug = Str::slug($this->title);
     }
 
+    public function updated($property, $value)
+    {
+        // When location changes in itinerary, clear selected places and hotels
+        if (Str::startsWith($property, 'itinerary_days') && Str::endsWith($property, 'location_id')) {
+            $parts = explode('.', $property);
+            if (isset($parts[1])) {
+                $index = $parts[1];
+                $this->itinerary_days[$index]['place_ids'] = [];
+                $this->itinerary_days[$index]['hotel_ids'] = [];
+            }
+        }
+    }
+
     // === Методы для Itinerary Days ===
     public function addItineraryDay()
     {
@@ -222,6 +244,9 @@ class TourEditComponent extends Component
 
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
+            'location_id' => null,
+            'place_ids' => [],
+            'hotel_ids' => [],
             'trans' => $trans
         ];
     }
@@ -498,8 +523,16 @@ class TourEditComponent extends Component
                     'day_number' => $dayData['day_number'],
                     'title' => $dayData['trans'][$fallbackLocale]['title'] ?? '',
                     'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
+                    'location_id' => $dayData['location_id'] ?? null,
                 ]
             );
+
+            if (isset($dayData['place_ids'])) {
+                $day->places()->sync($dayData['place_ids']);
+            }
+            if (isset($dayData['hotel_ids'])) {
+                $day->hotels()->sync($dayData['hotel_ids']);
+            }
 
             // Сохраняем переводы
             foreach ($dayData['trans'] as $locale => $fields) {
@@ -616,7 +649,7 @@ class TourEditComponent extends Component
     {
         $categories = TourCategory::select('id', 'title')->get();
         $tags = \App\Models\Tag::all();
-        $locations = Location::orderBy('name')->with('hotels')->get();
+        $locations = Location::orderBy('name')->with(['hotels', 'places'])->get();
 
         return view('livewire.tours.tour-edit-component', [
             'categories' => $categories,

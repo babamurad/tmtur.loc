@@ -198,15 +198,71 @@
                                             <div class="row mb-2">
                                                 <div class="col-md-12">
                                                     <label class="form-label">Номер дня</label>
-                                                    <input type="number" 
-                                                           wire:model.defer="itinerary_days.{{ $index }}.day_number" 
-                                                           class="form-control form-control-sm" 
-                                                           placeholder="№" 
-                                                           min="1">
-                                                    @error("itinerary_days.{$index}.day_number") 
-                                                    <div class="text-danger small">{{ $message }}</div> 
+                                                    <input type="number"
+                                                        wire:model.defer="itinerary_days.{{ $index }}.day_number"
+                                                        class="form-control form-control-sm" placeholder="№" min="1">
+                                                    @error("itinerary_days.{$index}.day_number")
+                                                        <div class="text-danger small">{{ $message }}</div>
                                                     @enderror
                                                 </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-4">
+                                                    <label class="form-label">Локация</label>
+                                                    <select wire:model.live="itinerary_days.{{ $index }}.location_id" class="form-control form-control-sm">
+                                                        <option value="">Выберите локацию...</option>
+                                                        @foreach($locations as $loc)
+                                                            <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                @php
+                                                    $currentLocId = $itinerary_days[$index]['location_id'] ?? null;
+                                                    $currentLoc = $locations->find($currentLocId);
+                                                    $places = $currentLoc ? $currentLoc->places : [];
+                                                    $hotels = $currentLoc ? $currentLoc->hotels : [];
+                                                @endphp
+
+                                                @if($currentLoc)
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Места для посещения</label>
+                                                        <div class="border rounded p-2 bg-white" style="max-height: 150px; overflow-y: auto;">
+                                                            @forelse($places as $place)
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                           id="edit-place-{{ $index }}-{{ $place->id }}"
+                                                                           wire:model.defer="itinerary_days.{{ $index }}.place_ids"
+                                                                           value="{{ $place->id }}">
+                                                                    <label class="custom-control-label" for="edit-place-{{ $index }}-{{ $place->id }}">
+                                                                        {{ $place->name }}
+                                                                    </label>
+                                                                </div>
+                                                            @empty
+                                                                <small class="text-muted">Нет мест</small>
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label">Отели (Список)</label>
+                                                        <div class="border rounded p-2 bg-white" style="max-height: 150px; overflow-y: auto;">
+                                                            @forelse($hotels as $hotel)
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                           id="edit-hotel-{{ $index }}-{{ $hotel->id }}"
+                                                                           wire:model.defer="itinerary_days.{{ $index }}.hotel_ids"
+                                                                           value="{{ $hotel->id }}">
+                                                                    <label class="custom-control-label" for="edit-hotel-{{ $index }}-{{ $hotel->id }}">
+                                                                        {{ $hotel->name }}
+                                                                    </label>
+                                                                </div>
+                                                            @empty
+                                                                <small class="text-muted">Нет отелей</small>
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
     
                                             {{-- Language Tabs --}}

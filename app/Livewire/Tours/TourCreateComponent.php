@@ -72,6 +72,11 @@ class TourCreateComponent extends Component
             'seo_description' => 'nullable|string|max:255',
 
             'itinerary_days.*.day_number' => 'required|integer|min:1',
+            'itinerary_days.*.location_id' => 'nullable|exists:locations,id',
+            'itinerary_days.*.place_ids' => 'nullable|array',
+            'itinerary_days.*.place_ids.*' => 'exists:places,id',
+            'itinerary_days.*.hotel_ids' => 'nullable|array',
+            'itinerary_days.*.hotel_ids.*' => 'exists:hotels,id',
 
             // Updated rules for inclusions
             'inclusions.*.inclusion_id' => 'required|exists:inclusions,id',
@@ -145,7 +150,7 @@ class TourCreateComponent extends Component
     {
         $categories = TourCategory::all();
         $tags = \App\Models\Tag::all(); // Load all tags
-        $locations = Location::orderBy('name')->with('hotels')->get(); // Load locations with hotels
+        $locations = Location::orderBy('name')->with(['hotels', 'places'])->get(); // Load locations with hotels and places
 
         return view('livewire.tours.tour-create-component', [
             'categories' => $categories,
@@ -163,6 +168,20 @@ class TourCreateComponent extends Component
         }
     }
 
+    public function updated($property, $value)
+    {
+        // When location changes in itinerary, clear selected places and hotels
+        if (Str::startsWith($property, 'itinerary_days') && Str::endsWith($property, 'location_id')) {
+            $parts = explode('.', $property);
+            // parts: [itinerary_days, index, location_id]
+            if (isset($parts[1])) {
+                $index = $parts[1];
+                $this->itinerary_days[$index]['place_ids'] = [];
+                $this->itinerary_days[$index]['hotel_ids'] = [];
+            }
+        }
+    }
+
     public function addItineraryDay()
     {
         $trans = [];
@@ -175,6 +194,9 @@ class TourCreateComponent extends Component
 
         $this->itinerary_days[] = [
             'day_number' => count($this->itinerary_days) + 1,
+            'location_id' => null,
+            'place_ids' => [],
+            'hotel_ids' => [],
             'trans' => $trans
         ];
     }
@@ -379,7 +401,15 @@ class TourCreateComponent extends Component
                 'day_number' => $dayData['day_number'],
                 'title' => $dayData['trans'][$fallbackLocale]['title'] ?? '',
                 'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
+                'location_id' => $dayData['location_id'] ?? null,
             ]);
+
+            if (!empty($dayData['place_ids'])) {
+                $day->places()->sync($dayData['place_ids']);
+            }
+            if (!empty($dayData['hotel_ids'])) {
+                $day->hotels()->sync($dayData['hotel_ids']);
+            }
 
             foreach ($dayData['trans'] as $locale => $fields) {
                 foreach ($fields as $field => $value) {
