@@ -14,7 +14,7 @@ class Hotel extends Model
 
     public $fields = ['name'];
 
-    protected $fillable = ['location_id', 'name', 'category'];
+    protected $fillable = ['location_id', 'name', 'category', 'price'];
 
     protected $casts = [
         'category' => HotelCategory::class,

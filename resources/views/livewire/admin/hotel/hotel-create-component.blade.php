@@ -98,6 +98,16 @@
                                 </div>
                             </div>
 
+                            {{-- Price --}}
+                            <div class="form-group">
+                                <label class="form-label">Цена</label>
+                                <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror"
+                                    placeholder="Введите цену" wire:model="price">
+                                @error('price')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             {{-- Buttons --}}
                             <div class="form-group mb-0 mt-4">
                                 <button type="submit" class="btn btn-success waves-effect waves-light mr-2">

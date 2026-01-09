@@ -24,6 +24,9 @@ class HotelEditComponent extends Component
     #[Rule('required')]
     public $category;
 
+    #[Rule('nullable|numeric|min:0')]
+    public $price;
+
     public array $trans = [];
     public $locations;
     public $categories;
@@ -34,6 +37,7 @@ class HotelEditComponent extends Component
             'name' => 'required',
             'location_id' => 'required|exists:locations,id',
             'category' => 'required',
+            'price' => 'nullable|numeric|min:0',
         ];
 
         foreach (config('app.available_locales') as $l) {
@@ -50,6 +54,7 @@ class HotelEditComponent extends Component
         $this->name = $hotel->name;
         $this->location_id = $hotel->location_id;
         $this->category = $hotel->category->value;
+        $this->price = $hotel->price;
 
         $this->locations = Location::all();
         $this->categories = HotelCategory::options();
@@ -68,6 +73,7 @@ class HotelEditComponent extends Component
         $hotel->name = $this->name;
         $hotel->category = HotelCategory::from($this->category);
         $hotel->location_id = $this->location_id;
+        $hotel->price = $this->price;
         $hotel->save();
 
         // Save translations
