@@ -383,10 +383,31 @@
                                                                 
                                                                 @if($selectedGroupId === $group->id)
                                                                     <div class="mt-2 animate__animated animate__fadeIn">
+                                                                        {{-- People Count --}}
                                                                         <div class="form-group mb-2">
-                                                                            <label class="small">Кол-во людей:</label>
+                                                                            <label class="small font-weight-bold">Кол-во людей:</label>
                                                                             <input type="number" wire:model.live="peopleCount" class="form-control form-control-sm" min="1" max="{{ $available }}">
                                                                         </div>
+
+                                                                        {{-- Accommodation Type --}}
+                                                                        <div class="form-group mb-2">
+                                                                            <label class="small font-weight-bold">Тип размещения:</label>
+                                                                            <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                                                                <label class="btn btn-sm btn-outline-secondary {{ $accommodationType == 'standard' ? 'active' : '' }}" wire:click="$set('accommodationType', 'standard')">
+                                                                                    <input type="radio" name="options" id="option1" autocomplete="off" {{ $accommodationType == 'standard' ? 'checked' : '' }}> Standard
+                                                                                </label>
+                                                                                <label class="btn btn-sm btn-outline-secondary {{ $accommodationType == 'comfort' ? 'active' : '' }}" wire:click="$set('accommodationType', 'comfort')">
+                                                                                    <input type="radio" name="options" id="option2" autocomplete="off" {{ $accommodationType == 'comfort' ? 'checked' : '' }}> Comfort
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        {{-- Total & Button --}}
+                                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                            <span class="small text-muted">Цена за чел:</span>
+                                                                            <span class="font-weight-bold text-primary">${{ $this->calculatedPrice }}</span>
+                                                                        </div>
+
                                                                         <button wire:click="addToCart" class="btn btn-sm btn-primary btn-block">
                                                                             <i class="fas fa-shopping-cart mr-1"></i> В корзину
                                                                         </button>

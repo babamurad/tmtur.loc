@@ -27,7 +27,8 @@ class CartComponent extends Component
                 }
 
                 // Price is in dollars, convert to cents for total
-                $pricePerPersonCents = $group->getPriceForPeople($row['people']) * 100;
+                $accommodationType = $row['accommodation_type'] ?? 'standard';
+                $pricePerPersonCents = $group->getPriceForPeople($row['people'], $accommodationType) * 100;
                 $total = $pricePerPersonCents * $row['people'];
 
                 // суммируем выбранные услуги
@@ -41,6 +42,7 @@ class CartComponent extends Component
                     'tour_group_id' => $group->id,
                     'customer_id' => auth()->id(), // ← залогиненный пользователь
                     'people_count' => $row['people'],
+                    'accommodation_type' => $accommodationType,
                     'total_price_cents' => $total,
                     'status' => 'pending',
                     'referer' => app(\Spatie\Referer\Referer::class)->get(),

@@ -20,13 +20,32 @@ class TourGroup extends Model
         'status',
     ];
 
-    public function getPriceForPeople(int $peopleCount): int
+    /**
+     * @param int $peopleCount
+     * @param string $accommodationType 'standard'|'comfort'
+     * @return int
+     */
+    public function getPriceForPeople(int $peopleCount, string $accommodationType = 'standard'): int
     {
+        // 1. Try to find strict price from matrix
+        $price = $this->tour->prices()
+            ->where('accommodation_type', $accommodationType)
+            ->where('min_people', '<=', $peopleCount)
+            ->where('max_people', '>=', $peopleCount)
+            ->value('price_cents');
+
+        if ($price) {
+            return (int) $price;
+        }
+
+        // 2. Fallback to old logic (Linear interpolation) if no matrix entry found
+        //    Legacy logic only supports 'standard' price (no accommodation differentiation properly)
+
         if ($peopleCount <= 1) {
             return $this->price_max;
         }
 
-        if ($peopleCount >= $this->max_people) {
+        if ($this->max_people > 0 && $peopleCount >= $this->max_people) {
             return $this->price_min;
         }
 
@@ -34,8 +53,9 @@ class TourGroup extends Model
         // P = Pmax - (Pmax - Pmin) * (N - 1) / (Nmax - 1)
         $priceDiff = $this->price_max - $this->price_min;
         $peopleDiff = $this->max_people - 1;
-        
-        if ($peopleDiff <= 0) return $this->price_max;
+
+        if ($peopleDiff <= 0)
+            return $this->price_max;
 
         $discountPerPerson = $priceDiff / $peopleDiff;
         $currentPeopleDiff = $peopleCount - 1;

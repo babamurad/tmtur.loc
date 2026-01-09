@@ -21,6 +21,7 @@ class Booking extends Model
         'cancelled_at',
         'referer',
         'generated_link_id',
+        'accommodation_type',
     ];
 
     protected $casts = [

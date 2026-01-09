@@ -12,6 +12,7 @@ class ToursShow extends Component
     public Tour $tour;
     public ?int $selectedGroupId = null;
     public int $peopleCount = 1;
+    public string $accommodationType = 'standard'; // 'standard' or 'comfort'
     public array $services = [];   // id => bool
 
     public $sending = false;
@@ -24,6 +25,7 @@ class ToursShow extends Component
     protected $rules = [
         'selectedGroupId' => 'required|exists:tour_groups,id',
         'peopleCount' => 'required|integer|min:1|max:9',
+        'accommodationType' => 'required|in:standard,comfort',
     ];
 
     public function mount(Tour $tour)
@@ -96,6 +98,7 @@ class ToursShow extends Component
             'tour_group_id' => $this->selectedGroupId,
             'tour_group_title' => $tourGroup ? ($tourGroup->tour?->tr('title') ?? $tourGroup->tour?->title) : null,
             'people_count' => $this->peopleCount,
+            'accommodation_type' => $this->accommodationType,
             'services' => array_keys(array_filter($this->services)),
         ];
 
@@ -135,7 +138,7 @@ class ToursShow extends Component
                 \Log::info('Customer ID: ' . $customer->id);
 
                 // Calculate price
-                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count']);
+                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count'], $data['accommodation_type'] ?? 'standard');
                 $totalPriceCents = $pricePerPerson * $data['people_count'] * 100;
 
                 // Create Booking
@@ -143,6 +146,7 @@ class ToursShow extends Component
                     'tour_group_id' => $tourGroup->id,
                     'customer_id' => $customer->id,
                     'people_count' => $data['people_count'],
+                    'accommodation_type' => $data['accommodation_type'] ?? 'standard',
                     'total_price_cents' => $totalPriceCents,
                     'status' => 'pending',
                     'notes' => $data['message'],
@@ -205,6 +209,18 @@ class ToursShow extends Component
             ->count();
     }
 
+    public function getCalculatedPriceProperty()
+    {
+        if (!$this->selectedGroupId)
+            return 0;
+
+        $group = TourGroup::find($this->selectedGroupId);
+        if (!$group)
+            return 0;
+
+        return $group->getPriceForPeople($this->peopleCount, $this->accommodationType);
+    }
+
     public function addToCart()
     {
         $this->validate();
@@ -221,6 +237,7 @@ class ToursShow extends Component
         $cart[] = [
             'tour_group_id' => $this->selectedGroupId,
             'people' => $this->peopleCount,
+            'accommodation_type' => $this->accommodationType,
             'services' => array_keys(array_filter($this->services)),
         ];
         session()->put('cart', $cart);
