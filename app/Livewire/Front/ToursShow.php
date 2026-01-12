@@ -63,7 +63,7 @@ class ToursShow extends Component
         $this->dispatch('open-modal');
     }
 
-    public function sendMessage()
+    public function sendMessage(\App\Actions\Booking\CreateBookingAction $createBookingAction)
     {
         \Log::info('sendMessage called. SelectedGroupId: ' . var_export($this->selectedGroupId, true));
         $this->sending = true;
@@ -102,94 +102,19 @@ class ToursShow extends Component
             'services' => array_keys(array_filter($this->services)),
         ];
 
-        // Save to DB
         try {
-            ContactMessage::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-                'message' => $data['message'] ?? $this->tour->tr('title'),
-                'tour_title' => $data['tour_title'],
-                'tour_id' => $data['tour_id'],
-                'tour_group_id' => $data['tour_group_id'],
-                'people_count' => $data['people_count'],
-                'services' => json_encode($data['services']), // Сохраняем как JSON
-                'ip' => request()->ip(),
-                'user_agent' => request()->header('User-Agent'),
-            ]);
-        } catch (\Throwable $e) {
-            \Log::error('ContactMessage save error: ' . $e->getMessage());
+            $createBookingAction->execute($data);
+
+            // Reset form and show success
+            $this->resetForm();
+            session()->flash('contact_success', 'Message sent. Thank you!');
+            $this->dispatch('close-modal');
+        } catch (\Exception $e) {
+            \Log::error('Booking Error: ' . $e->getMessage());
+            session()->flash('contact_error', 'Something went wrong. Please try again.');
         }
 
-        // Create Booking if group is selected
-        if ($tourGroup) {
-            try {
-                \Log::info('Attempting to create booking for group: ' . $tourGroup->id);
-
-                // Find or create Customer
-                $customer = Customer::firstOrCreate(
-                    ['email' => $data['email']],
-                    [
-                        'full_name' => $data['name'],
-                        'phone' => $data['phone'] ?? '',
-                    ]
-                );
-
-                \Log::info('Customer ID: ' . $customer->id);
-
-                // Calculate price
-                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count'], $data['accommodation_type'] ?? 'standard');
-                $totalPriceCents = $pricePerPerson * $data['people_count'] * 100;
-
-                // Create Booking
-                $booking = Booking::create([
-                    'tour_group_id' => $tourGroup->id,
-                    'customer_id' => $customer->id,
-                    'people_count' => $data['people_count'],
-                    'accommodation_type' => $data['accommodation_type'] ?? 'standard',
-                    'total_price_cents' => $totalPriceCents,
-                    'status' => 'pending',
-                    'notes' => $data['message'],
-                    'referer' => app(\Spatie\Referer\Referer::class)->get(),
-                    'generated_link_id' => session('generated_link_id'),
-                ]);
-
-                \Log::info('Booking created successfully. ID: ' . $booking->id);
-            } catch (\Throwable $e) {
-                \Log::error('Booking creation error in sendMessage: ' . $e->getMessage());
-            }
-        }
-
-        // Reset form and show success immediately for better UX
-        $this->resetForm();
-        session()->flash('contact_success', 'Message sent. Thank you!');
-        // $this->dispatch('messagesUpdated');
-        $this->dispatch('close-modal'); // Добавлено для закрытия модального окна
         $this->sending = false;
-
-        // Send email notification asynchronously (in background)
-        // This runs AFTER user sees success message
-        try {
-            $recipient = env('MAIL_TO_ADDRESS') ?: config('mail.from.address');
-            if ($recipient) {
-                Mail::to($recipient)->send(new ContactReceived(
-                    ['name' => $data['name'], 'email' => $data['email'], 'phone' => $data['phone'], 'message' => $data['message']],
-                    [
-                        'tour_title' => $data['tour_title'],
-                        'tour_group_id' => $data['tour_group_id'],
-                        'tour_group_title' => $data['tour_group_title'],
-                        'people_count' => $data['people_count'],
-                        'services' => $data['services'],
-                    ]
-                ));
-                \Log::channel('daily')->info('Contact email queued/sent to: ' . $recipient, ['from' => $data['email'], 'tour_id' => $data['tour_id'] ?? null]);
-            } else {
-                \Log::channel('daily')->warning('Contact form submitted but no recipient email configured in .env');
-            }
-        } catch (\Throwable $e) {
-            // Log error but don't break user experience
-            \Log::error('Contact email send error: ' . $e->getMessage());
-        }
     }
 
     public function getAvailableServicesProperty()

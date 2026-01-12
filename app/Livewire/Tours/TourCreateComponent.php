@@ -351,111 +351,33 @@ class TourCreateComponent extends Component
         $this->performBatchTranslation($translator, 'ko', 'Korean');
     }
 
-    public function save()
+    public function save(\App\Actions\Tour\CreateTourAction $createTourAction)
     {
         $fallback = config('app.fallback_locale');
         $this->trans[$fallback]['title'] = $this->title;
 
         $this->validate();
 
-        $tour = Tour::create([
+        $data = [
             'title' => $this->title,
             'slug' => $this->slug,
             'is_published' => $this->is_published,
-            'base_price_cents' => $this->base_price_cents ?? 0,
-            'duration_days' => $this->duration_days ?? 1,
-            'short_description' => $this->trans[config('app.fallback_locale')]['short_description'] ?? '',
-        ]);
+            'base_price_cents' => $this->base_price_cents,
+            'duration_days' => $this->duration_days,
+            'seo_title' => $this->seo_title,
+            'seo_description' => $this->seo_description,
+        ];
 
-        // Сохранение SEO
-        if ($this->seo_title || $this->seo_description) {
-            $tour->seo()->create([
-                'title' => $this->seo_title,
-                'description' => $this->seo_description,
-            ]);
-        }
-
-        $fallbackLocale = config('app.fallback_locale');
-        $this->trans[$fallbackLocale]['title'] = $this->title;
-
-        foreach ($this->trans as $locale => $fields) {
-            foreach ($fields as $field => $value) {
-                // Пропускаем пустые значения - не сохраняем переводы без перевода
-                if ($value !== null && $value !== '') {
-                    $tour->setTr($field, $locale, $value);
-                }
-            }
-        }
-
-        $tour->categories()->sync($this->category_id);
-
-        // Process Tags
-        if ($this->tags_selected) {
-            $tour->tags()->sync($this->tags_selected);
-        }
-
-        foreach ($this->itinerary_days as $dayData) {
-            $fallbackLocale = config('app.fallback_locale');
-            $day = TourItineraryDay::create([
-                'tour_id' => $tour->id,
-                'day_number' => $dayData['day_number'],
-                'title' => $dayData['trans'][$fallbackLocale]['title'] ?? '',
-                'description' => $dayData['trans'][$fallbackLocale]['description'] ?? '',
-                'location_id' => $dayData['location_id'] ?? null,
-            ]);
-
-            if (!empty($dayData['place_ids'])) {
-                $day->places()->sync($dayData['place_ids']);
-            }
-            if (!empty($dayData['hotel_ids'])) {
-                $day->hotels()->sync($dayData['hotel_ids']);
-            }
-
-            foreach ($dayData['trans'] as $locale => $fields) {
-                foreach ($fields as $field => $value) {
-                    // Пропускаем пустые значения
-                    if ($value !== null && $value !== '') {
-                        $day->setTr($field, $locale, $value);
-                    }
-                }
-            }
-        }
-
-        // Sync Inclusions
-        $syncData = [];
-        foreach ($this->inclusions as $incData) {
-            if (!empty($incData['inclusion_id'])) {
-                $syncData[$incData['inclusion_id']] = ['is_included' => $incData['is_included']];
-            }
-        }
-        $tour->inclusions()->sync($syncData);
-
-        foreach ($this->accommodations as $accData) {
-            TourAccommodation::create([
-                'tour_id' => $tour->id,
-                'nights_count' => $accData['nights_count'],
-                'location_id' => $accData['location_id'] ?? null,
-                'hotel_standard_id' => $accData['hotel_standard_id'] ?? null,
-                'hotel_comfort_id' => $accData['hotel_comfort_id'] ?? null,
-            ]);
-        }
-
-        if ($this->images && count($this->images) > 0) {
-            $imageService = new ImageService();
-            foreach ($this->images as $idx => $file) {
-                $optimized = $imageService->saveOptimized($file, 'tours/' . $tour->id);
-
-                Media::create([
-                    'model_type' => Tour::class,
-                    'model_id' => $tour->id,
-                    'file_path' => $optimized['path'],
-                    'file_name' => $optimized['file_name'],
-                    'mime_type' => $optimized['mime_type'],
-                    'size' => $optimized['size'],
-                    'order' => $idx,
-                ]);
-            }
-        }
+        $createTourAction->execute(
+            data: $data,
+            images: $this->images,
+            trans: $this->trans,
+            itineraryDays: $this->itinerary_days,
+            inclusions: $this->inclusions,
+            accommodations: $this->accommodations,
+            categories: $this->category_id,
+            tags: $this->tags_selected
+        );
 
         session()->flash('saved', [
             'title' => 'Тур создан!',
