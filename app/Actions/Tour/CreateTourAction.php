@@ -46,7 +46,7 @@ class CreateTourAction
                 'title' => $data['title'],
                 'slug' => $data['slug'],
                 'is_published' => $data['is_published'] ?? false,
-                'base_price_cents' => $data['base_price_cents'] ?? 0,
+                'base_price' => $data['base_price'] ?? 0,
                 'duration_days' => $data['duration_days'] ?? 1,
                 'short_description' => $trans[$fallbackLocale]['short_description'] ?? '',
             ]);

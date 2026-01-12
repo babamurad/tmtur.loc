@@ -31,8 +31,10 @@ class TourCreateComponent extends Component
     public $short_description = '';
     public $images = [];
     public $is_published = true;
-    public $base_price_cents;
+    public $base_price; // Changed from base_price_cents
     public $duration_days;
+
+
 
     // Поля для итинерария
     public $itinerary_days = [];
@@ -65,7 +67,7 @@ class TourCreateComponent extends Component
             'images' => 'nullable|array',
             'images.*' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
-            'base_price_cents' => 'nullable|integer|min:0',
+            'base_price' => 'nullable|numeric|min:0',
             'duration_days' => 'nullable|integer|min:0',
 
             'seo_title' => 'nullable|string|max:255',
@@ -380,7 +382,7 @@ class TourCreateComponent extends Component
             'title' => $this->title,
             'slug' => $this->slug,
             'is_published' => $this->is_published,
-            'base_price_cents' => $this->base_price_cents,
+            'base_price' => $this->base_price,
             'duration_days' => $this->duration_days,
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,

@@ -31,6 +31,10 @@ class Tour extends Model
         'cost_guide_cents',
         'cost_meal_per_day_cents',
         'company_margin_percent',
+        'base_price',
+        'cost_transport',
+        'cost_guide',
+        'cost_meal_per_day',
     ];
 
     protected $casts = [
@@ -44,6 +48,45 @@ class Tour extends Model
         'cost_meal_per_day_cents' => 'integer',
         'company_margin_percent' => 'decimal:2',
     ];
+
+    protected $appends = [
+        'base_price',
+        'cost_transport',
+        'cost_guide',
+        'cost_meal_per_day',
+    ];
+
+    protected function basePrice(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn($value, $attributes) => ($attributes['base_price_cents'] ?? 0) / 100,
+            set: fn($value) => ['base_price_cents' => $value * 100],
+        );
+    }
+
+    protected function costTransport(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn($value, $attributes) => ($attributes['cost_transport_cents'] ?? 0) / 100,
+            set: fn($value) => ['cost_transport_cents' => $value * 100],
+        );
+    }
+
+    protected function costGuide(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn($value, $attributes) => ($attributes['cost_guide_cents'] ?? 0) / 100,
+            set: fn($value) => ['cost_guide_cents' => $value * 100],
+        );
+    }
+
+    protected function costMealPerDay(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn($value, $attributes) => ($attributes['cost_meal_per_day_cents'] ?? 0) / 100,
+            set: fn($value) => ['cost_meal_per_day_cents' => $value * 100],
+        );
+    }
 
     //    public function category(): BelongsTo
 //    {

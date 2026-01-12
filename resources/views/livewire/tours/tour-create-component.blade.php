@@ -118,11 +118,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="base_price_cents">Цена $ <span class="text-danger">*</span></label>
-                                        <input type="number" id="base_price_cents" wire:model.defer="base_price_cents"
-                                            class="form-control @error('base_price_cents') is-invalid @enderror"
+                                        <label for="base_price">Цена $ <span class="text-danger">*</span></label>
+                                        <input type="number" id="base_price" wire:model.defer="base_price"
+                                            class="form-control @error('base_price') is-invalid @enderror"
                                             placeholder="150">
-                                        @error('base_price_cents')
+                                        @error('base_price')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
