@@ -88,11 +88,6 @@ class Tour extends Model
         );
     }
 
-    //    public function category(): BelongsTo
-//    {
-//        return $this->belongsTo(TourCategory::class, 'tour_category_id');
-//    }
-
     protected static function booted()
     {
         static::deleted(fn($model) => $model->translations()->delete());
@@ -141,18 +136,6 @@ class Tour extends Model
         return $this->hasMany(Media::class, 'model_id', 'id')
             ->where('model_type', Tour::class)
             ->orderBy('order');
-    }
-
-    public function getFirstMediaUrl($collectionName = 'default')
-    {
-        $media = $this->orderedMedia()->first();
-
-        if (!$media) {
-            return asset('assets/images/media/no-image.jpg'); // Путь к изображению по умолчанию
-        }
-
-        // Возвращаем URL к изображению
-        return asset('uploads/' . $media->file_path);
     }
 
     // Accessor для удобного использования в Blade

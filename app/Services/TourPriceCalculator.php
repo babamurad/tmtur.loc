@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Tour;
 use App\Models\TourAccommodation;
 use Illuminate\Support\Collection;
+use App\Enums\AccommodationType;
 
 class TourPriceCalculator
 {
@@ -14,14 +15,16 @@ class TourPriceCalculator
      * @param int $maxPeople
      * @return array
      */
+    //...
+
     public function calculateMatrix(Tour $tour, int $minPeople = 1, int $maxPeople = 15): array
     {
         $matrix = [];
         // Рассчитываем стоимость для каждого количества человек
         for ($peopleCount = $minPeople; $peopleCount <= $maxPeople; $peopleCount++) {
             $matrix[$peopleCount] = [
-                'standard' => $this->calculatePriceForPeople($tour, $peopleCount, 'standard'),
-                'comfort' => $this->calculatePriceForPeople($tour, $peopleCount, 'comfort'),
+                'standard' => $this->calculatePriceForPeople($tour, $peopleCount, AccommodationType::STANDARD->value),
+                'comfort' => $this->calculatePriceForPeople($tour, $peopleCount, AccommodationType::COMFORT->value),
             ];
         }
 
@@ -31,7 +34,7 @@ class TourPriceCalculator
     /**
      * @param Tour $tour
      * @param int $peopleCount
-     * @param string $accommodationType 'standard' | 'comfort'
+     * @param string $accommodationType
      * @return array ['price_cents' => int, 'single_supplement_cents' => int]
      */
     public function calculatePriceForPeople(Tour $tour, int $peopleCount, string $accommodationType): array
@@ -64,7 +67,7 @@ class TourPriceCalculator
 
         foreach ($tour->accommodations as $accommodation) {
             $hotel = null;
-            if ($accommodationType === 'comfort') {
+            if ($accommodationType === AccommodationType::COMFORT->value) {
                 $hotel = $accommodation->hotelComfort ?? $accommodation->hotel; // Фолбек на обычный, если комфорт не задан? 
             } else {
                 $hotel = $accommodation->hotelStandard ?? $accommodation->hotel;

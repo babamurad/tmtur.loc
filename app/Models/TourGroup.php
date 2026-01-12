@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\AccommodationType;
 
 class TourGroup extends Model
 {
@@ -22,11 +23,14 @@ class TourGroup extends Model
 
     /**
      * @param int $peopleCount
-     * @param string $accommodationType 'standard'|'comfort'
+     * @param string $accommodationType
      * @return int
      */
     public function getPriceForPeople(int $peopleCount, string $accommodationType = 'standard'): int
     {
+        if ($accommodationType === 'standard' && defined('App\Enums\AccommodationType::STANDARD')) {
+            $accommodationType = AccommodationType::STANDARD->value;
+        }
         // 1. Try to find strict price from matrix
         $price = $this->tour->prices()
             ->where('accommodation_type', $accommodationType)

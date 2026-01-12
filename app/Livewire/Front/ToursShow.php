@@ -12,7 +12,7 @@ class ToursShow extends Component
     public Tour $tour;
     public ?int $selectedGroupId = null;
     public int $peopleCount = 1;
-    public string $accommodationType = 'standard'; // 'standard' or 'comfort'
+    public string $accommodationType = \App\Enums\AccommodationType::STANDARD->value; // 'standard' or 'comfort'
     public array $services = [];   // id => bool
 
     public $sending = false;
@@ -22,11 +22,14 @@ class ToursShow extends Component
     public ?string $message = null;
     public ?string $hp = null; // honeypot
 
-    protected $rules = [
-        'selectedGroupId' => 'required|exists:tour_groups,id',
-        'peopleCount' => 'required|integer|min:1|max:9',
-        'accommodationType' => 'required|in:standard,comfort',
-    ];
+    protected function rules()
+    {
+        return [
+            'selectedGroupId' => 'required|exists:tour_groups,id',
+            'peopleCount' => 'required|integer|min:1|max:9',
+            'accommodationType' => 'required|in:' . \App\Enums\AccommodationType::STANDARD->value . ',' . \App\Enums\AccommodationType::COMFORT->value,
+        ];
+    }
 
     public function mount(Tour $tour)
     {

@@ -66,14 +66,14 @@ class CreateBookingAction
 
                 Log::info('Customer ID: ' . $customer->id);
 
-                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count'], $data['accommodation_type'] ?? 'standard');
+                $pricePerPerson = $tourGroup->getPriceForPeople($data['people_count'], $data['accommodation_type'] ?? \App\Enums\AccommodationType::STANDARD->value);
                 $totalPriceCents = $pricePerPerson * $data['people_count'] * 100;
 
                 Booking::create([
                     'tour_group_id' => $tourGroup->id,
                     'customer_id' => $customer->id,
                     'people_count' => $data['people_count'],
-                    'accommodation_type' => $data['accommodation_type'] ?? 'standard',
+                    'accommodation_type' => $data['accommodation_type'] ?? \App\Enums\AccommodationType::STANDARD->value,
                     'total_price_cents' => $totalPriceCents,
                     'status' => 'pending',
                     'notes' => $data['message'],
