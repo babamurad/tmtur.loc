@@ -26,7 +26,10 @@
                             </h5>
 
                             @if ($errors->any())
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                     <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -38,7 +41,7 @@
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#lang-{{ config('app.fallback_locale') }}" role="tab">
+                                    <a class="nav-link active @if($errors->has('trans.'.config('app.fallback_locale').'.*') || $errors->has('title')) text-danger @endif" data-toggle="tab" href="#lang-{{ config('app.fallback_locale') }}" role="tab">
                                         <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                         <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
                                     </a>
@@ -46,7 +49,7 @@
                                 @foreach(config('app.available_locales') as $locale)
                                     @continue($locale === config('app.fallback_locale'))
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
+                                        <a class="nav-link @if($errors->has("trans.$locale.*")) text-danger @endif" data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
                                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
                                         </a>
@@ -174,9 +177,9 @@
                              data-target="#programCollapse" 
                              aria-expanded="true" 
                              style="cursor: pointer;">
-                            <h5 class="card-title mb-0">
+                            <h5 class="card-title mb-0 @if($errors->has('itinerary_days.*')) text-danger @endif">
                                 <i class="bx bx-list-ul font-size-18 align-middle mr-1 text-primary"></i>
-                                Программа тура
+                                Программа тура @if($errors->has('itinerary_days.*')) <i class="bx bx-error-circle"></i> @endif
                             </h5>
                             <i class="bx bx-chevron-down font-size-18"></i>
                         </div>
@@ -187,9 +190,9 @@
                                 </button>
                                 
                                 @foreach($itinerary_days as $index => $day)
-                                    <div class="card border mb-2">
+                                    <div class="card border mb-2 @if($errors->has("itinerary_days.$index.*")) border-danger @endif">
                                         <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                            <strong>День {{ $index + 1 }}</strong>
+                                            <strong class="@if($errors->has("itinerary_days.$index.*")) text-danger @endif">День {{ $index + 1 }}</strong>
                                             <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeItineraryDay({{ $index }})">
                                                 <i class="bx bx-trash"></i>
                                             </button>
@@ -268,14 +271,14 @@
                                             {{-- Language Tabs --}}
                                             <ul class="nav nav-tabs nav-tabs-custom mb-2" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
+                                                    <a class="nav-link active @if($errors->has("itinerary_days.$index.trans.".config('app.fallback_locale').".*")) text-danger @endif" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ config('app.fallback_locale') }}" role="tab">
                                                         <span class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
                                                     </a>
                                                 </li>
                                                 @foreach(config('app.available_locales') as $locale)
                                                     @continue($locale === config('app.fallback_locale'))
                                                     <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ $locale }}" role="tab">
+                                                        <a class="nav-link @if($errors->has("itinerary_days.$index.trans.$locale.*")) text-danger @endif" data-toggle="tab" href="#edit-day-{{ $index }}-lang-{{ $locale }}" role="tab">
                                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
                                                         </a>
                                                     </li>
@@ -349,9 +352,9 @@
                              data-target="#inclusionsCollapse" 
                              aria-expanded="false" 
                              style="cursor: pointer;">
-                            <h5 class="card-title mb-0">
+                            <h5 class="card-title mb-0 @if($errors->has('inclusions.*')) text-danger @endif">
                                 <i class="bx bx-check-circle font-size-18 align-middle mr-1 text-primary"></i>
-                                Что включено / не включено
+                                Что включено / не включено @if($errors->has('inclusions.*')) <i class="bx bx-error-circle"></i> @endif
                             </h5>
                             <i class="bx bx-chevron-down font-size-18"></i>
                         </div>
@@ -362,9 +365,9 @@
                                 </button>
                                 
                                 @foreach($inclusions as $index => $inc)
-                                    <div class="card border mb-2">
+                                    <div class="card border mb-2 @if($errors->has("inclusions.$index.*")) border-danger @endif">
                                         <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                            <strong>Пункт {{ $index + 1 }}</strong>
+                                            <strong class="@if($errors->has("inclusions.$index.*")) text-danger @endif">Пункт {{ $index + 1 }}</strong>
                                             <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeInclusion({{ $index }})">
                                                 <i class="bx bx-trash"></i>
                                             </button>
@@ -410,9 +413,9 @@
                              data-target="#accommodationCollapse" 
                              aria-expanded="true" 
                              style="cursor: pointer;">
-                            <h5 class="card-title mb-0">
+                            <h5 class="card-title mb-0 @if($errors->has('accommodations.*')) text-danger @endif">
                                 <i class="bx bx-hotel font-size-18 align-middle mr-1 text-primary"></i>
-                                Размещение
+                                Размещение @if($errors->has('accommodations.*')) <i class="bx bx-error-circle"></i> @endif
                             </h5>
                             <i class="bx bx-chevron-down font-size-18"></i>
                         </div>
@@ -423,9 +426,9 @@
                                 </button>
                                 
                                 @foreach($accommodations as $index => $acc)
-                                    <div class="card border mb-2">
+                                    <div class="card border mb-2 @if($errors->has("accommodations.$index.*")) border-danger @endif">
                                         <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
-                                            <strong>Отель {{ $index + 1 }}</strong>
+                                            <strong class="@if($errors->has("accommodations.$index.*")) text-danger @endif">Отель {{ $index + 1 }}</strong>
                                             <button type="button" class="btn btn-sm btn-outline-danger" wire:click="removeAccommodation({{ $index }})">
                                                 <i class="bx bx-trash"></i>
                                             </button>
@@ -664,9 +667,16 @@
                                             Выберите файлы
                                         @endif
                                     </label>
-                                    @error('newImages.*')
+                                    @error('newImages')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
+                                    @foreach($errors->get('newImages.*') as $messages)
+                                        @foreach($messages as $msg)
+                                            <div class="invalid-feedback d-block">{{ $msg }}</div>
+                                            @break
+                                        @endforeach
+                                        @break
+                                    @endforeach
                                 </div>
                                 <small class="form-text text-muted">
                                     Новые изображения будут добавлены в конец галереи

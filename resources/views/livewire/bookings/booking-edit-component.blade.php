@@ -40,19 +40,22 @@
                                     <textarea class="form-control" wire:model="notes" rows="5"></textarea>
                                 </div>
                             </div>
-                            
+
                             <hr>
-                            
+
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Сумма заказа</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" value="${{ number_format($booking_data->total_price_cents / 100, 2) }}" readonly>
+                                    <input type="text" class="form-control"
+                                        value="${{ number_format($booking_data->total_price_cents / 100, 2) }}"
+                                        readonly>
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Количество людей</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" value="{{ $booking_data->people_count }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $booking_data->people_count }}"
+                                        readonly>
                                 </div>
                             </div>
 
@@ -64,38 +67,38 @@
                         </form>
                     </div>
                 </div>
-                
+
                 {{-- Дополнительные услуги --}}
                 @if($booking_data->bookingServices->isNotEmpty())
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Выбранные дополнительные услуги</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Услуга</th>
-                                        <th>Цена</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($booking_data->bookingServices as $bs)
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Выбранные дополнительные услуги</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $bs->service->title ?? 'Удаленная услуга' }}</td>
-                                            <td>
-                                                @if(isset($bs->service)) 
-                                                    ${{ number_format($bs->service->price_cents / 100, 2) }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
+                                            <th>Услуга</th>
+                                            <th>Цена</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($booking_data->bookingServices as $bs)
+                                            <tr>
+                                                <td>{{ $bs->service->title ?? 'Удаленная услуга' }}</td>
+                                                <td>
+                                                    @if(isset($bs->service))
+                                                        ${{ number_format($bs->service->price_cents / 100, 2) }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endif
             </div>
 
@@ -109,7 +112,8 @@
                             <p class="mb-1"><strong>Имя:</strong> {{ $booking_data->customer->full_name }}</p>
                             <p class="mb-1"><strong>Email:</strong> {{ $booking_data->customer->email }}</p>
                             <p class="mb-1"><strong>Телефон:</strong> {{ $booking_data->customer->phone }}</p>
-                            <p class="mb-1"><strong>Дата регистрации:</strong> {{ $booking_data->customer->created_at->format('d.m.Y') }}</p>
+                            <p class="mb-1"><strong>Дата регистрации:</strong>
+                                {{ $booking_data->customer->created_at->format('d.m.Y') }}</p>
                         @else
                             <p class="text-muted">Информация отсутствует (Гость)</p>
                         @endif
@@ -122,12 +126,14 @@
                         <h4 class="card-title mb-3">Информация о туре</h4>
                         @if($booking_data->tourGroup && $booking_data->tourGroup->tour)
                             <p class="mb-1"><strong>Тур:</strong> {{ $booking_data->tourGroup->tour->title }}</p>
-                            <p class="mb-1"><strong>Дата начала:</strong> {{ optional($booking_data->tourGroup->start_date)->format('d.m.Y') ?? '-' }}</p>
-                             <div class="mt-3">
-                                 @if($booking_data->tourGroup->tour->getFirstMediaUrl())
-                                    <img src="{{ $booking_data->tourGroup->tour->getFirstMediaUrl() }}" class="img-fluid rounded" alt="Tour Image">
-                                 @endif
-                             </div>
+                            <p class="mb-1"><strong>Дата начала:</strong>
+                                {{ optional($booking_data->tourGroup->start_date)->format('d.m.Y') ?? '-' }}</p>
+                            <div class="mt-3">
+                                @if($booking_data->tourGroup->tour->first_media_url)
+                                    <img src="{{ $booking_data->tourGroup->tour->first_media_url }}" class="img-fluid rounded"
+                                        alt="Tour Image">
+                                @endif
+                            </div>
                         @else
                             <p class="text-muted">Тур не найден</p>
                         @endif

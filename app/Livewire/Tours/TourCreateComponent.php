@@ -143,6 +143,57 @@ class TourCreateComponent extends Component
 
     protected $listeners = ['quillUpdated' => 'updateQuillField'];
 
+    public function attributes(): array
+    {
+        $attributes = [
+            'title' => 'Название',
+            'slug' => 'Slug',
+            'category_id' => 'Категория',
+            'is_published' => 'Опубликовано',
+            'base_price' => 'Цена',
+            'duration_days' => 'Длительность',
+            'images' => 'Изображения',
+            'images.*' => 'Изображение',
+            'seo_title' => 'SEO Заголовок',
+            'seo_description' => 'SEO Описание',
+            'tags_selected' => 'Теги',
+        ];
+
+        foreach (config('app.available_locales') as $locale) {
+            $lang = strtoupper($locale);
+            $attributes["trans.$locale.title"] = "Название ($lang)";
+            $attributes["trans.$locale.short_description"] = "Краткое описание ($lang)";
+        }
+
+        foreach ($this->itinerary_days as $index => $day) {
+            $num = $index + 1;
+            $attributes["itinerary_days.$index.day_number"] = "День $num: Номер";
+            $attributes["itinerary_days.$index.location_id"] = "День $num: Локация";
+            $attributes["itinerary_days.$index.place_ids"] = "День $num: Места";
+            $attributes["itinerary_days.$index.hotel_ids"] = "День $num: Отели";
+
+            foreach (config('app.available_locales') as $locale) {
+                $lang = strtoupper($locale);
+                $attributes["itinerary_days.$index.trans.$locale.title"] = "День $num: Заголовок ($lang)";
+                $attributes["itinerary_days.$index.trans.$locale.description"] = "День $num: Описание ($lang)";
+            }
+        }
+
+        foreach ($this->inclusions as $index => $inc) {
+            $num = $index + 1;
+            $attributes["inclusions.$index.inclusion_id"] = "Включение $num";
+            $attributes["inclusions.$index.is_included"] = "Включение $num (Тип)";
+        }
+
+        foreach ($this->accommodations as $index => $acc) {
+            $num = $index + 1;
+            $attributes["accommodations.$index.nights_count"] = "Размещение $num: Ночей";
+            $attributes["accommodations.$index.location_id"] = "Размещение $num: Локация";
+        }
+
+        return $attributes;
+    }
+
     public function updateQuillField($data)
     {
         data_set($this, $data['field'], $data['value']);
