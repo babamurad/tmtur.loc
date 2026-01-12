@@ -218,7 +218,8 @@
 
                                                 @php
                                                     $currentLocId = $itinerary_days[$index]['location_id'] ?? null;
-                                                    $currentLoc = $locations->find($currentLocId);
+                                                    // Use the optimized collection passed from component
+                                                    $currentLoc = $selectedLocations->get($currentLocId);
                                                 @endphp
 
                                                 @if($currentLoc)
@@ -226,6 +227,7 @@
                                                         <label class="form-label">Места для посещения</label>
                                                         <div class="border rounded p-2 bg-white"
                                                             style="max-height: 150px; overflow-y: auto;">
+                                                            {{-- Note: places is preloaded on $currentLoc --}}
                                                             @forelse($currentLoc->places as $place)
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input"
@@ -476,7 +478,8 @@
 
                                                 @php
                                                     $selectedLocId = $accommodations[$index]['location_id'] ?? null;
-                                                    $selectedLoc = $locations->find($selectedLocId);
+                                                    // Retrieve from optimized collection
+                                                    $selectedLoc = $selectedLocations->get($selectedLocId);
                                                 @endphp
 
                                                 <div class="col-md-3">

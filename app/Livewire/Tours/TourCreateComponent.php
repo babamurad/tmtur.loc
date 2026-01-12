@@ -149,13 +149,31 @@ class TourCreateComponent extends Component
     public function render()
     {
         $categories = TourCategory::all();
-        $tags = \App\Models\Tag::all(); // Load all tags
-        $locations = Location::orderBy('name')->with(['hotels', 'places'])->get(); // Load locations with hotels and places
+        $tags = \App\Models\Tag::all();
+
+        // 1. Lightweight locations list for dropdowns (ID + Name only)
+        $locations = Location::orderBy('name')->select('id', 'name')->get();
+
+        // 2. Identify WHICH locations need full data (Hotels + Places)
+        // Collect IDs from itinerary days
+        $paramsLocIds = collect($this->itinerary_days)->pluck('location_id')->filter();
+
+        // Collect IDs from accommodations
+        $accLocIds = collect($this->accommodations)->pluck('location_id')->filter();
+
+        $allSelectedIds = $paramsLocIds->merge($accLocIds)->unique()->values();
+
+        // 3. Load heavy data ONLY for selected locations
+        $selectedLocations = Location::whereIn('id', $allSelectedIds)
+            ->with(['hotels', 'places'])
+            ->get()
+            ->keyBy('id'); // Key by ID for easy access in Blade
 
         return view('livewire.tours.tour-create-component', [
             'categories' => $categories,
             'tags' => $tags,
             'locations' => $locations,
+            'selectedLocations' => $selectedLocations,
         ]);
     }
 
