@@ -50,11 +50,10 @@ class PagesEditComponent extends Component
         $this->is_published = $page->is_published;
 
         // Load fallback/main locale
-        // Assuming default locale is RU.
-        // We load main fields using tr() to get the correct language content even if it was stored as translation
-        $fallback = config('app.fallback_locale');
-        $this->title = $page->tr('title', $fallback);
-        $this->content = $page->tr('content', $fallback);
+        // Assuming default locale is RU or whatever is in config.
+        // We load main fields into properties
+        $this->title = $page->title;
+        $this->content = $page->content;
 
         // Load translations
         foreach (config('app.available_locales') as $locale) {

@@ -152,27 +152,33 @@ trait HasGeminiTranslation
      */
     protected function getSourceData(): array
     {
-        $fallbackLocale = config('app.fallback_locale');
         $fields = $this->getTranslatableFields();
         $sourceData = [];
+        $sourceLocale = 'ru'; // Force Russian as source
 
         foreach ($fields as $field) {
-            if (property_exists($this, $field)) {
+            // Check trans array first for explicit RU content
+            if (!empty($this->trans[$sourceLocale][$field])) {
+                $checkVal = $this->trans[$sourceLocale][$field];
+                if (is_string($checkVal))
+                    $checkVal = trim($checkVal);
+                $sourceData[$field] = $checkVal;
+            } elseif (property_exists($this, $field) && config('app.fallback_locale') === $sourceLocale) {
+                // Only use the main property if fallback IS the source locale
                 $checkVal = $this->$field;
                 if (is_string($checkVal))
                     $checkVal = trim($checkVal);
                 $sourceData[$field] = $checkVal;
             } else {
-                $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
+                $sourceData[$field] = '';
             }
         }
 
-        \Illuminate\Support\Facades\Log::info('Gemini getSourceData debug:', [
+        \Illuminate\Support\Facades\Log::info('Gemini getSourceData (Forced RU):', [
             'component' => static::class,
-            'fallback_locale' => $fallbackLocale,
+            'sourceLocale' => $sourceLocale,
             'sourceData' => $sourceData,
-            'this_title' => $this->title ?? 'N/A',
-            'this_content' => $this->content ?? 'N/A',
+            'trans_ru' => $this->trans['ru'] ?? 'NULL',
         ]);
 
         return $sourceData;
