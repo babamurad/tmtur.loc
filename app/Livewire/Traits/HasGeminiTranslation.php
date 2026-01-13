@@ -39,6 +39,10 @@ trait HasGeminiTranslation
         foreach ($fields as $field) {
             if (isset($translations[$field])) {
                 $this->trans['en'][$field] = $translations[$field];
+                // If English is fallback, also update main property because that's what UI binds to
+                if (config('app.fallback_locale') === 'en' && property_exists($this, $field)) {
+                    $this->$field = $translations[$field];
+                }
             }
         }
 
