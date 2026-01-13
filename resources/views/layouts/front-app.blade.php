@@ -168,7 +168,7 @@
                     <p class="small mb-0">{{ __('layout.footer_description') }}</p>
                 </div>
                 <div class="col-md-3">
-                    <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div>
+                    <!-- <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div> -->
                     <ul class="list-unstyled small">
                         <li><a href="/#home" class="text-white-50">{{ __('menu.home') }}</a></li>
                         <li><a href="/#about" class="text-white-50">{{ __('menu.about') }}</a></li>
@@ -177,11 +177,13 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div>
+                    <!-- <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div> -->
                     <ul class="list-unstyled small">
                         <li><a href="/#darwaza" class="text-white-50">{{ __('menu.darwaza') }}</a></li>
                         <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
                         <li><a href="{{ route('gallery') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
+                        <li><a href="{{ route('terms') }}" class="text-white-50">{{ __('menu.terms') }}</a></li>
+                        <li><a href="{{ route('privacy') }}" class="text-white-50">{{ __('menu.privacy') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">

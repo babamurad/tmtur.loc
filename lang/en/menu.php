@@ -15,4 +15,6 @@ return [
     'login' => 'Login',
     'register' => 'Register',
     'logout' => 'Logout',
+    'terms' => 'Terms & Conditions',
+    'privacy' => 'Privacy Policy',
 ];

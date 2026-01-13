@@ -19,8 +19,10 @@ trait HasGeminiTranslation
         $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
+            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
+            $fieldsList = implode(', ', $emptyFields);
             LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
+                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
                 ->error()
                 ->toast()
                 ->position('top-end')
@@ -47,6 +49,7 @@ trait HasGeminiTranslation
             ->position('top-end')
             ->show();
 
+        $this->dispatch('refresh-quill');
         $this->translationDuration = round(microtime(true) - $startTime, 2);
     }
 
@@ -60,8 +63,10 @@ trait HasGeminiTranslation
         $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
+            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
+            $fieldsList = implode(', ', $emptyFields);
             LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
+                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
                 ->error()
                 ->toast()
                 ->position('top-end')
@@ -88,6 +93,7 @@ trait HasGeminiTranslation
             ->position('top-end')
             ->show();
 
+        $this->dispatch('refresh-quill');
         $this->translationDuration = round(microtime(true) - $startTime, 2);
     }
 
@@ -101,8 +107,10 @@ trait HasGeminiTranslation
         $fields = array_keys($sourceData);
 
         if (empty(array_filter($sourceData))) {
+            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
+            $fieldsList = implode(', ', $emptyFields);
             LivewireAlert::title('Ошибка')
-                ->text('Заполните русскую версию перед переводом.')
+                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
                 ->error()
                 ->toast()
                 ->position('top-end')
@@ -135,6 +143,7 @@ trait HasGeminiTranslation
             ->position('top-end')
             ->show();
 
+        $this->dispatch('refresh-quill');
         $this->translationDuration = round(microtime(true) - $startTime, 2);
     }
 
@@ -149,11 +158,23 @@ trait HasGeminiTranslation
 
         foreach ($fields as $field) {
             if (property_exists($this, $field)) {
-                $sourceData[$field] = $this->$field;
+                $checkVal = $this->$field;
+                if (is_string($checkVal))
+                    $checkVal = trim($checkVal);
+                $sourceData[$field] = $checkVal;
             } else {
                 $sourceData[$field] = $this->trans[$fallbackLocale][$field] ?? '';
             }
         }
+
+        \Illuminate\Support\Facades\Log::info('Gemini getSourceData debug:', [
+            'component' => static::class,
+            'fallback_locale' => $fallbackLocale,
+            'sourceData' => $sourceData,
+            'this_title' => $this->title ?? 'N/A',
+            'this_content' => $this->content ?? 'N/A',
+        ]);
+
         return $sourceData;
     }
 

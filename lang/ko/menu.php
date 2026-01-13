@@ -15,4 +15,6 @@ return [
     'login' => '로그인',
     'register' => '회원가입',
     'logout' => '로그아웃',
+    'terms' => '이용약관',
+    'privacy' => '개인정보 처리방침',
 ];

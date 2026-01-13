@@ -148,6 +148,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('routes/create', \App\Livewire\Admin\Routes\RouteCreateComponent::class)->name('admin.routes.create');
     Route::get('routes/edit/{id}', \App\Livewire\Admin\Routes\RouteEditComponent::class)->name('admin.routes.edit');
 
+    Route::get('pages', \App\Livewire\Admin\Pages\PagesIndexComponent::class)->name('admin.pages.index');
+    Route::get('pages/create', \App\Livewire\Admin\Pages\PagesCreateComponent::class)->name('admin.pages.create');
+    Route::get('pages/edit/{id}', \App\Livewire\Admin\Pages\PagesEditComponent::class)->name('admin.pages.edit');
+
     //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
 });
 

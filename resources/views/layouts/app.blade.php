@@ -87,6 +87,7 @@
                                             class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
                                 <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
                                 <li><a href="{{ route('reviews.index') }}"><i class="bx bx-chat"></i> Отзывы</a></li>
+                                <li><a href="{{ route('admin.pages.index') }}"><i class="bx bx-file"></i> Страницы</a></li>
                                 <li><a href="{{ route('gallery.index') }}"><i class="bx bx-image-alt"></i> Галерея</a>
                                 </li>
                             </ul>
