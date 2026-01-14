@@ -100,7 +100,7 @@
                                                 <button wire:click="openQrCodeModal({{ $link->id }})"
                                                     class="btn btn-sm btn-outline-info waves-effect waves-light"
                                                     title="QR Код">
-                                                    <i class="bx bx-qr font-size-16"></i>
+                                                    <i class="fas fa-qrcode font-size-16"></i>
                                                 </button>
                                                 <button wire:click="delete({{ $link->id }})"
                                                     wire:confirm="Удалить эту ссылку?"
