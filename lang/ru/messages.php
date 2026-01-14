@@ -149,4 +149,16 @@ return [
     'about_email_label' => 'Почта:',
     'on_request' => 'По запросу',
 
+    // Reviews
+    'reviews_title' => 'Отзывы',
+    'review_user_fallback' => 'Пользователь',
+    'no_reviews_yet' => 'Пока нет отзывов. Будьте первыми!',
+    'leave_review_title' => 'Оставить отзыв',
+    'your_rating_label' => 'Ваша оценка:',
+    'comment_label' => 'Комментарий:',
+    'comment_placeholder' => 'Расскажите о своих впечатлениях...',
+    'submit_review_btn' => 'Отправить отзыв',
+    'sending_btn' => 'Отправка...',
+    'login_to_review_text' => 'Пожалуйста, <a href=":login_url">авторизуйтесь</a>, чтобы оставить отзыв.',
+    'review_submitted_success' => 'Ваш отзыв успешно отправлен и ожидает модерации.',
 ];

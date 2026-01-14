@@ -149,4 +149,16 @@ return [
     'about_email_label' => 'Email:',
     'on_request' => 'On request',
 
+    // Reviews
+    'reviews_title' => 'Reviews',
+    'review_user_fallback' => 'User',
+    'no_reviews_yet' => 'No reviews yet. Be the first!',
+    'leave_review_title' => 'Leave a review',
+    'your_rating_label' => 'Your rating:',
+    'comment_label' => 'Comment:',
+    'comment_placeholder' => 'Tell us about your impressions...',
+    'submit_review_btn' => 'Submit review',
+    'sending_btn' => 'Sending...',
+    'login_to_review_text' => 'Please <a href=":login_url">login</a> to leave a review.',
+    'review_submitted_success' => 'Your review has been successfully submitted and is awaiting moderation.',
 ];

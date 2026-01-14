@@ -44,7 +44,7 @@ class TourReviews extends Component
 
         $this->reset(['rating', 'comment']);
 
-        session()->flash('message', 'Ваш отзыв успешно отправлен и ожидает модерации.');
+        session()->flash('message', __('messages.review_submitted_success'));
     }
 
     public function render()

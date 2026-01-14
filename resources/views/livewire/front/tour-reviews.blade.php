@@ -1,5 +1,5 @@
 <div class="mt-5">
-    <h3 class="mb-4">Отзывы ({{ $reviews->total() }})</h3>
+    <h3 class="mb-2">{{ __('messages.reviews_title') }} ({{ $reviews->total() }})</h3>
 
     @if (session()->has('message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -22,7 +22,7 @@
                                 {{ substr($review->user->name ?? 'U', 0, 1) }}
                             </div>
                             <div>
-                                <h6 class="mb-0">{{ $review->user->name ?? 'Пользователь' }}</h6>
+                                <h6 class="mb-0">{{ $review->user->name ?? __('messages.review_user_fallback') }}</h6>
                                 <small class="text-muted">{{ $review->created_at->format('d.m.Y H:i') }}</small>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         @empty
-            <p class="text-muted">Пока нет отзывов. Будьте первыми!</p>
+            <p class="text-muted">{{ __('messages.no_reviews_yet') }}</p>
         @endforelse
 
         {{ $reviews->links() }}
@@ -45,12 +45,12 @@
     {{-- Форма отзыва --}}
     <div class="card bg-light mb-3">
         <div class="card-body">
-            <h5 class="card-title mb-3">Оставить отзыв</h5>
+            <h5 class="card-title mb-3">{{ __('messages.leave_review_title') }}</h5>
 
             @auth
                 <form wire:submit="save">
                     <div class="form-group">
-                        <label>Ваша оценка:</label>
+                        <label>{{ __('messages.your_rating_label') }}</label>
                         <div class="rating-input text-warning" style="font-size: 1.5rem; cursor: pointer;">
                             @for ($i = 1; $i <= 5; $i++)
                                 <i class="{{ $i <= $rating ? 'fas' : 'far' }} fa-star"
@@ -61,21 +61,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="comment">Комментарий:</label>
+                        <label for="comment">{{ __('messages.comment_label') }}</label>
                         <textarea wire:model="comment" id="comment"
                             class="form-control @error('comment') is-invalid @enderror" rows="3"
-                            placeholder="Расскажите о своих впечатлениях..."></textarea>
+                            placeholder="{{ __('messages.comment_placeholder') }}"></textarea>
                         @error('comment') <span class="invalid-feedback">{{ $message }}</span> @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        <span wire:loading.remove wire:target="save">Отправить отзыв</span>
-                        <span wire:loading wire:target="save"><i class="fas fa-spinner fa-spin"></i> Отправка...</span>
+                        <span wire:loading.remove wire:target="save">{{ __('messages.submit_review_btn') }}</span>
+                        <span wire:loading wire:target="save"><i class="fas fa-spinner fa-spin"></i> {{ __('messages.sending_btn') }}</span>
                     </button>
                 </form>
             @else
                 <div class="alert alert-info mb-0">
-                    Пожалуйста, <a href="{{ route('front.login') }}">авторизуйтесь</a>, чтобы оставить отзыв.
+                    {!! __('messages.login_to_review_text', ['login_url' => route('front.login')]) !!}
                 </div>
             @endauth
         </div>
