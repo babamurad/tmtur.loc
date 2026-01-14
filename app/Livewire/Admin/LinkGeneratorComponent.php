@@ -111,6 +111,14 @@ class LinkGeneratorComponent extends Component
         $this->reset(['payoutLink', 'payoutAmount', 'payoutNotes']);
     }
 
+    public $qrCodeLink;
+
+    public function openQrCodeModal($id)
+    {
+        $this->qrCodeLink = GeneratedLink::findOrFail($id);
+        $this->dispatch('open-qr-modal');
+    }
+
     public function render()
     {
         return view('livewire.admin.link-generator-component', [

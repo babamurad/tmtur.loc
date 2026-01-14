@@ -7,7 +7,8 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Генератор ссылок</h4>
                     <div class="page-title-right d-flex align-items-center">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light mr-3" data-toggle="modal" data-target="#createLinkModal">
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light mr-3"
+                            data-toggle="modal" data-target="#createLinkModal">
                             <i class="bx bx-plus font-size-16 align-middle mr-1"></i> Создать ссылку
                         </button>
                         <ol class="breadcrumb m-0">
@@ -96,6 +97,11 @@
                                                     title="Статистика">
                                                     <i class="bx bx-stats font-size-16"></i>
                                                 </a>
+                                                <button wire:click="openQrCodeModal({{ $link->id }})"
+                                                    class="btn btn-sm btn-outline-info waves-effect waves-light"
+                                                    title="QR Код">
+                                                    <i class="bx bx-qr font-size-16"></i>
+                                                </button>
                                                 <button wire:click="delete({{ $link->id }})"
                                                     wire:confirm="Удалить эту ссылку?"
                                                     class="btn btn-sm btn-outline-danger waves-effect waves-light"
@@ -125,7 +131,8 @@
     </div>
 
     <!-- Create Link Modal -->
-    <div wire:ignore.self class="modal fade" id="createLinkModal" tabindex="-1" role="dialog" aria-labelledby="createLinkModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="createLinkModal" tabindex="-1" role="dialog"
+        aria-labelledby="createLinkModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -202,6 +209,40 @@
         </div>
     </div>
 
+    <!-- QR Code Modal -->
+    <div wire:ignore.self class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
+        aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qrCodeModalLabel">QR Код ссылки</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    @if($qrCodeLink)
+                        <div class="mb-3 d-inline-block p-3 border rounded bg-white" id="qrCodeContainer">
+                            {!! SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->margin(2)->generate($qrCodeLink->full_url) !!}
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-muted">{{ $qrCodeLink->full_url }}</p>
+                        </div>
+                    @endif
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onclick="downloadQrCode('png')">
+                        <i class="bx bx-download font-size-16 align-middle mr-2"></i> Скачать PNG
+                    </button>
+                    <button type="button" class="btn btn-info" onclick="downloadQrCode('svg')">
+                        <i class="bx bx-download font-size-16 align-middle mr-2"></i> Скачать SVG
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.addEventListener('close-create-modal', event => {
             $('#createLinkModal').modal('hide');
@@ -214,6 +255,59 @@
         window.addEventListener('close-payout-modal', event => {
             $('#payoutModal').modal('hide');
         });
+
+        window.addEventListener('open-qr-modal', event => {
+            $('#qrCodeModal').modal('show');
+        });
+
+        function downloadQrCode(format) {
+            const container = document.getElementById('qrCodeContainer');
+            const svg = container.querySelector('svg');
+
+            if (!svg) return;
+
+            if (format === 'svg') {
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'qrcode.svg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === 'png') {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const img = new Image();
+
+                // Add white background for PNG
+                // We need to verify SVG has width/height or set it
+                const svgWidth = svg.getAttribute('width') || 250;
+                const svgHeight = svg.getAttribute('height') || 250;
+
+                canvas.width = svgWidth;
+                canvas.height = svgHeight;
+
+                img.onload = function () {
+                    // White background
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.drawImage(img, 0, 0);
+
+                    const link = document.createElement('a');
+                    link.download = 'qrcode.png';
+                    link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+            }
+        }
 
         function copyResult() {
             copyLink("generatedLink");
