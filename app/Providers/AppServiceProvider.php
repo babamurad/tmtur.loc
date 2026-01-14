@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Illuminate\Support\Facades\App::setLocale('ru');
-        \Carbon\Carbon::setLocale('ru');
+        // \Illuminate\Support\Facades\App::setLocale('ru');
+        // \Carbon\Carbon::setLocale('ru');
     }
 }
