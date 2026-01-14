@@ -1,7 +1,7 @@
 <div class="auth-page py-1">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-5">
+            <div class="col-lg-5 pt-5 pb-2">
                 <div class="card auth-card shadow-lg border-0 rounded-lg">
                     <div class="card-body p-4">
                         <div class="text-center mb-3">
@@ -67,7 +67,8 @@
                         </form>
 
                         <div class="auth-divider text-center small my-3">
-                            {{ __('auth.or_continue') ?? 'или продолжить' }}</div>
+                            {{ __('auth.or_continue') ?? 'или продолжить' }}
+                        </div>
 
                         <div class="text-center">
                             <span class="text-muted small">{{ __('auth.no_account') }}</span>

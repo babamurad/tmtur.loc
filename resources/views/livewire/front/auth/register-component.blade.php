@@ -1,7 +1,7 @@
 <div class="auth-page py-1">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-5">
+            <div class="col-lg-5 pt-5">
                 <div class="card auth-card shadow-lg border-0 rounded-lg">
                     <div class="card-body p-4">
                         <div class="text-center mb-3">
@@ -34,7 +34,8 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="frontEmail" class="font-weight-bold small mb-1">{{ __('auth.email') }}</label>
+                                <label for="frontEmail"
+                                    class="font-weight-bold small mb-1">{{ __('auth.email') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-transparent border-right-0 text-muted">
@@ -51,7 +52,8 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="frontPassword" class="font-weight-bold small mb-1">{{ __('auth.password') }}</label>
+                                <label for="frontPassword"
+                                    class="font-weight-bold small mb-1">{{ __('auth.password') }}</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-transparent border-right-0 text-muted">
@@ -62,7 +64,8 @@
                                         class="form-control border-left-0 pl-0 @error('password') is-invalid @enderror"
                                         placeholder="********" wire:model.defer="password">
                                 </div>
-                                <small class="form-hint d-block mt-1 text-muted" style="font-size: 0.75rem;">Min 8 chars, letters & numbers.</small>
+                                <small class="form-hint d-block mt-1 text-muted" style="font-size: 0.75rem;">Min 8
+                                    chars, letters & numbers.</small>
                                 @error('password')
                                     <div class="invalid-feedback d-block small">{{ $message }}</div>
                                 @enderror
@@ -96,7 +99,8 @@
                                 class="btn btn-primary btn-block auth-cta">{{ __('auth.sign_up_button') }}</button>
                         </form>
 
-                        <div class="auth-divider text-center small my-3">{{ __('auth.or_continue') ?? 'или продолжить' }}
+                        <div class="auth-divider text-center small my-3">
+                            {{ __('auth.or_continue') ?? 'или продолжить' }}
                         </div>
 
                         <div class="text-center">

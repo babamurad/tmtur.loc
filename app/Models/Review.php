@@ -12,7 +12,13 @@ class Review extends Model
         'tour_id',
         'rating',
         'comment',
+        'is_active',
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

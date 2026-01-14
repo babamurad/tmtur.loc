@@ -12,9 +12,9 @@ class ReviewIndexComponent extends Component
 {
     use WithPagination;
 
-    public int $perPage         = 8;
-    public string $search       = '';
-    public ?int $delId          = null;
+    public int $perPage = 8;
+    public string $search = '';
+    public ?int $delId = null;
 
     public function updatingSearch(): void
     {
@@ -41,6 +41,18 @@ class ReviewIndexComponent extends Component
         Review::findOrFail($this->delId)->delete();
 
         LivewireAlert::title('Отзыв удалён!')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    public function toggleActive($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->update(['is_active' => !$review->is_active]);
+
+        LivewireAlert::title('Статус обновлён')
             ->success()
             ->toast()
             ->position('top-end')

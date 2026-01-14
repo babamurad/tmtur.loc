@@ -610,6 +610,8 @@
                 </div>
             </div>
 
+            @livewire('front.tour-reviews', ['tour' => $tour])
+
             {{-- BOOKING FORM (Livewire component) --}}
         </div>
 
