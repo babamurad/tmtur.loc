@@ -414,27 +414,54 @@ class TourEditComponent extends Component
     protected function performBatchTranslation(GeminiTranslationService $translator, string $targetLangCode, string $targetLangName)
     {
         $fallbackLocale = config('app.fallback_locale');
+        $availableLocales = config('app.available_locales');
 
-        // 1. Prepare Validation & Source Data
+        // 1. Prepare Source Data - Sync local props to Fallback Locale in Trans array
         if (!empty($this->title)) {
             $this->trans[$fallbackLocale]['title'] = $this->title;
         }
-        if (empty($this->trans[$fallbackLocale]['title'])) {
-            session()->flash('error', 'Заполните русскую версию перед переводом.');
+
+        // 2. Smart Source Detection: Find the first locale that has a Title
+        $sourceLocale = null;
+
+        // Check Fallback first as priority if filled
+        if (!empty($this->trans[$fallbackLocale]['title'])) {
+            $sourceLocale = $fallbackLocale;
+        } else {
+            // Check others
+            foreach ($availableLocales as $locale) {
+                if (!empty($this->trans[$locale]['title'])) {
+                    $sourceLocale = $locale;
+                    break;
+                }
+            }
+        }
+
+        if (!$sourceLocale) {
+            LivewireAlert::title('Ошибка')
+                ->text('Заполните данные хотя бы на одном языке перед переводом.')
+                ->error()
+                ->toast()
+                ->position('top-end')
+                ->show();
             return;
         }
 
-        // 2. Aggregate ALL fields into one flattened array
+        if ($sourceLocale === $targetLangCode) {
+            return;
+        }
+
+        // 3. Aggregate fields from the Source Locale
         $fieldsToTranslate = [];
 
         // Main fields
-        $fieldsToTranslate['main_title'] = $this->trans[$fallbackLocale]['title'];
-        $fieldsToTranslate['main_desc'] = $this->trans[$fallbackLocale]['short_description'] ?? '';
+        $fieldsToTranslate['main_title'] = $this->trans[$sourceLocale]['title'];
+        $fieldsToTranslate['main_desc'] = $this->trans[$sourceLocale]['short_description'] ?? '';
 
         // Itinerary fields
         foreach ($this->itinerary_days as $index => $day) {
-            $dayTitle = $day['trans'][$fallbackLocale]['title'] ?? '';
-            $dayDesc = $day['trans'][$fallbackLocale]['description'] ?? '';
+            $dayTitle = $day['trans'][$sourceLocale]['title'] ?? '';
+            $dayDesc = $day['trans'][$sourceLocale]['description'] ?? '';
 
             // Use unique keys for each day field
             $fieldsToTranslate["day_{$index}_title"] = $dayTitle;
@@ -443,7 +470,7 @@ class TourEditComponent extends Component
 
         \Illuminate\Support\Facades\Log::info("Gemini Batch Input ({$targetLangName}):", $fieldsToTranslate);
 
-        // 3. Call Service ONCE
+        // 4. Call Service ONCE
         $startTime = microtime(true);
         $translated = $translator->translateFields($fieldsToTranslate, $targetLangName, 'Тур и программа тура');
 
@@ -462,11 +489,14 @@ class TourEditComponent extends Component
             return;
         }
 
-        // 4. Map Results Back
+        // 5. Map Results Back
 
         // Main
         if (isset($translated['main_title'])) {
             $this->trans[$targetLangCode]['title'] = $translated['main_title'];
+            if ($targetLangCode === config('app.fallback_locale')) {
+                $this->title = $translated['main_title'];
+            }
         }
         if (isset($translated['main_desc'])) {
             $this->trans[$targetLangCode]['short_description'] = $translated['main_desc'];
@@ -513,9 +543,15 @@ class TourEditComponent extends Component
      */
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
-        // Just call both helpers. It will still be 2 API calls total (instead of 80+), which is acceptable.
-        $this->performBatchTranslation($translator, 'en', 'English');
-        $this->performBatchTranslation($translator, 'ko', 'Korean');
+        $names = [
+            'ru' => 'Russian',
+            'en' => 'English',
+            'ko' => 'Korean',
+        ];
+
+        foreach (config('app.available_locales') as $locale) {
+            $this->performBatchTranslation($translator, $locale, $names[$locale] ?? ucfirst($locale));
+        }
     }
 
     public function save()

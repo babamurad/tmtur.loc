@@ -9,52 +9,23 @@ trait HasGeminiTranslation
 {
     public $translationDuration = null;
 
+    protected array $localeMap = [
+        'ru' => 'Russian',
+        'en' => 'English',
+        'ko' => 'Korean',
+        'de' => 'German',
+        'fr' => 'French',
+        'es' => 'Spanish',
+        'it' => 'Italian',
+        'tr' => 'Turkish',
+    ];
+
     /**
      * Автоперевод на английский через Gemini AI
      */
     public function autoTranslateToEnglish(GeminiTranslationService $translator)
     {
-        $startTime = microtime(true);
-        $sourceData = $this->getSourceData();
-        $fields = array_keys($sourceData);
-
-        if (empty(array_filter($sourceData))) {
-            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
-            $fieldsList = implode(', ', $emptyFields);
-            LivewireAlert::title('Ошибка')
-                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
-            return;
-        }
-
-        $translations = $translator->translateFields(
-            $sourceData,
-            'English',
-            $this->getTranslationContext()
-        );
-
-        foreach ($fields as $field) {
-            if (isset($translations[$field])) {
-                $this->trans['en'][$field] = $translations[$field];
-                // If English is fallback, also update main property because that's what UI binds to
-                if (config('app.fallback_locale') === 'en' && property_exists($this, $field)) {
-                    $this->$field = $translations[$field];
-                }
-            }
-        }
-
-        LivewireAlert::title('Перевод выполнен')
-            ->text('Перевод на английский успешно выполнен!')
-            ->success()
-            ->toast()
-            ->position('top-end')
-            ->show();
-
-        $this->dispatch('refresh-quill');
-        $this->translationDuration = round(microtime(true) - $startTime, 2);
+        $this->translateToLocale($translator, 'en');
     }
 
     /**
@@ -62,43 +33,58 @@ trait HasGeminiTranslation
      */
     public function autoTranslateToKorean(GeminiTranslationService $translator)
     {
-        $startTime = microtime(true);
-        $sourceData = $this->getSourceData();
-        $fields = array_keys($sourceData);
+        $this->translateToLocale($translator, 'ko');
+    }
 
-        if (empty(array_filter($sourceData))) {
-            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
-            $fieldsList = implode(', ', $emptyFields);
-            LivewireAlert::title('Ошибка')
-                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
+    /**
+     * Общий метод перевода на конкретный язык
+     */
+    protected function translateToLocale(GeminiTranslationService $translator, string $targetLocale)
+    {
+        $startTime = microtime(true);
+
+        // 1. Определяем исходный язык (где больше всего данных)
+        [$sourceLocale, $sourceData] = $this->getSmartSourceData();
+
+        if (empty($sourceData)) {
+            $this->showErrorToast("Заполните хотя бы один язык перед переводом.");
             return;
         }
 
+        // Если целевой язык совпадает с исходным - проверяем заполненность
+        // Ноль смысла переводить, если это источник, но для консистентности проверим
+        if ($sourceLocale === $targetLocale) {
+            // Если это реально самый заполненный язык, то, вероятно, нечего делать.
+            // Но может быть partial update. В любом случае, переводить EN -> EN это странно.
+            // Только если мы хотим дозаполнить пропуски? Но откуда? 
+            // Если это source, значит нет другого более полного языка.
+            $this->showSuccessToast("Данные уже заполнены на этом языке (это источник).");
+            return;
+        }
+
+        // 2. Определяем, какие поля нужно перевести (только пустые)
+        $dataToTranslate = $this->prepareDataForTranslation($sourceData, $targetLocale);
+
+        if (empty($dataToTranslate)) {
+            $this->showSuccessToast("Все поля для целевого языка уже заполнены.");
+            return;
+        }
+
+        // 3. Переводим
+        $targetLanguageName = $this->getLanguageName($targetLocale);
         $translations = $translator->translateFields(
-            $sourceData,
-            'Korean',
+            $dataToTranslate,
+            $targetLanguageName,
             $this->getTranslationContext()
         );
 
-        foreach ($fields as $field) {
-            if (isset($translations[$field])) {
-                $this->trans['ko'][$field] = $translations[$field];
-            }
-        }
-
-        LivewireAlert::title('Перевод выполнен')
-            ->text('Перевод на корейский успешно выполнен!')
-            ->success()
-            ->toast()
-            ->position('top-end')
-            ->show();
+        // 4. Применяем
+        $this->applyTranslations($translations, $targetLocale);
 
         $this->dispatch('refresh-quill');
         $this->translationDuration = round(microtime(true) - $startTime, 2);
+
+        $this->showSuccessToast("Перевод на $targetLanguageName выполнен!");
     }
 
     /**
@@ -107,89 +93,188 @@ trait HasGeminiTranslation
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
         $startTime = microtime(true);
-        $sourceData = $this->getSourceData();
-        $fields = array_keys($sourceData);
 
-        if (empty(array_filter($sourceData))) {
-            $emptyFields = array_keys(array_filter($sourceData, fn($val) => empty($val)));
-            $fieldsList = implode(', ', $emptyFields);
-            LivewireAlert::title('Ошибка')
-                ->text("Заполните русскую версию перед переводом. (Пустые поля: $fieldsList)")
-                ->error()
-                ->toast()
-                ->position('top-end')
-                ->show();
+        // 1. Определяем исходный язык
+        [$sourceLocale, $sourceData] = $this->getSmartSourceData();
+
+        if (empty($sourceData)) {
+            $this->showErrorToast("Заполните хотя бы один язык перед переводом.");
             return;
         }
 
+        $translatedCount = 0;
         $context = $this->getTranslationContext();
 
-        // Перевод на английский
-        $englishTranslations = $translator->translateFields($sourceData, 'English', $context);
-        foreach ($fields as $field) {
-            if (isset($englishTranslations[$field])) {
-                $this->trans['en'][$field] = $englishTranslations[$field];
-                // If English is fallback, also update main property because that's what UI binds to
-                if (config('app.fallback_locale') === 'en' && property_exists($this, $field)) {
-                    $this->$field = $englishTranslations[$field];
+        // 2. Перебираем все доступные языки
+        foreach (config('app.available_locales') as $targetLocale) {
+            // Пропускаем исходный язык
+            if ($targetLocale === $sourceLocale) {
+                continue;
+            }
+
+            // Определяем недостающие поля
+            $dataToTranslate = $this->prepareDataForTranslation($sourceData, $targetLocale);
+
+            if (empty($dataToTranslate)) {
+                continue;
+            }
+
+            // Переводим
+            $targetLanguageName = $this->getLanguageName($targetLocale);
+            $translations = $translator->translateFields($dataToTranslate, $targetLanguageName, $context);
+
+            if (!empty($translations)) {
+                $this->applyTranslations($translations, $targetLocale);
+                $translatedCount++;
+            }
+        }
+
+        $this->dispatch('refresh-quill');
+        $this->translationDuration = round(microtime(true) - $startTime, 2);
+
+        if ($translatedCount > 0) {
+            $this->showSuccessToast("Переводы выполнены и добавлены.");
+        } else {
+            $this->showSuccessToast("Все поля уже заполнены, перевод не требуется.");
+        }
+    }
+
+    /**
+     * Умный поиск источника данных:
+     * Возвращает [$locale, $data] для языка, где заполнено больше всего полей.
+     */
+    protected function getSmartSourceData(): array
+    {
+        $fields = $this->getTranslatableFields();
+        $bestLocale = null;
+        $maxFilled = -1;
+        $bestData = [];
+
+        foreach (config('app.available_locales') as $locale) {
+            $currentData = [];
+            $filledCount = 0;
+
+            foreach ($fields as $field) {
+                // Извлекаем значение из массива trans или property (если это fallback)
+                $val = $this->getFieldValue($field, $locale);
+
+                if (!empty($val) && is_string($val) && trim($val) !== '') {
+                    $filledCount++;
                 }
+                $currentData[$field] = $val;
+            }
+
+            // Если этот язык полнее предыдущего лидера - запоминаем
+            if ($filledCount > $maxFilled) {
+                $maxFilled = $filledCount;
+                $bestLocale = $locale;
+                $bestData = $currentData;
             }
         }
 
-        // Перевод на корейский
-        $koreanTranslations = $translator->translateFields($sourceData, 'Korean', $context);
-        foreach ($fields as $field) {
-            if (isset($koreanTranslations[$field])) {
-                $this->trans['ko'][$field] = $koreanTranslations[$field];
+        if ($maxFilled <= 0) {
+            return [null, []];
+        }
+
+        \Illuminate\Support\Facades\Log::info('Gemini SmartSource:', [
+            'selected' => $bestLocale,
+            'filled' => $maxFilled,
+            'data' => $bestData
+        ]);
+
+        return [$bestLocale, $bestData];
+    }
+
+    /**
+     * Получить значение поля для конкретной локали
+     * Учитывает, что fallback локаль может быть в $this->field, а остальные в $this->trans
+     */
+    protected function getFieldValue(string $field, string $locale)
+    {
+        // 1. Если локаль совпадает с fallback, проверяем свойство верхнего уровня
+        // Это приоритет, так как UI обычно привязан к public свойству (напр. $title), а не к трансу
+        if ($locale === config('app.fallback_locale') && property_exists($this, $field)) {
+            $val = $this->$field;
+            if (is_string($val))
+                return trim($val);
+            return $val;
+        }
+
+        // 2. Иначе смотрим в массив trans
+        if (isset($this->trans[$locale][$field])) {
+            $val = $this->trans[$locale][$field];
+            if (is_string($val))
+                return trim($val);
+            return $val;
+        }
+
+        return '';
+    }
+
+    /**
+     * Подготовить массив данных для перевода:
+     * Берет исходные данные и оставляет только те ключи, которые ПУСТЫ в целевом языке.
+     */
+    protected function prepareDataForTranslation(array $sourceData, string $targetLocale): array
+    {
+        $dataToTranslate = [];
+
+        foreach ($sourceData as $key => $sourceValue) {
+            // Если исходное значение пустое - нечего переводить
+            if (empty($sourceValue)) {
+                continue;
+            }
+
+            // Проверяем значение в целевом языке
+            $targetValue = $this->getFieldValue($key, $targetLocale);
+
+            // Если в целевом пусто - добавляем в список на перевод
+            if (empty($targetValue)) {
+                $dataToTranslate[$key] = $sourceValue;
             }
         }
 
-        LivewireAlert::title('Перевод выполнен')
-            ->text('Переводы на все языки успешно выполнены!')
+        return $dataToTranslate;
+    }
+
+    /**
+     * Применить полученные переводы
+     */
+    protected function applyTranslations(array $translations, string $locale)
+    {
+        foreach ($translations as $field => $value) {
+            $this->trans[$locale][$field] = $value;
+
+            // Если это fallback локаль, обновляем и свойство уровня компонента
+            if ($locale === config('app.fallback_locale') && property_exists($this, $field)) {
+                $this->$field = $value;
+            }
+        }
+    }
+
+    protected function getLanguageName(string $locale): string
+    {
+        return $this->localeMap[$locale] ?? ucfirst($locale);
+    }
+
+    protected function showErrorToast(string $message)
+    {
+        LivewireAlert::title('Внимание')
+            ->text($message)
+            ->warning()
+            ->toast()
+            ->position('top-end')
+            ->show();
+    }
+
+    protected function showSuccessToast(string $message)
+    {
+        LivewireAlert::title('Успешно')
+            ->text($message)
             ->success()
             ->toast()
             ->position('top-end')
             ->show();
-
-        $this->dispatch('refresh-quill');
-        $this->translationDuration = round(microtime(true) - $startTime, 2);
-    }
-
-    /**
-     * Сбор данных для перевода из свойств компонента или массива переводов
-     */
-    protected function getSourceData(): array
-    {
-        $fields = $this->getTranslatableFields();
-        $sourceData = [];
-        $sourceLocale = 'ru'; // Force Russian as source
-
-        foreach ($fields as $field) {
-            // Check trans array first for explicit RU content
-            if (!empty($this->trans[$sourceLocale][$field])) {
-                $checkVal = $this->trans[$sourceLocale][$field];
-                if (is_string($checkVal))
-                    $checkVal = trim($checkVal);
-                $sourceData[$field] = $checkVal;
-            } elseif (property_exists($this, $field) && config('app.fallback_locale') === $sourceLocale) {
-                // Only use the main property if fallback IS the source locale
-                $checkVal = $this->$field;
-                if (is_string($checkVal))
-                    $checkVal = trim($checkVal);
-                $sourceData[$field] = $checkVal;
-            } else {
-                $sourceData[$field] = '';
-            }
-        }
-
-        \Illuminate\Support\Facades\Log::info('Gemini getSourceData (Forced RU):', [
-            'component' => static::class,
-            'sourceLocale' => $sourceLocale,
-            'sourceData' => $sourceData,
-            'trans_ru' => $this->trans['ru'] ?? 'NULL',
-        ]);
-
-        return $sourceData;
     }
 
     /**

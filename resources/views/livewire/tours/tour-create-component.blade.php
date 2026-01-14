@@ -40,18 +40,9 @@
 
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active @if($errors->has('trans.' . config('app.fallback_locale') . '.*') || $errors->has('title')) text-danger @endif"
-                                        data-toggle="tab" href="#lang-{{ config('app.fallback_locale') }}" role="tab">
-                                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                        <span
-                                            class="d-none d-sm-block">{{ strtoupper(config('app.fallback_locale')) }}</span>
-                                    </a>
-                                </li>
                                 @foreach(config('app.available_locales') as $locale)
-                                    @continue($locale === config('app.fallback_locale'))
                                     <li class="nav-item">
-                                        <a class="nav-link @if($errors->has("trans.$locale.*")) text-danger @endif"
+                                        <a class="nav-link @if($loop->first) active @endif @if($errors->has("trans.$locale.*") || ($loop->first && $errors->has('title'))) text-danger @endif"
                                             data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
                                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
@@ -65,46 +56,39 @@
 
                             {{-- Tab Content --}}
                             <div class="tab-content">
-                                {{-- Default Language Tab --}}
-                                <div class="tab-pane active" id="lang-{{ config('app.fallback_locale') }}"
-                                    role="tabpanel">
-                                    <div class="form-group">
-                                        <label for="title">Название <span class="text-danger">*</span></label>
-                                        <input type="text" id="title" wire:model.debounce.300ms="title"
-                                            class="form-control @error('title') is-invalid @enderror"
-                                            placeholder="Введите название тура">
-                                        @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        <small class="form-text text-muted">Slug: {{ $slug }}</small>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Краткое описание</label>
-                                        <x-quill
-                                            wire:model.defer="trans.{{ config('app.fallback_locale') }}.short_description" />
-                                        @error("trans." . config('app.fallback_locale') . ".short_description")
-                                            <span class="text-danger small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                {{-- Other Language Tabs --}}
                                 @foreach(config('app.available_locales') as $locale)
-                                    @continue($locale === config('app.fallback_locale'))
-                                    <div class="tab-pane" id="lang-{{ $locale }}" role="tabpanel">
+                                    <div class="tab-pane @if($loop->first) active @endif" id="lang-{{ $locale }}"
+                                        role="tabpanel">
                                         <div class="form-group">
-                                            <label>Название <span class="text-danger">*</span></label>
-                                            <input type="text" wire:model="trans.{{ $locale }}.title" class="form-control"
-                                                placeholder="Название на {{ strtoupper($locale) }}">
-                                            @error("trans.$locale.title") <span
-                                            class="text-danger small">{{ $message }}</span> @enderror
+                                            <label>Название @if($locale === config('app.fallback_locale') || $loop->first)<span class="text-danger">*</span>@endif</label>
+                                            
+                                            @if($locale === config('app.fallback_locale'))
+                                                <input type="text" id="title" wire:model.debounce.300ms="title"
+                                                    class="form-control @error('title') is-invalid @enderror"
+                                                    placeholder="Введите название тура">
+                                                @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                <small class="form-text text-muted">Slug: {{ $slug }}</small>
+                                            @else
+                                                <input type="text" wire:model="trans.{{ $locale }}.title" class="form-control"
+                                                    placeholder="Название на {{ strtoupper($locale) }}">
+                                                @error("trans.$locale.title") <span
+                                                class="text-danger small">{{ $message }}</span> @enderror
+                                            @endif
                                         </div>
 
                                         <div class="form-group">
                                             <label>Краткое описание</label>
-                                            <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
-                                            @error("trans.$locale.short_description")
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
+                                            @if($locale === config('app.fallback_locale'))
+                                                <x-quill wire:model.defer="short_description" />
+                                                @error('short_description')
+                                                    <span class="text-danger small">{{ $message }}</span>
+                                                @enderror
+                                            @else
+                                                <x-quill wire:model.defer="trans.{{ $locale }}.short_description" />
+                                                @error("trans.$locale.short_description")
+                                                    <span class="text-danger small">{{ $message }}</span>
+                                                @enderror
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
