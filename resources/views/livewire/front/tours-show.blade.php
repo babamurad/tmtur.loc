@@ -110,7 +110,7 @@
                 @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
                     {{-- Главное изображение --}}
                     <div class="position-relative">
-                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top"
+                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top img-fluid"
                             alt="{{ $tour->tr('title') }}" style="max-height: 500px; object-fit: cover; cursor: pointer;"
                             data-toggle="modal" data-target="#galleryModal">
 
