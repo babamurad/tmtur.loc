@@ -15,6 +15,10 @@ class LinkStatsComponent extends Component
     public function mount($id)
     {
         $this->link = GeneratedLink::findOrFail($id);
+
+        if (auth()->user()->isReferral() && $this->link->user_id !== auth()->id()) {
+            abort(403);
+        }
     }
 
     public function render()

@@ -13,13 +13,18 @@ class CheckRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
         if (!auth()->check()) {
             return redirect()->route('login');
         }
 
-        if (auth()->user()->role !== $role) {
+        // Handle single string with pipes or commas if passed as one argument
+        if (count($roles) === 1 && (str_contains($roles[0], '|') || str_contains($roles[0], ','))) {
+            $roles = preg_split('/[|,]/', $roles[0]);
+        }
+
+        if (!in_array(auth()->user()->role, $roles)) {
             abort(403, 'У вас нет прав доступа к этой странице');
         }
 

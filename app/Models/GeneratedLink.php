@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class GeneratedLink extends Model
 {
     protected $fillable = [
+        'user_id',
         'target_url',
         'source',
         'full_url',
         'click_count',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
     public function clicks()
     {

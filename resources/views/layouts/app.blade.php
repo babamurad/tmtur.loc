@@ -49,69 +49,80 @@
                     <!-- Left Menu Start -->
                     <ul class="metismenu list-unstyled" id="side-menu">
                         <li class="menu-title">Меню</li>
+
+                        {{-- Dashboard visible to all authorized --}}
                         <li>
                             <a href="{{ route('dashboard') }}" class="waves-effect"><i
                                     class='bx bx-home-smile'></i><span>Дашборд</span></a>
                         </li>
-                        <li>
-                            <a href="{{ route('bookings.index') }}" class="waves-effect"><i
-                                    class='bx bx-calendar-check'></i><span>Бронирования</span></a>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bx-world"></i><span>Туры и услуги</span></a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('tour-categories.index') }}"><i
-                                            class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
-                                <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i>
-                                        Теги</a></li>
 
-                                <li><a href="{{ route('admin.tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a>
-                                </li>
-                                <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы
-                                        туров</a></li>
-                                <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i>
-                                        Услуги</a></li>
-                                <li><a href="{{ route('inclusions.index') }}"><i class="bx bx-check-square"></i>
-                                        Включения</a></li>
-                            </ul>
-                        </li>
+                        @if(!auth()->user()->isReferral())
+                            <li>
+                                <a href="{{ route('bookings.index') }}" class="waves-effect"><i
+                                        class='bx bx-calendar-check'></i><span>Бронирования</span></a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-world"></i><span>Туры и услуги</span></a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('tour-categories.index') }}"><i
+                                                class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
+                                    <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i>
+                                            Теги</a></li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bx-receipt"></i><span>Контент</span></a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды
-                                        карусели</a></li>
-                                <li><a href="{{ route('categories.index') }}"><i
-                                            class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
-                                <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
-                                <li><a href="{{ route('reviews.index') }}"><i class="bx bx-chat"></i> Отзывы</a></li>
-                                <li><a href="{{ route('admin.pages.index') }}"><i class="bx bx-file"></i> Страницы</a></li>
-                                <li><a href="{{ route('gallery.index') }}"><i class="bx bx-image-alt"></i> Галерея</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="bx bx-receipt"></i><span>Локации</span></a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('admin.locations.index') }}"><i class="bx bx-map"></i> Локации</a></li>
-                                <li><a href="{{ route('admin.hotels.index') }}"><i class="bx bx-building-house"></i> Отели</a></li>
-                                <li><a href="{{ route('admin.places.index') }}"><i class="bx bx-diamond"></i> Места</a></li>
-                                <li><a href="{{ route('admin.routes.index') }}"><i class="bx bx-customize"></i> Программа тура</a></li>
-                            </ul>
-                        </li>
+                                    <li><a href="{{ route('admin.tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a>
+                                    </li>
+                                    <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы
+                                            туров</a></li>
+                                    <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i>
+                                            Услуги</a></li>
+                                    <li><a href="{{ route('inclusions.index') }}"><i class="bx bx-check-square"></i>
+                                            Включения</a></li>
+                                </ul>
+                            </li>
 
-                        <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
-                        <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-receipt"></i><span>Контент</span></a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды
+                                            карусели</a></li>
+                                    <li><a href="{{ route('categories.index') }}"><i
+                                                class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
+                                    <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
+                                    <li><a href="{{ route('reviews.index') }}"><i class="bx bx-chat"></i> Отзывы</a></li>
+                                    <li><a href="{{ route('admin.pages.index') }}"><i class="bx bx-file"></i> Страницы</a>
+                                    </li>
+                                    <li><a href="{{ route('gallery.index') }}"><i class="bx bx-image-alt"></i> Галерея</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-receipt"></i><span>Локации</span></a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('admin.locations.index') }}"><i class="bx bx-map"></i> Локации</a>
+                                    </li>
+                                    <li><a href="{{ route('admin.hotels.index') }}"><i class="bx bx-building-house"></i>
+                                            Отели</a></li>
+                                    <li><a href="{{ route('admin.places.index') }}"><i class="bx bx-diamond"></i> Места</a>
+                                    </li>
+                                    <li><a href="{{ route('admin.routes.index') }}"><i class="bx bx-customize"></i>
+                                            Программа тура</a></li>
+                                </ul>
+                            </li>
 
-                        @livewire('MessageNavComponent')
+                            <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
+                            <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
 
-                        <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контакты</a>
-                        </li>
-                        <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
-                                Подписчики</a></li>
+                            @livewire('MessageNavComponent')
+
+                            <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контакты</a>
+                            </li>
+                            <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
+                                    Подписчики</a></li>
+                        @endif
+
                         <li><a href="{{ route('admin.link-generator') }}"><i class="bx bx-link"></i>
                                 Генератор ссылок</a></li>
 

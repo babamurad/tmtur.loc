@@ -34,6 +34,7 @@ class LoginComponent extends Component
 
             return match ($user->role) {
                 'admin' => redirect()->route('dashboard'),
+                'referral' => redirect()->route('admin.link-generator'),
                 'manager' => redirect('/'),
                 default => redirect('/'),
             };

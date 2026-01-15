@@ -16,6 +16,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 'admin';
     const ROLE_MANAGER = 'manager';
     const ROLE_USER = 'user';
+    const ROLE_REFERRAL = 'referral';
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +44,16 @@ class User extends Authenticatable
     public function isUser()
     {
         return $this->role === self::ROLE_USER;
+    }
+
+    public function isReferral()
+    {
+        return $this->role === self::ROLE_REFERRAL;
+    }
+
+    public function generatedLinks()
+    {
+        return $this->hasMany(GeneratedLink::class);
     }
 
     public function avatar()

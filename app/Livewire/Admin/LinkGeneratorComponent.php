@@ -48,6 +48,7 @@ class LinkGeneratorComponent extends Component
 
         // Save to DB
         GeneratedLink::create([
+            'user_id' => auth()->id(),
             'target_url' => $url,
             'source' => $source,
             'full_url' => $fullUrl
@@ -67,7 +68,13 @@ class LinkGeneratorComponent extends Component
 
     public function delete($id)
     {
-        GeneratedLink::findOrFail($id)->delete();
+        $link = GeneratedLink::findOrFail($id);
+
+        if (auth()->user()->isReferral() && $link->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $link->delete();
         LivewireAlert::title('Удалено')
             ->success()
             ->toast()
@@ -81,6 +88,10 @@ class LinkGeneratorComponent extends Component
 
     public function openPayoutModal($id)
     {
+        if (auth()->user()->isReferral()) {
+            abort(403);
+        }
+
         $this->payoutLink = GeneratedLink::findOrFail($id);
         $this->payoutAmount = $this->payoutLink->balance > 0 ? $this->payoutLink->balance : '';
         $this->payoutNotes = '';
@@ -89,6 +100,10 @@ class LinkGeneratorComponent extends Component
 
     public function savePayout()
     {
+        if (auth()->user()->isReferral()) {
+            abort(403);
+        }
+
         $this->validate([
             'payoutAmount' => 'required|numeric|min:0.01',
             'payoutNotes' => 'nullable|string'
@@ -115,14 +130,26 @@ class LinkGeneratorComponent extends Component
 
     public function openQrCodeModal($id)
     {
-        $this->qrCodeLink = GeneratedLink::findOrFail($id);
+        $link = GeneratedLink::findOrFail($id);
+
+        if (auth()->user()->isReferral() && $link->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $this->qrCodeLink = $link;
         $this->dispatch('open-qr-modal');
     }
 
     public function render()
     {
+        $query = GeneratedLink::query();
+
+        if (auth()->user()->isReferral()) {
+            $query->where('user_id', auth()->id());
+        }
+
         return view('livewire.admin.link-generator-component', [
-            'links' => GeneratedLink::orderBy('click_count', 'desc')->latest()->with(['bookings', 'payouts'])->paginate(10)
+            'links' => $query->orderBy('click_count', 'desc')->latest()->with(['bookings', 'payouts'])->paginate(10)
         ])->layout('layouts.app');
     }
 }

@@ -129,10 +129,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('newsletter-subscribers', \App\Livewire\Admin\NewsletterSubscribersCrud::class)->name('admin.newsletter-subscribers');
 
-    Route::get('link-generator', \App\Livewire\Admin\LinkGeneratorComponent::class)->name('admin.link-generator');
-    Route::get('link-generator/{id}/stats', \App\Livewire\Admin\LinkStatsComponent::class)->name('admin.link-generator.stats');
-
     Route::get('locations', \App\Livewire\Admin\Location\LocationIndexComponent::class)->name('admin.locations.index');
+    Route::get('locations/create', \App\Livewire\Admin\Location\LocationCreateComponent::class)->name('admin.locations.create');
+    Route::get('locations/edit/{location_id}', \App\Livewire\Admin\Location\LocationEditComponent::class)->name('admin.locations.edit');
     Route::get('locations/create', \App\Livewire\Admin\Location\LocationCreateComponent::class)->name('admin.locations.create');
     Route::get('locations/edit/{location_id}', \App\Livewire\Admin\Location\LocationEditComponent::class)->name('admin.locations.edit');
 
@@ -153,6 +152,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('pages/edit/{id}', \App\Livewire\Admin\Pages\PagesEditComponent::class)->name('admin.pages.edit');
 
     //    Route::get('social-links', SocialLinksCrud::class)->name('admin.social-links');
+});
+
+Route::middleware(['auth', 'role:admin,referral'])->group(function () {
+    Route::get('admin/link-generator', \App\Livewire\Admin\LinkGeneratorComponent::class)->name('admin.link-generator');
+    Route::get('admin/link-generator/{id}/stats', \App\Livewire\Admin\LinkStatsComponent::class)->name('admin.link-generator.stats');
 });
 
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {
