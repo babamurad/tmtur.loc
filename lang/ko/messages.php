@@ -147,4 +147,17 @@ return [
     'about_email_label' => '이메일:',
     'on_request' => '요청 시',
 
+    // Reviews
+    'reviews_title' => '후기',
+    'review_user_fallback' => '사용자',
+    'no_reviews_yet' => '아직 후기가 없습니다. 첫 번째 후기를 남겨보세요!',
+    'leave_review_title' => '후기 남기기',
+    'your_rating_label' => '평점:',
+    'comment_label' => '코멘트:',
+    'comment_placeholder' => '여행에 대한 인상을 남겨주세요...',
+    'submit_review_btn' => '후기 제출',
+    'sending_btn' => '전송 중...',
+    'login_to_review_text' => '후기를 남기려면 <a href=":login_url">로그인</a>해 주세요.',
+    'review_submitted_success' => '후기가 성공적으로 제출되었으며 검토 대기 중입니다.',
+
 ];
