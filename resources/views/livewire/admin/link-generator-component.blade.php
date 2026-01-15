@@ -235,7 +235,8 @@
                 </div>
                 <div class="modal-body text-center">
                     @if($qrCodeLink)
-                        <div class="mb-3 d-inline-block p-3 border rounded bg-white" id="qrCodeContainer">
+                        <div class="mb-3 d-inline-block p-3 border rounded bg-white" id="qrCodeContainer"
+                            data-filename="qrcode_{{ \Illuminate\Support\Str::slug($qrCodeLink->user?->name ?? $qrCodeLink->source) }}">
                             {!! SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->margin(2)->generate($qrCodeLink->full_url) !!}
                         </div>
                         <div class="mt-2">
@@ -275,7 +276,10 @@
 
         function downloadQrCode(format) {
             const container = document.getElementById('qrCodeContainer');
+            if (!container) return;
+
             const svg = container.querySelector('svg');
+            const fileName = container.dataset.filename || 'qrcode';
 
             if (!svg) return;
 
@@ -285,7 +289,7 @@
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = 'qrcode.svg';
+                link.download = fileName + '.svg';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -311,7 +315,7 @@
                     ctx.drawImage(img, 0, 0);
 
                     const link = document.createElement('a');
-                    link.download = 'qrcode.png';
+                    link.download = fileName + '.png';
                     link.href = canvas.toDataURL('image/png');
                     document.body.appendChild(link);
                     link.click();

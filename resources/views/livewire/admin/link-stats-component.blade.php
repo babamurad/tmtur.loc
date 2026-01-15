@@ -238,7 +238,7 @@
             const container = document.getElementById('qrCodeContainer');
             const svg = container.querySelector('svg');
             // Assuming name formatting is handled backend or simply using ID/Name
-            const userName = '{{ \Illuminate\Support\Str::slug($link->user->name) }}';
+            const userName = '{{ \Illuminate\Support\Str::slug($link->user?->name ?? $link->source) }}';
             const fileName = 'qrcode_' + userName;
 
             if (!svg) return;
