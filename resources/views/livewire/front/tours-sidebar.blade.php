@@ -34,7 +34,7 @@
 
     {{--  TAGS WIDGET  --}}
     <section class="section mb-5">
-        <h4 class="fw-bold mt-2"><strong>{{ __('Теги') }}</strong></h4>
+        <h4 class="fw-bold mt-2"><strong>{{ __('messages.tags') }}</strong></h4>
         <hr class="border-danger border-2 opacity-75">
         <div class="d-flex flex-wrap mt-4" style="gap: 10px;">
             @foreach($tags as $tag)

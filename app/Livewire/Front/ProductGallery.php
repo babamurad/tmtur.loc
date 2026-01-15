@@ -8,17 +8,14 @@ use App\Models\TurkmenistanGallery;
 class ProductGallery extends Component
 {
     public $images;
-    public $activeIndex = 0;
+    // public $activeIndex = 0; // Removed, reusing modal logic only via JS
 
     public function mount()
     {
         $this->images = TurkmenistanGallery::all();
     }
 
-    public function setActive($index)   // было setActiveImage
-    {
-        $this->activeIndex = $index;
-    }
+    // setActive removed as it's not needed for the new layout
 
     public function render()
     {
