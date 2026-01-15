@@ -160,4 +160,5 @@ return [
     'login_to_review_text' => '후기를 남기려면 <a href=":login_url">로그인</a>해 주세요.',
     'review_submitted_success' => '후기가 성공적으로 제출되었으며 검토 대기 중입니다.',
 
+    'tags' => '태그',
 ];

@@ -574,7 +574,7 @@
                     {{-- TAGS --}}
                     @if($tour->tags && $tour->tags->count() > 0)
                         <div class="mt-4">
-                            <h5 class="mb-2"><i class="bx bx-purchase-tag-alt text-primary mr-1"></i> Теги:</h5>
+                            <h5 class="mb-2"><i class="bx bx-purchase-tag-alt text-primary mr-1"></i> {{ __('messages.tags') }}:</h5>
                             <div>
                                 @foreach($tour->tags as $tag)
                                     <a href="{{ route('tours.tag.show', $tag->id) }}" class="badge badge-info p-2 mr-1 mb-1"

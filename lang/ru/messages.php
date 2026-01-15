@@ -161,4 +161,5 @@ return [
     'sending_btn' => 'Отправка...',
     'login_to_review_text' => 'Пожалуйста, <a href=":login_url">авторизуйтесь</a>, чтобы оставить отзыв.',
     'review_submitted_success' => 'Ваш отзыв успешно отправлен и ожидает модерации.',
+    'tags' => 'Теги',
 ];
