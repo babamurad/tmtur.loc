@@ -50,11 +50,13 @@
                     <ul class="metismenu list-unstyled" id="side-menu">
                         <li class="menu-title">Меню</li>
 
-                        {{-- Dashboard visible to all authorized --}}
-                        <li>
-                            <a href="{{ route('dashboard') }}" class="waves-effect"><i
-                                    class='bx bx-home-smile'></i><span>Дашборд</span></a>
-                        </li>
+                        @if(!auth()->user()->isReferral())
+                            {{-- Dashboard visible to all authorized --}}
+                            <li>
+                                <a href="{{ route('dashboard') }}" class="waves-effect"><i
+                                        class='bx bx-home-smile'></i><span>Дашборд</span></a>
+                            </li>
+                        @endif
 
                         @if(!auth()->user()->isReferral())
                             <li>
@@ -113,6 +115,7 @@
                             </li>
 
                             <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
+                            <li><a href="{{ route('users.index') }}"><i class="bx bx-user-circle"></i> Пользователи</a></li>
                             <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
 
                             @livewire('MessageNavComponent')
@@ -143,134 +146,141 @@
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
 
-                    <div class="dropdown d-none d-sm-inline-block">
-                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="mdi mdi-plus"></i> Создать
-                            <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
-                        </button>
-                        <div class="dropdown-menu">
+                    @if(!auth()->user()->isReferral())
+                            <div class="dropdown d-none d-sm-inline-block">
+                                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="mdi mdi-plus"></i> Создать
+                                    <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+                                </button>
+                                <div class="dropdown-menu">
 
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                Приложение
-                            </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        Приложение
+                                    </a>
 
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                ПО
-                            </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        ПО
+                                    </a>
 
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                Система EMS
-                            </a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        Система EMS
+                                    </a>
 
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                CRM Приложение
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-center">
-
-                    <div class="dropdown d-none d-sm-inline-block ml-2">
-                        <button type="button" class="btn header-item noti-icon waves-effect"
-                            id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="mdi mdi-magnify"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                            aria-labelledby="page-header-search-dropdown">
-
-                            <form class="p-3">
-                                <div class="form-group m-0">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Поиск ..."
-                                            aria-label="Recipient's username">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit"><i
-                                                    class="mdi mdi-magnify"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
-
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn header-item noti-icon waves-effect pr-4"
-                            id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="mdi mdi-bell-outline"></i>
-                            <span class="badge badge-danger badge-pill">3</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                            aria-labelledby="page-header-notifications-dropdown">
-                            <div class="p-3">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h6 class="m-0"> Уведомления </h6>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="#!" class="small font-weight-bold"> Смотреть все</a>
-                                    </div>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        CRM Приложение
+                                    </a>
                                 </div>
                             </div>
-                            <div data-simplebar style="max-height: 230px;">
-                                <a href="" class="text-reset notification-item">
-                                    <div class="media">
-                                        <img src="{{ asset('assets/images/users/avatar-5.jpg') }}"
-                                            class="mr-3 rounded-circle avatar-xs" alt="user-pic">
-                                        <div class="media-body">
-                                            <h6 class="mt-0 mb-1">Samuel Coverdale</h6>
-                                            <p class="font-size-12 mb-1">You have new follower on Instagram</p>
-                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
-                                                    class="mdi mdi-clock-outline"></i> 2 min ago</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="" class="text-reset notification-item">
-                                    <div class="media">
-                                        <div class="avatar-xs mr-3">
-                                            <span class="avatar-title bg-primary rounded-circle">
-                                                <i class="mdi mdi-cloud-download-outline"></i>
-                                            </span>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="mt-0 mb-1">Download Available !</h6>
-                                            <p class="font-size-11 mb-1">Latest version of admin is now available.
-                                                Please download here.</p>
-                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
-                                                    class="mdi mdi-clock-outline"></i> 4 hours ago</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="" class="text-reset notification-item">
-                                    <div class="media">
-                                        <img src="{{ asset('assets/images/users/avatar-8.jpg') }}"
-                                            class="mr-3 rounded-circle avatar-xs" alt="user-pic">
-                                        <div class="media-body">
-                                            <h6 class="mt-0 mb-1">Victoria Mendis</h6>
-                                            <p class="font-size-12 mb-1">Just upgraded to premium account.</p>
-                                            <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
-                                                    class="mdi mdi-clock-outline"></i> 1 day ago</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="p-2">
-                                <a class="btn btn-sm btn-link btn-block text-center font-size-14"
-                                    href="javascript:void(0)">
-                                    Загрузить еще.. <i class="mdi mdi-arrow-right ml-1"></i>
-                                </a>
-                            </div>
                         </div>
-                    </div>
+
+                        <div class="d-flex align-items-center">
+
+                            <div class="dropdown d-none d-sm-inline-block ml-2">
+                                <button type="button" class="btn header-item noti-icon waves-effect"
+                                    id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-magnify"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+                                    aria-labelledby="page-header-search-dropdown">
+
+                                    <form class="p-3">
+                                        <div class="form-group m-0">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Поиск ..."
+                                                    aria-label="Recipient's username">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit"><i
+                                                            class="mdi mdi-magnify"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <div class="dropdown d-inline-block">
+                                <button type="button" class="btn header-item noti-icon waves-effect pr-4"
+                                    id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-bell-outline"></i>
+                                    <span class="badge badge-danger badge-pill">3</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+                                    aria-labelledby="page-header-notifications-dropdown">
+                                    <div class="p-3">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h6 class="m-0"> Уведомления </h6>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a href="#!" class="small font-weight-bold"> Смотреть все</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-simplebar style="max-height: 230px;">
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="media">
+                                                <img src="{{ asset('assets/images/users/avatar-5.jpg') }}"
+                                                    class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                                <div class="media-body">
+                                                    <h6 class="mt-0 mb-1">Samuel Coverdale</h6>
+                                                    <p class="font-size-12 mb-1">You have new follower on Instagram</p>
+                                                    <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                            class="mdi mdi-clock-outline"></i> 2 min ago</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="media">
+                                                <div class="avatar-xs mr-3">
+                                                    <span class="avatar-title bg-primary rounded-circle">
+                                                        <i class="mdi mdi-cloud-download-outline"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mt-0 mb-1">Download Available !</h6>
+                                                    <p class="font-size-11 mb-1">Latest version of admin is now available.
+                                                        Please download here.</p>
+                                                    <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                            class="mdi mdi-clock-outline"></i> 4 hours ago</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="" class="text-reset notification-item">
+                                            <div class="media">
+                                                <img src="{{ asset('assets/images/users/avatar-8.jpg') }}"
+                                                    class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                                <div class="media-body">
+                                                    <h6 class="mt-0 mb-1">Victoria Mendis</h6>
+                                                    <p class="font-size-12 mb-1">Just upgraded to premium account.</p>
+                                                    <p class="font-size-11 font-weight-bold mb-0 text-muted"><i
+                                                            class="mdi mdi-clock-outline"></i> 1 day ago</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="p-2">
+                                        <a class="btn btn-sm btn-link btn-block text-center font-size-14"
+                                            href="javascript:void(0)">
+                                            Загрузить еще.. <i class="mdi mdi-arrow-right ml-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    @else
+                            {{-- Keep the structure for referral but empty/minimal if needed, or just close the div and start
+                            user dropdown --}}
+                        </div>
+                        <div class="d-flex align-items-center">
+                    @endif
 
                     <!-- user-profile-dropdown -->
                     <livewire:user-profile-dropdown />

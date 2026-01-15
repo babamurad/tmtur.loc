@@ -21,6 +21,11 @@ class LinkStatsComponent extends Component
         }
     }
 
+    public function openQrCodeModal()
+    {
+        $this->dispatch('open-qr-modal');
+    }
+
     public function render()
     {
         return view('livewire.admin.link-stats-component', [

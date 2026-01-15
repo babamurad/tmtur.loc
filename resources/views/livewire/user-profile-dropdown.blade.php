@@ -15,12 +15,14 @@
                 <span class="badge badge-pill badge-soft-danger">1</span>
             </span>
         </a>
-        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-            Настройки
-        </a>
-        <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-            <span>Блокировка экрана</span>
-        </a>
+        @if(!auth()->user()->isReferral())
+            <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                Настройки
+            </a>
+            <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                <span>Блокировка экрана</span>
+            </a>
+        @endif
         <form action="{{ route('logout') }}" method="POST" class="d-inline">
             @csrf
             <button type="submit"

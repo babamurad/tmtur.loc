@@ -55,6 +55,10 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
+                                        <button wire:click="openQrCodeModal"
+                                            class="btn btn-info waves-effect waves-light btn-sm mr-2">
+                                            <i class="bx bx-qr"></i> QR
+                                        </button>
                                         <a href="{{ route('admin.link-generator') }}"
                                             class="btn btn-primary waves-effect waves-light btn-sm">Назад <i
                                                 class="mdi mdi-arrow-right ml-1"></i></a>
@@ -192,4 +196,90 @@
             </div>
         </div>
     </div>
+
+    <!-- QR Code Modal -->
+    <div wire:ignore.self class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
+        aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qrCodeModalLabel">QR Код ссылки</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3 d-inline-block p-3 border rounded bg-white" id="qrCodeContainer">
+                        {!! SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->margin(2)->generate($link->full_url) !!}
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-muted">{{ $link->full_url }}</p>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onclick="downloadQrCode('png')">
+                        <i class="bx bx-download font-size-16 align-middle mr-2"></i> Скачать PNG
+                    </button>
+                    <button type="button" class="btn btn-info" onclick="downloadQrCode('svg')">
+                        <i class="bx bx-download font-size-16 align-middle mr-2"></i> Скачать SVG
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('open-qr-modal', event => {
+            $('#qrCodeModal').modal('show');
+        });
+
+        function downloadQrCode(format) {
+            const container = document.getElementById('qrCodeContainer');
+            const svg = container.querySelector('svg');
+            // Assuming name formatting is handled backend or simply using ID/Name
+            const userName = '{{ \Illuminate\Support\Str::slug($link->user->name) }}';
+            const fileName = 'qrcode_' + userName;
+
+            if (!svg) return;
+
+            if (format === 'svg') {
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName + '.svg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (format === 'png') {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const img = new Image();
+
+                const svgWidth = svg.getAttribute('width') || 250;
+                const svgHeight = svg.getAttribute('height') || 250;
+
+                canvas.width = svgWidth;
+                canvas.height = svgHeight;
+
+                img.onload = function () {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+
+                    const link = document.createElement('a');
+                    link.download = fileName + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+            }
+        }
+    </script>
 </div>

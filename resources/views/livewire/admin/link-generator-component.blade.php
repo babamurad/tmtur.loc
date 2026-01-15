@@ -144,6 +144,19 @@
                 <div class="modal-body">
                     <p class="text-muted mb-3">Добавьте UTM-метку для отслеживания источника.</p>
 
+                    @if(auth()->user()->isAdmin())
+                        <div class="form-group">
+                            <label for="selectedUser">Владелец ссылки (Реферал)</label>
+                            <select class="form-control" wire:model="selectedUser" id="selectedUser">
+                                <option value="{{ auth()->id() }}">Я (Администратор)</option>
+                                @foreach($referralUsers as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                                @endforeach
+                            </select>
+                            @error('selectedUser') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    @endif
+
                     <div class="form-group">
                         <label for="targetUrl">Целевая страница</label>
                         <input class="form-control @error('targetUrl') is-invalid @enderror" type="url"

@@ -32,9 +32,16 @@ class LoginComponent extends Component
 
             //            dd($user->role);
 
+            if ($user->role === 'referral') {
+                $lastLink = $user->generatedLinks()->latest()->first();
+                if ($lastLink) {
+                    return redirect()->route('admin.link-generator.stats', $lastLink->id);
+                }
+                return redirect()->route('admin.link-generator');
+            }
+
             return match ($user->role) {
                 'admin' => redirect()->route('dashboard'),
-                'referral' => redirect()->route('admin.link-generator'),
                 'manager' => redirect('/'),
                 default => redirect('/'),
             };

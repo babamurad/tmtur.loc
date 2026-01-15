@@ -27,13 +27,15 @@ class RegisterComponent extends Component
     {
         $this->validate();
 
-        User::create([
+        $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'role' => 0, // обычный пользователь
+            'role' => User::ROLE_USER,
             'referer' => app(\Spatie\Referer\Referer::class)->get(),
         ]);
+
+        Auth::login($user);
 
         session()->flash('registered', [
             'title' => 'Регистрация!',

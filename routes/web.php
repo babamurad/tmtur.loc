@@ -118,7 +118,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 
     Route::get('contact-infos', ContactInfosCrud::class)->name('admin.contact-infos');
-    Route::get('profile-edit', ProfileEdit::class)->name('admin.profile-edit');
     Route::get('contact-messages', \App\Livewire\ContactMessagesTable::class)->name('admin.contact-messages-table');
 
     Route::prefix('gallery.')->name('gallery.')->group(function () {
@@ -132,8 +131,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('locations', \App\Livewire\Admin\Location\LocationIndexComponent::class)->name('admin.locations.index');
     Route::get('locations/create', \App\Livewire\Admin\Location\LocationCreateComponent::class)->name('admin.locations.create');
     Route::get('locations/edit/{location_id}', \App\Livewire\Admin\Location\LocationEditComponent::class)->name('admin.locations.edit');
-    Route::get('locations/create', \App\Livewire\Admin\Location\LocationCreateComponent::class)->name('admin.locations.create');
-    Route::get('locations/edit/{location_id}', \App\Livewire\Admin\Location\LocationEditComponent::class)->name('admin.locations.edit');
 
     Route::get('hotels', \App\Livewire\Admin\Hotel\HotelIndexComponent::class)->name('admin.hotels.index');
     Route::get('hotels/create', \App\Livewire\Admin\Hotel\HotelCreateComponent::class)->name('admin.hotels.create');
@@ -142,6 +139,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('places', \App\Livewire\Admin\Place\PlaceIndexComponent::class)->name('admin.places.index');
     Route::get('places/create', \App\Livewire\Admin\Place\PlaceCreateComponent::class)->name('admin.places.create');
     Route::get('places/edit/{place_id}', \App\Livewire\Admin\Place\PlaceEditComponent::class)->name('admin.places.edit');
+
+    Route::get('users', \App\Livewire\Users\UserIndexComponent::class)->name('users.index');
+    Route::get('users/edit/{id}', \App\Livewire\Users\UserEditComponent::class)->name('users.edit');
 
     Route::get('routes', \App\Livewire\Admin\Routes\RouteIndexComponent::class)->name('admin.routes.index');
     Route::get('routes/create', \App\Livewire\Admin\Routes\RouteCreateComponent::class)->name('admin.routes.create');
@@ -157,6 +157,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:admin,referral'])->group(function () {
     Route::get('admin/link-generator', \App\Livewire\Admin\LinkGeneratorComponent::class)->name('admin.link-generator');
     Route::get('admin/link-generator/{id}/stats', \App\Livewire\Admin\LinkStatsComponent::class)->name('admin.link-generator.stats');
+    Route::get('profile-edit', \App\Livewire\ProfileEdit::class)->name('admin.profile-edit');
 });
 
 //Route::middleware(['auth', 'role:admin,manager'])->group(function () {

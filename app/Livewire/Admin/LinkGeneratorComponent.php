@@ -14,18 +14,28 @@ class LinkGeneratorComponent extends Component
     public $targetUrl;
     public $source;
     public $result;
+    public $selectedUser;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
         'targetUrl' => 'required|url',
         'source' => 'required|string|max:255',
+        'selectedUser' => 'nullable|exists:users,id',
     ];
 
     public function mount()
     {
         $this->targetUrl = config('app.url');
         $this->source = '';
+        $this->selectedUser = auth()->id();
+
+        if (auth()->user()->isReferral()) {
+            $lastLink = auth()->user()->generatedLinks()->latest()->first();
+            if ($lastLink) {
+                return redirect()->route('admin.link-generator.stats', $lastLink->id);
+            }
+        }
     }
 
     public function updated($propertyName)
@@ -46,9 +56,14 @@ class LinkGeneratorComponent extends Component
 
         $this->result = $fullUrl;
 
+        // Determine owner: Admin can select, Referral is always self
+        $userId = auth()->user()->isAdmin() && $this->selectedUser
+            ? $this->selectedUser
+            : auth()->id();
+
         // Save to DB
         GeneratedLink::create([
-            'user_id' => auth()->id(),
+            'user_id' => $userId,
             'target_url' => $url,
             'source' => $source,
             'full_url' => $fullUrl
@@ -148,8 +163,14 @@ class LinkGeneratorComponent extends Component
             $query->where('user_id', auth()->id());
         }
 
+        $referralUsers = [];
+        if (auth()->user()->isAdmin()) {
+            $referralUsers = \App\Models\User::where('role', \App\Models\User::ROLE_REFERRAL)->get();
+        }
+
         return view('livewire.admin.link-generator-component', [
-            'links' => $query->orderBy('click_count', 'desc')->latest()->with(['bookings', 'payouts'])->paginate(10)
+            'links' => $query->orderBy('click_count', 'desc')->latest()->with(['bookings', 'payouts'])->paginate(10),
+            'referralUsers' => $referralUsers,
         ])->layout('layouts.app');
     }
 }
