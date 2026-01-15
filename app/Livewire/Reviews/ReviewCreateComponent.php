@@ -9,18 +9,20 @@ use Livewire\Component;
 
 class ReviewCreateComponent extends Component
 {
-    public int $user_id   = 0;
-    public int $tour_id   = 0;
-    public int $rating    = 5;
+    public int $user_id = 0;
+    public int $tour_id = 0;
+    public int $rating = 5;
     public ?string $comment = null;
+    public bool $is_active = true;
 
     protected function rules(): array
     {
         return [
-            'user_id'  => 'required|exists:users,id',
-            'tour_id'  => 'required|exists:tours,id',
-            'rating'   => 'required|integer|min:1|max:5',
-            'comment'  => 'nullable|string|max:2000',
+            'user_id' => 'required|exists:users,id',
+            'tour_id' => 'required|exists:tours,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:2000',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -31,6 +33,7 @@ class ReviewCreateComponent extends Component
             'tour_id' => $this->tour_id,
             'rating' => $this->rating,
             'comment' => $this->comment,
+            'is_active' => $this->is_active,
         ]);
 
         try {
@@ -41,13 +44,14 @@ class ReviewCreateComponent extends Component
                 'tour_id' => $this->tour_id,
                 'rating' => $this->rating,
                 'comment' => $this->comment,
+                'is_active' => $this->is_active,
             ]);
 
             \Log::info('Отзыв успешно создан', ['review_id' => $review->id]);
 
             session()->flash('saved', [
                 'title' => 'Отзыв добавлен!',
-                'text'  => 'Новый отзыв успешно создан.',
+                'text' => 'Новый отзыв успешно создан.',
             ]);
 
             return $this->redirectRoute('reviews.index');
@@ -60,7 +64,7 @@ class ReviewCreateComponent extends Component
 
             session()->flash('error', [
                 'title' => 'Ошибка',
-                'text'  => 'Не удалось создать отзыв: ' . $e->getMessage(),
+                'text' => 'Не удалось создать отзыв: ' . $e->getMessage(),
             ]);
         }
     }

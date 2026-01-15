@@ -61,6 +61,6 @@ class ReviewEditComponent extends Component
         return view('livewire.reviews.review-edit-component', [
             'users' => User::select('id', 'name')->orderBy('name')->get(),
             'tours' => Tour::select('id', 'title')->orderBy('title')->get(),
-        ]);
+        ])->layout('layouts.app');
     }
 }
