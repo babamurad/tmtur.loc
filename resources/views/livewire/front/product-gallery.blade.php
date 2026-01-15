@@ -2,39 +2,17 @@
     <div class="container">
         <h1 class="text-center mb-4">{{ __('menu.gallery') ?? 'Gallery' }}</h1>
     </div>
-    @push('quill-css')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-    @endpush
 
-    <div class="container" x-data="{ lightbox: null }" x-init="
-        lightbox = GLightbox({
-            selector: '.glightbox-item',
-            touchNavigation: true,
-            loop: true,
-            autoplayVideos: true
-        });
-        
-        // Update lightbox when active index changes if needed, 
-        // but GLightbox handles its own state. 
-        // We just need to ensure the list is static or re-inited if list changes.
-        // Since list is static here, one init is enough.
-    ">
-        <!-- Hidden gallery items for GLightbox -->
-        <div class="d-none">
-            @foreach($images as $imgIndex => $img)
-                <a href="{{ 'uploads/' . $img->file_path }}" class="glightbox-item"
-                    data-gallery="gallery-{{ $this->getId() }}" data-title="{{ $img->tr('title') }}"
-                    data-description="{{ $img->tr('description') }}">
-                </a>
-            @endforeach
-        </div>
+    {{-- GLightbox removed --}}
+
+    <div class="container">
 
         <!-- Главное изображение -->
         <div class="main-image mb-4 text-center">
             <img src="{{ 'uploads/' . ($images[$activeIndex]->file_path ?? '') }}"
                 style="max-height: 60vh; width: auto; cursor: pointer;" class="img-fluid rounded shadow-lg"
                 alt="{{ $images[$activeIndex]->tr('alt_text') ?? 'Gallery image' }}"
-                @click="lightbox.openAt({{ $activeIndex }})">
+                onclick="showGalleryImage({{ $activeIndex }})" data-toggle="modal" data-target="#galleryModal">
         </div>
 
         <!-- Информация о фото - компактная версия -->
@@ -48,7 +26,8 @@
 
                         @if($images[$activeIndex]->tr('description'))
                             <p class="text-muted mb-2 small">
-                                {!! Str::limit(strip_tags($images[$activeIndex]->tr('description')), 150) !!}</p>
+                                {!! Str::limit(strip_tags($images[$activeIndex]->tr('description')), 150) !!}
+                            </p>
                         @endif
                     </div>
 
@@ -140,6 +119,126 @@
         </div>
     </div>
 
+    {{-- FULLSCREEN MODAL --}}
+    @if($images && count($images) > 0)
+
+        <style>
+            /* Custom Fullscreen Modal for Bootstrap 4 */
+            .modal-fullscreen {
+                padding: 0 !important;
+            }
+
+            .modal-fullscreen .modal-dialog {
+                width: 100%;
+                max-width: none;
+                height: 100%;
+                margin: 0;
+            }
+
+            .modal-fullscreen .modal-content {
+                height: 100%;
+                border: 0;
+                border-radius: 0;
+            }
+
+            .modal-fullscreen .modal-body {
+                overflow: hidden;
+                background-color: #000;
+            }
+        </style>
+
+        <!-- Modal -->
+        <div class="modal fade modal-fullscreen" id="galleryModal" tabindex="-1" role="dialog"
+            aria-labelledby="galleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header border-0 bg-dark p-3">
+                        <h5 class="modal-title text-white" id="galleryModalLabel">
+                            <i class="fas fa-images mr-2"></i> {{ __('menu.gallery') ?? 'Gallery' }}
+                        </h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-0 d-flex align-items-center justify-content-center">
+                        <div id="galleryCarousel" class="carousel slide w-100 h-100" data-ride="carousel"
+                            data-interval="false">
+                            {{-- Indicators --}}
+                            <ol class="carousel-indicators">
+                                @foreach($images as $index => $img)
+                                    <li data-target="#galleryCarousel" data-slide-to="{{ $index }}"
+                                        class="{{ $index === 0 ? 'active' : '' }}"></li>
+                                @endforeach
+                            </ol>
+
+                            {{-- Slides --}}
+                            <div class="carousel-inner h-100">
+                                @foreach($images as $index => $img)
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} h-100">
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            <img src="{{ 'uploads/' . $img->file_path }}" class="d-block img-fluid"
+                                                alt="{{ $img->tr('alt_text') }}"
+                                                style="max-height: 100vh; max-width: 100%; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            {{-- Controls --}}
+                            @if(count($images) > 1)
+                                <a class="carousel-control-prev" href="#galleryCarousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#galleryCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 bg-dark justify-content-center py-2">
+                        <span class="text-white small">
+                            <i class="fas fa-image"></i>
+                            <span id="currentImageNumber">1</span> / {{ count($images) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @push('scripts')
+            <script>
+                function showGalleryImage(index) {
+                    $('#galleryCarousel').carousel(index);
+                }
+
+                $(document).ready(function () {
+                    // Update image counter
+                    $('#galleryCarousel').on('slid.bs.carousel', function (e) {
+                        var currentIndex = $(e.relatedTarget).index() + 1;
+                        $('#currentImageNumber').text(currentIndex);
+                    });
+
+                    // Keyboard navigation
+                    $('#galleryModal').on('shown.bs.modal', function () {
+                        $(document).on('keydown.gallery', function (e) {
+                            if (e.keyCode == 37) { // Left arrow
+                                $('#galleryCarousel').carousel('prev');
+                            } else if (e.keyCode == 39) { // Right arrow
+                                $('#galleryCarousel').carousel('next');
+                            }
+                        });
+                    });
+
+                    $('#galleryModal').on('hidden.bs.modal', function () {
+                        $(document).off('keydown.gallery');
+                    });
+                });
+            </script>
+        @endpush
+    @endif
+
     <style>
         [x-ref="lane"]::-webkit-scrollbar {
             display: none;
@@ -162,8 +261,4 @@
             background-color: #f8f9fa;
         }
     </style>
-
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-    @endpush
 </div>

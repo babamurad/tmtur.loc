@@ -111,6 +111,7 @@
                     {{-- Главное изображение --}}
                     <div class="position-relative">
                         <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top img-fluid"
+                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top img-fluid"
                             alt="{{ $tour->tr('title') }}" style="max-height: 500px; object-fit: cover; cursor: pointer;"
                             data-toggle="modal" data-target="#galleryModal">
 
@@ -621,20 +622,43 @@
 
     {{-- GALLERY MODAL --}}
     @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
-        <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        
+        <style>
+            /* Custom Fullscreen Modal for Bootstrap 4 */
+            .modal-fullscreen {
+                padding: 0 !important;
+            }
+            .modal-fullscreen .modal-dialog {
+                width: 100%;
+                max-width: none;
+                height: 100%;
+                margin: 0;
+            }
+            .modal-fullscreen .modal-content {
+                height: 100%;
+                border: 0;
+                border-radius: 0;
+            }
+            .modal-fullscreen .modal-body {
+                overflow: hidden;
+                background-color: #000;
+            }
+        </style>
+
+        <!-- Modal -->
+        <div class="modal fade modal-fullscreen" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content bg-dark">
-                    <div class="modal-header border-0">
+                    <div class="modal-header border-0 bg-dark p-3">
                         <h5 class="modal-title text-white" id="galleryModalLabel">
-                            <i class="fas fa-images"></i> {{ $tour->tr('title') }}
+                            <i class="fas fa-images mr-2"></i> {{ $tour->tr('title') }}
                         </h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body p-0">
-                        <div id="galleryCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="modal-body p-0 d-flex align-items-center justify-content-center">
+                        <div id="galleryCarousel" class="carousel slide w-100 h-100" data-ride="carousel" data-interval="false">
                             {{-- Indicators --}}
                             <ol class="carousel-indicators">
                                 @foreach($tour->orderedMedia as $index => $media)
@@ -644,16 +668,15 @@
                             </ol>
 
                             {{-- Slides --}}
-                            <div class="carousel-inner">
+                            <div class="carousel-inner h-100">
                                 @foreach($tour->orderedMedia as $index => $media)
-                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('uploads/' . $media->file_path) }}" class="d-block w-100"
-                                            alt="{{ $media->file_name }}" style="max-height: 80vh; object-fit: contain;">
-                                        <!-- @if($media->file_name)
-                                                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                                                        <p class="mb-0">{{ $media->file_name }}</p>
-                                                                    </div>
-                                                                @endif -->
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }} h-100">
+                                        <div class="d-flex justify-content-center align-items-center h-100">
+                                            <img src="{{ asset('uploads/' . $media->file_path) }}" 
+                                                 class="d-block img-fluid" 
+                                                 alt="{{ $media->file_name }}" 
+                                                 style="max-height: 100vh; max-width: 100%; object-fit: contain;">
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
@@ -671,8 +694,8 @@
                             @endif
                         </div>
                     </div>
-                    <div class="modal-footer border-0 justify-content-center">
-                        <span class="text-white">
+                    <div class="modal-footer border-0 bg-dark justify-content-center py-2">
+                        <span class="text-white small">
                             <i class="fas fa-image"></i>
                             <span id="currentImageNumber">1</span> / {{ $tour->orderedMedia->count() }}
                         </span>
@@ -689,28 +712,26 @@
                 }
 
                 $(document).ready(function () {
-                    // Update image counter when carousel slides
-                    $('#galleryCarousel').on('slid.bs.carousel', function (e) {
-                        var currentIndex = $('div.carousel-item.active').index() + 1;
-                        $('#currentImageNumber').text(currentIndex);
-                    });
+                   // Update image counter
+                   $('#galleryCarousel').on('slid.bs.carousel', function (e) {
+                       var currentIndex = $(e.relatedTarget).index() + 1;
+                       $('#currentImageNumber').text(currentIndex);
+                   });
 
-                    // Keyboard navigation
-                    $('#galleryModal').on('shown.bs.modal', function () {
-                        $(document).on('keydown.gallery', function (e) {
-                            if (e.keyCode == 37) { // Left arrow
-                                $('#galleryCarousel').carousel('prev');
-                            } else if (e.keyCode == 39) { // Right arrow
-                                $('#galleryCarousel').carousel('next');
-                            } else if (e.keyCode == 27) { // Escape
-                                $('#galleryModal').modal('hide');
-                            }
-                        });
-                    });
+                   // Keyboard navigation
+                   $('#galleryModal').on('shown.bs.modal', function () {
+                       $(document).on('keydown.gallery', function (e) {
+                           if (e.keyCode == 37) { // Left arrow
+                               $('#galleryCarousel').carousel('prev');
+                           } else if (e.keyCode == 39) { // Right arrow
+                               $('#galleryCarousel').carousel('next');
+                           }
+                       });
+                   });
 
-                    $('#galleryModal').on('hidden.bs.modal', function () {
-                        $(document).off('keydown.gallery');
-                    });
+                   $('#galleryModal').on('hidden.bs.modal', function () {
+                       $(document).off('keydown.gallery');
+                   });
                 });
             </script>
         @endpush
