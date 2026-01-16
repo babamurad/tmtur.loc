@@ -11,6 +11,9 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class PlaceCreateComponent extends Component
 {
+
+    use \App\Livewire\Traits\HasGeminiTranslation;
+
     #[Rule('required')]
     public $name;
 
@@ -86,5 +89,15 @@ class PlaceCreateComponent extends Component
     public function render()
     {
         return view('livewire.admin.place.place-create-component')->layout('layouts.app');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Место (достопримечательность)';
     }
 }

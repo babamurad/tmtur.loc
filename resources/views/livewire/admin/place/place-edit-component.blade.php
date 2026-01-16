@@ -35,7 +35,10 @@
                             </ul>
 
                             {{-- AI Translation Buttons --}}
-                            <x-gemini-translation-buttons />
+                            {{-- AI Translation Buttons --}}
+                            <div class="mb-3 text-end">
+                                <x-gemini-translation-buttons :duration="$translationDuration" />
+                            </div>
 
                             <div class="tab-content">
                                 @foreach(config('app.available_locales') as $index => $locale)

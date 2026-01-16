@@ -22,6 +22,11 @@
 
 
                         <form wire:submit.prevent="storePlace">
+                            {{-- AI Translation Buttons --}}
+                            <div class="mb-3 text-end">
+                                <x-gemini-translation-buttons :duration="$translationDuration" />
+                            </div>
+
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
                                 @foreach(config('app.available_locales') as $index => $locale)
