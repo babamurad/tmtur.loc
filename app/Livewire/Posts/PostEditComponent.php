@@ -51,7 +51,7 @@ class PostEditComponent extends Component
             'category_id' => 'required|exists:categories,id',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
-            'newImage' => 'nullable|image|max:2048',
+            'newImage' => 'nullable|image|max:4096',
         ];
 
         foreach (config('app.available_locales') as $l) {

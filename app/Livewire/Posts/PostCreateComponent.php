@@ -39,7 +39,7 @@ class PostCreateComponent extends Component
             'content' => 'nullable|string',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:4096',
         ];
 
         foreach (config('app.available_locales') as $l) {
