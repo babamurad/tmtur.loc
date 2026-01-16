@@ -327,11 +327,12 @@
 
     <!-- Sticky Buttons -->
     <div class="sticky-buttons">
-        <a href="https://wa.me/99365686029" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0" title="WhatsApp">
+        <a href="https://wa.me/99365686029" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0"
+            title="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <button type="button" class="btn-floating btn-lg btn-contact mt-0 pt-0" data-toggle="modal" data-target="#contactModal"
-            title="{{ __('messages.contact_us') ?? 'Contact Us' }}">
+        <button type="button" class="btn-floating btn-lg btn-contact mt-0 pt-0" data-toggle="modal"
+            data-target="#contactModal" title="{{ __('messages.contact_us') ?? 'Contact Us' }}">
             <i class="fas fa-comment-dots"></i>
         </button>
     </div>
@@ -361,6 +362,7 @@
             color: white !important;
             font-size: 28px;
             text-decoration: none;
+            line-height: 1 !important;
         }
 
         .btn-floating:hover {
@@ -388,9 +390,14 @@
             }
 
             .btn-floating {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 20px !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                line-height: 1 !important;
             }
         }
     </style>
