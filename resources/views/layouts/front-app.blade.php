@@ -4,44 +4,44 @@
 <head>
     <!-- Optimized Google Tag Manager & Analytics (Lazy Load) -->
     @production
-    <link rel="preconnect" href="https://cdn-cookieyes.com">
-    
-    <script>
-        // Init dataLayer immediately
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        
-        // Record start time and config immediately
-        dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-        gtag('js', new Date());
-        gtag('config', 'G-C5C6D1TJJW');
-        
-        // Lazy load function
-        function loadAnalytics() {
-             if (window.analyticsLoaded) return;
-             window.analyticsLoaded = true;
+        <link rel="preconnect" href="https://cdn-cookieyes.com">
 
-            // Load GTag Script
-            var s1 = document.createElement('script');
-            s1.async = true;
-            s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW';
-            document.head.appendChild(s1);
+        <script>
+            // Init dataLayer immediately
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
 
-            // Load GTM Script
-            var s2 = document.createElement('script');
-            s2.async = true;
-            s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TJZ6LF4Z';
-            document.head.appendChild(s2);
-        }
+            // Record start time and config immediately
+            dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            gtag('js', new Date());
+            gtag('config', 'G-C5C6D1TJJW');
 
-        // Trigger on interaction or timeout
-        var events = ["mouseover", "keydown", "touchstart", "touchmove", "wheel"];
-        events.forEach(function(e) {
-            window.addEventListener(e, loadAnalytics, { passive: true, once: true });
-        });
-        
-        setTimeout(loadAnalytics, 4000);
-    </script>
+            // Lazy load function
+            function loadAnalytics() {
+                if (window.analyticsLoaded) return;
+                window.analyticsLoaded = true;
+
+                // Load GTag Script
+                var s1 = document.createElement('script');
+                s1.async = true;
+                s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-C5C6D1TJJW';
+                document.head.appendChild(s1);
+
+                // Load GTM Script
+                var s2 = document.createElement('script');
+                s2.async = true;
+                s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TJZ6LF4Z';
+                document.head.appendChild(s2);
+            }
+
+            // Trigger on interaction or timeout
+            var events = ["mouseover", "keydown", "touchstart", "touchmove", "wheel"];
+            events.forEach(function (e) {
+                window.addEventListener(e, loadAnalytics, { passive: true, once: true });
+            });
+
+            setTimeout(loadAnalytics, 4000);
+        </script>
     @endproduction
     <!-- Start cookieyes banner (Lazy Load) -->
     @if(config('app.env') === 'production')
@@ -52,7 +52,7 @@
                 s.id = 'cookieyes';
                 s.type = 'text/javascript';
                 s.src = 'https://cdn-cookieyes.com/client_data/bfb64a58994c32d4e86c363b60b99a9e/script.js';
-                s.defer = true; 
+                s.defer = true;
                 document.body.appendChild(s);
             }
             // Delay loading to prioritize LCP (Hero Image)
@@ -75,7 +75,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" href="{{ asset('img/favicon.ico') }}" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐪</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,18 +133,20 @@
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-        (function(m,e,t,r,i,k,a){
-            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106058932', 'ym');
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=106058932', 'ym');
 
-        ym(106058932, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+        ym(106058932, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/106058932" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/106058932" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
-     
+
 </head>
 
 <body data-spy="scroll" data-target="#mainNav">
@@ -205,7 +208,7 @@
 
     <script>
         // Animation init
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof WOW !== 'undefined') {
                 new WOW().init();
             }
@@ -238,7 +241,7 @@
         }
 
         // Инициализация при первой загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             if (typeof $ !== 'undefined') {
                 initBootstrapComponents();
             }
@@ -296,11 +299,11 @@
             }
         }
 
-        document.addEventListener('scroll', function(e) {
+        document.addEventListener('scroll', function (e) {
             lastKnownScrollPosition = window.scrollY;
 
             if (!ticking) {
-                window.requestAnimationFrame(function() {
+                window.requestAnimationFrame(function () {
                     updateNavbarState(lastKnownScrollPosition);
                     ticking = false;
                 });
@@ -310,16 +313,87 @@
         });
 
         // Initial check
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateNavbarState(window.scrollY);
         });
-        
+
         // Check on navigation
-        document.addEventListener('livewire:navigated', function() {
+        document.addEventListener('livewire:navigated', function () {
             updateNavbarState(window.scrollY);
         });
     </script>
 
+
+
+    <!-- Sticky Buttons -->
+    <div class="sticky-buttons">
+        <a href="https://wa.me/99365686029" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <button type="button" class="btn-floating btn-lg btn-contact mt-0 pt-0" data-toggle="modal" data-target="#contactModal"
+            title="{{ __('messages.contact_us') ?? 'Contact Us' }}">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    @livewire('front.contact-modal')
+
+    <style>
+        .sticky-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-floating {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            color: white !important;
+            font-size: 28px;
+            text-decoration: none;
+        }
+
+        .btn-floating:hover {
+            transform: scale(1.1);
+            text-decoration: none;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+        }
+
+        .btn-contact {
+            background-color: #007bff;
+            /* Primary color */
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Mobile adjustment */
+        @media (max-width: 768px) {
+            .sticky-buttons {
+                bottom: 20px;
+                right: 20px;
+                gap: 8px;
+            }
+
+            .btn-floating {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+        }
+    </style>
 
     @stack('quill-js')
     @stack('scripts')

@@ -163,4 +163,15 @@ return [
     'login_to_review_text' => 'Пожалуйста, <a href=":login_url">авторизуйтесь</a>, чтобы оставить отзыв.',
     'review_submitted_success' => 'Ваш отзыв успешно отправлен и ожидает модерации.',
     'tags' => 'Теги',
+
+    // Contact Modal
+    'leave_message_contact' => 'Оставьте нам сообщение и мы свяжемся с вами',
+    'name' => 'Имя',
+    'email' => 'Email',
+    'phone' => 'Телефон',
+    'message' => 'Сообщение',
+    'close' => 'Закрыть',
+    'send' => 'Отправить',
+    'sending' => 'Отправка...',
+    'message_sent' => 'Ваше сообщение успешно отправлено!',
 ];

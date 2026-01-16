@@ -163,4 +163,15 @@ return [
     'login_to_review_text' => 'Please <a href=":login_url">login</a> to leave a review.',
     'review_submitted_success' => 'Your review has been successfully submitted and is awaiting moderation.',
     'tags' => 'Tags',
+
+    // Contact Modal
+    'leave_message_contact' => 'Leave us a message and we will contact you',
+    'name' => 'Name',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'message' => 'Message',
+    'close' => 'Close',
+    'send' => 'Send',
+    'sending' => 'Sending...',
+    'message_sent' => 'Your message has been sent successfully!',
 ];

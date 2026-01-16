@@ -125,10 +125,22 @@ class PostEditComponent extends Component
         return redirect()->route('posts.index');
     }
 
+    use \App\Livewire\Traits\HasGeminiTranslation;
+
     public function render()
     {
         return view('livewire.posts.post-edit-component', [
             'categories' => \App\Models\Category::where('is_published', 1)->get(),
         ]);
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'блог пост туристической тематики';
     }
 }

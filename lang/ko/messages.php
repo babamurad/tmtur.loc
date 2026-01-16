@@ -162,4 +162,15 @@ return [
     'review_submitted_success' => '후기가 성공적으로 제출되었으며 검토 대기 중입니다.',
 
     'tags' => '태그',
+
+    // Contact Modal
+    'leave_message_contact' => '메시지를 남겨주시면 연락드리겠습니다',
+    'name' => '이름',
+    'email' => '이메일',
+    'phone' => '전화번호',
+    'message' => '메시지',
+    'close' => '닫기',
+    'send' => '보내기',
+    'sending' => '전송 중...',
+    'message_sent' => '메시지가 성공적으로 전송되었습니다!',
 ];

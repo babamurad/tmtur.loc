@@ -154,10 +154,22 @@ class PostCreateComponent extends Component
         }
     }
 
+    use \App\Livewire\Traits\HasGeminiTranslation;
+
     public function render()
     {
         return view('livewire.posts.post-create-component', [
             'categories' => Category::where('is_published', 1)->get(),
         ]);
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'блог пост туристической тематики';
     }
 }
