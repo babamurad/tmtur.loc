@@ -327,7 +327,7 @@
 
     <!-- Sticky Buttons -->
     <div class="sticky-buttons">
-        <a href="https://wa.me/99365686029" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0"
+        <a href="https://wa.me/99362846733" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0"
             title="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
