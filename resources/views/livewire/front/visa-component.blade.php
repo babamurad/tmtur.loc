@@ -181,15 +181,8 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input @error('gdpr_consent') is-invalid @enderror"
-                                    id="gdpr_consent" wire:model="gdpr_consent">
-                                <label class="form-check-label" for="gdpr_consent">
-                                    {{ __('messages.gdpr_consent_statement') }}
-                                </label>
-                                @error('gdpr_consent')
-                                    <div class="tm-error d-block">{{ $message }}</div>
-                                @enderror
+                            <div class="text-muted small mt-2">
+                                {!! __('messages.agree_terms_order', ['terms_url' => route('terms'), 'privacy_url' => route('privacy')]) !!}
                             </div>
 
                             <div class="d-flex align-items-center justify-content-between mt-2">

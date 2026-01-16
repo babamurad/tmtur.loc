@@ -32,75 +32,160 @@
             @endif
 
 
-            {{-- модалка --}}
-            <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ __('messages.modal_book_tour_title') }}</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-muted text-center">{{ __('messages.modal_book_tour_description') }}</p>
-                            <form>
-                                {{-- honeypot --}}
-                                <div style="position:absolute; left:-9999px;">
-                                    <input type="text" wire:model.defer="hp" tabindex="-1">
-                                </div>
+            {{-- Booking modal --}}
+            @if($showBookingModal)
+                <div class="modal fade show d-block tm-modal" tabindex="-1" role="dialog" aria-modal="true"
+                    style="background: rgba(0,0,0,0.55);">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
 
-                                <div class="form-group">
-                                    <input class="form-control @error('name') is-invalid @enderror"
-                                        wire:model.defer="name"
-                                        placeholder="{{ __('messages.modal_name_placeholder') }}">
-                                    @error('name') <span class="invalid-feedback d-block">{{ $message }}</span>
+                            <div class="tm-modal-header">
+                                <button type="button" class="close tm-modal-close" aria-label="Close"
+                                    wire:click="closeBookingModal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="tm-icon-circle">
+                                        ✉
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">
+                                            {{ __('messages.modal_booking_title') }}
+                                        </h5>
+                                        <p class="mb-0">
+                                            {{ __('Leave your contacts and we will confirm availability for this group.') }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form wire:submit.prevent="submitBooking" novalidate
+                                class="d-flex flex-column flex-grow-1 overflow-auto">
+                                <div class="tm-modal-body">
+                                    @if($selectedGroup)
+                                        <div class="tm-tour-summary">
+                                            <div class="tm-tour-summary-title">
+                                                {{ $tour->tr('title') }}
+                                            </div>
+                                            <div class="tm-tour-summary-meta">
+                                                <span>
+                                                    <i class="far fa-calendar-alt"></i>
+                                                    @if($selectedGroup->starts_at)
+                                                        {{ \Carbon\Carbon::parse($selectedGroup->starts_at)->format('d.m.Y') }}
+                                                    @endif
+                                                </span>
+
+                                                @php
+                                                    $available = max(0, (int) $selectedGroup->freePlaces());
+                                                    $capacity = (int) $selectedGroup->max_people;
+                                                    $booked = max(0, $capacity - $available);
+                                                @endphp
+
+                                                <span>
+                                                    <i class="fas fa-user-check"></i>
+                                                    {{ $booked }} / {{ $capacity }} {{ __('messages.booked_badge') }}
+                                                </span>
+                                                <span>
+                                                    <i class="fas fa-user-plus"></i>
+                                                    {{ __('messages.available_seats_badge') }}: {{ $available }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="booking_name" class="tm-form-label">
+                                                {{ __('messages.modal_name_label') }}
+                                            </label>
+                                            <input type="text" id="booking_name"
+                                                class="form-control tm-form-control @error('booking_name') is-invalid @enderror"
+                                                wire:model="booking_name">
+                                            @error('booking_name')
+                                                <div class="tm-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="booking_email" class="tm-form-label">
+                                                {{ __('messages.modal_email_label') }}
+                                            </label>
+                                            <input type="email" id="booking_email"
+                                                class="form-control tm-form-control @error('booking_email') is-invalid @enderror"
+                                                wire:model="booking_email">
+                                            @error('booking_email')
+                                                <div class="tm-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="booking_phone" class="tm-form-label">
+                                                {{ __('messages.modal_phone_label') }}
+                                            </label>
+                                            <input type="text" id="booking_phone"
+                                                class="form-control tm-form-control @error('booking_phone') is-invalid @enderror"
+                                                wire:model="booking_phone">
+                                            @error('booking_phone')
+                                                <div class="tm-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="booking_guests" class="tm-form-label">
+                                                {{ __('messages.modal_guests_label') }}
+                                            </label>
+                                            <input type="number" min="1" id="booking_guests"
+                                                class="form-control tm-form-control @error('booking_guests') is-invalid @enderror"
+                                                wire:model="booking_guests">
+                                            @error('booking_guests')
+                                                <div class="tm-error">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="booking_message" class="tm-form-label">
+                                            {{ __('messages.modal_message_label') }}
+                                        </label>
+                                        <textarea id="booking_message" rows="3"
+                                            class="form-control tm-form-control tm-textarea @error('booking_message') is-invalid @enderror"
+                                            wire:model="booking_message"></textarea>
+                                        @error('booking_message')
+                                            <div class="tm-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="text-muted small mt-2">
+                                        {!! __('messages.agree_terms_order', ['terms_url' => route('terms'), 'privacy_url' => route('privacy')]) !!}
+                                    </div>
+
+
+                                    @error('booking_general')
+                                        <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
 
-                                <div class="form-group">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                        wire:model.defer="email" placeholder="Email">
-                                    @error('email') <span class="invalid-feedback d-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                    <div class="d-flex align-items-center justify-content-between mt-2">
+                                        <button type="button" class="btn btn-secondary" wire:click="closeBookingModal">
+                                            {{ __('Cancel') }}
+                                        </button>
 
-                                <div class="form-group">
-                                    <input type="tel" class="form-control @error('phone') is-invalid @enderror"
-                                        wire:model.defer="phone"
-                                        placeholder="{{ __('messages.modal_phone_placeholder') }}">
-                                    @error('phone') <span class="invalid-feedback d-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <textarea class="form-control @error('message') is-invalid @enderror"
-                                        wire:model.defer="message" rows="4"
-                                        placeholder="{{ __('messages.modal_message_placeholder') }}"></textarea>
-                                    @error('message') <span class="invalid-feedback d-block">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">{{ __('messages.modal_cancel_button') }}</button>
-                                    <button type="button" class="btn btn-primary"
-                                        wire:click="sendMessage()">{{ __('messages.modal_send_button') }}</button>
+                                        <button type="submit" class="btn tm-order-btn text-white"
+                                            wire:loading.attr="disabled">
+                                            <span wire:loading.remove>{{ __('Send') }}</span>
+                                            <span wire:loading>{{ __('Sending...') }}</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <script>
-                document.addEventListener('livewire:initialized', () => {
-                    Livewire.on('close-modal', () => {
-                        $('#exampleModal').modal('hide');
-                    });
-                    Livewire.on('open-modal', () => {
-                        $('#exampleModal').modal('show');
-                    });
-                });
-            </script>
+                <div class="modal-backdrop fade show"></div>
+            @endif
 
 
             {{-- КАРТОЧКА ТУРА --}}
@@ -110,10 +195,12 @@
                 @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
                     {{-- Главное изображение --}}
                     <div class="position-relative">
-                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top img-fluid"
-                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}" class="card-img-top img-fluid"
-                            alt="{{ $tour->tr('title') }}" style="max-height: 500px; object-fit: cover; cursor: pointer;"
-                            data-toggle="modal" data-target="#galleryModal">
+                        <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}"
+                            class="card-img-top img-fluid" <img
+                            src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}"
+                            class="card-img-top img-fluid" alt="{{ $tour->tr('title') }}"
+                            style="max-height: 500px; object-fit: cover; cursor: pointer;" data-toggle="modal"
+                            data-target="#galleryModal">
 
                         @if($tour->orderedMedia->count() > 1)
                             <div class="position-absolute" style="bottom: 15px; right: 15px;">
@@ -293,7 +380,7 @@
                                                 <div class="col-md-4">
                                                     @if($available > 0)
                                                         <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
-                                                            wire:click.prevent="openBookModal({{ $group->id }})">
+                                                            wire:click.prevent="openBookingModal({{ $group->id }})">
                                                             <i class="fas fa-ticket-alt mr-1"></i>
                                                             {{ __('messages.book_now') ?? 'Забронировать' }}
                                                         </button>
@@ -376,44 +463,11 @@
                                                         {{-- Кнопка бронирования --}}
                                                         <div class="col-md-4">
                                                             @if($available > 0)
-                                                                <button type="button" 
-                                                                    wire:click="$set('selectedGroupId', {{ $group->id }})"
-                                                                    class="btn btn-sm btn-outline-primary btn-block mb-2">
-                                                                    <i class="fas fa-check mr-1"></i> Выбрать
+                                                                <button type="button" href="#" class="btn btn-sm btn-primary btn-block"
+                                                                    wire:click.prevent="openBookingModal({{ $group->id }})">
+                                                                    <i class="fas fa-ticket-alt mr-1"></i>
+                                                                    {{ __('messages.book_now') ?? 'Забронировать' }}
                                                                 </button>
-                                                                
-                                                                @if($selectedGroupId === $group->id)
-                                                                    <div class="mt-2 animate__animated animate__fadeIn">
-                                                                        {{-- People Count --}}
-                                                                        <div class="form-group mb-2">
-                                                                            <label class="small font-weight-bold">Кол-во людей:</label>
-                                                                            <input type="number" wire:model.live="peopleCount" class="form-control form-control-sm" min="1" max="{{ $available }}">
-                                                                        </div>
-
-                                                                        {{-- Accommodation Type --}}
-                                                                        <div class="form-group mb-2">
-                                                                            <label class="small font-weight-bold">Тип размещения:</label>
-                                                                            <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                                                                                <label class="btn btn-sm btn-outline-secondary {{ $accommodationType == 'standard' ? 'active' : '' }}" wire:click="$set('accommodationType', 'standard')">
-                                                                                    <input type="radio" name="options" id="option1" autocomplete="off" {{ $accommodationType == 'standard' ? 'checked' : '' }}> Standard
-                                                                                </label>
-                                                                                <label class="btn btn-sm btn-outline-secondary {{ $accommodationType == 'comfort' ? 'active' : '' }}" wire:click="$set('accommodationType', 'comfort')">
-                                                                                    <input type="radio" name="options" id="option2" autocomplete="off" {{ $accommodationType == 'comfort' ? 'checked' : '' }}> Comfort
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        {{-- Total & Button --}}
-                                                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                                                            <span class="small text-muted">Цена за чел:</span>
-                                                                            <span class="font-weight-bold text-primary">${{ $this->calculatedPrice }}</span>
-                                                                        </div>
-
-                                                                        <button wire:click="addToCart" class="btn btn-sm btn-primary btn-block">
-                                                                            <i class="fas fa-shopping-cart mr-1"></i> В корзину
-                                                                        </button>
-                                                                    </div>
-                                                                @endif
                                                             @else
                                                                 <button class="btn btn-secondary btn-block" disabled>
                                                                     <i class="fas fa-times-circle mr-1"></i>
@@ -525,7 +579,7 @@
                                 <div class="card-header p-0" id="heading{{ $idx }}">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left d-flex justify-content-between align-items-center
-                                               text-decoration-none text-dark" type="button" data-toggle="collapse"
+                                                   text-decoration-none text-dark" type="button" data-toggle="collapse"
                                             data-target="#collapse{{ $idx }}"
                                             aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
                                             aria-controls="collapse{{ $idx }}">
@@ -575,7 +629,8 @@
                     {{-- TAGS --}}
                     @if($tour->tags && $tour->tags->count() > 0)
                         <div class="mt-4">
-                            <h5 class="mb-2"><i class="bx bx-purchase-tag-alt text-primary mr-1"></i> {{ __('messages.tags') }}:</h5>
+                            <h5 class="mb-2"><i class="bx bx-purchase-tag-alt text-primary mr-1"></i>
+                                {{ __('messages.tags') }}:</h5>
                             <div>
                                 @foreach($tour->tags as $tag)
                                     <a href="{{ route('tours.tag.show', $tag->id) }}" class="badge badge-info p-2 mr-1 mb-1"
@@ -622,23 +677,26 @@
 
     {{-- GALLERY MODAL --}}
     @if($tour->orderedMedia && $tour->orderedMedia->count() > 0)
-        
+
         <style>
             /* Custom Fullscreen Modal for Bootstrap 4 */
             .modal-fullscreen {
                 padding: 0 !important;
             }
+
             .modal-fullscreen .modal-dialog {
                 width: 100%;
                 max-width: none;
                 height: 100%;
                 margin: 0;
             }
+
             .modal-fullscreen .modal-content {
                 height: 100%;
                 border: 0;
                 border-radius: 0;
             }
+
             .modal-fullscreen .modal-body {
                 overflow: hidden;
                 background-color: #000;
@@ -646,7 +704,8 @@
         </style>
 
         <!-- Modal -->
-        <div class="modal fade modal-fullscreen" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+        <div class="modal fade modal-fullscreen" id="galleryModal" tabindex="-1" role="dialog"
+            aria-labelledby="galleryModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content bg-dark">
                     <div class="modal-header border-0 bg-dark p-3">
@@ -658,7 +717,8 @@
                         </button>
                     </div>
                     <div class="modal-body p-0 d-flex align-items-center justify-content-center">
-                        <div id="galleryCarousel" class="carousel slide w-100 h-100" data-ride="carousel" data-interval="false">
+                        <div id="galleryCarousel" class="carousel slide w-100 h-100" data-ride="carousel"
+                            data-interval="false">
                             {{-- Indicators --}}
                             <ol class="carousel-indicators">
                                 @foreach($tour->orderedMedia as $index => $media)
@@ -672,10 +732,9 @@
                                 @foreach($tour->orderedMedia as $index => $media)
                                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }} h-100">
                                         <div class="d-flex justify-content-center align-items-center h-100">
-                                            <img src="{{ asset('uploads/' . $media->file_path) }}" 
-                                                 class="d-block img-fluid" 
-                                                 alt="{{ $media->file_name }}" 
-                                                 style="max-height: 100vh; max-width: 100%; object-fit: contain;">
+                                            <img src="{{ asset('uploads/' . $media->file_path) }}" class="d-block img-fluid"
+                                                alt="{{ $media->file_name }}"
+                                                style="max-height: 100vh; max-width: 100%; object-fit: contain;">
                                         </div>
                                     </div>
                                 @endforeach
@@ -712,26 +771,26 @@
                 }
 
                 $(document).ready(function () {
-                   // Update image counter
-                   $('#galleryCarousel').on('slid.bs.carousel', function (e) {
-                       var currentIndex = $(e.relatedTarget).index() + 1;
-                       $('#currentImageNumber').text(currentIndex);
-                   });
+                    // Update image counter
+                    $('#galleryCarousel').on('slid.bs.carousel', function (e) {
+                        var currentIndex = $(e.relatedTarget).index() + 1;
+                        $('#currentImageNumber').text(currentIndex);
+                    });
 
-                   // Keyboard navigation
-                   $('#galleryModal').on('shown.bs.modal', function () {
-                       $(document).on('keydown.gallery', function (e) {
-                           if (e.keyCode == 37) { // Left arrow
-                               $('#galleryCarousel').carousel('prev');
-                           } else if (e.keyCode == 39) { // Right arrow
-                               $('#galleryCarousel').carousel('next');
-                           }
-                       });
-                   });
+                    // Keyboard navigation
+                    $('#galleryModal').on('shown.bs.modal', function () {
+                        $(document).on('keydown.gallery', function (e) {
+                            if (e.keyCode == 37) { // Left arrow
+                                $('#galleryCarousel').carousel('prev');
+                            } else if (e.keyCode == 39) { // Right arrow
+                                $('#galleryCarousel').carousel('next');
+                            }
+                        });
+                    });
 
-                   $('#galleryModal').on('hidden.bs.modal', function () {
-                       $(document).off('keydown.gallery');
-                   });
+                    $('#galleryModal').on('hidden.bs.modal', function () {
+                        $(document).off('keydown.gallery');
+                    });
                 });
             </script>
         @endpush

@@ -90,6 +90,7 @@ return [
     'no_seats' => '매진',
     'order_button' => '지금 예약',
     'gdpr_consent_statement' => '개인정보 처리방침에 동의합니다',
+    'agree_terms_order' => '주문을 진행함으로써 귀하는 <a href=":terms_url" target="_blank">이용 약관</a> 및 <a href=":privacy_url" target="_blank">개인정보 처리방침</a>에 따른 데이터 처리에 동의하게 됩니다.',
 
     'home_popular_title' => '투르크메니스탄 인기 투어',
     'home_popular_subtitle' => '현지 전문가가 엄선한 소규모 그룹 및 프라이빗 투어.',

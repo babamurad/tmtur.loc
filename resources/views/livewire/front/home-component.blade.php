@@ -254,9 +254,9 @@
                                 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
                                     <div class="mb-2 mb-md-0 pr-md-3">
                                         <div class="tm-group-title">
-                                            
-                                                {{ $group->tour?->tr('title') ?? $group->tour?->title }}
-                                            
+
+                                            {{ $group->tour?->tr('title') ?? $group->tour?->title }}
+
                                         </div>
 
                                         <div class="tm-group-meta-line mt-1">
@@ -334,7 +334,8 @@
                         </div>
                     </div>
 
-                    <form wire:submit.prevent="submitBooking" novalidate class="d-flex flex-column flex-grow-1 overflow-auto">
+                    <form wire:submit.prevent="submitBooking" novalidate
+                        class="d-flex flex-column flex-grow-1 overflow-auto">
                         <div class="tm-modal-body">
                             @if($selectedGroup)
                                 <div class="tm-tour-summary">
@@ -431,15 +432,8 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input @error('gdpr_consent') is-invalid @enderror"
-                                    id="gdpr_consent" wire:model="gdpr_consent">
-                                <label class="form-check-label" for="gdpr_consent">
-                                    {{ __('messages.gdpr_consent_statement') }}
-                                </label>
-                                @error('gdpr_consent')
-                                    <div class="tm-error d-block">{{ $message }}</div>
-                                @enderror
+                            <div class="text-muted small mt-2">
+                                {!! __('messages.agree_terms_order', ['terms_url' => route('terms'), 'privacy_url' => route('privacy')]) !!}
                             </div>
 
                             @error('booking_general')

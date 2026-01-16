@@ -14,7 +14,7 @@ class VisaComponent extends Component
     public string $booking_email = '';
     public string $booking_phone = '';
     public string $booking_message = '';
-    public bool $gdpr_consent = false;
+
 
     protected function rules(): array
     {
@@ -23,7 +23,6 @@ class VisaComponent extends Component
             'booking_email' => ['required', 'email', 'max:255'],
             'booking_phone' => ['nullable', 'string', 'max:50'],
             'booking_message' => ['nullable', 'string', 'max:2000'],
-            'gdpr_consent' => ['accepted'],
         ];
     }
 
@@ -47,7 +46,7 @@ class VisaComponent extends Component
         }
 
         $this->booking_message = '';
-        $this->gdpr_consent = false;
+
 
         $this->resetErrorBag();
         $this->resetValidation();

@@ -20,3 +20,4 @@ If in doubt, make a reasonable assumption and state it clearly.
 The project is a tourism company website with admin panels for tours, guides, bookings, and user profiles. User avatars are stored in a related media (or similar) table via a hasOne relationship.
 
 Always produce production-grade, type-safe, maintainable code that aligns with Laravel and Livewire best practices.
+Всегда отвечай мне по русски и документация тоже нужна на русском языке.

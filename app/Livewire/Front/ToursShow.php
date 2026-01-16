@@ -11,23 +11,33 @@ class ToursShow extends Component
 {
     public Tour $tour;
     public ?int $selectedGroupId = null;
-    public int $peopleCount = 1;
-    public string $accommodationType = \App\Enums\AccommodationType::STANDARD->value; // 'standard' or 'comfort'
-    public array $services = [];   // id => bool
+    public ?TourGroup $selectedGroup = null;
+    public bool $showBookingModal = false;
 
-    public $sending = false;
-    public ?string $name = null;
-    public ?string $email = null;
-    public ?string $phone = null;
-    public ?string $message = null;
-    public ?string $hp = null; // honeypot
+    // Booking Modal Fields
+    public string $booking_name = '';
+    public string $booking_email = '';
+    public string $booking_phone = '';
+    public string $booking_guests = '1';
+    public string $booking_message = '';
+
+
 
     protected function rules()
     {
         return [
-            'selectedGroupId' => 'required|exists:tour_groups,id',
+            // Cart rules
+            'selectedGroupId' => 'nullable|exists:tour_groups,id',
             'peopleCount' => 'required|integer|min:1|max:9',
             'accommodationType' => 'required|in:' . \App\Enums\AccommodationType::STANDARD->value . ',' . \App\Enums\AccommodationType::COMFORT->value,
+
+            // Booking Modal rules
+            'booking_name' => ['nullable', 'string', 'max:255'],
+            'booking_email' => ['nullable', 'email', 'max:255'],
+            'booking_phone' => ['nullable', 'string', 'max:50'],
+            'booking_guests' => ['nullable', 'integer', 'min:1'],
+            'booking_message' => ['nullable', 'string', 'max:2000'],
+
         ];
     }
 
@@ -45,76 +55,137 @@ class ToursShow extends Component
         ]);
     }
 
-    public function resetForm()
+    public function resetBookingForm()
     {
-        $this->name = null;
-        $this->email = null;
-        $this->phone = null;
-        $this->message = null;
-        $this->hp = null;
+        $this->booking_name = '';
+        $this->booking_email = '';
+        $this->booking_phone = '';
+        $this->booking_guests = '1';
+        $this->booking_message = '';
+        $this->resetErrorBag();
+
+        $this->resetValidation();
     }
 
-    public function closeModal()
+    public function closeBookingModal()
     {
-        $this->resetForm();
+        $this->showBookingModal = false;
+        $this->resetBookingForm();
     }
 
-    public function openBookModal($groupId)
+    public function openBookingModal($groupId)
     {
-        \Log::info('openBookModal called with ID: ' . $groupId);
         $this->selectedGroupId = $groupId;
-        $this->dispatch('open-modal');
+        $this->selectedGroup = TourGroup::find($groupId);
+        $this->showBookingModal = true;
+        // Reset guests to 1
+        $this->booking_guests = '1';
     }
 
-    public function sendMessage(\App\Actions\Booking\CreateBookingAction $createBookingAction)
+    public function submitBooking()
     {
-        \Log::info('sendMessage called. SelectedGroupId: ' . var_export($this->selectedGroupId, true));
-        $this->sending = true;
-        // валидация ТОЛЬКО полей формы
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:50',
-            'message' => 'nullable|string|max:5000',
-            'hp' => 'nullable|prohibited',
+        // Manual validation for the modal fields
+        $validated = $this->validate([
+            'booking_name' => ['required', 'string', 'max:255'],
+            'booking_email' => ['required', 'email', 'max:255'],
+            'booking_phone' => ['nullable', 'string', 'max:50'],
+            'booking_guests' => ['required', 'integer', 'min:1'],
+            'booking_message' => ['nullable', 'string', 'max:2000'],
         ]);
 
-        // extra spam check: if honeypot filled — abort quietly
-        if (!empty($this->hp)) {
-            $this->resetForm();
-            session()->flash('contact_error', 'Unable to send message.');
+        if (!$this->selectedGroupId) {
+            $this->addError('booking_general', __('messages.no_tour_group_selected'));
             return;
         }
 
-        $tourGroup = null;
-        if ($this->selectedGroupId) {
-            $tourGroup = TourGroup::find($this->selectedGroupId);
+        $group = TourGroup::find($this->selectedGroupId);
+        if (!$group) {
+            $this->addError('booking_general', __('messages.no_tour_group_selected'));
+            return;
         }
 
-        $data = [
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'message' => $this->message,
-            'tour_id' => $this->tour->id,
-            'tour_title' => $this->tour->tr('title'),
-            'tour_group_id' => $this->selectedGroupId,
-            'tour_group_title' => $tourGroup ? ($tourGroup->tour?->tr('title') ?? $tourGroup->tour?->title) : null,
-            'people_count' => $this->peopleCount,
-            'accommodation_type' => $this->accommodationType,
-            'services' => array_keys(array_filter($this->services)),
-        ];
+        $available = (int) $group->freePlaces();
+        $guests = (int) $validated['booking_guests'];
+
+        if ($available <= 0 || $guests > max($available, 0)) {
+            $this->addError('booking_guests', __('messages.not_enough_free_places'));
+            return;
+        }
+
+        $this->sending = true;
 
         try {
-            $createBookingAction->execute($data);
+            // Logic mirrored from TourGroupsIndex but adapted to use existing CreateBookingAction if possible, 
+            // or just implementing the same simple logic. The user wants it "like TourGroupsIndex".
+            // TourGroupsIndex Create logic:
 
-            // Reset form and show success
-            $this->resetForm();
-            session()->flash('contact_success', 'Message sent. Thank you!');
-            $this->dispatch('close-modal');
+            $tourTitle = $this->tour->tr('title');
+            $startDate = $group->starts_at
+                ? \Carbon\Carbon::parse($group->starts_at)->format('d.m.Y')
+                : '';
+
+            $messageBody = "Новая заявка на групповую дату тура.\n\n"
+                . "Тур: {$tourTitle}\n"
+                . "Дата выезда: {$startDate}\n"
+                . "ID группы: {$group->id}\n"
+                . "Количество гостей: {$guests}\n\n"
+                . "Имя клиента: {$validated['booking_name']}\n"
+                . "Email: {$validated['booking_email']}\n"
+                . "Телефон: {$validated['booking_phone']}\n\n"
+                . "Сообщение клиента:\n"
+                . ($validated['booking_message'] ?: '-');
+
+            // 1. Create ContactMessage
+            ContactMessage::create([
+                'name' => $validated['booking_name'],
+                'email' => $validated['booking_email'],
+                'phone' => $validated['booking_phone'],
+                'message' => $messageBody,
+            ]);
+
+            // 2. Update/Create Customer
+            $customer = Customer::updateOrCreate(
+                ['email' => $validated['booking_email']],
+                [
+                    'full_name' => $validated['booking_name'],
+                    'phone' => $validated['booking_phone'],
+                    'gdpr_consent_at' => now(),
+                ]
+            );
+
+            // 3. Create Booking
+            // Note: ToursShow has accommodation logic, but this modal is "simple booking". 
+            // We use 'standard' as default or just calculate based on min price like TourGroupsIndex
+
+            $totalPriceCents = $group->getPriceForPeople($guests); // fallback to min price logic in model
+            $generatedLinkId = session('generated_link_id');
+
+            $booking = Booking::create([
+                'customer_id' => $customer->id,
+                'tour_group_id' => $group->id,
+                'people_count' => $guests,
+                'total_price_cents' => $totalPriceCents,
+                'currency' => 'EUR',
+                'status' => 'pending',
+                'generated_link_id' => $generatedLinkId,
+            ]);
+
+            // 4. Send Email
+            $adminEmail = config('mail.from.address');
+            if ($adminEmail) {
+                Mail::raw($messageBody, function ($message) use ($adminEmail) {
+                    $message->to($adminEmail)
+                        ->subject('Новая заявка на групповую дату тура (со страницы тура)');
+                });
+            }
+
+            $this->resetBookingForm();
+            session()->flash('contact_success', __('messages.booking_request_sent_successfully'));
+            $this->showBookingModal = false;
+
         } catch (\Exception $e) {
             \Log::error('Booking Error: ' . $e->getMessage());
-            session()->flash('contact_error', 'Something went wrong. Please try again.');
+            $this->addError('booking_general', 'Something went wrong. Please try again.');
         }
 
         $this->sending = false;

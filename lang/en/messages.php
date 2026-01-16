@@ -92,6 +92,7 @@ return [
     'no_seats' => 'Sold Out',
     'order_button' => 'Book Now',
     'gdpr_consent_statement' => 'I agree to the processing of personal data',
+    'agree_terms_order' => 'By placing an order, you agree to the <a href=":terms_url" target="_blank">Terms of Use</a> and data processing according to the <a href=":privacy_url" target="_blank">Privacy Policy</a>.',
 
     'home_popular_title' => 'Popular Tours in Turkmenistan',
     'home_popular_subtitle' => 'Handpicked group and private tours crafted by trusted local experts.',
