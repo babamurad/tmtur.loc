@@ -7,6 +7,14 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Генератор ссылок</h4>
                     <div class="page-title-right d-flex align-items-center">
+                        @if(auth()->user()->isAdmin())
+                            <button type="button" class="btn btn-info btn-sm waves-effect waves-light mr-2"
+                                wire:click="syncUsers" wire:loading.attr="disabled">
+                                <i class="bx bx-sync font-size-16 align-middle mr-1" wire:loading.class="bx-spin"></i>
+                                <span wire:loading.remove>Синхронизация</span>
+                                <span wire:loading>...</span>
+                            </button>
+                        @endif
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light mr-3"
                             data-toggle="modal" data-target="#createLinkModal">
                             <i class="bx bx-plus font-size-16 align-middle mr-1"></i> Создать ссылку
@@ -34,6 +42,7 @@
                                     <tr>
                                         <th>Дата</th>
                                         <th>Источник</th>
+                                        <th>Владелец</th>
                                         <th>Ссылка</th>
                                         <th class="text-center">Клики</th>
                                         <th class="text-center">Заказы</th>
@@ -50,6 +59,27 @@
                                             </td>
                                             <td><span
                                                     class="badge badge-soft-primary font-size-12">{{ $link->source }}</span>
+                                            </td>
+                                            <td>
+                                                @if($link->user)
+                                                    <div class="d-flex align-items-center">
+                                                        @if($link->user->avatar)
+                                                            <img src="{{ $link->user->avatar_url }}" alt="" class="rounded-circle avatar-xs mr-2">
+                                                        @else
+                                                            <div class="avatar-xs mr-2">
+                                                                <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-10">
+                                                                    {{ substr($link->user->name, 0, 1) }}
+                                                                </span>
+                                                            </div>
+                                                        @endif
+                                                        <div>
+                                                            <div class="font-size-12 font-weight-bold">{{ $link->user->name }}</div>
+                                                            <div class="font-size-10 text-muted">{{ $link->user->email }}</div>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <span class="badge badge-soft-secondary">Не назначен</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <div class="input-group input-group-sm" style="width: 100%;">

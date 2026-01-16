@@ -155,6 +155,42 @@ class LinkGeneratorComponent extends Component
         $this->dispatch('open-qr-modal');
     }
 
+    public function syncUsers()
+    {
+        if (!auth()->user()->isAdmin()) {
+            abort(403);
+        }
+
+        $links = GeneratedLink::whereNull('user_id')->get();
+        $syncedCount = 0;
+
+        foreach ($links as $link) {
+            $source = trim($link->source);
+
+            // Try matching by email
+            $user = \App\Models\User::where('email', $source)->first();
+
+            // Try matching by name (exact or case-insensitive depend on DB collation, usually case insensitive in MySQL)
+            if (!$user) {
+                $user = \App\Models\User::where('name', $source)->first();
+            }
+
+            if ($user) {
+                $link->update(['user_id' => $user->id]);
+                $syncedCount++;
+            }
+        }
+
+        LivewireAlert::title('Синхронизация завершена')
+            ->text("Привязано ссылок: $syncedCount")
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
+
+        $this->resetPage(); // Refresh list
+    }
+
     public function render()
     {
         $query = GeneratedLink::query();
