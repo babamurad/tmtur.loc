@@ -14,6 +14,8 @@ class TagShowTour extends Component
 
     public Tag $tag;
     public string $view = 'grid';
+    public array $selectedDurations = [];
+    public array $availableDurations = [];
 
     public function setView(string $view)
     {
@@ -21,10 +23,22 @@ class TagShowTour extends Component
         session()->put('tour_view_preference', $view);
     }
 
+    public function updatedSelectedDurations()
+    {
+        $this->resetPage();
+    }
+
     public function mount($id)
     {
         $this->view = session('tour_view_preference', 'grid');
         $this->tag = Tag::with('tours')->findOrFail($id);
+
+        $this->availableDurations = $this->tag->tours()
+            ->where('is_published', true)
+            ->distinct()
+            ->orderBy('duration_days')
+            ->pluck('duration_days')
+            ->toArray();
     }
 
     public function render()
@@ -33,6 +47,9 @@ class TagShowTour extends Component
 
         $tours = $this->tag->tours()
             ->where('is_published', true)
+            ->when(!empty($this->selectedDurations), function ($query) {
+                $query->whereIn('duration_days', $this->selectedDurations);
+            })
             ->with(['media', 'groupsOpen'])
             ->paginate(4);
 
@@ -46,6 +63,7 @@ class TagShowTour extends Component
             'tag' => $this->tag,
             'tours' => $tours,
             'view' => $this->view,
+            'availableDurations' => $this->availableDurations,
         ])
             ->layout('layouts.front-app', ['hideCarousel' => true]);
     }

@@ -13,11 +13,18 @@ class CategoryShowTour extends Component
 
     public TourCategory $category;
     public string $view = 'grid';
+    public array $selectedDurations = [];
+    public array $availableDurations = [];
 
     public function setView(string $view)
     {
         $this->view = $view;
         session()->put('tour_view_preference', $view);
+    }
+
+    public function updatedSelectedDurations()
+    {
+        $this->resetPage();
     }
 
     public function mount(string $slug)
@@ -26,6 +33,13 @@ class CategoryShowTour extends Component
         $this->category = TourCategory::whereSlug($slug)
             ->where('is_published', true)
             ->firstOrFail();
+
+        $this->availableDurations = $this->category->tours()
+            ->where('is_published', true)
+            ->distinct()
+            ->orderBy('duration_days')
+            ->pluck('duration_days')
+            ->toArray();
     }
 
     public function render()
@@ -34,6 +48,9 @@ class CategoryShowTour extends Component
 
         $tours = $this->category->tours()
             ->where('is_published', true)
+            ->when(!empty($this->selectedDurations), function ($query) {
+                $query->whereIn('duration_days', $this->selectedDurations);
+            })
             ->with(['media', 'groupsOpen'])
             ->paginate(4);
 
@@ -47,6 +64,7 @@ class CategoryShowTour extends Component
             'category' => $this->category,
             'tours' => $tours,
             'view' => $this->view,
+            'availableDurations' => $this->availableDurations,
         ])
             ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
