@@ -34,7 +34,7 @@
                                             <td>{{ $page->id }}</td>
                                             <td>
                                                 <a href="{{ route('admin.pages.edit', ['id' => $page->id]) }}">
-                                                    <span class="font-weight-semibold">{{ $page->title }}</span>
+                                                    <span class="font-weight-semibold">{{ $page->tr('title') }}</span>
                                                 </a>
                                             </td>
                                             <td>{{ $page->slug }}</td>

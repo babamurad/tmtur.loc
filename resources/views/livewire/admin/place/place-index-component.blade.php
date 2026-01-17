@@ -32,7 +32,7 @@
                                 <tbody>
                                     @foreach ($places as $place)
                                         <tr>
-                                            <td>{{ $place->id }}</td>
+                                            <td>{{ $place->tr('name') }}</td>
                                             <td>
                                                 <a href="{{ route('admin.places.edit', ['place_id' => $place->id]) }}">
                                                     <span class="font-weight-semibold">{{ $place->name }}</span>

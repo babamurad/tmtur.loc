@@ -10,8 +10,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Услуги</h4>
 
-                    <a href="{{ route('services.create') }}"
-                       class="btn btn-success waves-effect waves-light">
+                    <a href="{{ route('services.create') }}" class="btn btn-success waves-effect waves-light">
                         <i class="bx bx-plus-circle font-size-16 align-middle mr-1"></i>
                         Создать
                     </a>
@@ -35,12 +34,8 @@
                                                 <i class="fas fa-search"></i>
                                             </span>
                                         </div>
-                                        <input type="text"
-                                               name="search"
-                                               value="{{ request('search') }}"
-                                               class="form-control"
-                                               placeholder="Поиск услуг…"
-                                               aria-label="Поиск">
+                                        <input type="text" name="search" value="{{ request('search') }}"
+                                            class="form-control" placeholder="Поиск услуг…" aria-label="Поиск">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" type="submit">
                                                 Найти
@@ -56,7 +51,7 @@
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
-                                                style="width: auto;">
+                                            style="width: auto;">
                                             <option value="8">8</option>
                                             <option value="15">15</option>
                                             <option value="25">25</option>
@@ -83,45 +78,46 @@
 
                                 <tbody>
                                     @forelse($services as $service)
-                                    <tr>
-                                        <td>{{ $service->id }}</td>
-                                        <td>
-                                            <a href="{{ route('services.edit', $service) }}">
-                                                <span class="font-weight-semibold">
-                                                    {{ $service->name }}
+                                        <tr>
+                                            <td>{{ $service->tr('name') }}</td>
+                                            <td>
+                                                <a href="{{ route('services.edit', $service) }}">
+                                                    <span class="font-weight-semibold">
+                                                        {{ $service->name }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">
+                                                    {{ $service->type }}
                                                 </span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="text-muted">
-                                                {{ $service->type }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-muted badge badge-soft-success">
-                                                $ {{ $service->default_price_cents }}
-                                            </span>
-                                        </td>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted badge badge-soft-success">
+                                                    $ {{ $service->default_price_cents }}
+                                                </span>
+                                            </td>
 
-                                        {{-- Кнопки действий --}}
-                                        <td class="text-center">
-                                            <a href="{{ route('services.edit', $service) }}"
-                                               class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
-                                               data-toggle="tooltip" title="Редактировать">
-                                                <i class="bx bx-pencil font-size-14"></i>
-                                            </a>
+                                            {{-- Кнопки действий --}}
+                                            <td class="text-center">
+                                                <a href="{{ route('services.edit', $service) }}"
+                                                    class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
+                                                    data-toggle="tooltip" title="Редактировать">
+                                                    <i class="bx bx-pencil font-size-14"></i>
+                                                </a>
 
-                                            <button  wire:click="delete({{ $service->id }})" class="btn btn-sm btn-outline-danger waves-effect waves-light">
-                                                <i class="bx bx-trash font-size-14"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                                <button wire:click="delete({{ $service->id }})"
+                                                    class="btn btn-sm btn-outline-danger waves-effect waves-light">
+                                                    <i class="bx bx-trash font-size-14"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted py-4">
-                                            Услуги не найдены.
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">
+                                                Услуги не найдены.
+                                            </td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -139,4 +135,3 @@
 
     </div>{{-- container-fluid --}}
 </div>
-

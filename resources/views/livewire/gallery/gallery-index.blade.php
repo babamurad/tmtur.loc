@@ -24,19 +24,16 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text"
-                                           wire:model.live.debounce.300ms="search"
-                                           class="form-control"
-                                           placeholder="Поиск по названию, местоположению, фотографу...">
+                                    <input type="text" wire:model.live.debounce.300ms="search" class="form-control"
+                                        placeholder="Поиск по названию, местоположению, фотографу...">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <span class="text-muted small px-1">Показать</span>
-                                    <select class="form-select form-select-sm"
-                                            wire:model.live="perPage"
-                                            style="width: auto;">
+                                    <select class="form-select form-select-sm" wire:model.live="perPage"
+                                        style="width: auto;">
                                         <option value="8">8</option>
                                         <option value="15">15</option>
                                         <option value="25">25</option>
@@ -51,67 +48,67 @@
                         <div class="table-responsive">
                             <table class="table table-hover align-middle">
                                 <thead class="table-light">
-                                <tr>
-                                    <th style="width: 60px">#</th>
-                                    <th>Фото</th>
-                                    <th>Название</th>
-                                    <th>Местоположение</th>
-                                    <th>Фотограф</th>
-                                    <th>Порядок</th>
-                                    <th>Избранное</th>
-                                    <th style="width: 120px" class="text-center">Действия</th>
-                                </tr>
+                                    <tr>
+                                        <th style="width: 60px">#</th>
+                                        <th>Фото</th>
+                                        <th>Название</th>
+                                        <th>Местоположение</th>
+                                        <th>Фотограф</th>
+                                        <th>Порядок</th>
+                                        <th>Избранное</th>
+                                        <th style="width: 120px" class="text-center">Действия</th>
+                                    </tr>
                                 </thead>
 
                                 <tbody>
-                                @forelse($galleries as $photo)
-                                    <tr>
-                                        <td>{{ $photo->order }}</td>
+                                    @forelse($galleries as $photo)
+                                        <tr>
+                                            <td>{{ $photo->order }}</td>
 
-                                        {{-- Превью --}}
-                                        <td>
-                                            @if($photo->file_path)
-                                                <img src="{{ asset('uploads/'.$photo->file_path) }}"
-                                                     class="rounded"
-                                                     width="40" height="40" alt="{{ $photo->alt_text }}">
-                                            @else
-                                                <span class="text-muted">—</span>
-                                            @endif
-                                        </td>
+                                            {{-- Превью --}}
+                                            <td>
+                                                @if($photo->file_path)
+                                                    <img src="{{ asset('uploads/' . $photo->file_path) }}" class="rounded"
+                                                        width="40" height="40" alt="{{ $photo->tr('alt_text') }}">
+                                                @else
+                                                    <span class="text-muted">—</span>
+                                                @endif
+                                            </td>
 
-                                        <td>
-                                            <a href="{{ route('gallery.edit', $photo->id) }}">
-                                            {{ $photo->title ?: 'Без названия' }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $photo->location ?: '—' }}</td>
-                                        <td>{{ $photo->photographer ?: '—' }}</td>
-                                        <td>{{ $photo->order }}</td>
+                                            <td>
+                                                <a href="{{ route('gallery.edit', $photo->id) }}">
+                                                    {{ $photo->tr('title') ?: 'Без названия' }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $photo->tr('location') ?: '—' }}</td>
+                                            <td>{{ $photo->tr('photographer') ?: '—' }}</td>
+                                            <td>{{ $photo->order }}</td>
 
-                                        <td>
-                                            <span class="badge badge-soft-{{ $photo->is_featured ? 'success' : 'secondary' }}">
-                                              {{ $photo->is_featured ? 'Да' : 'Нет' }}
-                                            </span>
-                                        </td>
+                                            <td>
+                                                <span
+                                                    class="badge badge-soft-{{ $photo->is_featured ? 'success' : 'secondary' }}">
+                                                    {{ $photo->is_featured ? 'Да' : 'Нет' }}
+                                                </span>
+                                            </td>
 
-                                        <td class="text-center">
-                                            <a href="{{ route('gallery.edit', $photo->id) }}"
-                                               class="btn btn-sm btn-outline-primary waves-effect waves-light">
-                                                <i class="bx bx-pencil"></i>
-                                            </a>
-                                            <button class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                            <td class="text-center">
+                                                <a href="{{ route('gallery.edit', $photo->id) }}"
+                                                    class="btn btn-sm btn-outline-primary waves-effect waves-light">
+                                                    <i class="bx bx-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger waves-effect waves-light"
                                                     wire:click="delete({{ $photo->id }})">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center text-muted py-4">
-                                            Нет фотографий
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                Нет фотографий
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
