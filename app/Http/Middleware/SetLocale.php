@@ -16,7 +16,22 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        App::setLocale(session('locale', config('app.locale')));
+        $locale = session('locale');
+
+        if (!$locale) {
+            // Check if it's an admin route by prefix or middleware
+            if (
+                $request->is('admin*') ||
+                ($request->route() && in_array('role:admin', $request->route()->gatherMiddleware() ?? []))
+            ) {
+                $locale = 'ru';
+            } else {
+                $locale = 'en';
+            }
+        }
+
+        App::setLocale($locale);
+
         return $next($request);
     }
 }

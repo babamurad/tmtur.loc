@@ -34,7 +34,7 @@
                                             <td>
                                                 <a
                                                     href="{{ route('admin.locations.edit', ['location_id' => $location->id]) }}">
-                                                    <span class="font-weight-semibold">{{ $location->name }}</span>
+                                                    <span class="font-weight-semibold">{{ $location->tr('name') }}</span>
                                                 </a>
                                             </td>
                                             <td>{{ $location->slug }}</td>

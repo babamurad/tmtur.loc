@@ -88,7 +88,7 @@
                                             <div>
                                                 <a href="{{ url('admin/tours/edit/' . $tour->id) }}">
                                                     @if($tour->first_media_url)
-                                                        <img src="{{ $tour->first_media_url }}" alt="{{ $tour->title }}"
+                                                        <img src="{{ $tour->first_media_url }}" alt="{{ $tour->tr('title') }}"
                                                             class="img-fluid rounded mb-2" style="width: 150px; height: auto;">
                                                     @else
                                                         <img src="{{ asset('assets/images/media/sm-5.jpg') }}"
@@ -100,7 +100,7 @@
 
                                             <div style="white-space: normal; word-break: break-word; max-width: 100%;">
                                                 <a href="{{ url('admin/tours/edit/' . $tour->id) }}">
-                                                    {{ $tour->title }}
+                                                    {{ $tour->tr('title') }}
                                                 </a>
                                             </div>
                                         </td>
