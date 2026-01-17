@@ -78,15 +78,25 @@
                             </div>
 
                             <div class="text-md-right">
-                                @if($group->price_min)
-                                    <div class="mb-1">
-                                        <span class="tm-price-chip">
-                                            <i class="fas fa-money-bill-wave"></i>
-                                            ${{ number_format($group->price_min, 0, '.', ' ') }}
-                                            <span class="tm-price-label">
-                                                {{ __('messages.price_per_person_badge') }}
-                                            </span>
-                                        </span>
+                                @if($group->price_max || $group->price_min)
+                                    <div class="d-flex flex-column align-items-md-end mb-2">
+                                        @if($group->price_max)
+                                            <div class="d-flex align-items-center mb-1" title="{{ __('1 person') }}">
+                                                <span class="text-muted small mr-2" style="font-size: 0.85rem;"><i
+                                                        class="fas fa-user-alt fa-xs"></i> 1:</span>
+                                                <span
+                                                    class="font-weight-bold text-dark">${{ number_format($group->price_max, 0, '.', ' ') }}</span>
+                                            </div>
+                                        @endif
+
+                                        @if($group->price_min)
+                                            <div class="d-flex align-items-center text-success" title="{{ __('4+ people') }}">
+                                                <span class="font-weight-bold small mr-2" style="font-size: 0.85rem;"><i
+                                                        class="fas fa-users fa-xs"></i> 4+:</span>
+                                                <span class="font-weight-bold bg-success-subtle px-2 rounded"
+                                                    style="background-color: #d1e7dd; color: #0f5132;">${{ number_format($group->price_min, 0, '.', ' ') }}</span>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
 
