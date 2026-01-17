@@ -38,7 +38,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $hotel->category->label() }}</td>
-                                            <td>{{ $hotel->location->name }}</td>
+                                            <td>{{ $hotel->location->tr('name') }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('admin.hotels.edit', ['hotel_id' => $hotel->id]) }}"
                                                     class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"

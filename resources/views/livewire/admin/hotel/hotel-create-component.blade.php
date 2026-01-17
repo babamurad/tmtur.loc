@@ -75,7 +75,7 @@
                                     wire:model="location_id">
                                     <option value="">Выберите локацию</option>
                                     @foreach($locations as $location)
-                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                        <option value="{{ $location->id }}">{{ $location->tr('name') }}</option>
                                     @endforeach
                                 </select>
                                 @error('location_id')
