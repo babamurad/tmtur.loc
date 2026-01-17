@@ -19,8 +19,8 @@ class CategoryIndex extends Component
     public array $perPageOptions = [4, 8, 12, 24, 48];
     public string $sort = 'duration_asc';
     public array $sortOptions = [
-        'duration_asc' => '<i class="fa fa-sort-amount-asc"></i>',
-        'duration_desc' => '<i class="fa fa-sort-amount-desc"></i>'
+        'duration_asc' => '<i class="fa fa-sort-amount-desc"></i>',
+        'duration_desc' => '<i class="fa fa-sort-amount-asc"></i>'
     ];
 
     public function mount()
