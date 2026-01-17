@@ -12,6 +12,7 @@ use Illuminate\Validation\Rule;
 class GalleryCreate extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     /* основные поля */
     public string $title = '';
@@ -99,5 +100,15 @@ class GalleryCreate extends Component
     public function render()
     {
         return view('livewire.gallery.gallery-create');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'description', 'location', 'photographer', 'alt_text'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'туристическая фотогалерея, описание достопримечательностей Туркменистана';
     }
 }

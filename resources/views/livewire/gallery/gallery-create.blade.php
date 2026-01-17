@@ -22,10 +22,30 @@
                     {{-- Multilingual Content Section --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">
-                                <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
-                                Информация о фото
-                            </h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">
+                                    <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                    Информация о фото
+                                </h5>
+                                <div class="d-flex align-items-center">
+                                    @if($translationDuration)
+                                        <span class="text-success mr-3 font-size-12">
+                                            <i class="bx bx-time-five"></i> {{ $translationDuration }} сек.
+                                        </span>
+                                    @endif
+
+                                    <button type="button" class="btn btn-sm btn-info waves-effect waves-light"
+                                        wire:click="translateToAllLanguages" wire:loading.attr="disabled">
+                                        <span wire:loading.remove wire:target="translateToAllLanguages">
+                                            <i class="bx bx-world font-size-16 align-middle mr-1"></i> Перевести всё
+                                        </span>
+                                        <span wire:loading wire:target="translateToAllLanguages">
+                                            <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i>
+                                            Перевод...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
 
                             {{-- Language Tabs --}}
                             @php
@@ -57,18 +77,18 @@
                                     @php
                                         $isFallback = $locale === config('app.fallback_locale');
                                     @endphp
-                                    <div class="tab-pane {{ $locale === 'ru' ? 'active' : '' }}" 
-                                         id="lang-{{ $locale }}" 
-                                         role="tabpanel">
+                                    <div class="tab-pane {{ $locale === 'ru' ? 'active' : '' }}" id="lang-{{ $locale }}"
+                                        role="tabpanel">
 
                                         <!-- Title -->
                                         <div class="form-group">
-                                            <label>Название @if($isFallback) <span class="text-danger">*</span> @endif</label>
-                                            <input type="text" 
-                                                   class="form-control @error($isFallback ? 'title' : 'trans.'.$locale.'.title') is-invalid @enderror"
-                                                   wire:model.defer="{{ $isFallback ? 'title' : 'trans.'.$locale.'.title' }}"
-                                                   placeholder="Название на {{ strtoupper($locale) }}">
-                                            @error($isFallback ? 'title' : 'trans.'.$locale.'.title')
+                                            <label>Название @if($isFallback) <span class="text-danger">*</span>
+                                            @endif</label>
+                                            <input type="text"
+                                                class="form-control @error($isFallback ? 'title' : 'trans.' . $locale . '.title') is-invalid @enderror"
+                                                wire:model.defer="{{ $isFallback ? 'title' : 'trans.' . $locale . '.title' }}"
+                                                placeholder="Название на {{ strtoupper($locale) }}">
+                                            @error($isFallback ? 'title' : 'trans.' . $locale . '.title')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -77,7 +97,7 @@
                                         <div class="form-group">
                                             <label>Описание</label>
                                             <x-quill wire:model.defer="trans.{{ $locale }}.description" />
-                                            @error('trans.'.$locale.'.description')
+                                            @error('trans.' . $locale . '.description')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -86,10 +106,10 @@
                                         <div class="form-group">
                                             <label>Местоположение</label>
                                             <input type="text"
-                                                class="form-control @error('trans.'.$locale.'.location') is-invalid @enderror"
+                                                class="form-control @error('trans.' . $locale . '.location') is-invalid @enderror"
                                                 wire:model.defer="trans.{{ $locale }}.location"
                                                 placeholder="Например: Ашхабад">
-                                            @error('trans.'.$locale.'.location')
+                                            @error('trans.' . $locale . '.location')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -100,10 +120,10 @@
                                                 <div class="form-group">
                                                     <label>Фотограф</label>
                                                     <input type="text"
-                                                        class="form-control @error('trans.'.$locale.'.photographer') is-invalid @enderror"
+                                                        class="form-control @error('trans.' . $locale . '.photographer') is-invalid @enderror"
                                                         wire:model.defer="trans.{{ $locale }}.photographer"
                                                         placeholder="Имя фотографа">
-                                                    @error('trans.'.$locale.'.photographer')
+                                                    @error('trans.' . $locale . '.photographer')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -114,10 +134,10 @@
                                                 <div class="form-group">
                                                     <label>Alt-текст</label>
                                                     <input type="text"
-                                                        class="form-control @error('trans.'.$locale.'.alt_text') is-invalid @enderror"
+                                                        class="form-control @error('trans.' . $locale . '.alt_text') is-invalid @enderror"
                                                         wire:model.defer="trans.{{ $locale }}.alt_text"
                                                         placeholder="Описание для SEO">
-                                                    @error('trans.'.$locale.'.alt_text')
+                                                    @error('trans.' . $locale . '.alt_text')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
