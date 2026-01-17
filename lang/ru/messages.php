@@ -4,6 +4,7 @@ return [
     'buy_tour' => 'Купить тур',
     'days' => ':count день|:count дня|:count дней',
     'days_label' => 'дней',
+    'choose_duration' => 'Выберите длительность',
     'small_group' => 'Мини-группа',
     'price_from' => 'Цена от :price USD',
     'groups' => 'групп',

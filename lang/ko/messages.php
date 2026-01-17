@@ -4,6 +4,7 @@ return [
     'buy_tour' => '투어 구매',
     'days' => ':count일',
     'days_label' => '일',
+    'choose_duration' => '기간 선택',
     'small_group' => '소규모 그룹 투어',
     'price_from' => ':price USD부터',
     'groups' => '그룹',

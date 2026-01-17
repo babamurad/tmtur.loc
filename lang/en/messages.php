@@ -4,6 +4,7 @@ return [
     'buy_tour' => 'Buy tour',
     'days' => ':count day|:count days',
     'days_label' => 'days',
+    'choose_duration' => 'Choose duration',
     'small_group' => 'Small group tour',
     'price_from' => 'Price from :price USD',
     'groups' => 'groups',
