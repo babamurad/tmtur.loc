@@ -15,6 +15,14 @@ class CategoryShowTour extends Component
     public string $view = 'grid';
     public array $selectedDurations = [];
     public array $availableDurations = [];
+    public int $perPage = 4;
+    public array $perPageOptions = [4, 8, 12, 24, 48];
+    public string $sort = 'default';
+    public array $sortOptions = [
+        'default' => 'По умолчанию',
+        'duration_asc' => 'Длительность: по возрастанию',
+        'duration_desc' => 'Длительность: по убыванию'
+    ];
 
     public function setView(string $view)
     {
@@ -27,9 +35,23 @@ class CategoryShowTour extends Component
         $this->resetPage();
     }
 
+    public function updatedPerPage($value)
+    {
+        session()->put('tour_per_page', $value);
+        $this->resetPage();
+    }
+
+    public function updatedSort($value)
+    {
+        session()->put('tour_sort', $value);
+        $this->resetPage();
+    }
+
     public function mount(string $slug)
     {
         $this->view = session('tour_view_preference', 'grid');
+        $this->perPage = session('tour_per_page', 4);
+        $this->sort = session('tour_sort', 'default');
         $this->category = TourCategory::whereSlug($slug)
             ->where('is_published', true)
             ->firstOrFail();
@@ -51,8 +73,14 @@ class CategoryShowTour extends Component
             ->when(!empty($this->selectedDurations), function ($query) {
                 $query->whereIn('duration_days', $this->selectedDurations);
             })
+            ->when($this->sort === 'duration_asc', function ($query) {
+                $query->orderBy('duration_days', 'asc');
+            })
+            ->when($this->sort === 'duration_desc', function ($query) {
+                $query->orderBy('duration_days', 'desc');
+            })
             ->with(['media', 'groupsOpen'])
-            ->paginate(4);
+            ->paginate($this->perPage);
 
         $catTitle = $this->category->tr('title');
         \Artesaos\SEOTools\Facades\SEOTools::setTitle($catTitle);
@@ -65,6 +93,8 @@ class CategoryShowTour extends Component
             'tours' => $tours,
             'view' => $this->view,
             'availableDurations' => $this->availableDurations,
+            'perPageOptions' => $this->perPageOptions,
+            'sortOptions' => $this->sortOptions,
         ])
             ->layout('layouts.front-app', ['hideCarousel' => true]);
     }

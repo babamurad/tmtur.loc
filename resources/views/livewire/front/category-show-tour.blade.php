@@ -11,6 +11,25 @@
             <div class="d-flex justify-content-end mb-3 align-items-center">
 
                 @if(!empty($availableDurations))
+
+                    <div class="dropdown mr-2" wire:ignore>
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-sort"></i> {{ __('Сортировка') }}
+                        </button>
+                        <div class="dropdown-menu p-2" aria-labelledby="sortDropdown" onclick="event.stopPropagation()">
+                            @foreach($sortOptions as $value => $label)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sort" wire:model.live="sort" value="{{ $value }}"
+                                        id="sort-{{ $value }}">
+                                    <label class="form-check-label" for="sort-{{ $value }}">
+                                        {{ $label }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
                     <div class="dropdown mr-2" wire:ignore>
                         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
                             id="durationFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
