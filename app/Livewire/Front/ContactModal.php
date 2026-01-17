@@ -25,9 +25,37 @@ class ContactModal extends Component
     {
         $this->validate();
 
-        // Here you would typically send an email or save to DB
-        // For now, we simulate success
+        $data = [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'message' => $this->message,
+        ];
+
+        // Save to DB
+        try {
+            \App\Models\ContactMessage::create(array_merge($data, [
+                'ip' => request()->ip(),
+                'user_agent' => request()->header('User-Agent'),
+            ]));
+        } catch (\Throwable $e) {
+            \Log::error('ContactMessage modal save error: ' . $e->getMessage());
+        }
+
+        // Send email
+        try {
+            $recipient = env('MAIL_TO_ADDRESS') ?: config('mail.from.address');
+            if ($recipient) {
+                Mail::to($recipient)->send(new \App\Mail\ContactReceived($data));
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Contact modal email send error: ' . $e->getMessage());
+        }
+
         $this->sent = true;
+
+        // Notify admin panel to update counter
+        $this->dispatch('messagesUpdated');
 
         // Reset form
         $this->reset(['name', 'email', 'phone', 'message']);
