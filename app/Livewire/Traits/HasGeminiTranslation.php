@@ -158,7 +158,7 @@ trait HasGeminiTranslation
                 // Извлекаем значение из массива trans или property (если это fallback)
                 $val = $this->getFieldValue($field, $locale);
 
-                if (!empty($val) && is_string($val) && trim($val) !== '') {
+                if (!$this->isFieldTrulyEmpty($val)) {
                     $filledCount++;
                 }
                 $currentData[$field] = $val;
@@ -221,20 +221,40 @@ trait HasGeminiTranslation
 
         foreach ($sourceData as $key => $sourceValue) {
             // Если исходное значение пустое - нечего переводить
-            if (empty($sourceValue)) {
+            if ($this->isFieldTrulyEmpty($sourceValue)) {
                 continue;
             }
 
             // Проверяем значение в целевом языке
             $targetValue = $this->getFieldValue($key, $targetLocale);
 
-            // Если в целевом пусто - добавляем в список на перевод
-            if (empty($targetValue)) {
+            // Если в целевом пусто (или только теги) - добавляем в список на перевод
+            if ($this->isFieldTrulyEmpty($targetValue)) {
                 $dataToTranslate[$key] = $sourceValue;
             }
         }
 
         return $dataToTranslate;
+    }
+
+    /**
+     * Проверяет, является ли поле действительно пустым.
+     * Игнорирует пустые HTML-теги (например, <p><br></p> от Quill).
+     */
+    protected function isFieldTrulyEmpty($value): bool
+    {
+        if (empty($value)) {
+            return true;
+        }
+
+        if (is_string($value)) {
+            // Удаляем HTML теги и non-breaking spaces
+            $plain = strip_tags($value);
+            $plain = str_replace(['&nbsp;', ' '], '', $plain);
+            return trim($plain) === '';
+        }
+
+        return false;
     }
 
     /**

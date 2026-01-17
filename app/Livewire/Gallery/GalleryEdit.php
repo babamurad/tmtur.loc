@@ -11,6 +11,7 @@ use App\Services\ImageService;
 class GalleryEdit extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     public TurkmenistanGallery $photo; // текущая запись
 
@@ -118,5 +119,15 @@ class GalleryEdit extends Component
     public function render()
     {
         return view('livewire.gallery.gallery-edit');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'description', 'location', 'photographer', 'alt_text'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'туристическая фотогалерея, описание достопримечательностей Туркменистана';
     }
 }
