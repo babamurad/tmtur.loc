@@ -31,10 +31,10 @@
                                 <tbody>
                                     @foreach ($hotels as $hotel)
                                         <tr>
-                                            <td>{{ $hotel->tr('name') }}</td>
+                                            <td>{{ $hotel->id }}</td>
                                             <td>
                                                 <a href="{{ route('admin.hotels.edit', ['hotel_id' => $hotel->id]) }}">
-                                                    <span class="font-weight-semibold">{{ $hotel->name }}</span>
+                                                    <span class="font-weight-semibold">{{ $hotel->tr('name') }}</span>
                                                 </a>
                                             </td>
                                             <td>{{ $hotel->category->label() }}</td>

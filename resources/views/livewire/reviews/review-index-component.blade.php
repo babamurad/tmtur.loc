@@ -80,7 +80,7 @@
                                                 @if($r->tour)
                                                     <a href="{{ route('tours.show', $r->tour->slug ?? $r->tour->id) }}"
                                                         target="_blank" class="text-body fw-bold">
-                                                        {{ \Illuminate\Support\Str::limit($r->tour->title, 30) }}
+                                                        {{ \Illuminate\Support\Str::limit($r->tour->tr('title'), 30) }}
                                                     </a>
                                                 @else
                                                     -

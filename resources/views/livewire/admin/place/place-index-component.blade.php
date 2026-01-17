@@ -32,10 +32,10 @@
                                 <tbody>
                                     @foreach ($places as $place)
                                         <tr>
-                                            <td>{{ $place->tr('name') }}</td>
+                                            <td>{{ $place->id }}</td>
                                             <td>
                                                 <a href="{{ route('admin.places.edit', ['place_id' => $place->id]) }}">
-                                                    <span class="font-weight-semibold">{{ $place->name }}</span>
+                                                    <span class="font-weight-semibold">{{ $place->tr('name') }}</span>
                                                 </a>
                                             </td>
                                             <td>{{ $place->type->label() }}</td>

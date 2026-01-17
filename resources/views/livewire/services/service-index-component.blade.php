@@ -79,11 +79,11 @@
                                 <tbody>
                                     @forelse($services as $service)
                                         <tr>
-                                            <td>{{ $service->tr('name') }}</td>
+                                            <td>{{ $service->id }}</td>
                                             <td>
                                                 <a href="{{ route('services.edit', $service) }}">
                                                     <span class="font-weight-semibold">
-                                                        {{ $service->name }}
+                                                        {{ $service->tr('name') }}
                                                     </span>
                                                 </a>
                                             </td>

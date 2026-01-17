@@ -81,14 +81,10 @@
                                             <td>{{ $tourCategory->id }}</td>
                                             <td>
                                                 @if($status === 'trashed')
-                                                    <span class="font-weight-semibold text-muted">
-                                                        {{ $tourCategory->title }}
-                                                    </span>
+                                                    {{ $tourCategory->tr('title') }}
                                                 @else
                                                     <a href="{{ route('tour-categories.edit', $tourCategory->id) }}">
-                                                        <span class="font-weight-semibold">
-                                                            {{ $tourCategory->title }}
-                                                        </span>
+                                                        {{ $tourCategory->tr('title') }}
                                                     </a>
                                                 @endif
                                             </td>
