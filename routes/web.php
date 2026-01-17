@@ -120,7 +120,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('contact-infos', ContactInfosCrud::class)->name('admin.contact-infos');
     Route::get('contact-messages', \App\Livewire\ContactMessagesTable::class)->name('admin.contact-messages-table');
 
-    Route::prefix('gallery.')->name('gallery.')->group(function () {
+    Route::prefix('admin/gallery')->name('gallery.')->group(function () {
         Route::get('/', GalleryIndex::class)->name('index');
         Route::get('/create', GalleryCreate::class)->name('create');
         Route::get('/edit/{id}', GalleryEdit::class)->name('edit');
