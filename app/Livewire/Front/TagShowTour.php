@@ -18,11 +18,10 @@ class TagShowTour extends Component
     public array $availableDurations = [];
     public int $perPage = 4;
     public array $perPageOptions = [4, 8, 12, 24, 48];
-    public string $sort = 'default';
+    public string $sort = 'duration_asc';
     public array $sortOptions = [
-        'default' => 'По умолчанию',
-        'duration_asc' => 'Длительность: по возрастанию',
-        'duration_desc' => 'Длительность: по убыванию'
+        'duration_asc' => '<i class="fa fa-sort-amount-asc"></i>',
+        'duration_desc' => '<i class="fa fa-sort-amount-desc"></i>'
     ];
 
     public function setView(string $view)
@@ -52,7 +51,7 @@ class TagShowTour extends Component
     {
         $this->view = session('tour_view_preference', 'grid');
         $this->perPage = session('tour_per_page', 4);
-        $this->sort = session('tour_sort', 'default');
+        $this->sort = session('tour_sort', 'duration_asc');
         $this->tag = Tag::with('tours')->findOrFail($id);
 
         $this->availableDurations = $this->tag->tours()

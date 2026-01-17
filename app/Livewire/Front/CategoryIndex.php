@@ -17,18 +17,17 @@ class CategoryIndex extends Component
     public array $availableDurations = [];
     public int $perPage = 4;
     public array $perPageOptions = [4, 8, 12, 24, 48];
-    public string $sort = 'default';
+    public string $sort = 'duration_asc';
     public array $sortOptions = [
-        'default' => 'По умолчанию',
-        'duration_asc' => 'Длительность: по возрастанию',
-        'duration_desc' => 'Длительность: по убыванию'
+        'duration_asc' => '<i class="fa fa-sort-amount-asc"></i>',
+        'duration_desc' => '<i class="fa fa-sort-amount-desc"></i>'
     ];
 
     public function mount()
     {
         $this->view = session('tour_view_preference', 'grid');
         $this->perPage = session('tour_per_page', 4);
-        $this->sort = session('tour_sort', 'default');
+        $this->sort = session('tour_sort', 'duration_asc');
         $this->availableDurations = Tour::where('is_published', true)
             ->distinct()
             ->orderBy('duration_days')

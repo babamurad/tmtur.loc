@@ -19,18 +19,18 @@
 
                 @if(!empty($availableDurations))
 
-                    <div class="dropdown mr-2" wire:ignore>
+                    <div class="dropdown mr-2">
                         <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-sort"></i> {{ __('Сортировка') }}
+                            {!! $sortOptions[$sort] !!}
                         </button>
-                        <div class="dropdown-menu p-2" aria-labelledby="sortDropdown" onclick="event.stopPropagation()">
+                        <div class="dropdown-menu p-2" aria-labelledby="sortDropdown">
                             @foreach($sortOptions as $value => $label)
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="sort" wire:model.live="sort" value="{{ $value }}"
                                         id="sort-{{ $value }}">
                                     <label class="form-check-label" for="sort-{{ $value }}">
-                                        {{ $label }}
+                                        {!! $label !!}
                                     </label>
                                 </div>
                             @endforeach
@@ -58,6 +58,22 @@
                         </div>
                     </div>
                 @endif
+
+                <div class="dropdown mr-2">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="perPageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ $perPage }}
+                    </button>
+                    <div class="dropdown-menu p-2" aria-labelledby="perPageDropdown">
+                        @foreach($perPageOptions as $option)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="perPage" wire:model.live="perPage" value="{{ $option }}" id="perPage-{{ $option }}">
+                                <label class="form-check-label" for="perPage-{{ $option }}">
+                                    {{ $option }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
                 <button wire:click="setView('grid')"
                     class="btn btn-sm {{ $view === 'grid' ? 'btn-secondary' : 'btn-outline-secondary' }}">
