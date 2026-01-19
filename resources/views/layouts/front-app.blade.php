@@ -95,6 +95,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </noscript>
 
+    <!-- App Icons (Boxicons, MDI, etc.) -->
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
