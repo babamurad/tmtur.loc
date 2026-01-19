@@ -116,7 +116,7 @@
                         {{-- Пагинация --}}
                         @if($galleries->hasPages())
                             <div class="pt-3">
-                                {{ $galleries->links('pagination::bootstrap-4') }}
+                                {{ $galleries->links() }}
                             </div>
                         @endif
 

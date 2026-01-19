@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 class CategoryShowTour extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public TourCategory $category;
     public string $view = 'grid';

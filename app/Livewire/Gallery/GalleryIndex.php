@@ -10,6 +10,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 class GalleryIndex extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $delId;
     public $perPage = 12; // Количество изображений на странице
@@ -91,7 +92,7 @@ class GalleryIndex extends Component
     public function delete($id)
     {
         $this->delId = $id;
-        
+
         $this->delId = $id;
         LivewireAlert::title('Удалить?')
             ->text('Вы уверены, что хотите удалить тур?')
@@ -105,12 +106,12 @@ class GalleryIndex extends Component
     public function photoDelete()
     {
         $photo = TurkmenistanGallery::findOrFail($this->delId);
-        
+
         // Удаляем файл изображения
         if ($photo->file_path && file_exists(public_path('uploads/' . $photo->file_path))) {
             unlink(public_path('uploads/' . $photo->file_path));
         }
-        
+
         // Удаляем запись из БД (вместе с переводами благодаря модели)
         $photo->delete();
 
