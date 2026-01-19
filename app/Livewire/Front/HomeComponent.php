@@ -2,38 +2,37 @@
 
 namespace App\Livewire\Front;
 
-use App\Models\Guide;
-use App\Models\Tour;
-use App\Models\TourGroup;
+use App\Enums\TourGroupStatus;
+use App\Mail\GroupBookingRequest;
 use App\Models\ContactMessage;
 use App\Models\Customer;
-use Livewire\Component;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Tour;
+use App\Models\TourGroup;
 use Artesaos\SEOTools\Facades\SEOTools;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Rule;
+use Livewire\Component;
 
 class HomeComponent extends Component
 {
     public bool $showBookingModal = false;
     public ?TourGroup $selectedGroup = null;
 
+    #[Rule('required|string|max:255')]
     public string $booking_name = '';
+
+    #[Rule('required|email|max:255')]
     public string $booking_email = '';
+
+    #[Rule('nullable|string|max:50')]
     public string $booking_phone = '';
+
+    #[Rule('required|integer|min:1')]
     public string $booking_guests = '1';
+
+    #[Rule('nullable|string|max:2000')]
     public string $booking_message = '';
-
-
-    protected function rules(): array
-    {
-        return [
-            'booking_name' => ['required', 'string', 'max:255'],
-            'booking_email' => ['required', 'email', 'max:255'],
-            'booking_phone' => ['nullable', 'string', 'max:50'],
-            'booking_guests' => ['required', 'integer', 'min:1'],
-            'booking_message' => ['nullable', 'string', 'max:2000'],
-        ];
-    }
 
     public function openBookingModal(int $groupId): void
     {
@@ -58,7 +57,6 @@ class HomeComponent extends Component
         $this->booking_guests = '1';
         $this->booking_message = '';
 
-
         $this->resetErrorBag();
         $this->resetValidation();
     }
@@ -67,24 +65,27 @@ class HomeComponent extends Component
     {
         if (!$this->selectedGroup) {
             $this->addError('booking_general', __('messages.no_tour_group_selected'));
+
             return;
         }
 
         $validated = $this->validate();
 
         $available = (int) $this->selectedGroup->freePlaces();
-        $guests = (int) $validated['booking_guests'];
+        $guests = (int) $this->booking_guests;
 
         if ($available <= 0 || $guests > max($available, 0)) {
             $this->addError('booking_guests', __('messages.not_enough_free_places'));
+
             return;
         }
 
+        // Logic to construct the message body for DB storage (optional if we only want email, but keeping for ContactMessage)
         $tourTitle = $this->selectedGroup->tour?->tr('title')
             ?? $this->selectedGroup->tour?->title
             ?? '';
         $startDate = $this->selectedGroup->starts_at
-            ? \Carbon\Carbon::parse($this->selectedGroup->starts_at)->format('d.m.Y')
+            ? $this->selectedGroup->starts_at->format('d.m.Y')
             : '';
 
         $messageBody = "Новая заявка на групповую дату тура.\n\n"
@@ -92,24 +93,24 @@ class HomeComponent extends Component
             . "Дата выезда: {$startDate}\n"
             . "ID группы: {$this->selectedGroup->id}\n"
             . "Количество гостей: {$guests}\n\n"
-            . "Имя клиента: {$validated['booking_name']}\n"
-            . "Email: {$validated['booking_email']}\n"
-            . "Телефон: {$validated['booking_phone']}\n\n"
+            . "Имя клиента: {$this->booking_name}\n"
+            . "Email: {$this->booking_email}\n"
+            . "Телефон: {$this->booking_phone}\n\n"
             . "Сообщение клиента:\n"
-            . ($validated['booking_message'] ?: '-');
+            . ($this->booking_message ?: '-');
 
         ContactMessage::create([
-            'name' => $validated['booking_name'],
-            'email' => $validated['booking_email'],
-            'phone' => $validated['booking_phone'],
+            'name' => $this->booking_name,
+            'email' => $this->booking_email,
+            'phone' => $this->booking_phone,
             'message' => $messageBody,
         ]);
 
         Customer::updateOrCreate(
-            ['email' => $validated['booking_email']],
+            ['email' => $this->booking_email],
             [
-                'full_name' => $validated['booking_name'],
-                'phone' => $validated['booking_phone'],
+                'full_name' => $this->booking_name,
+                'phone' => $this->booking_phone,
                 'gdpr_consent_at' => now(),
             ]
         );
@@ -117,10 +118,15 @@ class HomeComponent extends Component
         $adminEmail = config('mail.from.address');
 
         if ($adminEmail) {
-            Mail::raw($messageBody, function ($message) use ($adminEmail) {
-                $message->to($adminEmail)
-                    ->subject('Новая заявка на групповую дату тура');
-            });
+            $bookingData = [
+                'name' => $this->booking_name,
+                'email' => $this->booking_email,
+                'phone' => $this->booking_phone,
+                'guests' => $this->booking_guests,
+                'message' => $this->booking_message,
+            ];
+
+            Mail::to($adminEmail)->queue(new GroupBookingRequest($this->selectedGroup, $bookingData));
         }
 
         $this->showBookingModal = false;
@@ -132,7 +138,7 @@ class HomeComponent extends Component
     public function render()
     {
         SEOTools::setTitle(__('titles.home') ?? 'Home');
-        SEOTools::setDescription(__('messages.seo_home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism with TmTourism.');
+        SEOTools::setDescription(__('messages.seo_home_description') ?? 'Discover the beauty of Turkmenistan with TmTourism.');
         SEOTools::opengraph()->setUrl(route('home'));
 
         $tours = Cache::remember('home_tours', 3600, function () {
@@ -146,14 +152,13 @@ class HomeComponent extends Component
         // Ближайшие групповые туры (5 записей)
         $groups = Cache::remember('home_groups', 3600, function () {
             return TourGroup::with('tour')
-                ->where('status', 'open')
+                ->where('status', TourGroupStatus::OPEN)
                 ->where('starts_at', '>=', now())
                 ->orderBy('starts_at')
                 ->limit(5)
                 ->get();
         });
 
-        //        $guides = Guide::where('is_active', true)->orderBy('sort_order')->get();
         return view('livewire.front.home-component', compact('tours', 'fotos', 'groups'))
             ->layout('layouts.front-app');
     }

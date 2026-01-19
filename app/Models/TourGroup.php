@@ -21,6 +21,14 @@ class TourGroup extends Model
         'status',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'status' => \App\Enums\TourGroupStatus::class,
+            'starts_at' => 'date',
+        ];
+    }
+
     /**
      * @param int $peopleCount
      * @param string $accommodationType
