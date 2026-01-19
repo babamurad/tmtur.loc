@@ -56,13 +56,18 @@
                                 <a href="{{ route('dashboard') }}" class="waves-effect"><i
                                         class='bx bx-home-smile'></i><span>Дашборд</span></a>
                             </li>
-                        @endif
 
-                        @if(!auth()->user()->isReferral())
                             <li>
-                                <a href="{{ route('bookings.index') }}" class="waves-effect"><i
-                                        class='bx bx-calendar-check'></i><span>Бронирования</span></a>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-bitcoin"></i><span>Продажи</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('bookings.index') }}"><i
+                                                class='bx bx-calendar-check'></i><span>Бронирования</span></a></li>
+                                    <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
+                                </ul>
                             </li>
+
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-world"></i><span>Туры и услуги</span></a>
@@ -101,7 +106,7 @@
                             </li>
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="bx bx-receipt"></i><span>Локации</span></a>
+                                    <i class="bx bx-map-pin"></i><span>Локации</span></a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="{{ route('admin.locations.index') }}"><i class="bx bx-map"></i> Локации</a>
                                     </li>
@@ -114,20 +119,33 @@
                                 </ul>
                             </li>
 
-                            <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
-                            <li><a href="{{ route('users.index') }}"><i class="bx bx-user-circle"></i> Пользователи</a></li>
-                            <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
-
-                            @livewire('MessageNavComponent')
-
-                            <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i> Контакты</a>
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-group"></i><span>Пользователи</span></a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('users.index') }}"><i class="bx bx-user-circle"></i>
+                                            Пользователи</a>
+                                    </li>
+                                    <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
+                                </ul>
                             </li>
-                            <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
-                                    Подписчики</a></li>
-                        @endif
 
-                        <li><a href="{{ route('admin.link-generator') }}"><i class="bx bx-link"></i>
-                                Генератор ссылок</a></li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bx-trending-up"></i><span>Маркетинг</span></a>
+                                <ul class="sub-menu" aria-expanded="false">
+                                    @livewire('MessageNavComponent')
+                                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i>
+                                            Контакты</a>
+                                    </li>
+                                    <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
+                                            Подписчики</a></li>
+                                    <li><a href="{{ route('admin.link-generator') }}"><i class="bx bx-link"></i>
+                                            Генератор ссылок</a></li>
+                                </ul>
+                            </li>
+                        @endif
 
 
                     </ul>
