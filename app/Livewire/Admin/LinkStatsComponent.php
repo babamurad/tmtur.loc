@@ -10,6 +10,8 @@ class LinkStatsComponent extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     public $link;
 
     public function mount($id)
