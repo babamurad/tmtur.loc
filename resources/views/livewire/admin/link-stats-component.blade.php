@@ -77,7 +77,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Динамика переходов (30 дней)</h4>
-                        <div style="height: 300px;">
+                        <div style="height: 300px;" wire:ignore>
                             <canvas id="clicksChart"></canvas>
                         </div>
                     </div>
