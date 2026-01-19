@@ -14,8 +14,8 @@ class MessageNavComponent extends Component
         $unreadCount = ContactMessage::where('is_read', false)->count();
 
         return <<<HTML
-        <li wire:poll.5s>
-            <a href="{{ route('admin.contact-messages-table') }}" class="waves-effect">
+        <li wire:poll.5s class="{{ request()->routeIs('admin.contact-messages-table*') ? 'mm-active' : '' }}">
+            <a href="{{ route('admin.contact-messages-table') }}" class="waves-effect {{ request()->routeIs('admin.contact-messages-table*') ? 'active' : '' }}">
                 <i class='bx bx-envelope'></i>
                 @if($unreadCount > 0)
                 <span class="badge badge-pill badge-primary float-right">{$unreadCount}</span>

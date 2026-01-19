@@ -52,96 +52,151 @@
 
                         @if(!auth()->user()->isReferral())
                             {{-- Dashboard visible to all authorized --}}
-                            <li>
-                                <a href="{{ route('dashboard') }}" class="waves-effect"><i
-                                        class='bx bx-home-smile'></i><span>Дашборд</span></a>
+                            <li class="{{ request()->routeIs('dashboard') ? 'mm-active' : '' }}">
+                                <a href="{{ route('dashboard') }}"
+                                    class="waves-effect {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                                    <i class='bx bx-home-smile'></i><span>Дашборд</span>
+                                </a>
                             </li>
 
-                            <li>
+                            <li class="{{ request()->routeIs('bookings*', 'customers*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-bitcoin"></i><span>Продажи</span>
                                 </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('bookings.index') }}"><i
+                                <ul class="sub-menu {{ request()->routeIs('bookings*', 'customers*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
+                                    <li><a href="{{ route('bookings.index') }}"
+                                            class="{{ request()->routeIs('bookings*') ? 'active' : '' }}"><i
                                                 class='bx bx-calendar-check'></i><span>Бронирования</span></a></li>
-                                    <li><a href="{{ route('customers.index') }}"><i class="bx bx-user"></i> Клиенты</a></li>
+                                    <li><a href="{{ route('customers.index') }}"
+                                            class="{{ request()->routeIs('customers*') ? 'active' : '' }}"><i
+                                                class="bx bx-user"></i> Клиенты</a></li>
                                 </ul>
                             </li>
 
-                            <li>
+                            <li
+                                class="{{ request()->routeIs('tour-categories*', 'admin.tags*', 'admin.tours*', 'tour-groups*', 'services*', 'inclusions*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-world"></i><span>Туры и услуги</span></a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('tour-categories.index') }}"><i
+                                <ul class="sub-menu {{ request()->routeIs('tour-categories*', 'admin.tags*', 'admin.tours*', 'tour-groups*', 'services*', 'inclusions*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
+                                    <li><a href="{{ route('tour-categories.index') }}"
+                                            class="{{ request()->routeIs('tour-categories*') ? 'active' : '' }}"><i
                                                 class="mdi mdi-format-align-justify"></i>Категории туров</a></li>
-                                    <li><a href="{{ route('admin.tags.index') }}"><i class="bx bx-purchase-tag-alt"></i>
+                                    <li><a href="{{ route('admin.tags.index') }}"
+                                            class="{{ request()->routeIs('admin.tags*') ? 'active' : '' }}"><i
+                                                class="bx bx-purchase-tag-alt"></i>
                                             Теги</a></li>
 
-                                    <li><a href="{{ route('admin.tours.index') }}"><i class="bx bx-map-alt"></i>Туры</a>
+                                    <li><a href="{{ route('admin.tours.index') }}"
+                                            class="{{ request()->routeIs('admin.tours*') ? 'active' : '' }}"><i
+                                                class="bx bx-map-alt"></i>Туры</a>
                                     </li>
-                                    <li><a href="{{ route('tour-groups.index') }}"><i class="bx bx-group"></i> Группы
+                                    <li><a href="{{ route('tour-groups.index') }}"
+                                            class="{{ request()->routeIs('tour-groups*') ? 'active' : '' }}"><i
+                                                class="bx bx-group"></i> Группы
                                             туров</a></li>
-                                    <li><a href="{{ route('services.index') }}"><i class="bx bx-add-to-queue"></i>
+                                    <li><a href="{{ route('services.index') }}"
+                                            class="{{ request()->routeIs('services*') ? 'active' : '' }}"><i
+                                                class="bx bx-add-to-queue"></i>
                                             Услуги</a></li>
-                                    <li><a href="{{ route('inclusions.index') }}"><i class="bx bx-check-square"></i>
+                                    <li><a href="{{ route('inclusions.index') }}"
+                                            class="{{ request()->routeIs('inclusions*') ? 'active' : '' }}"><i
+                                                class="bx bx-check-square"></i>
                                             Включения</a></li>
                                 </ul>
                             </li>
 
-                            <li>
+                            <li
+                                class="{{ request()->routeIs('carousels*', 'categories*', 'posts*', 'reviews*', 'admin.pages*', 'gallery*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-receipt"></i><span>Контент</span></a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('carousels.index') }}"><i class="bx bx-images"></i> Слайды
+                                <ul class="sub-menu {{ request()->routeIs('carousels*', 'categories*', 'posts*', 'reviews*', 'admin.pages*', 'gallery*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
+                                    <li><a href="{{ route('carousels.index') }}"
+                                            class="{{ request()->routeIs('carousels*') ? 'active' : '' }}"><i
+                                                class="bx bx-images"></i> Слайды
                                             карусели</a></li>
-                                    <li><a href="{{ route('categories.index') }}"><i
+                                    <li><a href="{{ route('categories.index') }}"
+                                            class="{{ request()->routeIs('categories*') ? 'active' : '' }}"><i
                                                 class="mdi mdi-format-align-justify"></i> Категории постов</a></li>
-                                    <li><a href="{{ route('posts.index') }}"><i class="bx bx-file-blank"></i> Посты</a></li>
-                                    <li><a href="{{ route('reviews.index') }}"><i class="bx bx-chat"></i> Отзывы</a></li>
-                                    <li><a href="{{ route('admin.pages.index') }}"><i class="bx bx-file"></i> Страницы</a>
+                                    <li><a href="{{ route('posts.index') }}"
+                                            class="{{ request()->routeIs('posts*') ? 'active' : '' }}"><i
+                                                class="bx bx-file-blank"></i> Посты</a></li>
+                                    <li><a href="{{ route('reviews.index') }}"
+                                            class="{{ request()->routeIs('reviews*') ? 'active' : '' }}"><i
+                                                class="bx bx-chat"></i> Отзывы</a></li>
+                                    <li><a href="{{ route('admin.pages.index') }}"
+                                            class="{{ request()->routeIs('admin.pages*') ? 'active' : '' }}"><i
+                                                class="bx bx-file"></i> Страницы</a>
                                     </li>
-                                    <li><a href="{{ route('gallery.index') }}"><i class="bx bx-image-alt"></i> Галерея</a>
+                                    <li><a href="{{ route('gallery.index') }}"
+                                            class="{{ request()->routeIs('gallery*') ? 'active' : '' }}"><i
+                                                class="bx bx-image-alt"></i> Галерея</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <li
+                                class="{{ request()->routeIs('admin.locations*', 'admin.hotels*', 'admin.places*', 'admin.routes*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-map-pin"></i><span>Локации</span></a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('admin.locations.index') }}"><i class="bx bx-map"></i> Локации</a>
+                                <ul class="sub-menu {{ request()->routeIs('admin.locations*', 'admin.hotels*', 'admin.places*', 'admin.routes*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
+                                    <li><a href="{{ route('admin.locations.index') }}"
+                                            class="{{ request()->routeIs('admin.locations*') ? 'active' : '' }}"><i
+                                                class="bx bx-map"></i> Локации</a>
                                     </li>
-                                    <li><a href="{{ route('admin.hotels.index') }}"><i class="bx bx-building-house"></i>
+                                    <li><a href="{{ route('admin.hotels.index') }}"
+                                            class="{{ request()->routeIs('admin.hotels*') ? 'active' : '' }}"><i
+                                                class="bx bx-building-house"></i>
                                             Отели</a></li>
-                                    <li><a href="{{ route('admin.places.index') }}"><i class="bx bx-diamond"></i> Места</a>
+                                    <li><a href="{{ route('admin.places.index') }}"
+                                            class="{{ request()->routeIs('admin.places*') ? 'active' : '' }}"><i
+                                                class="bx bx-diamond"></i> Места</a>
                                     </li>
-                                    <li><a href="{{ route('admin.routes.index') }}"><i class="bx bx-customize"></i>
+                                    <li><a href="{{ route('admin.routes.index') }}"
+                                            class="{{ request()->routeIs('admin.routes*') ? 'active' : '' }}"><i
+                                                class="bx bx-customize"></i>
                                             Программа тура</a></li>
                                 </ul>
                             </li>
 
-                            <li>
+                            <li class="{{ request()->routeIs('users*', 'guides*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-group"></i><span>Пользователи</span></a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="{{ route('users.index') }}"><i class="bx bx-user-circle"></i>
+                                <ul class="sub-menu {{ request()->routeIs('users*', 'guides*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
+                                    <li><a href="{{ route('users.index') }}"
+                                            class="{{ request()->routeIs('users*') ? 'active' : '' }}"><i
+                                                class="bx bx-user-circle"></i>
                                             Пользователи</a>
                                     </li>
-                                    <li><a href="{{ route('guides.index') }}"><i class="bx bx-id-card"></i> Гиды</a></li>
+                                    <li><a href="{{ route('guides.index') }}"
+                                            class="{{ request()->routeIs('guides*') ? 'active' : '' }}"><i
+                                                class="bx bx-id-card"></i> Гиды</a></li>
                                 </ul>
                             </li>
 
 
-                            <li>
+                            <li
+                                class="{{ request()->routeIs('admin.contact-infos*', 'admin.newsletter-subscribers*', 'admin.link-generator*', 'admin.contact-messages-table*') ? 'mm-active' : '' }}">
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="bx bx-trending-up"></i><span>Маркетинг</span></a>
-                                <ul class="sub-menu" aria-expanded="false">
+                                <ul class="sub-menu {{ request()->routeIs('admin.contact-infos*', 'admin.newsletter-subscribers*', 'admin.link-generator*', 'admin.contact-messages-table*') ? 'mm-show' : '' }}"
+                                    aria-expanded="false">
                                     @livewire('MessageNavComponent')
-                                    <li><a href="{{ route('admin.contact-infos') }}"><i class="bx bx-info-circle"></i>
+                                    <li><a href="{{ route('admin.contact-infos') }}"
+                                            class="{{ request()->routeIs('admin.contact-infos*') ? 'active' : '' }}"><i
+                                                class="bx bx-info-circle"></i>
                                             Контакты</a>
                                     </li>
-                                    <li><a href="{{ route('admin.newsletter-subscribers') }}"><i class="bx bx-envelope"></i>
+                                    <li><a href="{{ route('admin.newsletter-subscribers') }}"
+                                            class="{{ request()->routeIs('admin.newsletter-subscribers*') ? 'active' : '' }}"><i
+                                                class="bx bx-envelope"></i>
                                             Подписчики</a></li>
-                                    <li><a href="{{ route('admin.link-generator') }}"><i class="bx bx-link"></i>
+                                    <li><a href="{{ route('admin.link-generator') }}"
+                                            class="{{ request()->routeIs('admin.link-generator*') ? 'active' : '' }}"><i
+                                                class="bx bx-link"></i>
                                             Генератор ссылок</a></li>
                                 </ul>
                             </li>
