@@ -184,7 +184,7 @@
                 <div class="col-md-3">
                     <!-- <div class="font-weight-bold mb-2">{{ __('layout.quick_links') }}</div> -->
                     <ul class="list-unstyled small">
-                        <li><a href="url('tours/category/darvaza-gas-crater')"
+                        <li><a href="tours/category/darvaza-gas-crater"
                                 class="text-white-50">{{ __('menu.darwaza') }}</a></li>
                         <li><a href="/#contact" class="text-white-50">{{ __('menu.contact') }}</a></li>
                         <li><a href="{{ route('gallery') }}" class="text-white-50">{{ __('menu.gallery') }}</a></li>
