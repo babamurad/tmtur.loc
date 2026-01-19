@@ -100,15 +100,38 @@ class TrackGeneratedLinkClicks
                     $link->refresh();
                     \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: New Click Count: {$link->click_count}");
 
+                    // Attempt to resolve location
+                    $location = null;
+                    try {
+                        // 1. Try Cloudflare header
+                        $location = $request->header('CF-IPCountry');
+
+                        // 2. If no header and not local, try external API
+                        if (!$location && app()->environment('production')) {
+                            $ip = $request->ip();
+                            // Simple check to skip local IPs if not caught by env check
+                            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                                $response = \Illuminate\Support\Facades\Http::timeout(2)->get("http://ip-api.com/json/{$ip}?fields=country");
+                                if ($response->successful()) {
+                                    $data = $response->json();
+                                    $location = $data['country'] ?? null;
+                                }
+                            }
+                        }
+                    } catch (\Exception $e) {
+                        // Fail silently on location to not break the click tracking
+                        \Illuminate\Support\Facades\Log::warning("TrackGeneratedLinkClicks: Location lookup failed: " . $e->getMessage());
+                    }
+
                     // Record detailed click
                     \App\Models\GeneratedLinkClick::create([
                         'generated_link_id' => $link->id,
                         'ip_address' => $request->ip(),
                         'user_agent' => $request->userAgent(),
-                        'location' => null, // Placeholder for GeoIP if needed
+                        'location' => $location,
                     ]);
 
-                    \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: Click detail recorded");
+                    \Illuminate\Support\Facades\Log::info("TrackGeneratedLinkClicks: Click detail recorded. Location: " . ($location ?? 'Unknown'));
 
                     // Store in session for attribution
                     session()->put('generated_link_id', $link->id);

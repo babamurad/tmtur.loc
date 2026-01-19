@@ -16,6 +16,75 @@
             </div>
         </div>
 
+        <!-- Metric Cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="media-body">
+                                <p class="text-muted font-weight-medium">Популярный Браузер</p>
+                                <h4 class="mb-0">{{ $stats['top_browser'] }}</h4>
+                            </div>
+                            <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
+                                <span class="avatar-title">
+                                    <i class="bx bx-globe font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="media-body">
+                                <p class="text-muted font-weight-medium">Популярная ОС</p>
+                                <h4 class="mb-0">{{ $stats['top_os'] }}</h4>
+                            </div>
+                            <div class="mini-stat-icon avatar-sm rounded-circle bg-success align-self-center">
+                                <span class="avatar-title">
+                                    <i class="bx bx-laptop font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mini-stats-wid">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="media-body">
+                                <p class="text-muted font-weight-medium">Топ Локация</p>
+                                <h4 class="mb-0">{{ $stats['top_location'] }}</h4>
+                            </div>
+                            <div class="mini-stat-icon avatar-sm rounded-circle bg-info align-self-center">
+                                <span class="avatar-title">
+                                    <i class="bx bx-map font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Динамика переходов (30 дней)</h4>
+                        <div style="height: 300px;">
+                            <canvas id="clicksChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-xl-4">
                 <div class="card overflow-hidden">
@@ -113,27 +182,43 @@
                                     <tr>
                                         <th>Дата/Время</th>
                                         <th>IP Адрес</th>
-                                        <th>Устройство / Браузер</th>
+                                        <th>Локация</th>
+                                        <th>Устройство</th>
+                                        <th>Браузер</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($clicks as $click)
+                                        @php
+                                            $ua = $this->parseUserAgent($click->user_agent);
+                                        @endphp
                                         <tr>
                                             <td>
                                                 {{ $click->created_at->format('d.m.Y H:i:s') }}
                                             </td>
                                             <td>{{ $click->ip_address }}</td>
                                             <td>
-                                                {{ $this->parseUserAgent($click->user_agent) }}
-                                                <small class="d-block text-muted text-truncate" style="max-width: 300px;"
-                                                    title="{{ $click->user_agent }}">
-                                                    {{ $click->user_agent }}
-                                                </small>
+                                                @if($click->location)
+                                                    <span
+                                                        class="badge badge-soft-info font-size-12">{{ $click->location }}</span>
+                                                @else
+                                                    <span class="text-muted">-</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <i
+                                                    class="{{ $ua['platform_icon'] }} font-size-16 align-middle mr-2 text-primary"></i>
+                                                {{ $ua['platform'] }}
+                                            </td>
+                                            <td>
+                                                <i
+                                                    class="{{ $ua['browser_icon'] }} font-size-16 align-middle mr-2 text-warning"></i>
+                                                {{ $ua['browser'] }}
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="3" class="text-center text-muted py-4">Переходов пока нет</td>
+                                            <td colspan="5" class="text-center text-muted py-4">Переходов пока нет</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -229,57 +314,125 @@
         </div>
     </div>
 
-    <script>
-        window.addEventListener('open-qr-modal', event => {
-            $('#qrCodeModal').modal('show');
-        });
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener('livewire:navigated', () => {
+                initLinkStatsChart();
+            });
 
-        function downloadQrCode(format) {
-            const container = document.getElementById('qrCodeContainer');
-            const svg = container.querySelector('svg');
-            // Assuming name formatting is handled backend or simply using ID/Name
-            const userName = '{{ \Illuminate\Support\Str::slug($link->user?->name ?? $link->source) }}';
-            const fileName = 'qrcode_' + userName;
+            // Also run on initial load
+            document.addEventListener('DOMContentLoaded', () => {
+                initLinkStatsChart();
+            });
 
-            if (!svg) return;
+            function initLinkStatsChart() {
+                var ctx = document.getElementById('clicksChart');
+                if (ctx) {
+                    // Destroy existing chart if it exists to prevent overlap
+                    if (window.myClickChart) {
+                        window.myClickChart.destroy();
+                    }
 
-            if (format === 'svg') {
-                const svgData = new XMLSerializer().serializeToString(svg);
-                const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = fileName + '.svg';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } else if (format === 'png') {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                const svgData = new XMLSerializer().serializeToString(svg);
-                const img = new Image();
+                    var chartData = @json($chartData);
 
-                const svgWidth = svg.getAttribute('width') || 250;
-                const svgHeight = svg.getAttribute('height') || 250;
+                    window.myClickChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                label: 'Клики',
+                                data: chartData.data,
+                                backgroundColor: 'rgba(85, 110, 230, 0.2)',
+                                borderColor: '#556ee6',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#ffffff',
+                                pointBorderColor: '#556ee6',
+                                pointRadius: 4,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        drawBorder: false,
+                                        color: '#f0f0f0'
+                                    },
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
 
-                canvas.width = svgWidth;
-                canvas.height = svgHeight;
+            window.addEventListener('open-qr-modal', event => {
+                $('#qrCodeModal').modal('show');
+            });
 
-                img.onload = function () {
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
+            function downloadQrCode(format) {
+                const container = document.getElementById('qrCodeContainer');
+                const svg = container.querySelector('svg');
+                const userName = '{{ \Illuminate\Support\Str::slug($link->user?->name ?? $link->source) }}';
+                const fileName = 'qrcode_' + userName;
 
+                if (!svg) return;
+
+                if (format === 'svg') {
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
                     const link = document.createElement('a');
-                    link.download = fileName + '.png';
-                    link.href = canvas.toDataURL('image/png');
+                    link.href = url;
+                    link.download = fileName + '.svg';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                };
+                } else if (format === 'png') {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const img = new Image();
 
-                img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+                    const svgWidth = svg.getAttribute('width') || 250;
+                    const svgHeight = svg.getAttribute('height') || 250;
+
+                    canvas.width = svgWidth;
+                    canvas.height = svgHeight;
+
+                    img.onload = function () {
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
+
+                        const link = document.createElement('a');
+                        link.download = fileName + '.png';
+                        link.href = canvas.toDataURL('image/png');
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    };
+
+                    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+                }
             }
-        }
-    </script>
+        </script>
+    @endpush
 </div>
