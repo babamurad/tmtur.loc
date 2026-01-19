@@ -630,7 +630,7 @@
     </section>
 
     <!-- ========== REVIEWS ========== -->
-    @if(isset($reviews) && $reviews->count() > 0)
+    @if(isset($reviews) && $reviews->count() > 2)
         <section class="py-5 bg-white" id="reviews">
             <div class="container py-4">
                 <div class="text-center mb-5">
@@ -678,7 +678,6 @@
         </section>
     @endif
 
-    {{--42270905--}}
     <!-- ========== CONTACTS ========== -->
     @livewire('front.contact-form-component')
 </div>
