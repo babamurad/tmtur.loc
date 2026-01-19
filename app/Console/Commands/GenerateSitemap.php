@@ -7,6 +7,9 @@ use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Tour;
 use App\Models\Post;
+use App\Models\TourCategory;
+use App\Models\Category;
+use App\Models\Tag;
 
 class GenerateSitemap extends Command
 {
@@ -65,6 +68,42 @@ class GenerateSitemap extends Command
                     ->setPriority(0.7)
             );
         }
+
+        // 4. Tour Categories
+        $tourCategories = TourCategory::where('is_published', true)->get();
+        foreach ($tourCategories as $category) {
+            $sitemap->add(
+                Url::create(route('tours.category.show', $category->slug))
+                    ->setLastModificationDate($category->updated_at)
+                    ->setPriority(0.8)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            );
+        }
+
+        // 5. Blog Categories
+        $blogCategories = Category::where('is_published', true)->get();
+        foreach ($blogCategories as $category) {
+            $sitemap->add(
+                Url::create(route('blog.category', $category->slug))
+                    ->setLastModificationDate($category->updated_at)
+                    ->setPriority(0.7)
+            );
+        }
+
+        // 6. Tags (Only those with tours)
+        $tags = Tag::has('tours')->get();
+        foreach ($tags as $tag) {
+            $sitemap->add(
+                Url::create(route('tours.tag.show', $tag->id))
+                    ->setLastModificationDate($tag->updated_at)
+                    ->setPriority(0.6)
+            );
+        }
+
+        // 7. Static Pages (Legal)
+        $sitemap->add(Url::create(route('privacy'))->setPriority(0.5));
+        $sitemap->add(Url::create(route('terms'))->setPriority(0.5));
+        $sitemap->add(Url::create(route('tours.category.index'))->setPriority(0.8)); // All Categories
 
         // Save to file
         $sitemap->writeToFile(public_path('sitemap.xml'));
