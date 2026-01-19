@@ -629,6 +629,55 @@
         </div>
     </section>
 
+    <!-- ========== REVIEWS ========== -->
+    @if(isset($reviews) && $reviews->count() > 0)
+        <section class="py-5 bg-white" id="reviews">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold mb-3" style="font-size: 2rem;">
+                        {{ __('messages.reviews_title') ?? 'Client Reviews' }}
+                    </h2>
+                    <p class="text-muted mb-0" style="font-size: 1.05rem; max-width: 780px; margin: 0 auto;">
+                        {{ __('messages.reviews_subtitle') ?? 'What our travelers say about us' }}
+                    </p>
+                </div>
+
+                <div class="row">
+                    @foreach($reviews as $review)
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-0 shadow-sm h-100 p-3" style="border-radius: 16px;">
+                                <div class="card-body">
+                                    <div class="mb-3 text-warning">
+                                        @for($i = 0; $i < $review->rating; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                        @for($i = $review->rating; $i < 5; $i++)
+                                            <i class="far fa-star text-muted" style="opacity: 0.3;"></i>
+                                        @endfor
+                                    </div>
+
+                                    <p class="text-muted" style="font-size: 0.95rem; line-height: 1.6; min-height: 80px;">
+                                        "{{ Str::limit($review->comment, 150) }}"
+                                    </p>
+
+                                    <div class="d-flex align-items-center mt-4">
+                                        <img src="{{ $review->user->avatar_url }}" class="rounded-circle mr-3 border"
+                                            style="width: 50px; height: 50px; object-fit: cover;"
+                                            alt="{{ $review->user->name }}">
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-dark">{{ $review->user->name }}</h6>
+                                            <small class="text-muted">{{ $review->created_at->format('d.m.Y') }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     {{--42270905--}}
     <!-- ========== CONTACTS ========== -->
     @livewire('front.contact-form-component')

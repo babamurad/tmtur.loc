@@ -8,6 +8,7 @@ use App\Models\ContactMessage;
 use App\Models\Customer;
 use App\Models\Tour;
 use App\Models\TourGroup;
+use App\Models\Review;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -159,7 +160,15 @@ class HomeComponent extends Component
                 ->get();
         });
 
-        return view('livewire.front.home-component', compact('tours', 'fotos', 'groups'))
+        $reviews = Cache::remember('home_reviews', 3600, function () {
+            return Review::with('user.avatar')
+                ->active()
+                ->latest()
+                ->limit(3)
+                ->get();
+        });
+
+        return view('livewire.front.home-component', compact('tours', 'fotos', 'groups', 'reviews'))
             ->layout('layouts.front-app');
     }
 }
