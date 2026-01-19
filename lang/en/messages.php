@@ -152,7 +152,8 @@ return [
     'on_request' => 'On request',
 
     // Reviews
-    'reviews_title' => 'Reviews',
+    'reviews_title' => 'Client Reviews',
+    'reviews_subtitle' => 'What our travelers say about us',
     'review_user_fallback' => 'User',
     'no_reviews_yet' => 'No reviews yet. Be the first!',
     'leave_review_title' => 'Leave a review',

@@ -150,7 +150,8 @@ return [
     'on_request' => '요청 시',
 
     // Reviews
-    'reviews_title' => '후기',
+    'reviews_title' => '고객 후기',
+    'reviews_subtitle' => '우리와 함께한 여행객들의 이야기',
     'review_user_fallback' => '사용자',
     'no_reviews_yet' => '아직 후기가 없습니다. 첫 번째 후기를 남겨보세요!',
     'leave_review_title' => '후기 남기기',

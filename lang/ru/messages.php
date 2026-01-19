@@ -152,7 +152,8 @@ return [
     'on_request' => 'По запросу',
 
     // Reviews
-    'reviews_title' => 'Отзывы',
+    'reviews_title' => 'Отзывы клиентов',
+    'reviews_subtitle' => 'Что говорят о нас наши гости',
     'review_user_fallback' => 'Пользователь',
     'no_reviews_yet' => 'Пока нет отзывов. Будьте первыми!',
     'leave_review_title' => 'Оставить отзыв',
