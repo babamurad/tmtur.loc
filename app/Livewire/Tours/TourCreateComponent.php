@@ -497,6 +497,23 @@ class TourCreateComponent extends Component
             'title' => 'Тур создан!',
             'text' => 'Создан новый тур!',
         ]);
+
+        // Отправка уведомления администраторам
+        try {
+            $admins = \App\Models\User::where('role', \App\Models\User::ROLE_ADMIN)->get();
+            $tour = \App\Models\Tour::where('slug', $this->slug)->first(); // Получаем созданный тур
+            if ($tour) {
+                \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\SystemNotification(
+                    'Новый тур',
+                    "Создан новый тур: {$this->title}",
+                    route('admin.tours.edit', $tour->id),
+                    'bx-map'
+                ));
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Ошибка отправки уведомления о создании тура: ' . $e->getMessage());
+        }
+
         return redirect()->route('admin.tours.index');
     }
 }

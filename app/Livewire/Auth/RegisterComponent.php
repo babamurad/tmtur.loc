@@ -42,6 +42,20 @@ class RegisterComponent extends Component
             'text' => 'Регистрация успешна завершена!',
         ]);
 
+        // Отправка уведомления администраторам
+        try {
+            $admins = User::where('role', User::ROLE_ADMIN)->get();
+            \Illuminate\Support\Facades\Notification::send($admins, new \App\Notifications\SystemNotification(
+                'Новый пользователь',
+                "Зарегистрировался новый пользователь: {$user->name} ({$user->email})",
+                route('users.edit', $user->id),
+                'bx-user-plus'
+            ));
+        } catch (\Exception $e) {
+            // Логируем ошибку, но не прерываем регистрацию
+            \Illuminate\Support\Facades\Log::error('Ошибка отправки уведомления о регистрации: ' . $e->getMessage());
+        }
+
         $this->reset();
 
         return redirect('/');
