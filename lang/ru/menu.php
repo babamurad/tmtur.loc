@@ -29,4 +29,19 @@ return [
     'contacts' => 'Контакты',
     'subscribers' => 'Подписчики',
     'link_generator' => 'Генератор ссылок',
+
+    // Frontend translations
+    'home' => 'Главная',
+    'about' => 'О Туркменистане',
+    'categories' => 'Категории',
+    'all_tours' => 'Все туры',
+    'visa' => 'Виза',
+    'blog' => 'Блог',
+    'contact' => 'Контакты',
+    'darwaza' => 'Дарваза',
+    'login' => 'Войти',
+    'register' => 'Регистрация',
+    'logout' => 'Выйти',
+    'terms' => 'Условия и положения',
+    'privacy' => 'Политика конфиденциальности',
 ];
