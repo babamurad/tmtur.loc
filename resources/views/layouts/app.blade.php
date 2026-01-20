@@ -228,23 +228,23 @@
                             <div class="dropdown-menu">
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    Приложение
+                                <a href="{{ route('admin.tours.create') }}" class="dropdown-item notify-item">
+                                    <i class="bx bx-map-alt mr-1"></i> Тур
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    ПО
+                                <a href="{{ route('posts.create') }}" class="dropdown-item notify-item">
+                                    <i class="bx bx-file-blank mr-1"></i> Статью
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    Система EMS
+                                <a href="{{ route('admin.hotels.create') }}" class="dropdown-item notify-item">
+                                    <i class="bx bx-building-house mr-1"></i> Отель
                                 </a>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    CRM Приложение
+                                <a href="{{ route('guides.create') }}" class="dropdown-item notify-item">
+                                    <i class="bx bx-id-card mr-1"></i> Гида
                                 </a>
                             </div>
                         </div>
