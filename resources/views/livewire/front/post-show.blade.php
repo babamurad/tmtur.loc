@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pt-5">
     <div class="row mt-2">
 
         {{-- ===== JS: копирование ссылки ===== --}}
