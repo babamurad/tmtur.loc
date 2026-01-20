@@ -176,4 +176,7 @@ return [
     'send' => 'Отправить',
     'sending' => 'Отправка...',
     'message_sent' => 'Ваше сообщение успешно отправлено!',
+    'error_sending_try_again' => 'Ошибка отправки. Попробуйте еще раз.',
+    'booking_request_sent_successfully' => 'Ваша заявка успешно отправлена!',
+    'we_will_contact_you_soon' => 'Мы свяжемся с вами в ближайшее время.',
 ];

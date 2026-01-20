@@ -176,4 +176,7 @@ return [
     'send' => 'Send',
     'sending' => 'Sending...',
     'message_sent' => 'Your message has been sent successfully!',
+    'error_sending_try_again' => 'Error sending. Please try again.',
+    'booking_request_sent_successfully' => 'Your request has been sent successfully!',
+    'we_will_contact_you_soon' => 'We will contact you shortly.',
 ];

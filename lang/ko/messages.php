@@ -175,4 +175,7 @@ return [
     'send' => '보내기',
     'sending' => '전송 중...',
     'message_sent' => '메시지가 성공적으로 전송되었습니다!',
+    'error_sending_try_again' => '전송 오류. 다시 시도해 주세요.',
+    'booking_request_sent_successfully' => '요청이 성공적으로 전송되었습니다!',
+    'we_will_contact_you_soon' => '곧 연락드리겠습니다.',
 ];

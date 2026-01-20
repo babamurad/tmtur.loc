@@ -60,8 +60,29 @@
                                 </div>
                             </div>
 
-                            <form wire:submit.prevent="submitBooking" novalidate
-                                class="d-flex flex-column flex-grow-1 overflow-auto">
+                            @if($bookingSuccess)
+                                <div class="tm-modal-body">
+                                    <div class="text-center py-5">
+                                        <div class="mb-3 text-success">
+                                            <i class="fas fa-check-circle fa-4x"></i>
+                                        </div>
+                                        <h5 class="mb-3">{{ __('messages.booking_request_sent_successfully') }}</h5>
+                                        <p class="text-muted">{{ __('messages.we_will_contact_you_soon') ?? 'Мы свяжемся с вами в ближайшее время.' }}</p>
+                                        <button type="button" class="btn btn-secondary mt-3" wire:click="closeBookingModal">
+                                            {{ __('messages.close') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            @else
+                                <form wire:submit.prevent="submitBooking" novalidate
+                                    class="d-flex flex-column flex-grow-1 overflow-auto">
+                                {{-- Honeypot: скрытое поле для ловли ботов --}}
+                                <div
+                                    style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+                                    <label>Leave this field empty</label>
+                                    <input type="text" wire:model.defer="hp" tabindex="-1" autocomplete="off">
+                                </div>
+
                                 <div class="tm-modal-body">
                                     @if($selectedGroup)
                                         <div class="tm-tour-summary">
@@ -179,7 +200,9 @@
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                                @endif
+                            </div>
 
                         </div>
                     </div>
@@ -579,7 +602,7 @@
                                 <div class="card-header p-0" id="heading{{ $idx }}">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left d-flex justify-content-between align-items-center
-                                                   text-decoration-none text-dark" type="button" data-toggle="collapse"
+                                                       text-decoration-none text-dark" type="button" data-toggle="collapse"
                                             data-target="#collapse{{ $idx }}"
                                             aria-expanded="{{ $idx === 0 ? 'true' : 'false' }}"
                                             aria-controls="collapse{{ $idx }}">
