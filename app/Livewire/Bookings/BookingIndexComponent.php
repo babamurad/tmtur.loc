@@ -19,21 +19,60 @@ class BookingIndexComponent extends Component
         $this->resetPage();
     }
 
+    public function cancelBooking($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->update([
+            'status' => 'cancelled',
+            'cancelled_at' => now(),
+        ]);
+
+        session()->flash('message', 'Бронирование отменено.');
+    }
+
+    public function blockUser($email)
+    {
+        if (empty($email)) {
+            return;
+        }
+
+        \App\Models\BlockedUser::firstOrCreate(
+            ['email' => $email],
+            ['reason' => 'Blocked via Admin Panel']
+        );
+
+        session()->flash('message', "Пользователь {$email} заблокирован.");
+    }
+
+
+
+    public function unblockUser($email)
+    {
+        if (empty($email))
+            return;
+
+        \App\Models\BlockedUser::where('email', $email)->delete();
+        session()->flash('message', "Пользователь {$email} разблокирован.");
+    }
+
     public function render()
     {
         $bookings = Booking::with(['customer', 'tourGroup', 'tourGroup.tour'])
             ->when($this->search, function ($query) {
-                $query->whereHas('customer', function($q) {
-                    $q->where('full_name', 'like', '%'.$this->search.'%')
-                      ->orWhere('email', 'like', '%'.$this->search.'%');
+                $query->whereHas('customer', function ($q) {
+                    $q->where('full_name', 'like', '%' . $this->search . '%')
+                        ->orWhere('email', 'like', '%' . $this->search . '%');
                 })
-                ->orWhere('id', 'like', '%'.$this->search.'%');
+                    ->orWhere('id', 'like', '%' . $this->search . '%');
             })
             ->latest()
             ->paginate($this->perPage);
 
+        $blockedEmails = \App\Models\BlockedUser::pluck('email')->toArray();
+
         return view('livewire.bookings.booking-index-component', [
-            'bookings' => $bookings
+            'bookings' => $bookings,
+            'blockedEmails' => $blockedEmails,
         ])->layout('layouts.app');
     }
 }

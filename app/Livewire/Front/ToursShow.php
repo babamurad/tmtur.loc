@@ -95,6 +95,11 @@ class ToursShow extends Component
             return;
         }
 
+        if (\App\Models\BlockedUser::where('email', $this->booking_email)->exists()) {
+            $this->addError('booking_general', 'Ваш email заблокирован для создания заказов.');
+            return;
+        }
+
         // Manual validation for the modal fields
         $validated = $this->validate([
             'booking_name' => ['required', 'string', 'max:255'],

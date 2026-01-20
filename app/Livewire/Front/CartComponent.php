@@ -17,6 +17,11 @@ class CartComponent extends Component
         if (empty($cart))
             return;
 
+        if (auth()->check() && \App\Models\BlockedUser::where('email', auth()->user()->email)->exists()) {
+            session()->flash('error', 'Ваш аккаунт заблокирован для создания заказов.');
+            return;
+        }
+
         DB::transaction(function () use ($cart, &$bookingIds) {
             \Illuminate\Support\Facades\Log::info('Cart Checkout initiated. Session Link ID: ' . session('generated_link_id') . ' Session ID: ' . session()->getId());
             foreach ($cart as $row) {
