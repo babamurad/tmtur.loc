@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
+    Route::get('/search', [\App\Http\Controllers\Admin\GlobalSearchController::class, 'index'])->name('admin.global-search');
     Route::get('guides', GuideIndexComponent::class)->name('guides.index');
     Route::get('guides/create', GuideCreateComponent::class)->name('guides.create');
     Route::get('guides/edit/{id}', GuideEditComponent::class)->name('guides.edit');

@@ -261,10 +261,10 @@
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
                                 aria-labelledby="page-header-search-dropdown">
 
-                                <form class="p-3">
+                                <form class="p-3" action="{{ route('admin.global-search') }}" method="GET">
                                     <div class="form-group m-0">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Поиск ..."
+                                            <input type="text" name="q" class="form-control" placeholder="Поиск ..."
                                                 aria-label="Recipient's username">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" type="submit"><i
@@ -364,8 +364,11 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
-        {{ $slot }}
+        @if(isset($slot))
+            {{ $slot }}
+        @else
+            @yield('content')
+        @endif
 
         <!-- End Page-content -->
 
