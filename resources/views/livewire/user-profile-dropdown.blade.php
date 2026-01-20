@@ -9,7 +9,7 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item d-flex align-items-center justify-content-between"
-            href="{{ route('admin.profile-edit') }}" wire:navigate>
+            href="{{ route('admin.profile-edit') }}">
             <span>Профиль</span>
             <span>
                 <span class="badge badge-pill badge-soft-danger">1</span>
@@ -17,12 +17,11 @@
             </span>
         </a>
 
-        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('admin.settings') }}"
-            wire:navigate>
+        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('admin.settings') }}">
             <span>Настройки</span>
         </a>
         <a class="dropdown-item d-flex align-items-center justify-content-between"
-            href="{{ route('admin.lock-screen') }}" wire:navigate>
+            href="{{ route('admin.lock-screen') }}">
             <span>Блокировка экрана</span>
         </a>
 

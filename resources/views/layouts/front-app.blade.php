@@ -204,7 +204,7 @@
                 </div>
             </div>
             <hr class="my-3 bg-white">
-            <div class="text-center small text-white-50">&copy; 2025 {{ __('layout.copyright') }}</div>
+            <div class="text-center small text-white-50">&copy; {{ date('Y') }} {{ __('layout.copyright') }}</div>
         </div>
     </footer>
 
