@@ -24,13 +24,12 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="avatar-sm float-right">
-                                        <span class="avatar-title bg-soft-primary rounded-circle">
-                                            <i class="bx bx-layer m-0 h3 text-primary"></i>
-                                        </span>
+                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                <i class="bx bx-layer m-0 h3 text-primary"></i>
+                            </span>
                         </div>
                         <h6 class="text-muted text-uppercase mt-0">Туры</h6>
-                        <h3 class="my-3">$4,514</h3>
-                        <span class="badge badge-soft-primary mr-1"> +11% </span> <span class="text-muted">From previous period</span>
+                        <h3 class="my-3">{{ $toursCount }}</h3>
                     </div>
                 </div>
             </div>
@@ -39,13 +38,12 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="avatar-sm float-right">
-                                        <span class="avatar-title bg-soft-primary rounded-circle">
-                                            <i class="bx bx-dollar-circle m-0 h3 text-primary"></i>
-                                        </span>
+                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                <i class="bx bx-dollar-circle m-0 h3 text-primary"></i>
+                            </span>
                         </div>
                         <h6 class="text-muted text-uppercase mt-0">Группы</h6>
-                        <h3 class="my-3">$85,365</h3>
-                        <span class="badge badge-soft-primary mr-1"> -29% </span> <span class="text-muted">This Month</span>
+                        <h3 class="my-3">{{ $tourGroupsCount }}</h3>
                     </div>
                 </div>
             </div>
@@ -54,13 +52,12 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="avatar-sm float-right">
-                                        <span class="avatar-title bg-soft-primary rounded-circle">
-                                            <i class="bx bx-analyse m-0 h3 text-primary"></i>
-                                        </span>
+                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                <i class="bx bx-analyse m-0 h3 text-primary"></i>
+                            </span>
                         </div>
-                        <h6 class="text-muted text-uppercase mt-0">Партнеры</h6>
-                        <h3 class="my-3">$<span data-plugin="counterup">9.94</span></h3>
-                        <span class="badge badge-soft-primary mr-1"> 0% </span> <span class="text-muted">This Month</span>
+                        <h6 class="text-muted text-uppercase mt-0">Бронирования</h6>
+                        <h3 class="my-3">{{ $bookingsCount }}</h3>
                     </div>
                 </div>
             </div>
@@ -69,13 +66,12 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="avatar-sm float-right">
-                                        <span class="avatar-title bg-soft-primary rounded-circle">
-                                            <i class="bx bx-basket m-0 h3 text-primary"></i>
-                                        </span>
+                            <span class="avatar-title bg-soft-primary rounded-circle">
+                                <i class="bx bx-basket m-0 h3 text-primary"></i>
+                            </span>
                         </div>
                         <h6 class="text-muted text-uppercase mt-0">Подписчики </h6>
-                        <h3 class="my-3" data-plugin="counterup">5,842</h3>
-                        <span class="badge badge-soft-primary mr-1"> +89% </span> <span class="text-muted">This Month</span>
+                        <h3 class="my-3">{{ $subscribersCount }}</h3>
                     </div>
                 </div>
             </div>
@@ -88,7 +84,8 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="dropdown float-right position-relative">
-                            <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown"
+                                aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -101,72 +98,56 @@
                         </div>
                         <h4 class="card-title d-inline-block mb-3">Последние сообщения с сайта</h4>
 
-                        <div data-simplebar="init" style="max-height: 380px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: -15px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-                                                <a href="#" class="d-flex align-items-center border-bottom py-3">
-                                                    <div class="mr-3">
-                                                        <img src="assets/images/users/avatar-2.jpg" class="rounded-circle avatar-sm" alt="user">
-                                                    </div>
-                                                    <div class="w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1">Leonardo Payne</h6>
-                                                            <p class="text-muted font-size-11 mb-0">12.30 PM</p>
+                        <div data-simplebar="init" style="max-height: 380px;">
+                            <div class="simplebar-wrapper" style="margin: 0px;">
+                                <div class="simplebar-height-auto-observer-wrapper">
+                                    <div class="simplebar-height-auto-observer"></div>
+                                </div>
+                                <div class="simplebar-mask">
+                                    <div class="simplebar-offset" style="right: -15px; bottom: 0px;">
+                                        <div class="simplebar-content-wrapper"
+                                            style="height: auto; overflow: hidden scroll;">
+                                            <div class="simplebar-content" style="padding: 0px;">
+                                                @forelse($recentMessages as $msg)
+                                                    <a href="{{ route('admin.contact-messages-table') }}"
+                                                        class="d-flex align-items-center border-bottom py-3">
+                                                        <div class="mr-3">
+                                                            <div
+                                                                class="avatar-sm rounded-circle bg-soft-primary align-self-center text-center">
+                                                                <span
+                                                                    class="avatar-title rounded-circle text-primary bg-soft-primary font-size-18">
+                                                                    {{ strtoupper(substr($msg->name, 0, 1)) }}
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                        <p class="text-muted font-size-13 mb-0">Hey! there I'm available...</p>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="d-flex align-items-center border-bottom py-3">
-                                                    <div class="mr-3">
-                                                        <img src="assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user">
-                                                    </div>
-                                                    <div class="w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1">Soren Drouin</h6>
-                                                            <p class="text-muted font-size-11 mb-0">09.30 PM</p>
+                                                        <div class="w-100">
+                                                            <div class="d-flex justify-content-between">
+                                                                <h6 class="mb-1">{{ $msg->name }}</h6>
+                                                                <p class="text-muted font-size-11 mb-0">
+                                                                    {{ $msg->created_at->format('d.m H:i') }}</p>
+                                                            </div>
+                                                            <p class="text-muted font-size-13 mb-0">
+                                                                {{ Str::limit($msg->message, 40) }}</p>
                                                         </div>
-                                                        <p class="text-muted font-size-13 mb-0">Completed "Design new idea"....</p>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="d-flex align-items-center border-bottom py-3">
-                                                    <div class="mr-3">
-                                                        <img src="assets/images/users/avatar-4.jpg" class="rounded-circle avatar-sm" alt="user">
-                                                    </div>
-                                                    <div class="w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1">Anne Simard</h6>
-                                                            <p class="text-muted font-size-11 mb-0">10.30 PM</p>
-                                                        </div>
-                                                        <p class="text-muted font-size-13 mb-0">Assigned task "Poster illustation design"...</p>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="d-flex align-items-center border-bottom py-3">
-                                                    <div class="mr-3">
-                                                        <img src="assets/images/users/avatar-5.jpg" class="rounded-circle avatar-sm" alt="user">
-                                                    </div>
-                                                    <div class="w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1">Nicolas Chartier</h6>
-                                                            <p class="text-muted font-size-11 mb-0">02.00 PM</p>
-                                                        </div>
-                                                        <p class="text-muted font-size-13 mb-0">Completed "Drinking bottle graphics"...</p>
-                                                    </div>
-                                                </a>
-
-                                                <a href="#" class="d-flex align-items-center border-bottom py-3">
-                                                    <div class="mr-3">
-                                                        <img src="assets/images/users/avatar-6.jpg" class="rounded-circle avatar-sm" alt="user">
-                                                    </div>
-                                                    <div class="w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1">Gano Cloutier</h6>
-                                                            <p class="text-muted font-size-11 mb-0">05.30 PM</p>
-                                                        </div>
-                                                        <p class="text-muted font-size-13 mb-0">Assigned task "Hyper app design"...</p>
-                                                    </div>
-                                                </a>
-                                            </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 405px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 356px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+                                                    </a>
+                                                @empty
+                                                    <p class="text-center py-3">Сообщений нет</p>
+                                                @endforelse
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="simplebar-placeholder" style="width: auto; height: 405px;"></div>
+                            </div>
+                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                                <div class="simplebar-scrollbar"
+                                    style="transform: translate3d(0px, 0px, 0px); display: none;"></div>
+                            </div>
+                            <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                                <div class="simplebar-scrollbar"
+                                    style="height: 356px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -176,7 +157,8 @@
                 <div class="card card-animate">
                     <div class="card-body">
                         <div class="dropdown float-right position-relative">
-                            <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown"
+                                aria-expanded="false">
                                 <i class="mdi mdi-dots-vertical"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
@@ -187,86 +169,43 @@
                                 <li><a href="#" class="dropdown-item">Separated link</a></li>
                             </ul>
                         </div>
-                        <h4 class="card-title d-inline-block">Группы туров</h4>
+                        <h4 class="card-title d-inline-block">Последние бронирования</h4>
 
                         <div class="table-responsive">
                             <table class="table table-borderless table-hover mb-0">
                                 <thead class="thead-light">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Project Name</th>
-                                    <th>Client Name</th>
-                                    <th>Deadline</th>
-                                    <th>Income</th>
-                                    <th>Status</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Тур</th>
+                                        <th>Клиент</th>
+                                        <th>Дата</th>
+                                        <th>Цена</th>
+                                        <th>Статус</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <td>App design and development</td>
-                                    <td>Arthur Powell</td>
-                                    <td>Sun, 08/10</td>
-                                    <td>$8,532</td>
-                                    <td class="text-warning">In Process</td>
-                                </tr>
-                                <tr>
-                                    <th>2</th>
-                                    <td>Coffee detail page - Main Page</td>
-                                    <td>Joan Lennox</td>
-                                    <td>Fri, 17/10</td>
-                                    <td>$5,350</td>
-                                    <td class="text-success">Done</td>
-                                </tr>
-                                <tr>
-                                    <th>3</th>
-                                    <td>Poster illustation design</td>
-                                    <td>Ronald Roesler</td>
-                                    <td>Tue, 13/08</td>
-                                    <td>$2,250</td>
-                                    <td class="text-danger">Hold</td>
-                                </tr>
-                                <tr>
-                                    <th>4</th>
-                                    <td>Drinking bottle graphics</td>
-                                    <td>Mickey Cochran</td>
-                                    <td>Mon, 10/08</td>
-                                    <td>$4,532</td>
-                                    <td class="text-success">Done</td>
-                                </tr>
-                                <tr>
-                                    <th>5</th>
-                                    <td>Landing page design - Home</td>
-                                    <td>Barry Trahan</td>
-                                    <td>Thus, 03/09</td>
-                                    <td>$1,555</td>
-                                    <td class="text-warning">In Process</td>
-                                </tr>
-                                <tr>
-                                    <th>6</th>
-                                    <td>Company logo design</td>
-                                    <td>James Grimes</td>
-                                    <td>Sat, 07/19</td>
-                                    <td>$9,352</td>
-                                    <td class="text-success">Done</td>
-                                </tr>
-                                <tr>
-                                    <th>7</th>
-                                    <td>Product page redesign</td>
-                                    <td>Philip Jetton</td>
-                                    <td>Wed, 09/08</td>
-                                    <td>$6,895</td>
-                                    <td class="text-danger">Hold</td>
-                                </tr>
-                                <tr>
-                                    <th>8</th>
-                                    <td>Hero page - Main Page</td>
-                                    <td>Amanda Salinas</td>
-                                    <td>Sun, 02/20</td>
-                                    <td>$3,895</td>
-                                    <td class="text-success">Done</td>
-                                </tr>
-
+                                    @forelse($recentBookings as $booking)
+                                        <tr>
+                                            <td>{{ $booking->id }}</td>
+                                            <td>{{ $booking->tourGroup?->tour?->tr('title') ?? 'Тур' }}</td>
+                                            <td>{{ $booking->customer->full_name ?? 'Клиент' }}</td>
+                                            <td>{{ $booking->created_at->format('d.m.Y') }}</td>
+                                            <td>${{ number_format($booking->total_price_cents / 100, 2) }}</td>
+                                            <td>
+                                                @if($booking->status == 'confirmed')
+                                                    <span class="badge badge-success">Подтвержден</span>
+                                                @elseif($booking->status == 'cancelled')
+                                                    <span class="badge badge-danger">Отменен</span>
+                                                @else
+                                                    <span class="badge badge-warning">Ожидание</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Бронирований нет</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
