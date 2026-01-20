@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => CheckRole::class,
             'locale' => SetLocale::class,
             'cache.response' => \App\Http\Middleware\CacheResponse::class,
+            'lock.screen' => \App\Http\Middleware\LockScreenMiddleware::class,
         ]);
         $middleware->appendToGroup('web', [
             SetLocale::class,

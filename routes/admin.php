@@ -36,9 +36,12 @@ use App\Livewire\Reviews\ReviewCreateComponent;
 use App\Livewire\Reviews\ReviewEditComponent;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin', 'lock.screen'])->group(function () {
     Route::get('/dashboard', \App\Livewire\DashboardComponent::class)->name('dashboard');
     Route::get('/search', [\App\Http\Controllers\Admin\GlobalSearchController::class, 'index'])->name('admin.global-search');
+
+    // Settings
+    Route::get('/settings', \App\Livewire\Admin\SettingsComponent::class)->name('admin.settings');
 
     // Тест уведомлений
     Route::get('/test-notification', function () {
@@ -159,3 +162,8 @@ Route::middleware(['auth', 'role:admin,referral'])->group(function () {
     Route::get('admin/link-generator/{id}/stats', \App\Livewire\Admin\LinkStatsComponent::class)->name('admin.link-generator.stats');
     Route::get('profile-edit', \App\Livewire\ProfileEdit::class)->name('admin.profile-edit');
 });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/lock-screen', \App\Livewire\Admin\LockScreenComponent::class)->name('admin.lock-screen');
+});
+

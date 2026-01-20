@@ -14,6 +14,16 @@
             <span>
                 <span class="badge badge-pill badge-soft-danger">1</span>
             </span>
+            </span>
+        </a>
+
+        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{ route('admin.settings') }}"
+            wire:navigate>
+            <span>Настройки</span>
+        </a>
+        <a class="dropdown-item d-flex align-items-center justify-content-between"
+            href="{{ route('admin.lock-screen') }}" wire:navigate>
+            <span>Блокировка экрана</span>
         </a>
 
         <form action="{{ route('logout') }}" method="POST" class="d-inline">
