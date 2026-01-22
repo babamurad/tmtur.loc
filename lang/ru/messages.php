@@ -179,4 +179,11 @@ return [
     'error_sending_try_again' => 'Ошибка отправки. Попробуйте еще раз.',
     'booking_request_sent_successfully' => 'Ваша заявка успешно отправлена!',
     'we_will_contact_you_soon' => 'Мы свяжемся с вами в ближайшее время.',
+
+    // Badges
+    'badge_most_popular' => 'Самый популярный',
+    'badge_best_price' => 'Лучшая цена',
+    'badge_new_tour' => 'Новый тур',
+    'badge_recommended' => 'Рекомендуем',
+    'badge_local_favorite' => 'Выбор местных',
 ];

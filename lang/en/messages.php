@@ -179,4 +179,11 @@ return [
     'error_sending_try_again' => 'Error sending. Please try again.',
     'booking_request_sent_successfully' => 'Your request has been sent successfully!',
     'we_will_contact_you_soon' => 'We will contact you shortly.',
+
+    // Badges
+    'badge_most_popular' => 'Most Popular',
+    'badge_best_price' => 'Best Price',
+    'badge_new_tour' => 'New Tour',
+    'badge_recommended' => 'Recommended',
+    'badge_local_favorite' => 'Local Favorite',
 ];

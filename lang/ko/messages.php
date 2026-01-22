@@ -178,4 +178,11 @@ return [
     'error_sending_try_again' => '전송 오류. 다시 시도해 주세요.',
     'booking_request_sent_successfully' => '요청이 성공적으로 전송되었습니다!',
     'we_will_contact_you_soon' => '곧 연락드리겠습니다.',
+
+    // Badges
+    'badge_most_popular' => '가장 인기 있는',
+    'badge_best_price' => '최적의 가격',
+    'badge_new_tour' => '새로운 투어',
+    'badge_recommended' => '추천',
+    'badge_local_favorite' => '현지인 추천',
 ];
