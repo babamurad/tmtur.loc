@@ -32,9 +32,9 @@
                                 @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Роль</label>
-                                <select id="role" class="form-select" wire:model="role">
+                            <div class="form-group">
+                                <label for="role">Роль</label>
+                                <select class="form-control" id="role" wire:model="role">
                                     <option value="{{ \App\Models\User::ROLE_USER }}">Пользователь</option>
                                     <option value="{{ \App\Models\User::ROLE_MANAGER }}">Менеджер</option>
                                     <option value="{{ \App\Models\User::ROLE_ADMIN }}">Администратор</option>
