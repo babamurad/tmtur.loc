@@ -1,7 +1,13 @@
 @props(['tour'])
 
 @php
-    $badges = ['Most Popular', 'Best Price', 'New Tour', 'Recommended', 'Local Favorite'];
+    $badges = [
+        __('messages.badge_most_popular'),
+        __('messages.badge_best_price'),
+        __('messages.badge_new_tour'),
+        __('messages.badge_recommended'),
+        __('messages.badge_local_favorite')
+    ];
     $badge = $badges[array_rand($badges)];
 @endphp
 
@@ -43,7 +49,7 @@
 
         <!-- ICONS -->
         <div class="mb-3 text-secondary" style="font-size: 0.95rem;">
-            #{{ $tour->id }}    
+            #{{ $tour->id }}
             <i class="fa-solid fa-car-side mr-2" title="Transport"></i>
             <i class="fa-solid fa-passport mr-2" title="Visa Support"></i>
             <i class="fa-solid fa-fire-flame-curved mr-2" title="Attractions"></i>
