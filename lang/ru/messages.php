@@ -186,4 +186,6 @@ return [
     'badge_new_tour' => 'Новый тур',
     'badge_recommended' => 'Рекомендуем',
     'badge_local_favorite' => 'Выбор местных',
+
+    'reviews_count' => ':count отзыв|:count отзыва|:count отзывов',
 ];

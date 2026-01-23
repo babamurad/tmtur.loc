@@ -186,4 +186,6 @@ return [
     'badge_new_tour' => 'New Tour',
     'badge_recommended' => 'Recommended',
     'badge_local_favorite' => 'Local Favorite',
+
+    'reviews_count' => ':count review|:count reviews',
 ];

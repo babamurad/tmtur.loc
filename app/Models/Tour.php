@@ -200,4 +200,14 @@ class Tour extends Model
     {
         return $this->hasMany(TourPrice::class);
     }
+
+    public function getAverageRatingAttribute(): float
+    {
+        return round($this->reviews()->active()->avg('rating') ?? 0, 1);
+    }
+
+    public function getReviewsCountAttribute(): int
+    {
+        return $this->reviews()->active()->count();
+    }
 }

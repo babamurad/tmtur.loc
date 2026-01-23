@@ -185,4 +185,6 @@ return [
     'badge_new_tour' => '새로운 투어',
     'badge_recommended' => '추천',
     'badge_local_favorite' => '현지인 추천',
+
+    'reviews_count' => ':count 리뷰',
 ];

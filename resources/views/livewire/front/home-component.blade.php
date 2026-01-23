@@ -121,7 +121,9 @@
                                 <!-- RATING CHIP (STATIC / PLACEHOLDER OR FROM DB) -->
                                 <span class="rating-chip">
                                     <i class="fas fa-star"></i>
-                                    4.9 <span class="ml-1 small">({{ rand(18, 57) }} reviews)</span>
+                                    {{ number_format($tour->average_rating, 1) }}
+                                    <span
+                                        class="ml-1 small">({{ trans_choice('messages.reviews_count', $tour->reviews_count) }})</span>
                                 </span>
                             </div>
 
