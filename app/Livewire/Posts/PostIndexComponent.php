@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 class PostIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public int $perPage = 8;
     public string $search = '';
