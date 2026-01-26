@@ -11,6 +11,7 @@ use App\Support\SocialIcons;
 class ContactInfosCrud extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $label, $type, $value, $icon, $is_active = 1, $sort_order = 0, $input_type, $url, $editId = null;
     public $delId = null;
     public $activeTab;
@@ -47,8 +48,9 @@ class ContactInfosCrud extends Component
 
     public function resetForm()
     {
-        $this->reset(['label','type','value','icon','is_active','sort_order','input_type','url','editId', 'trans']);
-        $this->is_active = 1; $this->sort_order = 0;
+        $this->reset(['label', 'type', 'value', 'icon', 'is_active', 'sort_order', 'input_type', 'url', 'editId', 'trans']);
+        $this->is_active = 1;
+        $this->sort_order = 0;
         $this->initTrans();
     }
 

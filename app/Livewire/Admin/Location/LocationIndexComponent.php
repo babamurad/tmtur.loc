@@ -11,6 +11,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 class LocationIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $locationId;
 

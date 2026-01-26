@@ -10,6 +10,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 class GuideIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $showTrashed = false;
 
@@ -69,21 +70,21 @@ class GuideIndexComponent extends Component
         $this->delId = $id;
 
         if ($this->showTrashed) {
-             LivewireAlert::title('Удалить навсегда?')
-            ->text('Это действие необратимо!')
-            ->timer(null)
-            ->withConfirmButton('Да, удалить')
-            ->withCancelButton('Отмена')
-            ->onConfirm('forceDestroy')
-            ->show();
+            LivewireAlert::title('Удалить навсегда?')
+                ->text('Это действие необратимо!')
+                ->timer(null)
+                ->withConfirmButton('Да, удалить')
+                ->withCancelButton('Отмена')
+                ->onConfirm('forceDestroy')
+                ->show();
         } else {
-             LivewireAlert::title('Удалить гида?')
-            ->text('Гид будет перемещен в корзину.')
-            ->timer(null)
-            ->withConfirmButton('Да')
-            ->withCancelButton('Отмена')
-            ->onConfirm('destroy')
-            ->show();
+            LivewireAlert::title('Удалить гида?')
+                ->text('Гид будет перемещен в корзину.')
+                ->timer(null)
+                ->withConfirmButton('Да')
+                ->withCancelButton('Отмена')
+                ->onConfirm('destroy')
+                ->show();
         }
     }
 
@@ -98,7 +99,7 @@ class GuideIndexComponent extends Component
     public function forceDestroy()
     {
         $guide = Guide::withTrashed()->findOrFail($this->delId);
-        
+
         // удаляем картинку
         if ($guide->image && Storage::disk('public_uploads')->exists($guide->image)) {
             Storage::disk('public_uploads')->delete($guide->image);

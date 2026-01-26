@@ -10,6 +10,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 class PagesIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $pageId;
 

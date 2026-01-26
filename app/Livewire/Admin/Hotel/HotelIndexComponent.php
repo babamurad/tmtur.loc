@@ -11,6 +11,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 class HotelIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $hotelId;
 

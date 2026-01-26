@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class CarouselIndexComponent extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $delId;
     public $perPage = 8;
@@ -20,9 +21,9 @@ class CarouselIndexComponent extends Component
     public function render()
     {
         $carouselSlides = CarouselSlide::when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            })
+            $query->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('description', 'like', '%' . $this->search . '%');
+        })
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'desc')
             ->paginate($this->perPage);

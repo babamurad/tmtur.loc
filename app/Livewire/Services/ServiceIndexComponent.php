@@ -11,6 +11,8 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class ServiceIndexComponent extends Component
 {
+    use \Livewire\WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $delId;
     public $perPage = 8;
@@ -60,10 +62,10 @@ class ServiceIndexComponent extends Component
         $service->delete();
 
         LivewireAlert::title('Услуга удалена.')
-        ->success()
-        ->toast()
-        ->position('top-end')
-        ->show();
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 }
 

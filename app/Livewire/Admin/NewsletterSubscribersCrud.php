@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 class NewsletterSubscribersCrud extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $search = '';
     public $filterStatus = 'all'; // all, active, inactive
@@ -76,7 +77,7 @@ class NewsletterSubscribersCrud extends Component
     public function deleteConfirm()
     {
         \App\Models\NewsletterSubscriber::findOrFail($this->delId)->delete();
-        
+
         \Jantinnerezo\LivewireAlert\Facades\LivewireAlert::title('Подписчик удален')
             ->success()
             ->toast()
@@ -106,7 +107,7 @@ class NewsletterSubscribersCrud extends Component
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
-        $callback = function() use ($subscribers) {
+        $callback = function () use ($subscribers) {
             $file = fopen('php://output', 'w');
             fputcsv($file, ['Email', 'Subscribed At', 'Status', 'IP Address']);
 
