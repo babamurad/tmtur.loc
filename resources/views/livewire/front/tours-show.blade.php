@@ -789,6 +789,26 @@
         {{-- Gallery JavaScript --}}
         @push('scripts')
             <script>
+                document.addEventListener('livewire:initialized', () => {
+                   @this.on('booking-success', (event) => {
+                       const data = event[0]; // Livewire 3 event data is an array
+                       
+                       // Google Ads Conversion
+                       // Ensure gtag is available, otherwise log error or skip
+                       if (typeof gtag === 'function') {
+                           gtag('event', 'conversion', {
+                               'send_to': '{{ config('services.google_ads.conversion_id') }}/{{ config('services.google_ads.conversion_label') }}',
+                               'value': data.value,
+                               'currency': data.currency,
+                               'transaction_id': data.transaction_id
+                           });
+                           console.log('Google Ads Conversion sent:', data);
+                       } else {
+                           console.warn('gtag is not defined. Conversion not sent.', data);
+                       }
+                   }); 
+                });
+
                 function showGalleryImage(index) {
                     $('#galleryCarousel').carousel(index);
                 }

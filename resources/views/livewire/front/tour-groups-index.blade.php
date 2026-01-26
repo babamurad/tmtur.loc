@@ -275,4 +275,26 @@
         </div>
         <div class="modal-backdrop fade show"></div>
     @endif
+
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:initialized', () => {
+                @this.on('booking-success', (event) => {
+                    const data = event[0];
+
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'conversion', {
+                            'send_to': '{{ config('services.google_ads.conversion_id') }}/{{ config('services.google_ads.conversion_label') }}',
+                            'value': data.value,
+                            'currency': data.currency,
+                            'transaction_id': data.transaction_id
+                        });
+                        console.log('Google Ads Conversion sent:', data);
+                    } else {
+                        console.warn('gtag is not defined. Conversion not sent.', data);
+                    }
+                });
+            });
+        </script>
+    @endpush
 </div>

@@ -134,6 +134,18 @@ class HomeComponent extends Component
         $this->resetBookingForm();
 
         session()->flash('success', __('messages.booking_request_sent_successfully'));
+
+        // Dispatch Google Ads Event
+        // Estimate price or use 0 if dynamic/unknown?
+        // Home Booking for specific group, so we have price.
+        $totalPriceCents = $this->selectedGroup->getPriceForPeople((int) $this->booking_guests);
+
+        $this->dispatch('booking-success', [
+            'transaction_id' => 'home-' . uniqid(), // No Booking model created here in original code, so generate ID
+            'value' => $totalPriceCents / 100,
+            'currency' => 'EUR', // Default
+            'item_name' => $tourTitle,
+        ]);
     }
 
     public function render()

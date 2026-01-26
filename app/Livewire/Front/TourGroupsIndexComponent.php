@@ -193,6 +193,14 @@ class TourGroupsIndexComponent extends Component
         $this->resetBookingForm();
 
         session()->flash('success', __('messages.booking_request_sent_successfully'));
+
+        // Dispatch Google Ads Event
+        $this->dispatch('booking-success', [
+            'transaction_id' => $booking->id,
+            'value' => $booking->total_price_cents / 100, // Convert cents to dollars
+            'currency' => $booking->currency,
+            'item_name' => $tourTitle,
+        ]);
     }
 
     public function render()

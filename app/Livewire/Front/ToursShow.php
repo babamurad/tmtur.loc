@@ -204,6 +204,14 @@ class ToursShow extends Component
             $this->booking_message = '';
             $this->hp = '';
 
+            // Dispatch Google Ads Event
+            $this->dispatch('booking-success', [
+                'transaction_id' => $booking->id,
+                'value' => $booking->total_price_cents / 100, // Convert cents to standard unit
+                'currency' => $booking->currency,
+                'item_name' => $tourTitle,
+            ]);
+
             // session()->flash('contact_success', __('messages.booking_request_sent_successfully')); // No flash, inline
             // $this->showBookingModal = false; // Check modal open
 
