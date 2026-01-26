@@ -105,8 +105,10 @@ class TourEditComponent extends Component
         // Removed translation rules for inclusions
 
         $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
-        $rules['accommodations.*.hotel_standard_id'] = 'nullable|exists:hotels,id';
-        $rules['accommodations.*.hotel_comfort_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_standard_ids'] = 'nullable|array';
+        $rules['accommodations.*.hotel_standard_ids.*'] = 'exists:hotels,id';
+        $rules['accommodations.*.hotel_comfort_ids'] = 'nullable|array';
+        $rules['accommodations.*.hotel_comfort_ids.*'] = 'exists:hotels,id';
 
         return $rules;
     }
@@ -249,8 +251,8 @@ class TourEditComponent extends Component
                 'id' => $item->id,
                 'nights_count' => $item->nights_count,
                 'location_id' => $item->location_id,
-                'hotel_standard_id' => $item->hotel_standard_id,
-                'hotel_comfort_id' => $item->hotel_comfort_id,
+                'hotel_standard_ids' => $item->standardHotels->pluck('id')->toArray(),
+                'hotel_comfort_ids' => $item->comfortHotels->pluck('id')->toArray(),
             ];
         })->all();
 
@@ -329,8 +331,8 @@ class TourEditComponent extends Component
         $this->accommodations[] = [
             'nights_count' => 1,
             'location_id' => null,
-            'hotel_standard_id' => null,
-            'hotel_comfort_id' => null,
+            'hotel_standard_ids' => [],
+            'hotel_comfort_ids' => [],
         ];
     }
 
@@ -666,10 +668,24 @@ class TourEditComponent extends Component
                 [
                     'nights_count' => $a['nights_count'],
                     'location_id' => $a['location_id'] ?? null,
-                    'hotel_standard_id' => $a['hotel_standard_id'] ?? null,
-                    'hotel_comfort_id' => $a['hotel_comfort_id'] ?? null,
+                    // 'hotel_standard_id' => null, // Deprecated
+                    // 'hotel_comfort_id' => null, // Deprecated
                 ]
             );
+
+            // Sync Hotels
+            $hotelsToSync = [];
+            if (!empty($a['hotel_standard_ids'])) {
+                foreach ($a['hotel_standard_ids'] as $hid) {
+                    $hotelsToSync[$hid] = ['type' => 'standard'];
+                }
+            }
+            if (!empty($a['hotel_comfort_ids'])) {
+                foreach ($a['hotel_comfort_ids'] as $hid) {
+                    $hotelsToSync[$hid] = ['type' => 'comfort'];
+                }
+            }
+            $acc->hotels()->sync($hotelsToSync);
 
             // Removing translation saving loop as standard/comfort options are removed
 

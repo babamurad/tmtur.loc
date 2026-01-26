@@ -104,8 +104,10 @@ class TourCreateComponent extends Component
         }
 
         $rules['accommodations.*.location_id'] = 'required|exists:locations,id';
-        $rules['accommodations.*.hotel_standard_id'] = 'nullable|exists:hotels,id';
-        $rules['accommodations.*.hotel_comfort_id'] = 'nullable|exists:hotels,id';
+        $rules['accommodations.*.hotel_standard_ids'] = 'nullable|array';
+        $rules['accommodations.*.hotel_standard_ids.*'] = 'exists:hotels,id';
+        $rules['accommodations.*.hotel_comfort_ids'] = 'nullable|array';
+        $rules['accommodations.*.hotel_comfort_ids.*'] = 'exists:hotels,id';
 
         return $rules;
     }
@@ -297,8 +299,8 @@ class TourCreateComponent extends Component
         $this->accommodations[] = [
             'nights_count' => 1,
             'location_id' => null,
-            'hotel_standard_id' => null,
-            'hotel_comfort_id' => null,
+            'hotel_standard_ids' => [],
+            'hotel_comfort_ids' => [],
         ];
     }
 

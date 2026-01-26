@@ -634,13 +634,27 @@
                         <ul>
                             @foreach($tour->accommodations as $accommodation)
                                 <li>
-                                    {{ $accommodation->tr('location') }} ({{ $accommodation->nights_count }}
-                                    {{ __('messages.nights') }})
-                                    @if($accommodation->tr('standard_options'))
+                                    @if($accommodation->locationModel)
+                                        {{ $accommodation->locationModel->name }}
+                                    @else
+                                        {{ $accommodation->tr('location') }}
+                                    @endif
+                                    ({{ $accommodation->nights_count }} {{ __('messages.nights') }})
+                                    
+                                    @if($accommodation->standardHotels->isNotEmpty())
                                         <br><small class="text-muted">{{ __('messages.standard') }}:
+                                            {{ $accommodation->standardHotels->pluck('name')->join(', ') }}
+                                        </small>
+                                    @elseif($accommodation->tr('standard_options'))
+                                         <br><small class="text-muted">{{ __('messages.standard') }}:
                                             {{ $accommodation->tr('standard_options') }}</small>
                                     @endif
-                                    @if($accommodation->tr('comfort_options'))
+
+                                    @if($accommodation->comfortHotels->isNotEmpty())
+                                        <br><small class="text-muted">{{ __('messages.comfort') }}:
+                                             {{ $accommodation->comfortHotels->pluck('name')->join(', ') }}
+                                        </small>
+                                    @elseif($accommodation->tr('comfort_options'))
                                         <br><small class="text-muted">{{ __('messages.comfort') }}:
                                             {{ $accommodation->tr('comfort_options') }}</small>
                                     @endif

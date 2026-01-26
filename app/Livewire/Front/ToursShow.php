@@ -50,7 +50,8 @@ class ToursShow extends Component
             'categories',
             'itineraryDays',
             'inclusions',
-            'accommodations',
+            'accommodations.hotels',
+            'accommodations.locationModel',
             'orderedMedia',
             'tags'
         ]);

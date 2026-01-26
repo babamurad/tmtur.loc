@@ -446,7 +446,7 @@
                                                 <i class="bx bx-trash"></i>
                                             </button>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body" wire:key="acc-body-{{ $index }}-{{ $accommodations[$index]['location_id'] ?? 'null' }}">
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
@@ -487,19 +487,29 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Отель (Стандарт)</label>
-                                                        <select
-                                                            wire:model.defer="accommodations.{{ $index }}.hotel_standard_id"
-                                                            class="form-control form-control-sm">
-                                                            <option value="">Выберите...</option>
-                                                            @if($selectedLoc)
-                                                                @foreach($selectedLoc->hotels as $hotel)
-                                                                    @if($hotel->category === \App\Enums\HotelCategory::STANDARD)
-                                                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-                                                        @error("accommodations.{$index}.hotel_standard_id")
+                                                        <div wire:ignore>
+                                                            <select
+                                                                wire:model.defer="accommodations.{{ $index }}.hotel_standard_ids"
+                                                                data-model="accommodations.{{ $index }}.hotel_standard_ids"
+                                                                class="form-control form-control-sm select2" multiple
+                                                                x-data
+                                                                x-init="
+                                                                    $($el).select2();
+                                                                    $($el).on('change', function(){
+                                                                        $wire.set($($el).data('model'), $($el).val());
+                                                                    });
+                                                                ">
+                                                                <option value="">Выберите...</option>
+                                                                @if($selectedLoc)
+                                                                    @foreach($selectedLoc->hotels as $hotel)
+                                                                        @if($hotel->category?->value === 'standard')
+                                                                            <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                        @error("accommodations.{$index}.hotel_standard_ids")
                                                             <div class="text-danger small">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -508,19 +518,29 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Отель (Комфорт)</label>
-                                                        <select
-                                                            wire:model.defer="accommodations.{{ $index }}.hotel_comfort_id"
-                                                            class="form-control form-control-sm">
-                                                            <option value="">Выберите...</option>
-                                                            @if($selectedLoc)
-                                                                @foreach($selectedLoc->hotels as $hotel)
-                                                                    @if($hotel->category === \App\Enums\HotelCategory::COMFORT)
-                                                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-                                                        @error("accommodations.{$index}.hotel_comfort_id")
+                                                        <div wire:ignore>
+                                                            <select
+                                                                wire:model.defer="accommodations.{{ $index }}.hotel_comfort_ids"
+                                                                data-model="accommodations.{{ $index }}.hotel_comfort_ids"
+                                                                class="form-control form-control-sm select2" multiple
+                                                                x-data
+                                                                x-init="
+                                                                    $($el).select2();
+                                                                    $($el).on('change', function(){
+                                                                        $wire.set($($el).data('model'), $($el).val());
+                                                                    });
+                                                                ">
+                                                                <option value="">Выберите...</option>
+                                                                @if($selectedLoc)
+                                                                    @foreach($selectedLoc->hotels as $hotel)
+                                                                        @if($hotel->category?->value === 'comfort')
+                                                                            <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                        @error("accommodations.{$index}.hotel_comfort_ids")
                                                             <div class="text-danger small">{{ $message }}</div>
                                                         @enderror
                                                     </div>
@@ -735,17 +755,9 @@
 @push('quill-js')
     <script src="{{ asset('vendor/livewire-quill/quill.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            $('.select2').each(function () {
-                $(this).select2();
-                $(this).on('change', function (e) {
-                    let data = $(this).val();
-                    let model = $(this).data('model'); // Generic model binding
-                    if (model) {
-                        @this.set(model, data);
-                    }
-                });
-            });
+        // Global init for static select2s if any
+        document.addEventListener('livewire:initialized', () => {
+             // Optional: init globally if needed, but x-init handles per-element
         });
     </script>
 @endpush

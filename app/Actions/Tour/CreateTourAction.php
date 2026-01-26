@@ -112,13 +112,25 @@ class CreateTourAction
 
             // 7. Accommodations
             foreach ($accommodations as $accData) {
-                TourAccommodation::create([
+                $acc = TourAccommodation::create([
                     'tour_id' => $tour->id,
                     'nights_count' => $accData['nights_count'],
                     'location_id' => $accData['location_id'] ?? null,
-                    'hotel_standard_id' => $accData['hotel_standard_id'] ?? null,
-                    'hotel_comfort_id' => $accData['hotel_comfort_id'] ?? null,
+                    'location' => '', // Required by DB but deprecated in favor of relationship
                 ]);
+
+                $hotelsToSync = [];
+                if (!empty($accData['hotel_standard_ids'])) {
+                    foreach ($accData['hotel_standard_ids'] as $hid) {
+                        $hotelsToSync[$hid] = ['type' => 'standard'];
+                    }
+                }
+                if (!empty($accData['hotel_comfort_ids'])) {
+                    foreach ($accData['hotel_comfort_ids'] as $hid) {
+                        $hotelsToSync[$hid] = ['type' => 'comfort'];
+                    }
+                }
+                $acc->hotels()->sync($hotelsToSync);
             }
 
             // 8. Images

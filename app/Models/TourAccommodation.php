@@ -50,4 +50,21 @@ class TourAccommodation extends Model
     {
         return $this->belongsTo(Hotel::class, 'hotel_comfort_id');
     }
+
+    public function hotels()
+    {
+        return $this->belongsToMany(Hotel::class, 'accommodation_hotel')
+            ->withPivot('type')
+            ->withTimestamps();
+    }
+
+    public function standardHotels()
+    {
+        return $this->hotels()->wherePivot('type', 'standard');
+    }
+
+    public function comfortHotels()
+    {
+        return $this->hotels()->wherePivot('type', 'comfort');
+    }
 }

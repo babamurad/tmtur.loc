@@ -29,4 +29,11 @@ class Hotel extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function accommodations()
+    {
+        return $this->belongsToMany(TourAccommodation::class, 'accommodation_hotel')
+            ->withPivot('type')
+            ->withTimestamps();
+    }
 }
