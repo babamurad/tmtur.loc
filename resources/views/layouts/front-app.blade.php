@@ -30,7 +30,7 @@
                 // Load GTM Script
                 var s2 = document.createElement('script');
                 s2.async = true;
-                s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TJZ6LF4Z';
+                s2.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-M6BNZHMQ';
                 document.head.appendChild(s2);
             }
 
@@ -65,7 +65,7 @@
 
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TJZ6LF4Z" height="0" width="0"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M6BNZHMQ" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
