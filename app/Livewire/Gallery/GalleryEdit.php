@@ -33,7 +33,7 @@ class GalleryEdit extends Component
             'title' => 'required|min:3|max:255',
             'order' => 'integer|min:0',
             'is_featured' => 'boolean',
-            'newPhoto' => 'nullable|image|max:2048',
+            'newPhoto' => 'nullable|image|max:4096',
         ];
 
         foreach (config('app.available_locales') as $l) {

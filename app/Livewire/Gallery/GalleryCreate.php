@@ -32,7 +32,7 @@ class GalleryCreate extends Component
             'title' => 'required|min:3|max:255',
             'order' => 'integer|min:0',
             'is_featured' => 'boolean',
-            'photo' => 'required|image|max:2048', // 2 МБ
+            'photo' => 'required|image|max:4096', // 4 МБ
         ];
 
         foreach (config('app.available_locales') as $l) {
