@@ -187,5 +187,13 @@ return [
     'badge_recommended' => 'Recommended',
     'badge_local_favorite' => 'Local Favorite',
 
+    'reviews_page_title' => 'Traveler Reviews - TmTourism',
+    'reviews_page_description' => 'Read real traveler reviews about trips with TmTourism. Find out what our clients say.',
+    'reviews_breadcrumb' => 'Traveler Reviews',
+    'our_reviews' => 'Our Reviews',
+    'what_travelers_say' => 'What travelers say',
+    'select_tour_label' => 'Select Tour',
+    'choose_tour_placeholder' => '-- Select Tour --',
+    'login_to_review_tooltip' => 'Log in to leave a review',
     'reviews_count' => ':count review|:count reviews',
 ];

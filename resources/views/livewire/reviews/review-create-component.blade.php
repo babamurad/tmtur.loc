@@ -7,7 +7,7 @@
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 font-size-18">Создать отзыв</h4>
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('reviews.index') }}">Отзывы</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.reviews.index') }}">Отзывы</a></li>
                         <li class="breadcrumb-item active">Создать</li>
                     </ol>
                 </div>
@@ -103,7 +103,7 @@
                             <button type="submit" class="btn btn-success btn-block waves-effect waves-light">
                                 <i class="fas fa-check-double font-size-16 align-middle mr-1"></i> Сохранить
                             </button>
-                            <a href="{{ route('reviews.index') }}"
+                            <a href="{{ route('admin.reviews.index') }}"
                                 class="btn btn-secondary btn-block waves-effect waves-light mt-2">
                                 <i class="fas fa-times font-size-16 align-middle mr-1"></i> Отмена
                             </a>

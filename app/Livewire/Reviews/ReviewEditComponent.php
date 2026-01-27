@@ -53,7 +53,7 @@ class ReviewEditComponent extends Component
             'title' => 'Отзыв обновлён!',
             'text' => 'Изменения сохранены.',
         ]);
-        return $this->redirectRoute('reviews.index');
+        return $this->redirectRoute('admin.reviews.index');
     }
 
     public function render()

@@ -107,10 +107,10 @@
                         </li>
 
                         <li
-                            class="{{ request()->routeIs('carousels*', 'categories*', 'posts*', 'reviews*', 'admin.pages*', 'gallery*') ? 'mm-active' : '' }}">
+                            class="{{ request()->routeIs('carousels*', 'categories*', 'posts*', 'admin.reviews*', 'admin.pages*', 'gallery*') ? 'mm-active' : '' }}">
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-receipt"></i><span>{{ __('menu.content') }}</span></a>
-                            <ul class="sub-menu {{ request()->routeIs('carousels*', 'categories*', 'posts*', 'reviews*', 'admin.pages*', 'gallery*') ? 'mm-show' : '' }}"
+                            <ul class="sub-menu {{ request()->routeIs('carousels*', 'categories*', 'posts*', 'admin.reviews*', 'admin.pages*', 'gallery*') ? 'mm-show' : '' }}"
                                 aria-expanded="false">
                                 <li><a href="{{ route('carousels.index') }}"
                                         class="{{ request()->routeIs('carousels*') ? 'active' : '' }}"><i
@@ -122,8 +122,8 @@
                                 <li><a href="{{ route('posts.index') }}"
                                         class="{{ request()->routeIs('posts*') ? 'active' : '' }}"><i
                                             class="bx bx-file-blank"></i> {{ __('menu.posts') }}</a></li>
-                                <li><a href="{{ route('reviews.index') }}"
-                                        class="{{ request()->routeIs('reviews*') ? 'active' : '' }}"><i
+                                <li><a href="{{ route('admin.reviews.index') }}"
+                                        class="{{ request()->routeIs('admin.reviews*') ? 'active' : '' }}"><i
                                             class="bx bx-chat"></i> {{ __('menu.reviews') }}</a></li>
                                 <li><a href="{{ route('admin.pages.index') }}"
                                         class="{{ request()->routeIs('admin.pages*') ? 'active' : '' }}"><i

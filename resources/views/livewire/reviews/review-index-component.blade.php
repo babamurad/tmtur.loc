@@ -8,7 +8,7 @@
                     <h4 class="mb-0 font-size-18">Отзывы</h4>
 
                     {{-- Если кнопка создания не нужна концептуально, можно убрать. Но если нужна: --}}
-                    <a href="{{ route('reviews.create') }}" class="btn btn-success waves-effect waves-light">
+                    <a href="{{ route('admin.reviews.create') }}" class="btn btn-success waves-effect waves-light">
                         <i class="fas fa-plus-circle font-size-16 align-middle mr-1"></i>
                         Добавить
                     </a>
@@ -106,7 +106,7 @@
                                                 </small>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('reviews.edit', $r) }}"
+                                                <a href="{{ route('admin.reviews.edit', $r) }}"
                                                     class="btn btn-sm btn-outline-primary waves-effect waves-light mx-1"
                                                     data-toggle="tooltip" title="Редактировать">
                                                     <i class="fas fa-edit font-size-14"></i>

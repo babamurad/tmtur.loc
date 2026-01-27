@@ -187,5 +187,13 @@ return [
     'badge_recommended' => 'Рекомендуем',
     'badge_local_favorite' => 'Выбор местных',
 
+    'reviews_page_title' => 'Отзывы туристов - TmTourism',
+    'reviews_page_description' => 'Читайте реальные отзывы туристов о путешествиях с TmTourism. Узнайте, что говорят наши клиенты.',
+    'reviews_breadcrumb' => 'Отзывы туристов',
+    'our_reviews' => 'Наши отзывы',
+    'what_travelers_say' => 'Что говорят путешественники',
+    'select_tour_label' => 'Выберите тур',
+    'choose_tour_placeholder' => '-- Выберите тур --',
+    'login_to_review_tooltip' => 'Войдите, чтобы оставить отзыв',
     'reviews_count' => ':count отзыв|:count отзыва|:count отзывов',
 ];

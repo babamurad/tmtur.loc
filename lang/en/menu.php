@@ -16,5 +16,6 @@ return [
     'register' => 'Register',
     'logout' => 'Logout',
     'terms' => 'Terms & Conditions',
+    'reviews' => 'Reviews',
     'privacy' => 'Privacy Policy',
 ];

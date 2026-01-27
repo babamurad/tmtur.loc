@@ -54,7 +54,7 @@ class ReviewCreateComponent extends Component
                 'text' => 'Новый отзыв успешно создан.',
             ]);
 
-            return $this->redirectRoute('reviews.index');
+            return $this->redirectRoute('admin.reviews.index');
 
         } catch (\Exception $e) {
             \Log::error('Ошибка при создании отзыва', [
