@@ -132,10 +132,18 @@
                                 <div class="col-md-4">
                                     <div class="form-group" wire:ignore>
                                         <label>Категория <span class="text-danger">*</span></label>
-                                        <select class="form-control select2 @error('category_id') is-invalid @enderror"
-                                            wire:model.defer="category_id" data-model="category_id" name="states[]"
-                                            multiple="multiple">
-                                            <option>Выберите категорию</option>
+                                        <select class="form-control select2"
+                                            data-placeholder="Выберите категорию"
+                                            multiple="multiple"
+                                            x-data
+                                            x-init="
+                                                $($el).select2({
+                                                    placeholder: 'Выберите категорию'
+                                                });
+                                                $($el).on('change', function (e) {
+                                                    @this.set('category_id', $($el).val());
+                                                });
+                                            ">
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}">
                                                     {{ $category->title }}
@@ -494,9 +502,11 @@
                                                                 class="form-control form-control-sm select2" multiple
                                                                 x-data
                                                                 x-init="
-                                                                    $($el).select2();
+                                                                    $($el).select2({
+                                                                        width: '100%'
+                                                                    });
                                                                     $($el).on('change', function(){
-                                                                        $wire.set($($el).data('model'), $($el).val());
+                                                                        @this.set($($el).data('model'), $($el).val());
                                                                     });
                                                                 ">
                                                                 <option value="">Выберите...</option>
@@ -525,9 +535,11 @@
                                                                 class="form-control form-control-sm select2" multiple
                                                                 x-data
                                                                 x-init="
-                                                                    $($el).select2();
+                                                                    $($el).select2({
+                                                                        width: '100%'
+                                                                    });
                                                                     $($el).on('change', function(){
-                                                                        $wire.set($($el).data('model'), $($el).val());
+                                                                        @this.set($($el).data('model'), $($el).val());
                                                                     });
                                                                 ">
                                                                 <option value="">Выберите...</option>
@@ -683,8 +695,18 @@
 
                             <div class="form-group mb-0" wire:ignore>
                                 <label for="tags_selected">Теги</label>
-                                <select class="form-control select2" id="tags_selected" wire:model.defer="tags_selected"
-                                    data-model="tags_selected" multiple="multiple">
+                                <select class="form-control select2" id="tags_selected"
+                                    multiple="multiple"
+                                    data-placeholder="Выберите теги"
+                                    x-data
+                                    x-init="
+                                        $($el).select2({
+                                            placeholder: 'Выберите теги'
+                                        });
+                                        $($el).on('change', function (e) {
+                                            @this.set('tags_selected', $($el).val());
+                                        });
+                                    ">
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}">
                                             {{ $tag->tr('name') }}

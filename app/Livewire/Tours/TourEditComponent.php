@@ -663,15 +663,7 @@ class TourEditComponent extends Component
                 ]
             );
 
-            $acc = TourAccommodation::updateOrCreate(
-                ['id' => $a['id'] ?? null, 'tour_id' => $this->tour->id],
-                [
-                    'nights_count' => $a['nights_count'],
-                    'location_id' => $a['location_id'] ?? null,
-                    // 'hotel_standard_id' => null, // Deprecated
-                    // 'hotel_comfort_id' => null, // Deprecated
-                ]
-            );
+
 
             // Sync Hotels
             $hotelsToSync = [];
