@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.front-app')]
+
 class ReviewsIndex extends Component
 {
     use WithPagination;
@@ -67,6 +67,6 @@ class ReviewsIndex extends Component
         return view('livewire.front.reviews-index', [
             'reviews' => $reviews,
             'tours' => $this->tours,
-        ]);
+        ])->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }

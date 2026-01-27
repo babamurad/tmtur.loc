@@ -1,4 +1,4 @@
-<div>
+<div class="mt-5 pt-2">
     {{-- SEO --}}
     @section('title', __('messages.reviews_page_title'))
     @section('description', __('messages.reviews_page_description'))
