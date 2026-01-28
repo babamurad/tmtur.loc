@@ -190,13 +190,13 @@
 
                                     <div class="d-flex align-items-center justify-content-between mt-2">
                                         <button type="button" class="btn btn-secondary" wire:click="closeBookingModal">
-                                            {{ __('Cancel') }}
+                                            {{ __('messages.modal_cancel_button') }}
                                         </button>
 
                                         <button type="submit" class="btn tm-order-btn text-white"
                                             wire:loading.attr="disabled">
-                                            <span wire:loading.remove>{{ __('Send') }}</span>
-                                            <span wire:loading>{{ __('Sending...') }}</span>
+                                            <span wire:loading.remove>{{ __('messages.send') }}</span>
+                                            <span wire:loading>{{ __('messages.sending') }}</span>
                                         </button>
                                     </div>
                                 </div>

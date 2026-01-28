@@ -222,29 +222,29 @@
                         <div class="dropdown d-none d-sm-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="mdi mdi-plus"></i> Создать
+                                <i class="mdi mdi-plus"></i> {{ __('menu.create_new') }}
                                 <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                             </button>
                             <div class="dropdown-menu">
 
                                 <!-- item-->
                                 <a href="{{ route('admin.tours.create') }}" class="dropdown-item notify-item">
-                                    <i class="bx bx-map-alt mr-1"></i> Тур
+                                    <i class="bx bx-map-alt mr-1"></i> {{ __('menu.tour') }}
                                 </a>
 
                                 <!-- item-->
                                 <a href="{{ route('posts.create') }}" class="dropdown-item notify-item">
-                                    <i class="bx bx-file-blank mr-1"></i> Статью
+                                    <i class="bx bx-file-blank mr-1"></i> {{ __('menu.article') }}
                                 </a>
 
                                 <!-- item-->
                                 <a href="{{ route('admin.hotels.create') }}" class="dropdown-item notify-item">
-                                    <i class="bx bx-building-house mr-1"></i> Отель
+                                    <i class="bx bx-building-house mr-1"></i> {{ __('menu.hotel') }}
                                 </a>
 
                                 <!-- item-->
                                 <a href="{{ route('guides.create') }}" class="dropdown-item notify-item">
-                                    <i class="bx bx-id-card mr-1"></i> Гида
+                                    <i class="bx bx-id-card mr-1"></i> {{ __('menu.guide') }}
                                 </a>
                             </div>
                         </div>
@@ -264,7 +264,8 @@
                                 <form class="p-3" action="{{ route('admin.global-search') }}" method="GET">
                                     <div class="form-group m-0">
                                         <div class="input-group">
-                                            <input type="text" name="q" class="form-control" placeholder="Поиск ..."
+                                            <input type="text" name="q" class="form-control"
+                                                placeholder="{{ __('menu.search_placeholder') }}"
                                                 aria-label="Recipient's username">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" type="submit"><i

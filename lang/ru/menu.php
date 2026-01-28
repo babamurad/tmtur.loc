@@ -29,6 +29,12 @@ return [
     'contacts' => 'Контакты',
     'subscribers' => 'Подписчики',
     'link_generator' => 'Генератор ссылок',
+    'create_new' => 'Создать',
+    'tour' => 'Тур',
+    'article' => 'Статью',
+    'hotel' => 'Отель',
+    'guide' => 'Гида',
+    'search_placeholder' => 'Поиск ...',
 
     // Frontend translations
     'home' => 'Главная',

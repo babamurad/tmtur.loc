@@ -33,7 +33,7 @@
 
                     <div class="mt-4">
                         <a href="{{ route('about') }}" class="btn btn-outline-danger btn-sm">
-                            Подробнее о нас
+                            {{ __('messages.more_about_us') }}
                         </a>
                     </div>
                 </div>
