@@ -16,6 +16,7 @@ trait HasGeminiTranslation
         'de' => 'German',
         'fr' => 'French',
         'es' => 'Spanish',
+        'pl' => 'Polish',
         'it' => 'Italian',
         'tr' => 'Turkish',
     ];
