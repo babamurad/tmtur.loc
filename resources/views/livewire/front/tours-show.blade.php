@@ -643,7 +643,7 @@
                                     
                                     @if($accommodation->standardHotels->isNotEmpty())
                                         <br><small class="text-muted">{{ __('messages.standard') }}:
-                                            {{ $accommodation->standardHotels->pluck('name')->join(', ') }}
+                                            {{ $accommodation->standardHotels->map(fn($h) => $h->tr('name'))->join(', ') }}
                                         </small>
                                     @elseif($accommodation->tr('standard_options'))
                                          <br><small class="text-muted">{{ __('messages.standard') }}:
@@ -652,7 +652,7 @@
 
                                     @if($accommodation->comfortHotels->isNotEmpty())
                                         <br><small class="text-muted">{{ __('messages.comfort') }}:
-                                             {{ $accommodation->comfortHotels->pluck('name')->join(', ') }}
+                                             {{ $accommodation->comfortHotels->map(fn($h) => $h->tr('name'))->join(', ') }}
                                         </small>
                                     @elseif($accommodation->tr('comfort_options'))
                                         <br><small class="text-muted">{{ __('messages.comfort') }}:
