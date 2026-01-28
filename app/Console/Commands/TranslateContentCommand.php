@@ -258,6 +258,7 @@ class TranslateContentCommand extends Command
             'fr' => 'French',
             'es' => 'Spanish',
             'pl' => 'Polish',
+            'it' => 'Italian',
             'tr' => 'Turkish',
         ];
         return $map[$code] ?? $code;
