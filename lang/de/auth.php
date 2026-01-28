@@ -1,0 +1,24 @@
+<?php
+
+return [
+    'failed' => 'Diese Anmeldeinformationen stimmen nicht mit unseren Aufzeichnungen überein.',
+    'password' => 'Passwort',
+    'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :seconds Sekunden erneut.',
+    'login_title' => 'Melden Sie sich bei Ihrem Konto an',
+    'login_subtitle' => 'Greifen Sie auf Ihre gespeicherten Touren zu und verwalten Sie Buchungen.',
+    'register_title' => 'Erstellen Sie Ihr Konto',
+    'register_subtitle' => 'Treten Sie TmTourism bei, um Ihre Lieblingstouren zu speichern und Anfragen zu verfolgen.',
+    'email' => 'E-Mail-Adresse',
+    'password_confirmation' => 'Passwort bestätigen',
+    'name' => 'Vollständiger Name',
+    'remember' => 'Angemeldet bleiben',
+    'forgot_password' => 'Passwort vergessen?',
+    'sign_in' => 'Anmelden',
+    'sign_up_button' => 'Konto erstellen',
+    'no_account' => 'Sie haben noch kein Konto?',
+    'have_account' => 'Sie haben bereits ein Konto?',
+    'sign_up_link' => 'Registrieren',
+    'sign_in_link' => 'Anmelden',
+    'agree_terms' => 'Durch die Registrierung stimmen Sie den <a href=":terms_url" target="_blank">Nutzungsbedingungen</a> und der Datenverarbeitung gemäß der <a href=":privacy_url" target="_blank">Datenschutzrichtlinie</a> zu.',
+    'or_continue' => 'Oder fortfahren',
+];

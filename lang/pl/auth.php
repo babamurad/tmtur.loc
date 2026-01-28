@@ -1,0 +1,24 @@
+<?php
+
+return [
+    'failed' => 'Te dane uwierzytelniające nie zgadzają się z naszymi zapisami.',
+    'password' => 'Hasło',
+    'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
+    'login_title' => 'Zaloguj się do swojego konta',
+    'login_subtitle' => 'Uzyskaj dostęp do zapisanych wycieczek i zarządzaj rezerwacjami.',
+    'register_title' => 'Utwórz swoje konto',
+    'register_subtitle' => 'Dołącz do TmTourism, aby zapisywać ulubione wycieczki i śledzić zapytania.',
+    'email' => 'Adres e-mail',
+    'password_confirmation' => 'Potwierdź hasło',
+    'name' => 'Imię i nazwisko',
+    'remember' => 'Zapamiętaj mnie',
+    'forgot_password' => 'Nie pamiętasz hasła?',
+    'sign_in' => 'Zaloguj się',
+    'sign_up_button' => 'Utwórz konto',
+    'no_account' => 'Nie masz konta?',
+    'have_account' => 'Masz już konto?',
+    'sign_up_link' => 'Zarejestruj się',
+    'sign_in_link' => 'Zaloguj się',
+    'agree_terms' => 'Rejestrując się, zgadzasz się na <a href=":terms_url" target="_blank">Warunki użytkowania</a> i przetwarzanie danych zgodnie z <a href=":privacy_url" target="_blank">Polityką prywatności</a>.',
+    'or_continue' => 'Lub kontynuuj',
+];

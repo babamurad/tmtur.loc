@@ -1,0 +1,24 @@
+<?php
+
+return [
+    'failed' => 'Queste credenziali non corrispondono ai nostri registri.',
+    'password' => 'Password',
+    'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
+    'login_title' => 'Accedi al tuo account',
+    'login_subtitle' => 'Accedi ai tuoi tour salvati e gestisci le prenotazioni.',
+    'register_title' => 'Crea il tuo account',
+    'register_subtitle' => 'Unisciti a TmTourism per salvare i tuoi tour preferiti e tenere traccia delle richieste.',
+    'email' => 'Indirizzo email',
+    'password_confirmation' => 'Conferma password',
+    'name' => 'Nome completo',
+    'remember' => 'Ricordami',
+    'forgot_password' => 'Password dimenticata?',
+    'sign_in' => 'Accedi',
+    'sign_up_button' => 'Crea account',
+    'no_account' => 'Non hai un account?',
+    'have_account' => 'Hai già un account?',
+    'sign_up_link' => 'Registrati',
+    'sign_in_link' => 'Accedi',
+    'agree_terms' => 'Registrandoti, accetti i <a href=":terms_url" target="_blank">Termini di utilizzo</a> e il trattamento dei dati in conformità con la <a href=":privacy_url" target="_blank">Politica sulla privacy</a>.',
+    'or_continue' => 'Oppure continua',
+];

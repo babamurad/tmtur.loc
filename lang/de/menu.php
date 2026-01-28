@@ -1,0 +1,21 @@
+<?php
+
+return [
+    'home' => 'Startseite',
+    'about' => 'Über Turkmenistan',
+    'tours' => 'Touren',
+    'categories' => 'Kategorien',
+    'all_tours' => 'Alle Touren',
+    'tour_groups' => 'Geplante Touren',
+    'visa' => 'Visum',
+    'blog' => 'Blog',
+    'contact' => 'Kontakt',
+    'darwaza' => 'Darvaza',
+    'gallery' => 'Galerie',
+    'login' => 'Anmelden',
+    'register' => 'Registrieren',
+    'logout' => 'Abmelden',
+    'terms' => 'AGB',
+    'reviews' => 'Bewertungen',
+    'privacy' => 'Datenschutzerklärung',
+];
