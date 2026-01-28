@@ -16,6 +16,7 @@ class TranslateLangFilesCommand extends Command
      */
     protected $signature = 'translate:lang-files 
                             {--langs= : Comma-separated list of target languages (e.g. de,fr,es,pl,it)}
+                            {--file= : Specific file to translate (e.g. messages.php)}
                             {--force : Overwrite existing files}';
 
     /**
@@ -55,7 +56,17 @@ class TranslateLangFilesCommand extends Command
             return;
         }
 
-        $files = File::files($sourceDir);
+        if ($specificFile = $this->option('file')) {
+            $path = $sourceDir . '/' . $specificFile;
+            if (!File::exists($path)) {
+                $this->error("File {$specificFile} not found in {$sourceDir}");
+                return;
+            }
+            $files = [new \Symfony\Component\Finder\SplFileInfo($path, '', $specificFile)];
+        } else {
+            $files = File::files($sourceDir);
+        }
+
         $totalFiles = count($files);
 
         $this->info("Found {$totalFiles} files in lang/en.");
@@ -117,13 +128,24 @@ class TranslateLangFilesCommand extends Command
         Preserve Laravel placeholders starting with ':' (e.g. :attribute, :min, :max). 
         Do not translate these placeholders. preserve HTML tags.";
 
-        // Translate
-        $translatedFlat = $this->gemini->translateFields($flatData, $targetLangName, $context);
+        // Chunk data to avoid payload limits
+        $chunks = array_chunk($flatData, 50, true);
+        $translatedFlat = [];
+
+        $bar = $this->output->createProgressBar(count($chunks));
+        $bar->start();
+
+        foreach ($chunks as $chunk) {
+            $chunkTranslated = $this->gemini->translateFields($chunk, $targetLangName, $context);
+            if (!empty($chunkTranslated)) {
+                $translatedFlat = array_merge($translatedFlat, $chunkTranslated);
+            }
+            $bar->advance();
+        }
+        $bar->finish();
+        $this->newLine();
 
         if (empty($translatedFlat)) {
-            // Fallback: create empty or copy english? Let's create empty to valid file.
-            // Or better, copy English content as fallback?
-            // Let's just create what we have.
             $translatedFlat = [];
         }
 
