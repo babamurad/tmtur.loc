@@ -18,41 +18,11 @@ class TranslateContentCommand extends Command
      */
     protected $signature = 'translate:content 
                             {--model= : Specific model to translate (e.g. Tour, Post)} 
-                            {--id= : Specific ID to translate}';
+                            {--id= : Specific ID to translate}
+                            {--langs= : Comma-separated list of languages to process (e.g. it,fr)}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Batch translate content using Gemini AI';
+    // ... (description remains same)
 
-    protected $gemini;
-
-    /**
-     * Mapping of simple names to full classes
-     */
-    protected $modelMap = [
-        'Tour' => \App\Models\Tour::class,
-        'Post' => \App\Models\Post::class,
-        'TourCategory' => \App\Models\TourCategory::class,
-        'Hotel' => \App\Models\Hotel::class,
-        'Service' => \App\Models\Service::class,
-        'Inclusion' => \App\Models\Inclusion::class,
-        'Tag' => \App\Models\Tag::class,
-        'Category' => \App\Models\Category::class,
-        'TourItineraryDay' => \App\Models\TourItineraryDay::class,
-    ];
-
-    public function __construct(GeminiTranslationService $gemini)
-    {
-        parent::__construct();
-        $this->gemini = $gemini;
-    }
-
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
         // 1. Determine which models to process
@@ -64,6 +34,18 @@ class TranslateContentCommand extends Command
         }
 
         $allLocales = config('app.available_locales');
+
+        // Filter by --langs option if provided
+        if ($langsOption = $this->option('langs')) {
+            $requestedLangs = explode(',', $langsOption);
+            $allLocales = array_intersect($allLocales, $requestedLangs);
+
+            if (empty($allLocales)) {
+                $this->error("No valid languages found in request: $langsOption");
+                return;
+            }
+        }
+
         $this->info('Languages to process: ' . implode(', ', $allLocales));
 
         foreach ($modelsToProcess as $className) {
