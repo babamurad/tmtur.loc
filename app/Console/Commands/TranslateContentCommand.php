@@ -254,21 +254,35 @@ class TranslateContentCommand extends Command
         foreach ($sourceData as $field => $val) {
             // Check if translation exists
             $exists = false;
+            $existingValue = null;
 
             if (method_exists($item, 'hasTranslation')) {
                 $exists = $item->hasTranslation($field, $targetLocale);
+                if ($exists) {
+                    $existingValue = "via hasTranslation";
+                }
             } else {
                 // Default: Check DB table
-                $exists = \App\Models\Translation::where([
+                $translation = \App\Models\Translation::where([
                     'translatable_type' => get_class($item),
                     'translatable_id' => $item->id,
                     'locale' => $targetLocale,
                     'field' => $field,
-                ])->whereNotNull('value')->where('value', '!=', '')->exists();
+                ])->first();
+
+                if ($translation && trim($translation->value) !== '') {
+                    $exists = true;
+                    $existingValue = $translation->value;
+                }
             }
 
             if (!$exists) {
                 $missing[$field] = $val;
+            } else {
+                if ($item->id <= 20 && $item instanceof \App\Models\Tour) { // Limit logging to avoid spam
+                    $shortVal = Str::limit($existingValue, 20);
+                    $this->output->writeln("  - Field '{$field}' exists for {$targetLocale}: [{$shortVal}]");
+                }
             }
         }
         return $missing;

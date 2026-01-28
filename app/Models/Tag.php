@@ -52,6 +52,6 @@ class Tag extends Model
     public function hasTranslation(string $field, string $locale): bool
     {
         $current = $this->$field;
-        return is_array($current) && isset($current[$locale]) && !empty($current[$locale]);
+        return is_array($current) && isset($current[$locale]) && trim($current[$locale] ?? '') !== '';
     }
 }
