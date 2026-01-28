@@ -139,6 +139,7 @@ class TranslateContentCommand extends Command
     {
         // Check if model has Translatable trait
         if (!method_exists($item, 'translations')) {
+            $this->warn("Item {$item->id} missing Translatable trait");
             return;
         }
 
@@ -146,9 +147,11 @@ class TranslateContentCommand extends Command
         [$sourceLocale, $sourceData] = $this->getSmartSourceData($item, $availableLocales);
 
         if (!$sourceLocale || empty($sourceData)) {
-            // Nothing to translate from
+            $this->warn("Item {$item->id}: No valid source data found in any locale.");
             return;
         }
+
+        $this->info("Item {$item->id}: Source={$sourceLocale}, Fields=" . count($sourceData));
 
         foreach ($targetLocales as $targetLocale) {
             if ($targetLocale === $sourceLocale) {
@@ -159,8 +162,11 @@ class TranslateContentCommand extends Command
             $missingData = $this->getMissingFields($item, $sourceData, $targetLocale);
 
             if (empty($missingData)) {
+                $this->info("Item {$item->id}: No missing fields for {$targetLocale}");
                 continue;
             }
+
+            $this->info("Item {$item->id}: Translating to {$targetLocale}, missing " . count($missingData) . " fields.");
 
             // Translate
             $targetLangName = $this->getLanguageName($targetLocale);
@@ -174,6 +180,9 @@ class TranslateContentCommand extends Command
                     foreach ($translations as $field => $value) {
                         $item->setTr($field, $targetLocale, $value);
                     }
+                    $this->info("Item {$item->id}: Translated to {$targetLocale} successfully.");
+                } else {
+                    $this->error("Item {$item->id}: Gemini returned empty translations for {$targetLocale}");
                 }
             } catch (\Exception $e) {
                 $this->error("Error translating {$item->id} to {$targetLocale}: " . $e->getMessage());
