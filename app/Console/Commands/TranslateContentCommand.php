@@ -19,7 +19,8 @@ class TranslateContentCommand extends Command
     protected $signature = 'translate:content 
                             {--model= : Specific model to translate (e.g. Tour, Post)} 
                             {--id= : Specific ID to translate}
-                            {--langs= : Comma-separated list of languages to process (e.g. it,fr)}';
+                            {--langs= : Comma-separated list of languages to process (e.g. it,fr)}
+                            {--force : Force translation even if exists}';
 
     protected $description = 'Batch translate content using Gemini AI';
 
@@ -250,17 +251,18 @@ class TranslateContentCommand extends Command
 
     protected function getMissingFields(Model $item, array $sourceData, string $targetLocale): array
     {
+        // If force flag is set, return all fields as missing (to be re-translated)
+        if ($this->option('force')) {
+            return $sourceData;
+        }
+
         $missing = [];
         foreach ($sourceData as $field => $val) {
             // Check if translation exists
             $exists = false;
-            $existingValue = null;
 
             if (method_exists($item, 'hasTranslation')) {
                 $exists = $item->hasTranslation($field, $targetLocale);
-                if ($exists) {
-                    $existingValue = "via hasTranslation";
-                }
             } else {
                 // Default: Check DB table
                 $translation = \App\Models\Translation::where([
@@ -272,17 +274,11 @@ class TranslateContentCommand extends Command
 
                 if ($translation && trim($translation->value) !== '') {
                     $exists = true;
-                    $existingValue = $translation->value;
                 }
             }
 
             if (!$exists) {
                 $missing[$field] = $val;
-            } else {
-                if ($item->id <= 20 && $item instanceof \App\Models\Tour) { // Limit logging to avoid spam
-                    $shortVal = Str::limit($existingValue, 20);
-                    $this->output->writeln("  - Field '{$field}' exists for {$targetLocale}: [{$shortVal}]");
-                }
             }
         }
         return $missing;
