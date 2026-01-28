@@ -61,22 +61,23 @@ class TranslateContentCommand extends Command
         }
 
         $allLocales = config('app.available_locales');
+        $targetLocales = $allLocales;
 
         // Filter by --langs option if provided
         if ($langsOption = $this->option('langs')) {
             $requestedLangs = explode(',', $langsOption);
-            $allLocales = array_intersect($allLocales, $requestedLangs);
+            $targetLocales = array_intersect($allLocales, $requestedLangs);
 
-            if (empty($allLocales)) {
+            if (empty($targetLocales)) {
                 $this->error("No valid languages found in request: $langsOption");
                 return;
             }
         }
 
-        $this->info('Languages to process: ' . implode(', ', $allLocales));
+        $this->info('Languages to process: ' . implode(', ', $targetLocales));
 
         foreach ($modelsToProcess as $className) {
-            $this->processModel($className, $allLocales);
+            $this->processModel($className, $targetLocales, $allLocales);
         }
 
         $this->info('All Done!');
@@ -104,7 +105,7 @@ class TranslateContentCommand extends Command
         return array_values($this->modelMap);
     }
 
-    protected function processModel(string $className, array $locales)
+    protected function processModel(string $className, array $targetLocales, array $availableLocales)
     {
         $shortName = class_basename($className);
         $this->info("Processing model: {$shortName}");
@@ -126,7 +127,7 @@ class TranslateContentCommand extends Command
         $bar->start();
 
         foreach ($items as $item) {
-            $this->translateItem($item, $locales);
+            $this->translateItem($item, $targetLocales, $availableLocales);
             $bar->advance();
         }
 
@@ -134,22 +135,22 @@ class TranslateContentCommand extends Command
         $this->newLine(2);
     }
 
-    protected function translateItem(Model $item, array $locales)
+    protected function translateItem(Model $item, array $targetLocales, array $availableLocales)
     {
         // Check if model has Translatable trait
         if (!method_exists($item, 'translations')) {
             return;
         }
 
-        // Determine source language (most filled)
-        [$sourceLocale, $sourceData] = $this->getSmartSourceData($item, $locales);
+        // Determine source language (most filled) - Use ALL available locales to find best source
+        [$sourceLocale, $sourceData] = $this->getSmartSourceData($item, $availableLocales);
 
         if (!$sourceLocale || empty($sourceData)) {
             // Nothing to translate from
             return;
         }
 
-        foreach ($locales as $targetLocale) {
+        foreach ($targetLocales as $targetLocale) {
             if ($targetLocale === $sourceLocale) {
                 continue;
             }
