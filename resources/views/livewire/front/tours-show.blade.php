@@ -635,7 +635,7 @@
                             @foreach($tour->accommodations as $accommodation)
                                 <li>
                                     @if($accommodation->locationModel)
-                                        {{ $accommodation->locationModel->name }}
+                                        {{ $accommodation->locationModel->tr('name') }}
                                     @else
                                         {{ $accommodation->tr('location') }}
                                     @endif
