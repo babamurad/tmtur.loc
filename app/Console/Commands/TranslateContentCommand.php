@@ -255,7 +255,7 @@ class TranslateContentCommand extends Command
                     'translatable_id' => $item->id,
                     'locale' => $targetLocale,
                     'field' => $field,
-                ])->exists();
+                ])->whereNotNull('value')->where('value', '!=', '')->exists();
             }
 
             if (!$exists) {
