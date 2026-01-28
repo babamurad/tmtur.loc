@@ -55,3 +55,7 @@ https://tmtourism.com/tours/khwarezm-the-burning-darvaza-3-days-via-shavat
 https://tmtourism.com/tours/3-day-cross-turkmenistan-journey-darvaza-ashgabat-ancient-merv
 https://tmtourism.com/tours/door-to-hell-ashgabat-2-day-adventure
 
+php artisan translate:lang-files --langs=it --file=messages.php --force
+php artisan translate:lang-files --langs=it --file=validation.php --force
+php artisan translate:lang-files --langs=it --file=pagination.php --force
+php artisan translate:lang-files --langs=it --file=passwords.php --force
