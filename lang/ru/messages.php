@@ -197,4 +197,5 @@ return [
     'choose_tour_placeholder' => '-- Выберите тур --',
     'login_to_review_tooltip' => 'Войдите, чтобы оставить отзыв',
     'reviews_count' => ':count отзыв|:count отзыва|:count отзывов',
+    'read_more_btn' => 'Читать подробнее',
 ];

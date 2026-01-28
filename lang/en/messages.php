@@ -196,4 +196,6 @@ return [
     'choose_tour_placeholder' => '-- Select Tour --',
     'login_to_review_tooltip' => 'Log in to leave a review',
     'reviews_count' => ':count review|:count reviews',
+    'more_about_us' => 'More about us',
+    'read_more_btn' => 'Read more',
 ];

@@ -215,7 +215,7 @@
                             <div class="card-footer bg-white border-0 pb-4 px-3">
                                 <a href="{{ route('tours.show', $tour->slug) }}" class="btn btn-danger w-100 py-2"
                                     style="border-radius: 12px; font-size: 1rem;">
-                                    {{ __('messages.read_more') }}
+                                    {{ __('messages.read_more_btn') }}
                                 </a>
                             </div>
 

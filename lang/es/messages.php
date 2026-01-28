@@ -169,4 +169,6 @@ return [
     'choose_tour_placeholder' => '-- Seleccionar Tour --',
     'login_to_review_tooltip' => 'Inicia sesión para dejar una opinión',
     'reviews_count' => ':count opinión|:count opiniones',
+    'more_about_us' => 'Más sobre nosotros',
+    'read_more_btn' => 'Leer más',
 ];

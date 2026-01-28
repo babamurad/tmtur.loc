@@ -169,4 +169,6 @@ return [
     'choose_tour_placeholder' => '-- Tour auswählen --',
     'login_to_review_tooltip' => 'Melden Sie sich an, um eine Bewertung abzugeben',
     'reviews_count' => ':count Bewertung|:count Bewertungen',
+    'more_about_us' => 'Mehr über uns',
+    'read_more_btn' => 'Weiterlesen',
 ];

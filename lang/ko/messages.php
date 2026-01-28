@@ -187,4 +187,6 @@ return [
     'badge_local_favorite' => '현지인 추천',
 
     'reviews_count' => ':count 리뷰',
+    'more_about_us' => '회사 소개 더보기',
+    'read_more_btn' => '더 읽기',
 ];

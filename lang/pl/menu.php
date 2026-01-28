@@ -18,4 +18,10 @@ return [
     'terms' => 'Regulamin',
     'reviews' => 'Recenzje',
     'privacy' => 'Polityka prywatności',
+    'create_new' => 'Utwórz nowy',
+    'tour' => 'Wycieczka',
+    'article' => 'Artykuł',
+    'hotel' => 'Hotel',
+    'guide' => 'Przewodnik',
+    'search_placeholder' => 'Szukaj ...',
 ];

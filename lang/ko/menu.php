@@ -18,4 +18,10 @@ return [
     'terms' => '이용약관',
     'reviews' => '리뷰',
     'privacy' => '개인정보 처리방침',
+    'create_new' => '새로 만들기',
+    'tour' => '투어',
+    'article' => '기사',
+    'hotel' => '호텔',
+    'guide' => '가이드',
+    'search_placeholder' => '검색 ...',
 ];
