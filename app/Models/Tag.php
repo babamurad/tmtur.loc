@@ -36,4 +36,22 @@ class Tag extends Model
 
         return $value;
     }
+
+    public function setTr(string $field, string $locale, ?string $value): void
+    {
+        $current = $this->$field;
+        if (!is_array($current)) {
+            $current = [];
+        }
+
+        $current[$locale] = $value;
+        $this->$field = $current;
+        $this->save();
+    }
+
+    public function hasTranslation(string $field, string $locale): bool
+    {
+        $current = $this->$field;
+        return is_array($current) && isset($current[$locale]) && !empty($current[$locale]);
+    }
 }

@@ -21,7 +21,34 @@ class TranslateContentCommand extends Command
                             {--id= : Specific ID to translate}
                             {--langs= : Comma-separated list of languages to process (e.g. it,fr)}';
 
-    // ... (description remains same)
+    protected $description = 'Batch translate content using Gemini AI';
+
+    protected $gemini;
+
+    protected $modelMap = [
+        'Tour' => \App\Models\Tour::class,
+        'Post' => \App\Models\Post::class,
+        'Hotel' => \App\Models\Hotel::class,
+        'Service' => \App\Models\Service::class,
+        'Inclusion' => \App\Models\Inclusion::class,
+        'Tag' => \App\Models\Tag::class,
+        'Category' => \App\Models\Category::class,
+        'TourCategory' => \App\Models\TourCategory::class,
+        'TourItineraryDay' => \App\Models\TourItineraryDay::class,
+        'Place' => \App\Models\Place::class,
+        'Location' => \App\Models\Location::class,
+        'Page' => \App\Models\Page::class,
+        'CarouselSlide' => \App\Models\CarouselSlide::class,
+        'TurkmenistanGallery' => \App\Models\TurkmenistanGallery::class,
+        'ContactInfo' => \App\Models\ContactInfo::class,
+        'TourAccommodation' => \App\Models\TourAccommodation::class,
+    ];
+
+    public function __construct(GeminiTranslationService $gemini)
+    {
+        parent::__construct();
+        $this->gemini = $gemini;
+    }
 
     public function handle()
     {
@@ -215,13 +242,20 @@ class TranslateContentCommand extends Command
     {
         $missing = [];
         foreach ($sourceData as $field => $val) {
-            // Check if translation exists in DB
-            $exists = \App\Models\Translation::where([
-                'translatable_type' => get_class($item),
-                'translatable_id' => $item->id,
-                'locale' => $targetLocale,
-                'field' => $field,
-            ])->exists();
+            // Check if translation exists
+            $exists = false;
+
+            if (method_exists($item, 'hasTranslation')) {
+                $exists = $item->hasTranslation($field, $targetLocale);
+            } else {
+                // Default: Check DB table
+                $exists = \App\Models\Translation::where([
+                    'translatable_type' => get_class($item),
+                    'translatable_id' => $item->id,
+                    'locale' => $targetLocale,
+                    'field' => $field,
+                ])->exists();
+            }
 
             if (!$exists) {
                 $missing[$field] = $val;
