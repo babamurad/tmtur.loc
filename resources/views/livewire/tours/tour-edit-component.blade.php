@@ -207,6 +207,9 @@
                                                             <option value="{{ $loc->id }}">{{ $loc->name }}</option>
                                                         @endforeach
                                                     </select>
+                                                    @error("itinerary_days.{$index}.location_id")
+                                                        <div class="text-danger small">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
 
                                                 @php
