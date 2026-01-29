@@ -197,5 +197,7 @@ return [
     'choose_tour_placeholder' => '-- Выберите тур --',
     'login_to_review_tooltip' => 'Войдите, чтобы оставить отзыв',
     'reviews_count' => ':count отзыв|:count отзыва|:count отзывов',
-    'read_more_btn' => 'Читать подробнее',
+    'modal_program_request_title' => 'Получить программу и цену',
+    'modal_program_request_subtitle' => 'Оставьте свои контакты, и мы пришлем вам программу и стоимость.',
+    'agree_terms_contact' => 'Отправляя заявку, вы соглашаетесь с <a href=":terms_url" target="_blank">Условиями использования</a> и обработкой данных согласно <a href=":privacy_url" target="_blank">Политике конфиденциальности</a>.',
 ];

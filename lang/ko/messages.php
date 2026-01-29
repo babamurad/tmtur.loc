@@ -189,4 +189,7 @@ return [
     'reviews_count' => ':count 리뷰',
     'more_about_us' => '회사 소개 더보기',
     'read_more_btn' => '더 읽기',
+    'modal_program_request_title' => '프로그램 및 가격 받기',
+    'modal_program_request_subtitle' => '연락처를 남겨 주시면 프로그램과 가격을 보내 드립니다.',
+    'agree_terms_contact' => '요청을 제출하면 <a href=":terms_url" target="_blank">이용 약관</a> 및 <a href=":privacy_url" target="_blank">개인정보 처리방침</a>에 따른 데이터 처리에 동의하는 것으로 간주됩니다.',
 ];

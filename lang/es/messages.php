@@ -171,4 +171,7 @@ return [
     'reviews_count' => ':count opinión|:count opiniones',
     'more_about_us' => 'Más sobre nosotros',
     'read_more_btn' => 'Leer más',
+    'modal_program_request_title' => 'Obtener programa y precio',
+    'modal_program_request_subtitle' => 'Deje sus datos de contacto y le enviaremos el programa y el precio.',
+    'agree_terms_contact' => 'Al enviar una solicitud, acepta los <a href=":terms_url" target="_blank">Términos de uso</a> y el procesamiento de datos de acuerdo con la <a href=":privacy_url" target="_blank">Política de privacidad</a>.',
 ];

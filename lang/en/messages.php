@@ -197,5 +197,7 @@ return [
     'login_to_review_tooltip' => 'Log in to leave a review',
     'reviews_count' => ':count review|:count reviews',
     'more_about_us' => 'More about us',
-    'read_more_btn' => 'Read more',
+    'modal_program_request_title' => 'Get program and price',
+    'modal_program_request_subtitle' => 'Leave your contacts, and we will send you the program and price.',
+    'agree_terms_contact' => 'By submitting a request, you agree to the <a href=":terms_url" target="_blank">Terms of Use</a> and data processing according to the <a href=":privacy_url" target="_blank">Privacy Policy</a>.',
 ];

@@ -190,13 +190,144 @@
     <section class="py-5 bg-white text-center">
         <div class="container">
             <h2 class="fw-bold mb-4">{{ __('messages.about_cta_title') }}</h2>
-            <a href="mailto:tmtourism24@gmail.com" class="btn btn-danger btn-lg px-5 py-3 rounded-pill fw-bold">
+            <button type="button" wire:click="openModal" class="btn btn-danger btn-lg px-5 py-3 rounded-pill fw-bold">
                 {{ __('messages.about_cta_btn') }}
-            </a>
+            </button>
             <p class="mt-3 text-muted">
                 {{ __('messages.about_email_label') }} <a href="mailto:tmtourism24@gmail.com"
                     class="text-decoration-none text-dark fw-bold">tmtourism24@gmail.com</a>
             </p>
         </div>
     </section>
+
+    {{-- Contact Modal --}}
+    @if($showModal)
+        <div class="modal fade show d-block tm-modal" tabindex="-1" role="dialog" aria-modal="true"
+            style="background: rgba(0,0,0,0.55);">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+
+                    <div class="tm-modal-header">
+                        <button type="button" class="close tm-modal-close" aria-label="Close" wire:click="closeModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                        <div class="d-flex align-items-center">
+                            <div class="tm-icon-circle">
+                                ✉
+                            </div>
+                            <div>
+                                <h5 class="mb-0">
+                                    {{ __('messages.modal_program_request_title') }}
+                                </h5>
+                                <p class="mb-0">
+                                    {{ __('messages.modal_program_request_subtitle') }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if($success)
+                        <div class="tm-modal-body">
+                            <div class="text-center py-5">
+                                <div class="mb-3 text-success">
+                                    <i class="fas fa-check-circle fa-4x"></i>
+                                </div>
+                                <h5 class="mb-3">{{ __('messages.booking_request_sent_successfully') }}</h5>
+                                <p class="text-muted">
+                                    {{ __('messages.we_will_contact_you_soon') ?? 'Мы свяжемся с вами в ближайшее время.' }}</p>
+                                <button type="button" class="btn btn-secondary mt-3" wire:click="closeModal">
+                                    {{ __('messages.close') }}
+                                </button>
+                            </div>
+                        </div>
+                    @else
+                        <form wire:submit.prevent="submit" novalidate class="d-flex flex-column flex-grow-1 overflow-auto">
+                            {{-- Honeypot --}}
+                            <div style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+                                <label>Leave this field empty</label>
+                                <input type="text" wire:model.defer="hp" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <div class="tm-modal-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="name" class="tm-form-label">
+                                            {{ __('messages.modal_name_label') }}
+                                        </label>
+                                        <input type="text" id="name"
+                                            class="form-control tm-form-control @error('name') is-invalid @enderror"
+                                            wire:model="name">
+                                        @error('name')
+                                            <div class="tm-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="email" class="tm-form-label">
+                                            {{ __('messages.modal_email_label') }}
+                                        </label>
+                                        <input type="email" id="email"
+                                            class="form-control tm-form-control @error('email') is-invalid @enderror"
+                                            wire:model="email">
+                                        @error('email')
+                                            <div class="tm-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="phone" class="tm-form-label">
+                                            {{ __('messages.modal_phone_label') }}
+                                        </label>
+                                        <input type="text" id="phone"
+                                            class="form-control tm-form-control @error('phone') is-invalid @enderror"
+                                            wire:model="phone">
+                                        @error('phone')
+                                            <div class="tm-error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message" class="tm-form-label">
+                                        {{ __('messages.modal_message_label') }}
+                                    </label>
+                                    <textarea id="message" rows="3"
+                                        class="form-control tm-form-control tm-textarea @error('message') is-invalid @enderror"
+                                        wire:model="message"></textarea>
+                                    @error('message')
+                                        <div class="tm-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="text-muted small mt-2">
+                                    {!! __('messages.agree_terms_contact', ['terms_url' => route('terms'), 'privacy_url' => route('privacy')]) !!}
+                                </div>
+
+
+                                @error('general')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
+                                <div class="d-flex align-items-center justify-content-between mt-2">
+                                    <button type="button" class="btn btn-secondary" wire:click="closeModal">
+                                        {{ __('messages.modal_cancel_button') }}
+                                    </button>
+
+                                    <button type="submit" class="btn tm-order-btn text-white" wire:loading.attr="disabled">
+                                        <span wire:loading.remove>{{ __('messages.send') }}</span>
+                                        <span wire:loading>{{ __('messages.sending') }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-backdrop fade show"></div>
+    @endif
 </div>
