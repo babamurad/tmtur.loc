@@ -1,12 +1,11 @@
 <div class="page-content">
     <div class="container-fluid">
         <div>
-            <h2>Создать включение</h2>
-
             <form wire:submit.prevent="save">
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3 text-end">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="card-title mb-0">Создать включение</h4>
                             <x-gemini-translation-buttons :duration="$translationDuration" />
                         </div>
                         @foreach(config('app.available_locales') as $locale)

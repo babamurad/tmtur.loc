@@ -19,14 +19,13 @@
 
                         <form wire:submit.prevent="save">
 
-                            <h4 class="card-title mb-4">Название тега</h4>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="card-title mb-0">Название тега</h4>
+                                <x-gemini-translation-buttons :duration="$translationDuration" />
+                            </div>
 
                             <div class="alert alert-info">
                                 Введите название тега для каждого языка.
-                            </div>
-
-                            <div class="mb-3 text-end">
-                                <x-gemini-translation-buttons :duration="$translationDuration" />
                             </div>
 
                             @foreach(config('app.available_locales') as $locale)

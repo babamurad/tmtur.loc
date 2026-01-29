@@ -19,7 +19,10 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">Основные данные</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="card-title mb-0">Основные данные</h5>
+                            <x-gemini-translation-buttons :duration="$translationDuration" />
+                        </div>
 
                         <form wire:submit.prevent="save">
 
@@ -34,10 +37,6 @@
                                     </li>
                                 @endforeach
                             </ul>
-
-                            <div class="mb-3 mt-3 text-end">
-                                <x-gemini-translation-buttons :duration="$translationDuration" />
-                            </div>
 
                             <div class="tab-content mt-3 mb-3">
                                 @foreach(config('app.available_locales') as $locale)

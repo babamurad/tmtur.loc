@@ -9,7 +9,10 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4">Детали категории тура</h4>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="card-title mb-0">Детали категории тура</h4>
+                            <x-gemini-translation-buttons :duration="$translationDuration" />
+                        </div>
 
                         <form wire:submit.prevent="save">
 
@@ -24,10 +27,6 @@
                                     </li>
                                 @endforeach
                             </ul>
-
-                            <div class="mb-3 mt-3 text-end">
-                                <x-gemini-translation-buttons :duration="$translationDuration" />
-                            </div>
 
                             {{-- Tab Content --}}
                             <div class="tab-content p-3 text-muted">
