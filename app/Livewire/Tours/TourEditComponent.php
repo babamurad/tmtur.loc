@@ -545,15 +545,31 @@ class TourEditComponent extends Component
      */
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
-        $names = [
+        set_time_limit(180); // Increase execution time to 3 minutes
+
+        foreach (config('app.available_locales') as $locale) {
+            $this->performBatchTranslation($translator, $locale, $this->getLanguageName($locale));
+        }
+    }
+
+    /**
+     * Helper to get language name for Gemini
+     */
+    protected function getLanguageName(string $locale): string
+    {
+        $map = [
             'ru' => 'Russian',
             'en' => 'English',
             'ko' => 'Korean',
+            'de' => 'German',
+            'fr' => 'French',
+            'es' => 'Spanish',
+            'pl' => 'Polish',
+            'it' => 'Italian',
+            'tr' => 'Turkish',
         ];
 
-        foreach (config('app.available_locales') as $locale) {
-            $this->performBatchTranslation($translator, $locale, $names[$locale] ?? ucfirst($locale));
-        }
+        return $map[$locale] ?? ucfirst($locale);
     }
 
     public function save()

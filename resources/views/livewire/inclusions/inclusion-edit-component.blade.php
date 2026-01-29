@@ -6,6 +6,9 @@
             <form wire:submit.prevent="save">
                 <div class="card">
                     <div class="card-body">
+                        <div class="mb-3 text-end">
+                            <x-gemini-translation-buttons :duration="$translationDuration" />
+                        </div>
                         @foreach(config('app.available_locales') as $locale)
                             <div class="mb-3">
                                 <label class="form-label">Название ({{ strtoupper($locale) }})</label>
@@ -23,4 +26,3 @@
         </div>
     </div>
 </div>
-

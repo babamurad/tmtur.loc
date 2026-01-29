@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 class CategoryCreateComponent extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     public string $title = '';
     public string $slug = '';
@@ -22,7 +23,7 @@ class CategoryCreateComponent extends Component
     {
         $rules = [
             'title' => 'required|string|max:255|unique:categories',
-            'slug'  => 'nullable|string|max:255|unique:categories',
+            'slug' => 'nullable|string|max:255|unique:categories',
             'content' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
@@ -64,7 +65,7 @@ class CategoryCreateComponent extends Component
 
         $category = Category::create([
             'title' => $this->title,
-            'slug'  => $this->slug ?: \Str::slug($this->title),
+            'slug' => $this->slug ?: \Str::slug($this->title),
             'content' => $this->content,
             'image' => $filename,
             'is_published' => $this->is_published,
@@ -83,5 +84,15 @@ class CategoryCreateComponent extends Component
     public function render()
     {
         return view('livewire.categories.category-create-component');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Категория блога';
     }
 }

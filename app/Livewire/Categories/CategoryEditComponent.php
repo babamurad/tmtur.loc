@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 class CategoryEditComponent extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     public Category $category;
     public string $title;
@@ -23,7 +24,7 @@ class CategoryEditComponent extends Component
     {
         $rules = [
             'title' => 'required|string|max:255|unique:categories,title,' . $this->category->id,
-            'slug'  => 'nullable|string|max:255|unique:categories,slug,' . $this->category->id,
+            'slug' => 'nullable|string|max:255|unique:categories,slug,' . $this->category->id,
             'content' => 'nullable|string',
             'newImage' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
@@ -43,7 +44,7 @@ class CategoryEditComponent extends Component
         $this->title = $this->category->title;
         $this->slug = $this->category->slug;
         $this->content = $this->category->content;
-        $this->is_published = (bool)$this->category->is_published;
+        $this->is_published = (bool) $this->category->is_published;
 
         foreach (config('app.available_locales') as $locale) {
             $this->trans[$locale]['title'] = $this->category->tr('title', $locale);
@@ -71,7 +72,7 @@ class CategoryEditComponent extends Component
 
         $this->category->update([
             'title' => $this->title,
-            'slug'  => $this->slug ?: \Str::slug($this->title),
+            'slug' => $this->slug ?: \Str::slug($this->title),
             'content' => $this->content,
             'is_published' => $this->is_published,
         ]);
@@ -89,5 +90,15 @@ class CategoryEditComponent extends Component
     public function render()
     {
         return view('livewire.categories.category-edit-component');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Категория блога';
     }
 }

@@ -5,26 +5,34 @@ namespace App\Livewire\Tags;
 use App\Models\Tag;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use App\Livewire\Traits\HasGeminiTranslation;
 
 class TagCreateComponent extends Component
 {
-    public array $names = []; // Stores name for each locale: ['ru' => '...', 'en' => '...']
+    use HasGeminiTranslation;
+
+    public array $trans = [];
 
     public function mount()
     {
         foreach (config('app.available_locales') as $locale) {
-            $this->names[$locale] = '';
+            $this->trans[$locale]['name'] = '';
         }
     }
 
     public function save()
     {
         $this->validate([
-            'names.' . config('app.fallback_locale') => 'required|string|max:255',
+            'trans.' . config('app.fallback_locale') . '.name' => 'required|string|max:255',
         ]);
 
+        $names = [];
+        foreach (config('app.available_locales') as $locale) {
+            $names[$locale] = $this->trans[$locale]['name'] ?? '';
+        }
+
         Tag::create([
-            'name' => $this->names,
+            'name' => $names,
         ]);
 
         LivewireAlert::title('Тег создан')
@@ -32,8 +40,18 @@ class TagCreateComponent extends Component
             ->toast()
             ->position('top-end')
             ->show();
-            
+
         return redirect()->route('admin.tags.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Тег';
     }
 
     public function render()

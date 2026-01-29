@@ -34,16 +34,7 @@
                                         </span>
                                     @endif
 
-                                    <button type="button" class="btn btn-sm btn-info waves-effect waves-light"
-                                        wire:click="translateToAllLanguages" wire:loading.attr="disabled">
-                                        <span wire:loading.remove wire:target="translateToAllLanguages">
-                                            <i class="bx bx-world font-size-16 align-middle mr-1"></i> Перевести всё
-                                        </span>
-                                        <span wire:loading wire:target="translateToAllLanguages">
-                                            <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i>
-                                            Перевод...
-                                        </span>
-                                    </button>
+                                    <x-gemini-translation-buttons :duration="$translationDuration" />
                                 </div>
                             </div>
 

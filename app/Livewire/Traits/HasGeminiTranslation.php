@@ -93,6 +93,7 @@ trait HasGeminiTranslation
      */
     public function translateToAllLanguages(GeminiTranslationService $translator)
     {
+        set_time_limit(180); // Increase execution time to 3 minutes
         $startTime = microtime(true);
 
         // 1. Определяем исходный язык

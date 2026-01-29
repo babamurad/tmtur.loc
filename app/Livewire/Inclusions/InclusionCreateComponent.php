@@ -4,9 +4,11 @@ namespace App\Livewire\Inclusions;
 
 use App\Models\Inclusion;
 use Livewire\Component;
+use \App\Livewire\Traits\HasGeminiTranslation;
 
 class InclusionCreateComponent extends Component
 {
+    use HasGeminiTranslation;
     public $trans = [];
 
     public function mount()
@@ -30,7 +32,7 @@ class InclusionCreateComponent extends Component
         $this->validate();
 
         $fallbackLocale = config('app.fallback_locale');
-        
+
         // Создаем запись с title из fallback языка
         $inclusion = Inclusion::create([
             'title' => $this->trans[$fallbackLocale]['title']
@@ -49,5 +51,15 @@ class InclusionCreateComponent extends Component
     public function render()
     {
         return view('livewire.inclusions.inclusion-create-component');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Включения (услуги) тура';
     }
 }

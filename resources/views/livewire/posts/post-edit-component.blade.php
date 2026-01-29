@@ -32,37 +32,10 @@
                                         </span>
                                     @endif
 
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-primary waves-effect waves-light"
-                                            wire:click="autoTranslateToEnglish" wire:loading.attr="disabled">
-                                            <span wire:loading.remove wire:target="autoTranslateToEnglish">
-                                                <i class="bx bx-globe font-size-16 align-middle mr-1"></i> En
-                                            </span>
-                                            <span wire:loading wire:target="autoTranslateToEnglish">
-                                                <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i> En
-                                            </span>
-                                        </button>
-                                        <button type="button" class="btn btn-info waves-effect waves-light"
-                                            wire:click="autoTranslateToKorean" wire:loading.attr="disabled">
-                                            <span wire:loading.remove wire:target="autoTranslateToKorean">
-                                                <i class="bx bx-globe font-size-16 align-middle mr-1"></i> Ko
-                                            </span>
-                                            <span wire:loading wire:target="autoTranslateToKorean">
-                                                <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i> Ko
-                                            </span>
-                                        </button>
-                                        <button type="button" class="btn btn-warning waves-effect waves-light"
-                                            wire:click="translateToAllLanguages" wire:loading.attr="disabled">
-                                            <span wire:loading.remove wire:target="translateToAllLanguages">
-                                                <i class="bx bx-world font-size-16 align-middle mr-1"></i> All
-                                            </span>
-                                            <span wire:loading wire:target="translateToAllLanguages">
-                                                <i class="bx bx-loader bx-spin font-size-16 align-middle mr-1"></i> All
-                                            </span>
-                                        </button>
-                                    </div>
+                                    <x-gemini-translation-buttons :duration="$translationDuration" />
                                 </div>
                             </div>
+
 
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">

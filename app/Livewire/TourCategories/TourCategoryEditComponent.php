@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 class TourCategoryEditComponent extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
     public $tourCategory;
     // public $title; // Removed in favor of trans
     // public $content; // Removed in favor of trans
@@ -98,5 +99,15 @@ class TourCategoryEditComponent extends Component
             'text' => 'Изменения сохранились!',
         ]);
         return redirect()->route('tour-categories.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Категория туров';
     }
 }

@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 class TourCategoryCreateComponent extends Component
 {
     use WithFileUploads;
+    use \App\Livewire\Traits\HasGeminiTranslation;
 
     public array $trans = [];
     public $slug;
@@ -83,5 +84,15 @@ class TourCategoryCreateComponent extends Component
             'text' => 'Создана новая категория тура!',
         ]);
         return redirect()->route('tour-categories.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['title', 'content'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Категория туров';
     }
 }

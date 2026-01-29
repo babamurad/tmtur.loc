@@ -16,21 +16,24 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        
+
                         <form wire:submit.prevent="save">
-                            
+
                             <h4 class="card-title mb-4">Название тега</h4>
 
                             <div class="alert alert-info">
                                 Введите название тега для каждого языка.
                             </div>
 
+                            <div class="mb-3 text-end">
+                                <x-gemini-translation-buttons :duration="$translationDuration" />
+                            </div>
+
                             @foreach(config('app.available_locales') as $locale)
                                 <div class="form-group mb-4">
                                     <label class="text-uppercase font-weight-bold">{{ $locale }}</label>
-                                    <input type="text" class="form-control" 
-                                           wire:model="names.{{ $locale }}" 
-                                           placeholder="Название на {{ $locale }}...">
+                                    <input type="text" class="form-control" wire:model="trans.{{ $locale }}.name"
+                                        placeholder="Название на {{ $locale }}...">
                                 </div>
                             @endforeach
 
