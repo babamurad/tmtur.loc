@@ -43,16 +43,20 @@
                 <div class="col-lg-6">
                     <div class="about-grid">
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/i.webp') }}" alt="Turkmenistan" loading="lazy">
+                            <img src="{{ asset('assets/images/tmfotos/i.webp') }}" alt="Turkmenistan" loading="lazy"
+                                width="400" height="240">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/81.webp') }}" alt="Turkmenistan" loading="lazy">
+                            <img src="{{ asset('assets/images/tmfotos/81.webp') }}" alt="Turkmenistan" loading="lazy"
+                                width="400" height="240">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan" loading="lazy">
+                            <img src="{{ asset('assets/images/tmfotos/i-1.webp') }}" alt="Turkmenistan" loading="lazy"
+                                width="400" height="240">
                         </div>
                         <div class="home-gallery-thumb">
-                            <img src="{{ asset('assets/images/tmfotos/gate.webp') }}" alt="Turkmenistan" loading="lazy">
+                            <img src="{{ asset('assets/images/tmfotos/gate.webp') }}" alt="Turkmenistan" loading="lazy"
+                                width="400" height="240">
                         </div>
                     </div>
                 </div>
@@ -106,7 +110,7 @@
                             <div class="position-relative">
                                 <a href="{{ route('tours.show', $tour->slug) }}">
                                     <img src="{{ $tour->first_media_url }}" class="w-100" alt="{{ $tour->tr('title') }}"
-                                        loading="lazy">
+                                        loading="lazy" width="400" height="220">
                                 </a>
 
                                 <!-- BADGE -->
@@ -639,7 +643,7 @@
                                     <div class="d-flex align-items-center mt-4">
                                         <img src="{{ $review->user->avatar_url }}" class="rounded-circle mr-3 border"
                                             style="width: 50px; height: 50px; object-fit: cover;"
-                                            alt="{{ $review->user->name }}">
+                                            alt="{{ $review->user->name }}" width="50" height="50">
                                         <div>
                                             <h6 class="fw-bold mb-0 text-dark">{{ $review->user->name }}</h6>
                                             <small class="text-muted">{{ $review->created_at->format('d.m.Y') }}</small>

@@ -80,6 +80,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"
         media="print" onload="this.media='all'">
     <noscript>
@@ -96,7 +97,11 @@
     </noscript>
 
     <!-- App Icons (Boxicons, MDI, etc.) -->
-    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" media="print"
+        onload="this.media='all'" />
+    <noscript>
+        <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    </noscript>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
