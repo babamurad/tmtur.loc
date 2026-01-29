@@ -3,6 +3,8 @@
 return [
     'home' => 'Home',
     'about' => 'About Turkmenistan',
+    'about_us' => 'About Us',
+    'about_company' => 'About Company',
     'tours' => 'Tours',
     'categories' => 'Categories',
     'all_tours' => 'All tours',

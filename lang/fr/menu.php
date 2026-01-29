@@ -3,6 +3,8 @@
 return [
     'home' => 'Accueil',
     'about' => 'À propos du Turkménistan',
+    'about_us' => 'À propos de nous',
+    'about_company' => 'À propos de l\'entreprise',
     'tours' => 'Circuits',
     'categories' => 'Catégories',
     'all_tours' => 'Tous les circuits',

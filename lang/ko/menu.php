@@ -3,6 +3,8 @@
 return [
     'home' => '홈',
     'about' => '투르크메니스탄 소개',
+    'about_us' => '소개',
+    'about_company' => '회사 소개',
     'tours' => '투어',
     'categories' => '카테고리',
     'all_tours' => '모든 투어',

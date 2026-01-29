@@ -103,33 +103,24 @@
                         {{ __('menu.tours') }}
                     </a>
 
-                    <div class="dropdown-menu mega-dropdown" :class="{ 'show': open }" aria-labelledby="toursDropdown">
-                        <div class="dropdown-heading text-uppercase text-muted small px-3 pt-2 pb-1">
-                            {{ __('menu.tours') }}
-                        </div>
-                        <div class="dropdown-grid px-2 pb-2">
-                            @foreach($categories as $category)
-                                <a class="dropdown-item d-flex align-items-center "
-                                    href="{{ route('tours.category.show', $category->slug) }}" wire:navigate
-                                    @click="open = false">
-                                    <span class="badge-dot mr-2"></span>
-                                    <span class="category">{{ $category->tr('title') }}</span>
-                                </a>
-                            @endforeach
-                        </div>
+                    <div class="dropdown-menu" :class="{ 'show': open }" aria-labelledby="toursDropdown">
+                        @foreach($categories as $category)
+                            <a class="dropdown-item" href="{{ route('tours.category.show', $category->slug) }}"
+                                wire:navigate @click="open = false">
+                                {{ $category->tr('title') }}
+                            </a>
+                        @endforeach
 
-                        <div class="dropdown-footer border-top px-3 py-2">
-                            <a class="dropdown-item font-weight-semibold d-flex align-items-center"
-                                href="{{ route('tours.category.index') }}" wire:navigate @click="open = false">
-                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
-                                    {{ __('menu.all_tours') }}
-                                </span></a>
-                            <a class="dropdown-item font-weight-semibold d-flex align-items-center"
-                                href="{{ route('front.tour-groups') }}" wire:navigate @click="open = false">
-                                <i class="fa-solid fa-arrow-right mr-2 text-primary"></i><span class="category">
-                                    {{ __('menu.tour_groups') }}
-                                </span></a>
-                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{{ route('tours.category.index') }}" wire:navigate
+                            @click="open = false">
+                            {{ __('menu.all_tours') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('front.tour-groups') }}" wire:navigate
+                            @click="open = false">
+                            {{ __('menu.tour_groups') }}
+                        </a>
                     </div>
                 </li>
 
@@ -143,9 +134,26 @@
                         style="color: #2D2D2D;">{{ __('menu.blog') }}</a>
                 </li>
 
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-hover-primary" href="{{ route('reviews.index') }}" wire:navigate
-                        style="color: #2D2D2D;">{{ __('menu.reviews') }}</a>
+                <li class="nav-item dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
+                    @mouseleave="open = false">
+                    <a class="nav-link dropdown-toggle text-hover-primary" href="#" id="aboutDropdown" role="button"
+                        @click.prevent="open = !open" :class="{ 'show': open }" :aria-expanded="open.toString()"
+                        style="color: #2D2D2D;">
+                        {{ __('menu.about_us') }}
+                    </a>
+
+                    <div class="dropdown-menu" :class="{ 'show': open }" aria-labelledby="aboutDropdown">
+                        <a class="dropdown-item" href="{{ route('about') }}" wire:navigate @click="open = false">
+                            {{ __('menu.about_company') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('reviews.index') }}" wire:navigate
+                            @click="open = false">
+                            {{ __('menu.reviews') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('gallery') }}" wire:navigate @click="open = false">
+                            {{ __('menu.gallery') }}
+                        </a>
+                    </div>
                 </li>
 
                 <li class="nav-item mx-2 mr-lg-4">
@@ -184,8 +192,8 @@
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                        style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                        wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>

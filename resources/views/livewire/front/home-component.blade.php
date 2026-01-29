@@ -545,38 +545,6 @@
         </div>
     </section>
 
-    <!-- ========== GALLERY / EXPERIENCES ========== -->
-    <section class="py-5 bg-white" id="gallery">
-        <div class="container py-4">
-
-            <div class="text-center mb-4">
-                <h2 class="fw-bold mb-3" style="font-size: 2rem;">
-                    {{ __('home_gallery.title') ?? 'Real experiences from our tours' }}
-                </h2>
-                <p class="text-muted mb-0" style="font-size: 1.05rem; max-width: 780px; margin: 0 auto;">
-                    {{ __('home_gallery.subtitle') ?? 'All photos are from real trips with our guests at Darvaza, Yangykala, Ashgabat, Koytendag and other destinations.' }}
-                </p>
-            </div>
-
-            <div class="row">
-                @foreach($fotos as $foto)
-                    <div class="col-sm-6 col-md-4 mb-4">
-                        <div class="home-gallery-thumb">
-                            <img src="{{ asset($foto->getFullUrlAttribute()) }}"
-                                alt="{{ $foto->tr('title') ?? 'Turkmenistan tour' }}" loading="lazy">
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="text-center mt-3">
-                <a href="{{ route('gallery') }}" class="btn btn-outline-secondary btn-sm">
-                    {{ __('home_gallery.btn') ?? 'Open full gallery' }}
-                </a>
-            </div>
-
-        </div>
-    </section>
 
     <!-- ========== SAFE & GUARANTEED ENTRY ASSISTANCE ========== -->
     <section class="py-5 bg-light" id="safe-entry">

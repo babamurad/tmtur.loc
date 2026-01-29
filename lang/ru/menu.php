@@ -39,6 +39,8 @@ return [
     // Frontend translations
     'home' => 'Главная',
     'about' => 'О Туркменистане',
+    'about_us' => 'О нас',
+    'about_company' => 'О компании',
     'categories' => 'Категории',
     'all_tours' => 'Все туры',
     'visa' => 'Виза',
