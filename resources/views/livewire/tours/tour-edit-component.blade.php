@@ -20,42 +20,26 @@
                     {{-- Multilingual Content Section --}}
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">
-                                <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
-                                Основная информация
-                            </h5>
-
-                            @if ($errors->any())
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <ul class="mb-0">
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0">
+                                    <i class="bx bx-edit-alt font-size-18 align-middle mr-1 text-primary"></i>
+                                    Основная информация
+                                </h5>
+                                <x-gemini-translation-buttons :duration="$last_translation_duration" />
+                            </div>
 
                             {{-- Language Tabs --}}
                             <ul class="nav nav-tabs nav-tabs-custom mb-3" role="tablist">
                                 @foreach(config('app.available_locales') as $locale)
                                     <li class="nav-item">
-                                        <a class="nav-link @if($loop->first) active @endif @if($errors->has("trans.$locale.*") || ($loop->first && $errors->has('title'))) text-danger @endif" 
-                                           data-toggle="tab" 
-                                           href="#lang-{{ $locale }}" 
-                                           role="tab">
+                                        <a class="nav-link @if($loop->first) active @endif @if($errors->has("trans.$locale.*") || ($loop->first && $errors->has('title'))) text-danger @endif"
+                                            data-toggle="tab" href="#lang-{{ $locale }}" role="tab">
                                             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                             <span class="d-none d-sm-block">{{ strtoupper($locale) }}</span>
                                         </a>
                                     </li>
                                 @endforeach
                             </ul>
-
-                            {{-- AI Translation Buttons --}}
-                            <x-gemini-translation-buttons :duration="$last_translation_duration" />
-                            
                             {{-- Tab Content --}}
                             <div class="tab-content">
                                 @foreach(config('app.available_locales') as $locale)

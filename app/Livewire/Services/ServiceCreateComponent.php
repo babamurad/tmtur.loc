@@ -8,6 +8,7 @@ use App\Enums\ServiceType;
 
 class ServiceCreateComponent extends Component
 {
+    use \App\Livewire\Traits\HasGeminiTranslation;
     public $name;
     public $type;
     public $priceRub;
@@ -16,8 +17,8 @@ class ServiceCreateComponent extends Component
     protected function rules()
     {
         $rules = [
-            'name'     => 'required|min:3|max:255',
-            'type'     => 'required|in:' . ServiceType::ruleIn(),
+            'name' => 'required|min:3|max:255',
+            'type' => 'required|in:' . ServiceType::ruleIn(),
             'priceRub' => 'numeric|nullable',
         ];
 
@@ -45,8 +46,8 @@ class ServiceCreateComponent extends Component
         $this->validate();
 
         $service = Service::create([
-            'name'                => $this->name,
-            'type'                => $this->type,
+            'name' => $this->name,
+            'type' => $this->type,
             'default_price_cents' => $this->priceRub ? (int) round($this->priceRub * 100) : 0,
         ]);
 
@@ -61,9 +62,19 @@ class ServiceCreateComponent extends Component
         }
 
         session()->flash('saved', [
-        'title' => 'Услуга создана!',
-        'text' => 'Созадана новая услуга!',
+            'title' => 'Услуга создана!',
+            'text' => 'Созадана новая услуга!',
         ]);
         return redirect()->route('services.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Услуга';
     }
 }

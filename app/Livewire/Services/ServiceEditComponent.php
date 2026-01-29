@@ -9,6 +9,7 @@ use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class ServiceEditComponent extends Component
 {
+    use \App\Livewire\Traits\HasGeminiTranslation;
     public $service;
     public $name;
     public $type;
@@ -18,8 +19,8 @@ class ServiceEditComponent extends Component
     protected function rules()
     {
         $rules = [
-            'name'     => 'required|min:3|max:255',
-            'type'     => 'required|in:' . ServiceType::ruleIn(),
+            'name' => 'required|min:3|max:255',
+            'type' => 'required|in:' . ServiceType::ruleIn(),
             'priceRub' => 'numeric|nullable',
         ];
 
@@ -52,8 +53,8 @@ class ServiceEditComponent extends Component
         $this->validate();
 
         $this->service->update([
-            'name'                => $this->name,
-            'type'                => $this->type,
+            'name' => $this->name,
+            'type' => $this->type,
             'default_price_cents' => $this->priceRub ? (int) round($this->priceRub * 100) : 0,
         ]);
 
@@ -68,9 +69,19 @@ class ServiceEditComponent extends Component
         }
 
         session()->flash('saved', [
-        'title' => 'Услуга сохранена!',
-        'text' => 'Изменения сохранились!',
+            'title' => 'Услуга сохранена!',
+            'text' => 'Изменения сохранились!',
         ]);
         return redirect()->route('services.index');
+    }
+
+    protected function getTranslatableFields(): array
+    {
+        return ['name'];
+    }
+
+    protected function getTranslationContext(): string
+    {
+        return 'Услуга';
     }
 }
