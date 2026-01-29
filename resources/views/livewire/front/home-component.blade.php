@@ -1,4 +1,60 @@
 <div>
+    @if($heroSlide)
+        <!-- ========== STATIC HERO (No Carousel) ========== -->
+        <section id="home-static-hero" style="position: relative; height: 94vh; overflow: hidden; background: #000;">
+            @php
+                $extension = pathinfo($heroSlide->image, PATHINFO_EXTENSION);
+                $filename = pathinfo($heroSlide->image, PATHINFO_FILENAME);
+                $directory = dirname($heroSlide->image);
+                $directory = $directory === '.' ? '' : $directory . '/';
+
+                // WebP variants
+                $mobileWebp = $directory . $filename . '_mobile.webp';
+                $desktopWebp = $directory . $filename . '_desktop.webp';
+
+                // URLs
+                $mobileUrl = asset('uploads/' . $mobileWebp);
+                $desktopUrl = asset('uploads/' . $desktopWebp);
+                $originalUrl = asset('uploads/' . $heroSlide->image);
+            @endphp
+
+            <picture style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+                <!-- Mobile WebP -->
+                <source media="(max-width: 768px)" srcset="{{ $mobileUrl }}" type="image/webp">
+                <!-- Desktop WebP -->
+                <source srcset="{{ $desktopUrl }}" type="image/webp">
+                
+                <!-- Fallback info -->
+                <img src="{{ $originalUrl }}" 
+                     alt="{{ $heroSlide->tr('title') }}"
+                     style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85;"
+                     loading="eager" 
+                     fetchpriority="high">
+            </picture>
+
+            <div class="container h-100 position-relative" style="z-index: 2;">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100 text-center text-white pb-5">
+                    <h1 class="display-3 font-weight-bold mb-3" style="text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                        {{ $heroSlide->tr('title') }}
+                    </h1>
+                    <p class="lead mb-4" style="text-shadow: 0 2px 5px rgba(0,0,0,0.5); font-weight: 500; max-width: 800px;">
+                        {{ $heroSlide->tr('description') }}
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                        <a href="{{ route('tours.category.index') }}" class="btn btn-primary rounded btn-lg px-4 mb-2 mb-sm-0 mr-sm-2">
+                            {{ __('All Tours') }}
+                        </a>
+                        <a href="{{ route('front.tour-groups') }}" class="btn btn-outline-light rounded btn-lg px-4">
+                            {{ __('By Dates') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Overlay gradient for better text readability -->
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.25); z-index: 1;"></div>
+        </section>
+    @endif
     <!-- ABOUT -->
     <section class="py-5 bg-white" id="about">
         <div class="container py-4">

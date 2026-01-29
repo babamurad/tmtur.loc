@@ -180,7 +180,11 @@ class HomeComponent extends Component
                 ->get();
         });
 
-        return view('livewire.front.home-component', compact('tours', 'fotos', 'groups', 'reviews'))
-            ->layout('layouts.front-app');
+        $heroSlide = Cache::remember('home_hero_slide', 3600, function () {
+            return \App\Models\CarouselSlide::where('is_active', true)->orderBy('id')->first();
+        });
+
+        return view('livewire.front.home-component', compact('tours', 'fotos', 'groups', 'reviews', 'heroSlide'))
+            ->layout('layouts.front-app', ['hideCarousel' => true]);
     }
 }
