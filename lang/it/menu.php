@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'home' => 'Home',
+    'home' => 'Pagina iniziale',
     'about' => 'Informazioni sul Turkmenistan',
     'about_us' => 'Chi siamo',
     'about_company' => 'L\'azienda',
