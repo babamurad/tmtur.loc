@@ -57,7 +57,7 @@
                                         <th>ID</th>
                                         <th>Клиент</th>
                                         <th>Тур</th>
-                                        <th>Дата начала</th> {{-- Уточнил заголовок --}}
+
                                         <th>Создано</th>
                                         <th>Сумма</th>
                                         <th>Статус</th>
@@ -84,13 +84,7 @@
                                                     <span class="text-muted">-</span>
                                                 @endif
                                             </td>
-                                            <td>
-                                                @if($booking->tourGroup)
-                                                    {{ optional($booking->tourGroup->start_date)->format('d.m.Y') ?? '-' }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
+
                                             <td>
                                                 {{ $booking->created_at->format('d.m.Y H:i') }}
                                             </td>
@@ -126,28 +120,28 @@
                                                 @endif
 
                                                 @if($booking->customer && $booking->customer->email)
-                                            @php
-                                                $isBlocked = in_array($booking->customer->email, $blockedEmails ?? []);
-                                            @endphp
+                                                    @php
+                                                        $isBlocked = in_array($booking->customer->email, $blockedEmails ?? []);
+                                                    @endphp
 
-                                            @if($isBlocked)
-                                                <button type="button"
-                                                        wire:click="unblockUser('{{ $booking->customer->email }}')"
-                                                        wire:confirm="Разблокировать пользователя {{ $booking->customer->email }}?"
-                                                        class="btn btn-sm btn-outline-warning waves-effect waves-light"
-                                                        title="Разблокировать">
-                                                    <i class="fas fa-unlock font-size-14"></i>
-                                                </button>
-                                            @else
-                                                <button type="button"
-                                                        wire:click="blockUser('{{ $booking->customer->email }}')"
-                                                        wire:confirm="Заблокировать пользователя {{ $booking->customer->email }}? Он больше не сможет делать заказы."
-                                                        class="btn btn-sm btn-outline-dark waves-effect waves-light"
-                                                        title="Заблокировать">
-                                                    <i class="fas fa-ban font-size-14"></i>
-                                                </button>
-                                            @endif
-                                        @endif
+                                                    @if($isBlocked)
+                                                        <button type="button"
+                                                            wire:click="unblockUser('{{ $booking->customer->email }}')"
+                                                            wire:confirm="Разблокировать пользователя {{ $booking->customer->email }}?"
+                                                            class="btn btn-sm btn-outline-warning waves-effect waves-light"
+                                                            title="Разблокировать">
+                                                            <i class="fas fa-unlock font-size-14"></i>
+                                                        </button>
+                                                    @else
+                                                        <button type="button"
+                                                            wire:click="blockUser('{{ $booking->customer->email }}')"
+                                                            wire:confirm="Заблокировать пользователя {{ $booking->customer->email }}? Он больше не сможет делать заказы."
+                                                            class="btn btn-sm btn-outline-dark waves-effect waves-light"
+                                                            title="Заблокировать">
+                                                            <i class="fas fa-ban font-size-14"></i>
+                                                        </button>
+                                                    @endif
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
