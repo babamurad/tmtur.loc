@@ -37,3 +37,6 @@ Client secret
 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
 Creation date
 January 30, 2026, 9:20:27 AM GMT+5
+
+почему при отображении отзывов всегда отображается 4 звезды 
+вне зависимотси от того сколько звезд было выбрано пользователем
