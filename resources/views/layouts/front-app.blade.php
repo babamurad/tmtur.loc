@@ -69,6 +69,33 @@
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Dynamic Hreflang Tags & Canonical Correction -->
+    @php
+        $supportedLocales = config('app.available_locales', ['en']);
+        $currentUrl = url()->current();
+        $currentQuery = request()->query();
+    @endphp
+
+    @foreach($supportedLocales as $localeCode)
+        @php
+            $newQuery = array_merge($currentQuery, ['lang' => $localeCode]);
+            $localizedUrl = $currentUrl . '?' . http_build_query($newQuery);
+        @endphp
+        <link rel="alternate" hreflang="{{ $localeCode }}" href="{{ $localizedUrl }}" />
+    @endforeach
+
+    @php
+        // Fix Canonical to include 'lang' parameter if present
+        if (request()->has('lang')) {
+            // We consciously construct it to avoid including random tracking params if desired,
+            // or just use full() if we trust the input.
+            // Using logic above to keep it consistent:
+            $canonicalQuery = array_merge($currentQuery, ['lang' => request()->query('lang')]);
+            // Filter out unwanted params if needed, for now keep all
+            SEO::setCanonical($currentUrl . '?' . http_build_query($canonicalQuery));
+        }
+    @endphp
+
     {!! SEO::generate() !!}
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

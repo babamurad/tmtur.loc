@@ -6,10 +6,8 @@ use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Tour;
-use App\Models\Post;
 use App\Models\TourCategory;
-use App\Models\Category;
-use App\Models\Tag;
+use App\Models\Post;
 
 class GenerateSitemap extends Command
 {
@@ -25,91 +23,110 @@ class GenerateSitemap extends Command
      *
      * @var string
      */
-    protected $description = 'Generate sitemap.xml for the site';
+    protected $description = 'Generate the sitemap.xml file including all localized links';
 
     /**
      * Execute the console command.
      */
-    public function handle(): int
+    public function handle()
     {
-        $this->info('Generating sitemap...');
-
-        // Force production URL for sitemap
-        \Illuminate\Support\Facades\URL::forceRootUrl('https://tmtourism.com');
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+        $this->info('Starting sitemap generation...');
 
         $sitemap = Sitemap::create();
+        $locales = config('app.available_locales', ['en']);
+        // Remove 'en' from explicit params if we want / to be English. 
+        // But for clarity let's just add all params including ?lang=en to be sure, 
+        // OR rely on x-default.
+        // Strategy: / is main, /?lang=ru is alternative. 
+        // We should add / (default) AND /?lang=xx for OTHERS. 
+        // If we add /?lang=en, it's a duplicate of /. 
+        // Let's assume 'en' is default.
 
-        // 1. Static pages
-        $sitemap->add(Url::create(route('home'))->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
-        $sitemap->add(Url::create(route('about'))->setPriority(0.8));
-        $sitemap->add(Url::create(route('visa'))->setPriority(0.8));
-        $sitemap->add(Url::create(route('gallery'))->setPriority(0.8));
-        $sitemap->add(Url::create(route('blog.index'))->setPriority(0.8));
-        $sitemap->add(Url::create(route('front.tour-groups'))->setPriority(0.8)); // Calendar/Groups page
+        $defaultLocale = 'en'; // Should match app.fallback_locale
 
-        // 2. Tours
-        $tours = Tour::where('is_published', true)->get();
-        foreach ($tours as $tour) {
-            $sitemap->add(
-                Url::create(route('tours.show', $tour->slug))
-                    ->setLastModificationDate($tour->updated_at)
-                    ->setPriority(0.9)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            );
+        // Standard Static Routes
+        $staticRoutes = [
+            'home',
+            'about',
+            'tours.category.index',
+            'blog.index',
+            'visa',
+            'gallery',
+            'reviews.index',
+        ];
+
+        foreach ($staticRoutes as $routeName) {
+            try {
+                $url = route($routeName);
+                $this->addLocalizedUrls($sitemap, $url, $locales, $defaultLocale);
+            } catch (\Exception $e) {
+                $this->warn("Route $routeName not found or error: " . $e->getMessage());
+            }
         }
 
-        // 3. Posts (Blog)
-        $posts = Post::where('status', true)->get();
-        foreach ($posts as $post) {
-            $sitemap->add(
-                Url::create(route('blog.show', $post->slug))
-                    ->setLastModificationDate($post->updated_at)
-                    ->setPriority(0.7)
-            );
-        }
+        // Tours
+        $this->info('Indexing Tours...');
+        Tour::where('is_published', true)->chunk(100, function ($tours) use ($sitemap, $locales, $defaultLocale) {
+            foreach ($tours as $tour) {
+                $url = route('tours.show', $tour->slug);
+                $this->addLocalizedUrls($sitemap, $url, $locales, $defaultLocale, 0.8, $tour->updated_at);
+            }
+        });
 
-        // 4. Tour Categories
-        $tourCategories = TourCategory::where('is_published', true)->get();
-        foreach ($tourCategories as $category) {
-            $sitemap->add(
-                Url::create(route('tours.category.show', $category->slug))
-                    ->setLastModificationDate($category->updated_at)
-                    ->setPriority(0.8)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            );
-        }
+        // Categories
+        $this->info('Indexing Categories...');
+        TourCategory::where('is_published', true)->chunk(100, function ($categories) use ($sitemap, $locales, $defaultLocale) {
+            foreach ($categories as $category) {
+                $url = route('tours.category.show', $category->slug);
+                $this->addLocalizedUrls($sitemap, $url, $locales, $defaultLocale, 0.7, $category->updated_at);
+            }
+        });
 
-        // 5. Blog Categories
-        $blogCategories = Category::where('is_published', true)->get();
-        foreach ($blogCategories as $category) {
-            $sitemap->add(
-                Url::create(route('blog.category', $category->slug))
-                    ->setLastModificationDate($category->updated_at)
-                    ->setPriority(0.7)
-            );
-        }
+        // Posts
+        $this->info('Indexing Posts...');
+        // Assuming Post has is_published or similar
+        Post::where('status', 'published')->chunk(100, function ($posts) use ($sitemap, $locales, $defaultLocale) {
+            foreach ($posts as $post) {
+                $url = route('blog.show', $post->slug);
+                $this->addLocalizedUrls($sitemap, $url, $locales, $defaultLocale, 0.6, $post->updated_at);
+            }
+        });
 
-        // 6. Tags (Only those with tours)
-        $tags = Tag::has('tours')->get();
-        foreach ($tags as $tag) {
-            $sitemap->add(
-                Url::create(route('tours.tag.show', $tag->id))
-                    ->setLastModificationDate($tag->updated_at)
-                    ->setPriority(0.6)
-            );
-        }
-
-        // 7. Static Pages (Legal)
-        $sitemap->add(Url::create(route('privacy'))->setPriority(0.5));
-        $sitemap->add(Url::create(route('terms'))->setPriority(0.5));
-        $sitemap->add(Url::create(route('tours.category.index'))->setPriority(0.8)); // All Categories
-
-        // Save to file
+        // Write to file
         $sitemap->writeToFile(public_path('sitemap.xml'));
 
-        $this->info('Sitemap generated successfully: ' . public_path('sitemap.xml'));
+        $this->info('Sitemap generated successfully!');
+    }
 
-        return self::SUCCESS;
+    protected function addLocalizedUrls(Sitemap $sitemap, string $baseUrl, array $locales, string $defaultLocale, float $priority = 0.5, $updatedAt = null)
+    {
+        // Add default URL (no query param implies default language, typically en)
+        $tag = Url::create($baseUrl)
+            ->setPriority($priority);
+
+        if ($updatedAt) {
+            $tag->setLastModificationDate($updatedAt);
+        }
+
+        $sitemap->add($tag);
+
+        // Add localized versions
+        foreach ($locales as $locale) {
+            if ($locale === $defaultLocale)
+                continue; // Skip default to avoid duplicate of pure URL if they are same content
+
+            // Construct URL with query param
+            // Assuming no existing query params in base routes for now
+            $locUrl = $baseUrl . '?lang=' . $locale;
+
+            $locTag = Url::create($locUrl)
+                ->setPriority($priority); // Maybe lower priority? No, same content just translated.
+
+            if ($updatedAt) {
+                $locTag->setLastModificationDate($updatedAt);
+            }
+
+            $sitemap->add($locTag);
+        }
     }
 }

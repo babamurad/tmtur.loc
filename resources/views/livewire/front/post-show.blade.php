@@ -221,4 +221,29 @@
 
         </div>{{-- /правая колонка --}}
     </div>{{-- /row основной --}}
-</div>{{-- /container --}}
+    @push('scripts')
+            <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": "{{ addslashes($post->tr('title')) }}",
+          "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
+          "author": {
+            "@type": "Person",
+            "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "TmTourism",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ asset('img/logo.png') }}"
+            }
+          },
+          "url": "{{ url()->current() }}",
+          "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
+          "dateModified": "{{ $post->updated_at->toIso8601String() }}",
+          "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
+        }
+        </script>
+    @endpush

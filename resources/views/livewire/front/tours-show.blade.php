@@ -826,7 +826,37 @@
                 function showGalleryImage(index) {
                     $('#galleryCarousel').carousel(index);
                 }
-
+            </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ addslashes($tour->tr('title')) }}",
+  "description": "{{ addslashes(strip_tags($tour->tr('short_description'))) }}",
+  "image": [
+    "{{ $tour->first_media_url }}"
+   ],
+  "brand": {
+    "@type": "Brand",
+    "name": "TmTourism"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ url()->current() }}",
+    "priceCurrency": "EUR",
+    "price": "{{ $tour->base_price }}",
+    "availability": "https://schema.org/InStock"
+  }
+  @if($tour->reviews_count > 0)
+  ,"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ $tour->average_rating }}",
+    "reviewCount": "{{ $tour->reviews_count }}"
+  }
+  @endif
+}
+</script>
+            <script>
                 $(document).ready(function () {
                     // Update image counter
                     $('#galleryCarousel').on('slid.bs.carousel', function (e) {

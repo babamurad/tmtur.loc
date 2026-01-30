@@ -16,12 +16,22 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Default to session locale if exists
+        // 1. Check for 'lang' query parameter (SEO / Direct Link support)
+        if ($request->has('lang')) {
+            $lang = $request->query('lang');
+            $available = config('app.available_locales', ['en']); // Fallback to 'en' if config missing
+
+            if (in_array($lang, $available)) {
+                session(['locale' => $lang]);
+                App::setLocale($lang);
+                // If we want to persist this change for subsequent requests without param, session does that.
+            }
+        }
+
+        // 2. Default logic
         $locale = session('locale');
 
         // FORCE Russian for Admin Panel, ignoring session
-        // Only allow session override if we actually want admin-switchable languages later.
-        // Given the requirement "must be Russian", we prioritize the admin context.
         if (
             $request->is('admin*') ||
             ($request->route() && in_array('role:admin', $request->route()->gatherMiddleware() ?? []))
