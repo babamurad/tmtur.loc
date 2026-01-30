@@ -219,9 +219,8 @@
                     {{-- Главное изображение --}}
                     <div class="position-relative">
                         <img src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}"
-                            class="card-img-top img-fluid" <img
-                            src="{{ asset('uploads/' . $tour->orderedMedia->first()->file_path) }}"
-                            class="card-img-top img-fluid" alt="{{ $tour->tr('title') }}"
+                            class="card-img-top img-fluid" 
+                            alt="{{ $tour->tr('title') }}"
                             style="max-height: 500px; object-fit: cover; cursor: pointer;" data-toggle="modal"
                             data-target="#galleryModal">
 
@@ -826,37 +825,8 @@
                 function showGalleryImage(index) {
                     $('#galleryCarousel').carousel(index);
                 }
-            </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org/",
-  "@type": "Product",
-  "name": "{{ addslashes($tour->tr('title')) }}",
-  "description": "{{ addslashes(strip_tags($tour->tr('short_description'))) }}",
-  "image": [
-    "{{ $tour->first_media_url }}"
-   ],
-  "brand": {
-    "@type": "Brand",
-    "name": "TmTourism"
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": "{{ url()->current() }}",
-    "priceCurrency": "EUR",
-    "price": "{{ $tour->base_price }}",
-    "availability": "https://schema.org/InStock"
-  }
-  @if($tour->reviews_count > 0)
-  ,"aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "{{ $tour->average_rating }}",
-    "reviewCount": "{{ $tour->reviews_count }}"
-  }
-  @endif
-}
-</script>
-            <script>
+
+
                 $(document).ready(function () {
                     // Update image counter
                     $('#galleryCarousel').on('slid.bs.carousel', function (e) {
@@ -906,6 +876,42 @@
                     $('[data-target="#collapseInclusions"]').find('.chevron-icon').removeClass('fa-chevron-up').addClass('fa-chevron-down');
                 });
             });
-        </script>
-    @endpush
+</script>
+@endpush
+
+@push('scripts')
+<script type="application/ld+json">
+    @php
+    $jsonLd = [
+        "@context" => "https://schema.org/",
+        "@type" => "Product",
+        "name" => $tour->tr('title'),
+        "description" => strip_tags($tour->tr('short_description')),
+        "image" => [
+            $tour->first_media_url
+        ],
+        "brand" => [
+            "@type" => "Brand",
+            "name" => "TmTourism"
+        ],
+        "offers" => [
+            "@type" => "Offer",
+            "url" => url()->current(),
+            "priceCurrency" => "EUR",
+            "price" => $tour->base_price,
+            "availability" => "https://schema.org/InStock"
+        ]
+    ];
+
+    if($tour->reviews_count > 0) {
+        $jsonLd['aggregateRating'] = [
+            "@type" => "AggregateRating",
+            "ratingValue" => $tour->average_rating,
+            "reviewCount" => $tour->reviews_count
+        ];
+    }
+    echo json_encode($jsonLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    @endphp
+</script>
+@endpush
 </div>

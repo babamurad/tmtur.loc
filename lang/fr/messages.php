@@ -31,6 +31,7 @@ return [
     'about_cta_btn' => 'Obtenir le programme et le prix',
     'about_email_label' => 'Email :',
     'on_request' => 'Sur demande',
+    'read_more' => 'Lire la suite',
     'read_more_btn' => 'Lire la suite',
     'modal_program_request_title' => 'Obtenir le programme et le prix',
     'modal_program_request_subtitle' => 'Laissez vos coordonnées et nous vous enverrons le programme et le prix.',
