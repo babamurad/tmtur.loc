@@ -35,4 +35,6 @@ return [
     'sign_in_link' => 'Sign in',
     'agree_terms' => 'By registering, you agree to the <a href=":terms_url" target="_blank">Terms of Use</a> and data processing in accordance with the <a href=":privacy_url" target="_blank">Privacy Policy</a>.',
     'or_continue' => 'Or continue',
+    'google_login' => 'Login with Google',
+    'google_register' => 'Register with Google',
 ];

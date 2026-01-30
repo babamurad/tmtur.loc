@@ -23,4 +23,6 @@ return [
     'sign_in_link' => '로그인',
     'agree_terms' => '이용 약관에 동의합니다',
     'or_continue' => '또는 계속',
+    'google_login' => 'Google로 로그인',
+    'google_register' => 'Google로 가입',
 ];

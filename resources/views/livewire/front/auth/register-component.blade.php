@@ -103,6 +103,13 @@
                             {{ __('auth.or_continue') ?? 'или продолжить' }}
                         </div>
 
+                        <div class="mb-3">
+                            <a href="{{ route('auth.google') }}" class="btn btn-outline-danger btn-block auth-cta">
+                                <i class="fa-brands fa-google me-2"></i>
+                                {{ __('auth.google_register') ?? 'Регистрация через Google' }}
+                            </a>
+                        </div>
+
                         <div class="text-center">
                             <span class="text-muted small">{{ __('auth.have_account') }}</span>
                             <a href="{{ route('front.login') }}" class="text-primary font-weight-bold small"

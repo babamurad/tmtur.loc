@@ -21,4 +21,6 @@ return [
     'sign_in_link' => 'Anmelden',
     'agree_terms' => 'Durch die Registrierung stimmen Sie den <a href=":terms_url" target="_blank">Nutzungsbedingungen</a> und der Datenverarbeitung gemäß der <a href=":privacy_url" target="_blank">Datenschutzrichtlinie</a> zu.',
     'or_continue' => 'Oder fortfahren',
+    'google_login' => 'Mit Google anmelden',
+    'google_register' => 'Mit Google registrieren',
 ];

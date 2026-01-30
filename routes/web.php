@@ -53,6 +53,9 @@ Route::post('checkout', [\App\Livewire\Front\CartComponent::class, 'checkout'])-
 Route::middleware('guest')->group(function () {
     Route::get('auth/register', FrontRegisterComponent::class)->name('front.register');
     Route::get('auth/login', FrontLoginComponent::class)->name('front.login');
+
+    Route::get('auth/google', [\App\Http\Controllers\SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('auth/google/callback', [\App\Http\Controllers\SocialAuthController::class, 'handleGoogleCallback']);
 });
 
 Route::get('register', \App\Livewire\Auth\RegisterComponent::class)->name('register');

@@ -21,4 +21,6 @@ return [
     'sign_in_link' => 'Iniciar sesión',
     'agree_terms' => 'Al registrarte, aceptas los <a href=":terms_url" target="_blank">Términos de uso</a> y el procesamiento de datos de acuerdo con la <a href=":privacy_url" target="_blank">Política de privacidad</a>.',
     'or_continue' => 'O continuar',
+    'google_login' => 'Iniciar sesión con Google',
+    'google_register' => 'Registrarse con Google',
 ];

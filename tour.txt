@@ -31,31 +31,9 @@ php artisan migrate --force    # если нужна БД и миграции
 
 
 
-https://tmtourism.com/visa/
-https://tmtourism.com/all-categories/
-https://tmtourism.com/tours/category/darvaza-gas-crater/
-https://tmtourism.com/tour-groups-date?month=&year=/
-https://tmtourism.com/tours/doroga-k-vratam-ada-4ylO/
-https://tmtourism.com/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap/
-https://tmtourism.com/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan/
-https://tmtourism.com/blog/
-
-https://tmtourism.com/blog/marsrut-7-dnei-po-turkmenistanu-savat-darvaza-asxabad-merv-farap
-https://tmtourism.com/blog/granicy-turkmenistana-2025-polnyi-gid-po-perexodu-cerez-farap-savat-i-artyk
-https://tmtourism.com/blog/viza-v-turkmenistan-2025-polnoe-rukovodstvo-po-poluceniiu-loi-i-vieezdu
-https://tmtourism.com/blog/sovety-dlia-turistov-kak-podgotovitsia-k-putesestviiu-v-turkmenistan
-https://tmtourism.com/tours/darvaza-merv-i-gonur-depe-5-dnevnoe-puteshestvie-po-glavnym-mestam-turkmenistana
-https://tmtourism.com/tours/5-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-yangykala-nohur-turkmenbashi-kov-ata
-https://tmtourism.com/tours/3-dnevnyy-tur-po-turkmenistanu-shavat-darvaza-ashhabad-farap
-https://tmtourism.com/tours/4-dnya-farap-merv-yunesko-ashhabad-darvaza-kunya-urgench-yunesko-vyezd-v-uzbekistan
-https://tmtourism.com/tours/10-dney-v-turkmenistane-darvaza-yunesko-kunya-urgench-i-merv-koytendag-yangykala-nohur-novruz
-https://tmtourism.com/tours/shavat-darvaza-ashhabad-merv-mary-turkmenabad-farap-4-dnevnyy-tur-po-pustyne-drevnim-gorodam-i-velikomu-shelkovomu-puti
-https://tmtourism.com/tours/doroga-k-vratam-ada-4ylO
-https://tmtourism.com/tours/khwarezm-the-burning-darvaza-3-days-via-shavat
-https://tmtourism.com/tours/3-day-cross-turkmenistan-journey-darvaza-ashgabat-ancient-merv
-https://tmtourism.com/tours/door-to-hell-ashgabat-2-day-adventure
-
-php artisan translate:lang-files --langs=it --file=messages.php --force
-php artisan translate:lang-files --langs=it --file=validation.php --force
-php artisan translate:lang-files --langs=it --file=pagination.php --force
-php artisan translate:lang-files --langs=it --file=passwords.php --force
+Client ID
+1031739410972-cja54o4dche8a3aeiho4l7il432ucqtq.apps.googleusercontent.com
+Client secret
+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
+Creation date
+January 30, 2026, 9:20:27 AM GMT+5

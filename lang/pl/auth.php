@@ -21,4 +21,6 @@ return [
     'sign_in_link' => 'Zaloguj się',
     'agree_terms' => 'Rejestrując się, zgadzasz się na <a href=":terms_url" target="_blank">Warunki użytkowania</a> i przetwarzanie danych zgodnie z <a href=":privacy_url" target="_blank">Polityką prywatności</a>.',
     'or_continue' => 'Lub kontynuuj',
+    'google_login' => 'Zaloguj się przez Google',
+    'google_register' => 'Zarejestruj się przez Google',
 ];

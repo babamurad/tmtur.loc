@@ -23,4 +23,6 @@ return [
     'sign_in_link' => 'Войти',
     'agree_terms' => 'Регистрируясь, вы соглашаетесь с <a href=":terms_url" target="_blank">Условиями использования</a> и обработкой данных согласно <a href=":privacy_url" target="_blank">Политике конфиденциальности</a>.',
     'or_continue' => 'Или продолжить',
+    'google_login' => 'Войти через Google',
+    'google_register' => 'Регистрация через Google',
 ];

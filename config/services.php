@@ -40,4 +40,10 @@ return [
         'conversion_label' => env('GOOGLE_ADS_CONVERSION_LABEL'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
 ];
