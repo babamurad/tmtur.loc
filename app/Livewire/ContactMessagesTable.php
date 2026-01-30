@@ -81,6 +81,11 @@ class ContactMessagesTable extends Component
         return $query;
     }
 
+    public function getTrashCountProperty()
+    {
+        return ContactMessage::onlyTrashed()->count();
+    }
+
     public function getRowsProperty()
     {
         return $this->rowsQuery->paginate($this->perPage);

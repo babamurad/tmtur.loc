@@ -7,13 +7,14 @@
                 {{-- поиск --}}
                 <div class="d-flex align-items-center">
                     <div class="btn-group btn-group-sm mr-3" role="group">
-                        <button type="button" class="btn btn-{{ $filter === 'active' ? 'primary' : 'outline-primary' }}"
+                        <button type="button" class="btn btn-{{ $filter === 'active' ? 'primary' : 'outline-primary' }} d-flex align-items-center"
                             wire:click="setFilter('active')">
                             Входящие
                         </button>
-                        <button type="button" class="btn btn-{{ $filter === 'trash' ? 'primary' : 'outline-primary' }}"
+                        <button type="button" class="btn btn-{{ $filter === 'trash' ? 'primary' : 'outline-primary' }} d-flex align-items-center"
                             wire:click="setFilter('trash')">
-                            Корзина
+                            <i class="fa fa-trash mr-1"></i> Корзина
+                            <span class="badge badge-light ml-1">{{ $this->trashCount }}</span>
                         </button>
                     </div>
 
@@ -39,7 +40,7 @@
                                 @include('livewire.partials.sort-icon', ['field' => 'created_at'])
                             </th>
                             <th class="text-center">Прочитано</th>
-                            <th class="text-center">Действия</th>
+                            <th class="text-center" style="width: 140px;">Действия</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,33 +65,45 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
+                                    <div class="btn-group btn-group-sm">
                                     @if($filter === 'active')
                                         @if(!$msg->is_read)
-                                            <button class="btn btn-sm btn-outline-success" wire:click="markAsRead({{ $msg->id }})">
-                                                Прочитать
+                                            <button class="btn btn-outline-success" wire:click="markAsRead({{ $msg->id }})" title="Пометить как прочитанное">
+                                                <i class="fa fa-check"></i>
                                             </button>
                                         @else
-                                            <button class="btn btn-sm btn-outline-secondary"
-                                                wire:click="markAsUnread({{ $msg->id }})">
-                                                Не прочитано
+                                            <button class="btn btn-outline-secondary"
+                                                wire:click="markAsUnread({{ $msg->id }})" title="Пометить как непрочитанное">
+                                                <i class="fa fa-envelope"></i>
                                             </button>
                                         @endif
-                                        <button class="btn btn-sm btn-outline-danger ms-1" wire:click="delete({{ $msg->id }})"
-                                            wire:confirm="Вы уверены, что хотите удалить это сообщение?">
+                                        <button class="btn btn-outline-danger" wire:click="delete({{ $msg->id }})"
+                                            wire:confirm="Вы уверены, что хотите удалить это сообщение?" title="В корзину">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     @else
-                                        <button class="btn btn-sm btn-outline-success" wire:click="restore({{ $msg->id }})">
-                                            <i class="fa fa-refresh"></i> Восстановить
+                                        @if(!$msg->is_read)
+                                            <button class="btn btn-outline-success" wire:click="markAsRead({{ $msg->id }})" title="Пометить как прочитанное">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        @else
+                                            <button class="btn btn-outline-secondary"
+                                                wire:click="markAsUnread({{ $msg->id }})" title="Пометить как непрочитанное">
+                                                <i class="fa fa-envelope"></i>
+                                            </button>
+                                        @endif
+                                        <button class="btn btn-outline-info" wire:click="restore({{ $msg->id }})" title="Восстановить">
+                                            <i class="fa fa-refresh"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger ms-1"
-                                            wire:click="forceDelete({{ $msg->id }})"
-                                            wire:confirm="Вы уверены, что хотите удалить это сообщение НАВСЕГДА?">
-                                            <i class="fa fa-trash"></i> Удалить
+                                        <button class="btn btn-outline-danger" wire:click="forceDelete({{ $msg->id }})"
+                                            wire:confirm="Вы уверены, что хотите удалить это сообщение НАВСЕГДА?" title="Удалить навсегда">
+                                            <i class="fa fa-times"></i>
                                         </button>
                                     @endif
+                                    </div>
                                 </td>
                             </tr>
+
 
                             <!-- Modal с полным текстом -->
                             <div class="modal fade" id="msgModal{{ $msg->id }}" tabindex="-1" role="dialog"
