@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'edit_profile' => 'Редактировать профиль',
+    'change_photo' => 'Изменить фото',
+    'remove_photo' => 'Удалить',
+    'avatar_constraints' => 'Разрешены: jpg, jpeg, png. Макс: 1MB',
+    'personal_information' => 'Личная информация',
+    'full_name' => 'ФИО',
+    'email_address' => 'Email адрес',
+    'security' => 'Безопасность',
+    'leave_blank_password' => 'Оставьте пустым, если не хотите менять пароль.',
+    'current_password' => 'Текущий пароль',
+    'new_password' => 'Новый пароль',
+    'confirm_password' => 'Подтверждение',
+    'save_changes' => 'Сохранить изменения',
+    'saving' => 'Сохранение...',
+    'profile_updated_title' => 'Профиль обновлен',
+    'profile_updated_text' => 'Ваш профиль был успешно обновлен!',
+    'avatar_removed_title' => 'Аватар удален',
+    'avatar_removed_text' => 'Изображение профиля удалено.',
+    'delete_confirm_title' => 'Вы уверены?',
+    'delete_confirm_text' => 'Это действие необратимо!',
+    'confirm_yes' => 'Да, удалить!',
+    'confirm_cancel' => 'Отмена',
+    'current_password_incorrect' => 'Текущий пароль неверен.',
+];

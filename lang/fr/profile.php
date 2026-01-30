@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'edit_profile' => 'Modifier le profil',
+    'change_photo' => 'Changer de photo',
+    'remove_photo' => 'Supprimer',
+    'avatar_constraints' => 'Autorisé : jpg, jpeg, png. Max : 1MB',
+    'personal_information' => 'Informations personnelles',
+    'full_name' => 'Nom complet',
+    'email_address' => 'Adresse e-mail',
+    'security' => 'Sécurité',
+    'leave_blank_password' => 'Laisser vide si vous ne souhaitez pas changer de mot de passe.',
+    'current_password' => 'Mot de passe actuel',
+    'new_password' => 'Nouveau mot de passe',
+    'confirm_password' => 'Confirmer le mot de passe',
+    'save_changes' => 'Enregistrer les modifications',
+    'saving' => 'Enregistrement...',
+    'profile_updated_title' => 'Profil mis à jour',
+    'profile_updated_text' => 'Votre profil a été mis à jour avec succès !',
+    'avatar_removed_title' => 'Avatar supprimé',
+    'avatar_removed_text' => 'La photo de profil a été supprimée.',
+    'delete_confirm_title' => 'Êtes-vous sûr ?',
+    'delete_confirm_text' => 'Vous ne pourrez pas revenir en arrière !',
+    'confirm_yes' => 'Oui, supprimer !',
+    'confirm_cancel' => 'Annuler',
+    'current_password_incorrect' => 'Le mot de passe actuel est incorrect.',
+];

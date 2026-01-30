@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'edit_profile' => '프로필 수정',
+    'change_photo' => '사진 변경',
+    'remove_photo' => '제거',
+    'avatar_constraints' => '허용됨: jpg, jpeg, png. 최대: 1MB',
+    'personal_information' => '개인 정보',
+    'full_name' => '성명',
+    'email_address' => '이메일 주소',
+    'security' => '보안',
+    'leave_blank_password' => '비밀번호를 변경하지 않으려면 비워 두십시오.',
+    'current_password' => '현재 비밀번호',
+    'new_password' => '새 비밀번호',
+    'confirm_password' => '비밀번호 확인',
+    'save_changes' => '변경 사항 저장',
+    'saving' => '저장 중...',
+    'profile_updated_title' => '프로필 업데이트됨',
+    'profile_updated_text' => '프로필이 성공적으로 업데이트되었습니다!',
+    'avatar_removed_title' => '아바타 제거됨',
+    'avatar_removed_text' => '프로필 사진이 제거되었습니다.',
+    'delete_confirm_title' => '확실합니까?',
+    'delete_confirm_text' => '이 작업은 되돌릴 수 없습니다!',
+    'confirm_yes' => '예, 삭제합니다!',
+    'confirm_cancel' => '취소',
+    'current_password_incorrect' => '현재 비밀번호가 올바르지 않습니다.',
+];

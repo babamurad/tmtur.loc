@@ -5,7 +5,7 @@
                 <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
                     <div class="card-header bg-white border-bottom p-4">
                         <h2 class="h4 mb-0 font-weight-bold text-dark">
-                            {{ __('Edit Profile') ?? 'Редактировать профиль' }}
+                            {{ __('profile.edit_profile') }}
                         </h2>
                     </div>
                     <div class="card-body p-4 p-md-5">
@@ -53,7 +53,7 @@
                                     <div class="mb-3">
                                         <label for="avatar" class="btn btn-outline-primary btn-sm w-100 mb-2">
                                             <i class="fa-solid fa-camera mr-2"></i>
-                                            {{ __('Change Photo') ?? 'Изменить фото' }}
+                                            {{ __('profile.change_photo') }}
                                             <input type="file" id="avatar" wire:model="avatar" class="d-none"
                                                 accept="image/*">
                                         </label>
@@ -61,26 +61,26 @@
                                         @if($currentAvatarUrl && !$avatar)
                                             <button type="button" class="btn btn-outline-danger btn-sm w-100"
                                                 wire:click="confirmDeleteAvatar">
-                                                <i class="fa-solid fa-trash mr-2"></i> {{ __('Remove Photo') ?? 'Удалить' }}
+                                                <i class="fa-solid fa-trash mr-2"></i> {{ __('profile.remove_photo') }}
                                             </button>
                                         @endif
                                     </div>
                                     @error('avatar') <p class="text-danger small">{{ $message }}</p> @enderror
                                     <p class="text-muted small mb-0">
-                                        {{ __('Allowed: jpg, jpeg, png. Max: 1MB') ?? 'Разрешены: jpg, jpeg, png. Макс: 1MB' }}
+                                        {{ __('profile.avatar_constraints') }}
                                     </p>
                                 </div>
 
                                 {{-- Right Column: Form Fields --}}
                                 <div class="col-md-8 ps-md-4">
                                     <h5 class="mb-4 text-muted border-bottom pb-2">
-                                        {{ __('Personal Information') ?? 'Личная информация' }}
+                                        {{ __('profile.personal_information') }}
                                     </h5>
 
                                     {{-- Name --}}
                                     <div class="mb-3 form-group">
                                         <label for="name"
-                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('Full Name') ?? 'ФИО' }}</label>
+                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('profile.full_name') }}</label>
                                         <input type="text"
                                             class="form-control form-control-lg @error('name') is-invalid @enderror"
                                             id="name" wire:model="name">
@@ -90,7 +90,7 @@
                                     {{-- Email --}}
                                     <div class="mb-4 form-group">
                                         <label for="email"
-                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('Email Address') ?? 'Email адрес' }}</label>
+                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('profile.email_address') }}</label>
                                         <input type="email"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
                                             id="email" wire:model="email">
@@ -98,16 +98,16 @@
                                     </div>
 
                                     <h5 class="mb-4 text-muted border-bottom pb-2 mt-5">
-                                        {{ __('Security') ?? 'Безопасность' }}
+                                        {{ __('profile.security') }}
                                     </h5>
                                     <p class="text-muted small mb-3">
-                                        {{ __('Leave blank if you don\'t want to change password.') ?? 'Оставьте пустым, если не хотите менять пароль.' }}
+                                        {{ __('profile.leave_blank_password') }}
                                     </p>
 
                                     {{-- Current Password --}}
                                     <div class="mb-3 form-group">
                                         <label for="current_password"
-                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('Current Password') ?? 'Текущий пароль' }}</label>
+                                            class="form-label fw-bold small text-uppercase text-muted">{{ __('profile.current_password') }}</label>
                                         <input type="password"
                                             class="form-control @error('current_password') is-invalid @enderror"
                                             id="current_password" wire:model="current_password">
@@ -120,7 +120,7 @@
                                             {{-- New Password --}}
                                             <div class="mb-3 form-group">
                                                 <label for="password"
-                                                    class="form-label fw-bold small text-uppercase text-muted">{{ __('New Password') ?? 'Новый пароль' }}</label>
+                                                    class="form-label fw-bold small text-uppercase text-muted">{{ __('profile.new_password') }}</label>
                                                 <input type="password"
                                                     class="form-control @error('password') is-invalid @enderror"
                                                     id="password" wire:model="password">
@@ -132,7 +132,7 @@
                                             {{-- Confirm Password --}}
                                             <div class="mb-4 form-group">
                                                 <label for="password_confirmation"
-                                                    class="form-label fw-bold small text-uppercase text-muted">{{ __('Confirm Password') ?? 'Подтверждение' }}</label>
+                                                    class="form-label fw-bold small text-uppercase text-muted">{{ __('profile.confirm_password') }}</label>
                                                 <input type="password" class="form-control" id="password_confirmation"
                                                     wire:model="password_confirmation">
                                             </div>
@@ -143,11 +143,11 @@
                                         <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm"
                                             wire:loading.attr="disabled">
                                             <span wire:loading.remove
-                                                wire:target="updateProfile">{{ __('Save Changes') ?? 'Сохранить изменения' }}</span>
+                                                wire:target="updateProfile">{{ __('profile.save_changes') }}</span>
                                             <span wire:loading wire:target="updateProfile">
                                                 <span class="spinner-border spinner-border-sm me-2" role="status"
                                                     aria-hidden="true"></span>
-                                                {{ __('Saving...') ?? 'Сохранение...' }}
+                                                {{ __('profile.saving') }}
                                             </span>
                                         </button>
                                     </div>

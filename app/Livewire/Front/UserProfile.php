@@ -87,7 +87,7 @@ class UserProfile extends Component
             ]);
 
             if (!Hash::check($this->current_password, $user->password)) {
-                $this->addError('current_password', 'The current password is incorrect.');
+                $this->addError('current_password', __('profile.current_password_incorrect'));
                 return;
             }
 
@@ -96,8 +96,8 @@ class UserProfile extends Component
 
         $user->save();
 
-        LivewireAlert::title('Profile Updated')
-            ->text('Your profile has been successfully updated!')
+        LivewireAlert::title(__('profile.profile_updated_title'))
+            ->text(__('profile.profile_updated_text'))
             ->success()
             ->toast()
             ->position('center')
@@ -113,11 +113,11 @@ class UserProfile extends Component
 
     public function confirmDeleteAvatar()
     {
-        LivewireAlert::title('Are you sure?')
-            ->text('You won\'t be able to revert this!')
+        LivewireAlert::title(__('profile.delete_confirm_title'))
+            ->text(__('profile.delete_confirm_text'))
             ->question()
-            ->withConfirmButton('Yes, delete it!')
-            ->withCancelButton('Cancel')
+            ->withConfirmButton(__('profile.confirm_yes'))
+            ->withCancelButton(__('profile.confirm_cancel'))
             ->onConfirm('confirmedDeleteAvatar')
             ->show();
     }
@@ -134,8 +134,8 @@ class UserProfile extends Component
         $this->avatar = null;
         $this->currentAvatarUrl = null;
 
-        LivewireAlert::title('Avatar Removed')
-            ->text('Profile picture has been removed.')
+        LivewireAlert::title(__('profile.avatar_removed_title'))
+            ->text(__('profile.avatar_removed_text'))
             ->success()
             ->toast()
             ->position('top-end')
