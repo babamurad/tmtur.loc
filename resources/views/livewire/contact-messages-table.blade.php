@@ -93,7 +93,7 @@
                                             </button>
                                         @endif
                                         <button class="btn btn-outline-info" wire:click="restore({{ $msg->id }})" title="Восстановить">
-                                            <i class="fa fa-refresh"></i>
+                                            <i class="fa fa-undo"></i>
                                         </button>
                                         <button class="btn btn-outline-danger" wire:click="forceDelete({{ $msg->id }})"
                                             wire:confirm="Вы уверены, что хотите удалить это сообщение НАВСЕГДА?" title="Удалить навсегда">
