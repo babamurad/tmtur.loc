@@ -13,8 +13,8 @@ class ContactMessagesTable extends Component
 
     public $perPage = 10;
     public $sortField = 'created_at';
-    public $sortAsc   = false;
-    public $search    = '';
+    public $sortAsc = false;
+    public $search = '';
 
     /* ------------------- действия ------------------- */
     public function markAsRead($id)
@@ -27,6 +27,15 @@ class ContactMessagesTable extends Component
     {
         ContactMessage::where('id', $id)->update(['is_read' => false]);
         $this->dispatch('messagesUpdated');
+    }
+
+    public function delete($id)
+    {
+        $message = ContactMessage::find($id);
+        if ($message) {
+            $message->delete();
+            $this->dispatch('messagesUpdated');
+        }
     }
 
     /* ------------------- запрос ------------------- */
