@@ -45,6 +45,9 @@ Route::middleware(['cache.response:3600'])->group(function () {
     Route::get('visa', \App\Livewire\Front\VisaComponent::class)->name('visa');
     Route::get('about', \App\Livewire\Front\AboutComponent::class)->name('about');
     Route::get('reviews', \App\Livewire\Front\ReviewsIndex::class)->name('reviews.index');
+
+    // User Profile
+    Route::get('profile', \App\Livewire\Front\UserProfile::class)->name('front.profile');
 });
 
 Route::get('cart', \App\Livewire\Front\CartComponent::class)->name('cart.index');

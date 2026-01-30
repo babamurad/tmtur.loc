@@ -26,4 +26,5 @@ return [
     'hotel' => 'Hôtel',
     'guide' => 'Guide',
     'search_placeholder' => 'Rechercher ...',
+    'profile' => 'Modifier le profil',
 ];
