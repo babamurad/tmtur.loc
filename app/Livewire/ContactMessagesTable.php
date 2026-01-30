@@ -16,16 +16,24 @@ class ContactMessagesTable extends Component
     public $sortAsc = false;
     public $search = '';
 
+    public $filter = 'active'; // 'active', 'trash'
+
     /* ------------------- действия ------------------- */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        $this->resetPage();
+    }
+
     public function markAsRead($id)
     {
-        ContactMessage::where('id', $id)->update(['is_read' => true]);
+        ContactMessage::withTrashed()->where('id', $id)->update(['is_read' => true]);
         $this->dispatch('messagesUpdated'); // для обновления счётчика в шапке
     }
 
     public function markAsUnread($id)
     {
-        ContactMessage::where('id', $id)->update(['is_read' => false]);
+        ContactMessage::withTrashed()->where('id', $id)->update(['is_read' => false]);
         $this->dispatch('messagesUpdated');
     }
 
@@ -38,15 +46,39 @@ class ContactMessagesTable extends Component
         }
     }
 
+    public function restore($id)
+    {
+        $message = ContactMessage::onlyTrashed()->find($id);
+        if ($message) {
+            $message->restore();
+            $this->dispatch('messagesUpdated');
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        $message = ContactMessage::onlyTrashed()->find($id);
+        if ($message) {
+            $message->forceDelete();
+            $this->dispatch('messagesUpdated');
+        }
+    }
+
     /* ------------------- запрос ------------------- */
     public function getRowsQueryProperty()
     {
-        return ContactMessage::query()
+        $query = ContactMessage::query()
             ->when($this->search, fn($q) => $q
                 ->where('name', 'like', "%{$this->search}%")
                 ->orWhere('email', 'like', "%{$this->search}%")
                 ->orWhere('phone', 'like', "%{$this->search}%"))
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+
+        if ($this->filter === 'trash') {
+            $query->onlyTrashed();
+        }
+
+        return $query;
     }
 
     public function getRowsProperty()

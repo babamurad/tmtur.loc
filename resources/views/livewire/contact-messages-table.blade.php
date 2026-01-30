@@ -5,7 +5,18 @@
                 <h5 class="mb-0">Сообщения</h5>
 
                 {{-- поиск --}}
-                <div>
+                <div class="d-flex align-items-center">
+                    <div class="btn-group btn-group-sm mr-3" role="group">
+                        <button type="button" class="btn btn-{{ $filter === 'active' ? 'primary' : 'outline-primary' }}"
+                            wire:click="setFilter('active')">
+                            Входящие
+                        </button>
+                        <button type="button" class="btn btn-{{ $filter === 'trash' ? 'primary' : 'outline-primary' }}"
+                            wire:click="setFilter('trash')">
+                            Корзина
+                        </button>
+                    </div>
+
                     <input wire:model.debounce.300ms="search" type="text" class="form-control form-control-sm"
                         placeholder="Поиск…" style="max-width:220px">
                 </div>
@@ -53,21 +64,31 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if(!$msg->is_read)
-                                        <button class="btn btn-sm btn-outline-success" wire:click="markAsRead({{ $msg->id }})">
-                                            Прочитать
+                                    @if($filter === 'active')
+                                        @if(!$msg->is_read)
+                                            <button class="btn btn-sm btn-outline-success" wire:click="markAsRead({{ $msg->id }})">
+                                                Прочитать
+                                            </button>
+                                        @else
+                                            <button class="btn btn-sm btn-outline-secondary"
+                                                wire:click="markAsUnread({{ $msg->id }})">
+                                                Не прочитано
+                                            </button>
+                                        @endif
+                                        <button class="btn btn-sm btn-outline-danger ms-1" wire:click="delete({{ $msg->id }})"
+                                            wire:confirm="Вы уверены, что хотите удалить это сообщение?">
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     @else
-                                        <button class="btn btn-sm btn-outline-secondary"
-                                            wire:click="markAsUnread({{ $msg->id }})">
-                                            Не прочитано
+                                        <button class="btn btn-sm btn-outline-success" wire:click="restore({{ $msg->id }})">
+                                            <i class="fa fa-refresh"></i> Восстановить
                                         </button>
+                                        <button class="btn btn-sm btn-outline-danger ms-1"
+                                            wire:click="forceDelete({{ $msg->id }})"
+                                            wire:confirm="Вы уверены, что хотите удалить это сообщение НАВСЕГДА?">
+                                            <i class="fa fa-trash"></i> Удалить
                                         </button>
                                     @endif
-                                    <button class="btn btn-sm btn-outline-danger ms-1" wire:click="delete({{ $msg->id }})"
-                                        wire:confirm="Вы уверены, что хотите удалить это сообщение?">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
                                 </td>
                             </tr>
 
