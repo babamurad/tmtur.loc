@@ -16,6 +16,8 @@
             gtag('js', new Date());
             gtag('config', 'G-C5C6D1TJJW');
 
+            gtag('config', '{{ config('services.google_ads.conversion_id') }}');
+
             // Lazy load function
             function loadAnalytics() {
                 if (window.analyticsLoaded) return;
