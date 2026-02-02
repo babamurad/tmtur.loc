@@ -22,11 +22,34 @@
                         placeholder="Поиск…" style="max-width:220px">
                 </div>
             </div>
+            
+            @if(count($selected) > 0)
+                <div class="card-body bg-light border-bottom d-flex align-items-center justify-content-between py-2">
+                    <span class="font-weight-bold">Выбрано: {{ count($selected) }}</span>
+                    <div>
+                        @if($filter === 'active')
+                            <button class="btn btn-sm btn-danger" wire:click="deleteSelected" wire:confirm="Удалить выбранные сообщения?">
+                                <i class="fa fa-trash"></i> Удалить выбранные
+                            </button>
+                        @elseif($filter === 'trash')
+                            <button class="btn btn-sm btn-info" wire:click="restoreSelected" wire:confirm="Восстановить выбранные сообщения?">
+                                <i class="fa fa-undo"></i> Восстановить выбранные
+                            </button>
+                            <button class="btn btn-sm btn-danger" wire:click="forceDeleteSelected" wire:confirm="НАВСЕГДА удалить выбранные сообщения? Это действие необратимо.">
+                                <i class="fa fa-times"></i> Удалить выбранные НАВСЕГДА
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            @endif
 
             <div class="table-responsive">
                 <table class="table table-hover mb-0" wire:poll.5s>
                     <thead class="thead-light">
                         <tr>
+                            <th style="width: 40px;">
+                                <input type="checkbox" wire:model.live="selectAll">
+                            </th>
                             <th style="width:50px">#</th>
                             <th wire:click="sortBy('name')" class="cursor-pointer">
                                 Имя
@@ -46,6 +69,9 @@
                     <tbody>
                         @forelse($messages as $msg)
                             <tr class="{{ $msg->is_read ? '' : 'table-primary' }}" wire:key="msg-{{ $msg->id }}">
+                                <td>
+                                    <input type="checkbox" wire:model.live="selected" value="{{ $msg->id }}">
+                                </td>
                                 <td>{{ $msg->id }}</td>
                                 <td>{{ $msg->name }}</td>
                                 <td>{{ $msg->email }}</td>
@@ -137,7 +163,7 @@
                             </div>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted">Сообщений пока нет</td>
+                                <td colspan="9" class="text-center text-muted">Сообщений пока нет</td>
                             </tr>
                         @endforelse
                     </tbody>

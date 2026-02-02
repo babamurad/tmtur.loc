@@ -17,12 +17,55 @@ class ContactMessagesTable extends Component
     public $search = '';
 
     public $filter = 'active'; // 'active', 'trash'
+    public $selected = [];
+    public $selectAll = false;
 
     /* ------------------- действия ------------------- */
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selected = $this->rows->pluck('id')->map(fn($id) => (string) $id)->toArray();
+        } else {
+            $this->selected = [];
+        }
+    }
+
+    public function updatedPage()
+    {
+        $this->selected = [];
+        $this->selectAll = false;
+    }
+
     public function setFilter($filter)
     {
         $this->filter = $filter;
         $this->resetPage();
+        $this->selected = [];
+        $this->selectAll = false;
+    }
+
+    public function deleteSelected()
+    {
+        ContactMessage::whereIn('id', $this->selected)->delete();
+        $this->selected = [];
+        $this->selectAll = false;
+        $this->dispatch('messagesUpdated');
+    }
+
+    public function restoreSelected()
+    {
+        ContactMessage::onlyTrashed()->whereIn('id', $this->selected)->restore();
+        $this->selected = [];
+        $this->selectAll = false;
+        $this->dispatch('messagesUpdated');
+    }
+
+    public function forceDeleteSelected()
+    {
+        ContactMessage::onlyTrashed()->whereIn('id', $this->selected)->forceDelete();
+        $this->selected = [];
+        $this->selectAll = false;
+        $this->dispatch('messagesUpdated');
     }
 
     public function markAsRead($id)
