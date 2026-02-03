@@ -187,7 +187,7 @@
                 <h4 class="fw-bold pt-2"><strong>{{ __('messages.popular_posts') }}</strong></h4>
                 <hr class="border-danger border-2 opacity-75 mb-4">
                 <div class="card card-body pb-0">
-                    @foreach(\App\Models\Post::where('status', true)->orderBy('views', 'desc')->take(5)->get() as $fp)
+                    @foreach($popularPosts as $fp)
                         <div class="single-post mb-3">
                             <div class="row">
                                 <div class="col-4">
@@ -225,27 +225,27 @@
 
 @push('scripts')
     <script type="application/ld+json">
-                                {
-                                  "@@context": "https://schema.org",
-                                  "@@type": "BlogPosting",
-                                  "headline": "{{ addslashes($post->tr('title')) }}",
-                                  "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
-                                  "author": {
-                                    "@@type": "Person",
-                                    "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
-                                  },
-                                  "publisher": {
-                                    "@@type": "Organization",
-                                    "name": "TmTourism",
-                                    "logo": {
-                                        "@@type": "ImageObject",
-                                        "url": "{{ asset('img/logo.png') }}"
+                                    {
+                                      "@@context": "https://schema.org",
+                                      "@@type": "BlogPosting",
+                                      "headline": "{{ addslashes($post->tr('title')) }}",
+                                      "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
+                                      "author": {
+                                        "@@type": "Person",
+                                        "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
+                                      },
+                                      "publisher": {
+                                        "@@type": "Organization",
+                                        "name": "TmTourism",
+                                        "logo": {
+                                            "@@type": "ImageObject",
+                                            "url": "{{ asset('img/logo.png') }}"
+                                        }
+                                      },
+                                      "url": "{{ url()->current() }}",
+                                      "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
+                                      "dateModified": "{{ $post->updated_at->toIso8601String() }}",
+                                      "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
                                     }
-                                  },
-                                  "url": "{{ url()->current() }}",
-                                  "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
-                                  "dateModified": "{{ $post->updated_at->toIso8601String() }}",
-                                  "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
-                                }
-                                </script>
+                                    </script>
 @endpush

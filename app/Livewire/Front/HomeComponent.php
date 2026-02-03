@@ -37,7 +37,7 @@ class HomeComponent extends Component
 
     public function openBookingModal(int $groupId): void
     {
-        $this->selectedGroup = TourGroup::with('tour')->findOrFail($groupId);
+        $this->selectedGroup = TourGroup::with('tour.translations')->findOrFail($groupId);
         $this->resetBookingForm(clearContactData: false);
         $this->showBookingModal = true;
     }
@@ -155,7 +155,7 @@ class HomeComponent extends Component
         SEOTools::opengraph()->setUrl(route('home'));
 
         $tours = Cache::remember('home_tours', 3600, function () {
-            return Tour::with('media', 'groupsOpen')->orderBy('id', 'desc')->limit(3)->get();
+            return Tour::with(['media', 'groupsOpen', 'translations'])->orderBy('id', 'desc')->limit(3)->get();
         });
 
         $fotos = Cache::remember('home_gallery', 3600, function () {
@@ -164,7 +164,7 @@ class HomeComponent extends Component
 
         // Ближайшие групповые туры (5 записей)
         $groups = Cache::remember('home_groups', 3600, function () {
-            return TourGroup::with('tour')
+            return TourGroup::with('tour.translations')
                 ->where('status', TourGroupStatus::OPEN)
                 ->where('starts_at', '>=', now())
                 ->orderBy('starts_at')

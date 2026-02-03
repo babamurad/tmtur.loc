@@ -12,14 +12,23 @@ class PostShow extends Component
 
     public function mount(Post $post)
     {
-        $this->post = $post->load('user.avatar');
+        $this->post = $post->load(['user.avatar', 'translations']);
         $this->post->increment('views');
     }
 
     public function render()
     {
-        $categories = \App\Models\Category::withCount('posts')->where('is_published', true)->get();
-        $socialLinks = SocialLink::where('is_active', true)->orderBy('sort_order')->get();
+        $categories = \Illuminate\Support\Facades\Cache::remember('categories_with_counts', 3600, function () {
+            return \App\Models\Category::withCount('posts')->with('translations')->where('is_published', true)->get();
+        });
+
+        $socialLinks = \Illuminate\Support\Facades\Cache::remember('social_links', 86400, function () {
+            return SocialLink::where('is_active', true)->orderBy('sort_order')->get();
+        });
+
+        $popularPosts = \Illuminate\Support\Facades\Cache::remember('popular_posts_sidebar', 3600, function () {
+            return Post::with('translations')->where('status', true)->orderBy('views', 'desc')->take(5)->get();
+        });
 
         $title = $this->post->tr('title');
         \Artesaos\SEOTools\Facades\SEOTools::setTitle($title);
@@ -34,6 +43,7 @@ class PostShow extends Component
         return view('livewire.front.post-show', [
             'categories' => $categories,
             'socialLinks' => $socialLinks,
+            'popularPosts' => $popularPosts,
         ])
             ->layout('layouts.front-app', ['hideCarousel' => true]);
     }

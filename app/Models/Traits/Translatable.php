@@ -14,6 +14,17 @@ trait Translatable
     public function tr(string $field, ?string $locale = null): ?string
     {
         $locale = $locale ?? app()->getLocale();
+
+        // Optimisation: use eager loaded relation if available
+        if ($this->relationLoaded('translations')) {
+            $translation = $this->translations
+                ->first(function ($t) use ($field, $locale) {
+                    return $t->field === $field && $t->locale === $locale;
+                });
+
+            return $translation ? $translation->value : $this->$field;
+        }
+
         $key = "t.{$locale}." . static::class . ".{$this->id}.{$field}";
 
         return Cache::remember($key, now()->addDay(), function () use ($field, $locale) {
