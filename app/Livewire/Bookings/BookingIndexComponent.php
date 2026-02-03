@@ -16,6 +16,33 @@ class BookingIndexComponent extends Component
     public $perPage = 10;
     public $delId;
 
+    public $visibleColumns = [
+        'id' => true,
+        'customer' => true,
+        'tour' => true,
+        'created_at' => true,
+        'amount' => true,
+        'status' => true,
+        'source' => true,
+        'people_count' => false,
+        'starts_at' => false,
+        'accommodation' => false,
+        'notes' => false,
+    ];
+
+    public function mount()
+    {
+        // Load from session or use default
+        if (session()->has('booking_visible_columns')) {
+            $this->visibleColumns = array_merge($this->visibleColumns, session('booking_visible_columns'));
+        }
+    }
+
+    public function updatedVisibleColumns()
+    {
+        session()->put('booking_visible_columns', $this->visibleColumns);
+    }
+
     protected $listeners = ['bookingDelete'];
 
     public function updatedSearch()

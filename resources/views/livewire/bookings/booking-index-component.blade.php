@@ -35,6 +35,91 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
+                                        <div class="dropdown" wire:ignore.self>
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                                id="columnsDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fas fa-columns"></i> Колонки
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="columnsDropdown"
+                                                style="max-height: 300px; overflow-y: auto;"
+                                                onclick="event.stopPropagation()" wire:ignore.self>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.id"> ID
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox"
+                                                            wire:model.live="visibleColumns.customer">
+                                                        Клиент
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.tour">
+                                                        Тур
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox"
+                                                            wire:model.live="visibleColumns.created_at">
+                                                        Создано
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.amount">
+                                                        Сумма
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.status">
+                                                        Статус
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.source">
+                                                        Источник
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox"
+                                                            wire:model.live="visibleColumns.people_count">
+                                                        Человек
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox"
+                                                            wire:model.live="visibleColumns.starts_at">
+                                                        Дата начала
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox"
+                                                            wire:model.live="visibleColumns.accommodation">
+                                                        Проживание
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="dropdown-item">
+                                                        <input type="checkbox" wire:model.live="visibleColumns.notes">
+                                                        Заметки
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                         <span class="text-muted small">Показать</span>
                                         <select class="form-select form-select-sm mx-2" wire:model.live="perPage"
                                             style="width: auto;">
@@ -54,55 +139,112 @@
                             <table class="table table-hover table-centered table-nowrap mb-0">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Клиент</th>
-                                        <th>Тур</th>
-
-                                        <th>Создано</th>
-                                        <th>Сумма</th>
-                                        <th>Статус</th>
-                                        <th>Источник</th>
+                                        @if($visibleColumns['id'])
+                                        <th>ID</th> @endif
+                                        @if($visibleColumns['customer'])
+                                        <th>Клиент</th> @endif
+                                        @if($visibleColumns['tour'])
+                                        <th>Тур</th> @endif
+                                        @if($visibleColumns['created_at'])
+                                        <th>Создано</th> @endif
+                                        @if($visibleColumns['amount'])
+                                        <th>Сумма</th> @endif
+                                        @if($visibleColumns['people_count'])
+                                        <th>Чел.</th> @endif
+                                        @if($visibleColumns['starts_at'])
+                                        <th>Начало</th> @endif
+                                        @if($visibleColumns['accommodation'])
+                                        <th>Жилье</th> @endif
+                                        @if($visibleColumns['notes'])
+                                        <th>Инфо</th> @endif
+                                        @if($visibleColumns['status'])
+                                        <th>Статус</th> @endif
+                                        @if($visibleColumns['source'])
+                                        <th>Источник</th> @endif
                                         <th class="text-center">Действия</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($bookings as $booking)
                                         <tr>
-                                            <td>#{{ $booking->id }}</td>
-                                            <td>
-                                                @if($booking->customer)
-                                                    <h6 class="mb-0">{{ $booking->customer->full_name }}</h6>
-                                                    <small class="text-muted">{{ $booking->customer->email }}</small>
-                                                @else
-                                                    <span class="text-muted">Гость / Не указан</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($booking->tourGroup && $booking->tourGroup->tour)
-                                                    {{ $booking->tourGroup->tour->title }}
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
-
-                                            <td>
-                                                {{ $booking->created_at->format('d.m.Y H:i') }}
-                                            </td>
-                                            <td>${{ number_format($booking->total_price_cents / 100, 2) }}</td>
-                                            <td>
-                                                <span
-                                                    class="badge badge-pill badge-{{ $booking->status === 'paid' ? 'success' : ($booking->status === 'cancelled' ? 'danger' : 'warning') }} font-size-12">
-                                                    {{ ucfirst($booking->status) }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                @if($booking->referer)
+                                            @if($visibleColumns['id'])
+                                                <td>#{{ $booking->id }}</td>
+                                            @endif
+                                            @if($visibleColumns['customer'])
+                                                <td>
+                                                    @if($booking->customer)
+                                                        <h6 class="mb-0">{{ $booking->customer->full_name }}</h6>
+                                                        <small class="text-muted">{{ $booking->customer->email }}</small>
+                                                    @else
+                                                        <span class="text-muted">Гость / Не указан</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['tour'])
+                                                <td>
+                                                    @if($booking->tourGroup && $booking->tourGroup->tour)
+                                                        {{ $booking->tourGroup->tour->title }}
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['created_at'])
+                                                <td>
+                                                    {{ $booking->created_at->format('d.m.Y H:i') }}
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['amount'])
+                                                <td>${{ number_format($booking->total_price_cents / 100, 2) }}</td>
+                                            @endif
+                                            @if($visibleColumns['people_count'])
+                                                <td class="text-center">{{ $booking->people_count }}</td>
+                                            @endif
+                                            @if($visibleColumns['starts_at'])
+                                                <td>
+                                                    @if($booking->tourGroup && $booking->tourGroup->starts_at)
+                                                        {{ $booking->tourGroup->starts_at->format('d.m.Y') }}
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['accommodation'])
+                                                <td>
+                                                    @if($booking->accommodation_type)
+                                                        <span
+                                                            class="badge badge-soft-primary font-size-12">{{ ucfirst($booking->accommodation_type) }}</span>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['notes'])
+                                                <td>
+                                                    @if($booking->notes)
+                                                        <i class="fas fa-comment-alt text-warning" data-toggle="tooltip"
+                                                            title="{{ $booking->notes }}"></i>
+                                                    @endif
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['status'])
+                                                <td>
                                                     <span
-                                                        class="badge badge-soft-info font-size-12">{{ $booking->referer }}</span>
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
+                                                        class="badge badge-pill badge-{{ $booking->status === 'paid' ? 'success' : ($booking->status === 'cancelled' ? 'danger' : 'warning') }} font-size-12">
+                                                        {{ ucfirst($booking->status) }}
+                                                    </span>
+                                                </td>
+                                            @endif
+                                            @if($visibleColumns['source'])
+                                                <td>
+                                                    @if($booking->referer)
+                                                        <span
+                                                            class="badge badge-soft-info font-size-12">{{ $booking->referer }}</span>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                            @endif
                                             <td class="text-center">
                                                 <a href="{{ route('bookings.edit', $booking->id) }}"
                                                     class="btn btn-sm btn-outline-primary waves-effect waves-light"
@@ -151,7 +293,8 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="9" class="text-center text-muted py-4">
+                                            <td colspan="{{ count(array_filter($visibleColumns)) + 1 }}"
+                                                class="text-center text-muted py-4">
                                                 Бронирований не найдено.
                                             </td>
                                         </tr>
