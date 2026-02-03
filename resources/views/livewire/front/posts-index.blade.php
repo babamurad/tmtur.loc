@@ -1,6 +1,6 @@
 <div class="container mt-5 pt-5">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <!-- Посты будут здесь -->
             <h1>{{ __('messages.posts_list') }}</h1>
             @foreach ($posts as $post)
@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ $post->tr('title') }}</h2>
                         <!-- <div class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</div>s -->
-                        
+
                         <a href="{{ route('blog.show', $post->slug) }}"
                             class="btn btn-primary read-more-btn">{{ __('messages.read_more') }}</a>
                     </div>
@@ -20,14 +20,14 @@
                         {{ __('messages.in_category') }} <a
                             href="{{ route('blog.category', $post->category->slug) }}">{{ $post->category->tr('title') }}</a>
                         <span class="float-end"><i class="far fa-eye"></i> {{ $post->views }}</span>
-                        
+
                     </div>
                 </div>
             @endforeach
 
             {{ $posts->links() }}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- Сайдбар с категориями -->
             <section class="section mb-5">
                 <h4 class="fw-bold mt-2">
@@ -47,7 +47,8 @@
                         class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         <a href="{{ route('blog.index') }}"
                             class="text-decoration-none text-dark">{{ __('messages.all_posts') }}</a>
-                        <span class="badge bg-danger rounded-pill">{{ \App\Models\Post::where('status', true)->count() }}</span>
+                        <span
+                            class="badge bg-danger rounded-pill">{{ \App\Models\Post::where('status', true)->count() }}</span>
                     </li>
                 </ul>
             </section>

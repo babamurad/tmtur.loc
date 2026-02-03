@@ -45,7 +45,7 @@
         </script>
 
         <!--  ============  ЛЕВАЯ КОЛОНКА: сам пост  ============  -->
-        <div class="col-xl-8 col-md-12">
+        <div class="col-md-9">
             <div class="row mt-2 mb-5 pb-3 mx-2">
 
                 {{-- Карточка поста --}}
@@ -164,7 +164,7 @@
 
 
         <!--  ============  ПРАВАЯ КОЛОНКА: сайдбар  ============  -->
-        <div class="col-xl-4 col-md-12 widget-column mt-0">
+        <div class="col-md-3 widget-column mt-0">
 
             {{-- Категории --}}
             <section class="section mb-5">
@@ -225,27 +225,27 @@
 
 @push('scripts')
     <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "BlogPosting",
-          "headline": "{{ addslashes($post->tr('title')) }}",
-          "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
-          "author": {
-            "@@type": "Person",
-            "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
-          },
-          "publisher": {
-            "@@type": "Organization",
-            "name": "TmTourism",
-            "logo": {
-                "@@type": "ImageObject",
-                "url": "{{ asset('img/logo.png') }}"
+            {
+              "@@context": "https://schema.org",
+              "@@type": "BlogPosting",
+              "headline": "{{ addslashes($post->tr('title')) }}",
+              "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
+              "author": {
+                "@@type": "Person",
+                "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
+              },
+              "publisher": {
+                "@@type": "Organization",
+                "name": "TmTourism",
+                "logo": {
+                    "@@type": "ImageObject",
+                    "url": "{{ asset('img/logo.png') }}"
+                }
+              },
+              "url": "{{ url()->current() }}",
+              "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
+              "dateModified": "{{ $post->updated_at->toIso8601String() }}",
+              "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
             }
-          },
-          "url": "{{ url()->current() }}",
-          "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
-          "dateModified": "{{ $post->updated_at->toIso8601String() }}",
-          "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
-        }
-        </script>
+            </script>
 @endpush
