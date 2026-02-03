@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-DCgJ6JP3.css",
+    "file": "assets/app-DeSkDHdk.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -144,7 +144,7 @@
     "src": "resources/img/svg/arrow_right.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-aa60_ML1.js",
+    "file": "assets/app-DzX-aZLt.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true

@@ -33,7 +33,7 @@
                 <h1 class="display-4 font-weight-bold">Welcome to {{ config('app.name') }}</h1>
                 <p class="lead">This project is configured to use Bootstrap 4.</p>
                 <hr class="my-4">
-                <p>Tailwind CSS has been removed.</p>
+                <p>Bootstrap 4 is active.</p>
             </div>
         </main>
 

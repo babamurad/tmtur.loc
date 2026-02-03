@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
         // \Illuminate\Support\Facades\App::setLocale('ru');
         // \Carbon\Carbon::setLocale('ru');
     }
