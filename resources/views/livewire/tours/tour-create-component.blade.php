@@ -734,11 +734,14 @@
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-success btn-block waves-effect waves-light"
-                                wire:loading.attr="disabled" wire:target="images">
+                                wire:loading.attr="disabled" wire:target="images, save">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                <span wire:loading.remove wire:target="images">Сохранить</span>
+                                <span wire:loading.remove wire:target="images, save">Сохранить</span>
                                 <span wire:loading wire:target="images">
                                     <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
+                                <span wire:loading wire:target="save">
+                                    <i class="bx bx-loader bx-spin"></i> Сохранение...
                                 </span>
                             </button>
                             <a href="{{ route('admin.tours.index') }}"

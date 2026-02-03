@@ -786,28 +786,34 @@
                             <button type="submit"
                                     class="btn btn-primary btn-block waves-effect waves-light"
                                     wire:loading.attr="disabled"
-                                    wire:target="newImages">
+                                    wire:target="newImages, saveAndClose">
                                 <i class="bx bx-save font-size-16 align-middle mr-1"></i>
-                                <span wire:loading.remove wire:target="newImages">Сохранить и закрыть</span>
+                                <span wire:loading.remove wire:target="newImages, saveAndClose">Сохранить и закрыть</span>
                                 <span wire:loading wire:target="newImages">
                                     <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
+                                <span wire:loading wire:target="saveAndClose">
+                                    <i class="bx bx-loader bx-spin"></i> Сохранение...
                                 </span>
                             </button>
                             <button type="button"
                                     wire:click.prevent="save"
                                     class="btn btn-success btn-block waves-effect waves-light mt-2"
                                     wire:loading.attr="disabled"
-                                    wire:target="newImages">
+                                    wire:target="newImages, save">
                                 <i class="bx bx-check-double font-size-16 align-middle mr-1"></i>
-                                <span wire:loading.remove wire:target="newImages">Сохранить</span>
+                                <span wire:loading.remove wire:target="newImages, save">Сохранить</span>
                                 <span wire:loading wire:target="newImages">
                                     <i class="bx bx-loader bx-spin"></i> Загрузка изображений...
+                                </span>
+                                <span wire:loading wire:target="save">
+                                    <i class="bx bx-loader bx-spin"></i> Сохранение...
                                 </span>
                             </button>
                             <a href="{{ route('admin.tours.index') }}"
                                 class="btn btn-secondary btn-block waves-effect waves-light mt-2"
                                 wire:loading.attr="disabled"
-                                wire:target="newImages">
+                                wire:target="newImages, save, saveAndClose">
                                 <i class="bx bx-x font-size-16 align-middle mr-1"></i>
                                 Отмена
                             </a>
