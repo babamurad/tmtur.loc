@@ -36,7 +36,7 @@
                                 <div class="d-flex align-items-center justify-content-md-end gap-3">
                                     <div class="d-flex align-items-center gap-2">
                                         <div class="dropdown" wire:ignore.self>
-                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                            <button class="btn btn-secondary btn-sm dropdown-toggle mr-1" type="button"
                                                 id="columnsDropdown" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 <i class="fas fa-columns"></i> Колонки
