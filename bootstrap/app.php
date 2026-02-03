@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckRole;
-use App\Http\Middleware\RemoveWww;
+
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->appendToGroup('web', [
             SetLocale::class,
-            RemoveWww::class,
+
             \Spatie\Referer\CaptureReferer::class,
             \App\Http\Middleware\TrackGeneratedLinkClicks::class,
         ]);
