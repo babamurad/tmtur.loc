@@ -17,17 +17,20 @@ class NavbarComponent extends Component
     }
 
     #[On('cartUpdated')]
-    public function updateCartCount() 
+    public function updateCartCount()
     {
         $this->cartCount = count(session('cart', []));
     }
 
     public function render()
     {
-         $categories = TourCategory::where('is_published', 1)->get();
-         
-        return view('livewire.front.navbar-component',
-        ['categories' => $categories]
+        $categories = \Illuminate\Support\Facades\Cache::remember('navbar_categories', 3600, function () {
+            return TourCategory::with('translations')->where('is_published', 1)->get();
+        });
+
+        return view(
+            'livewire.front.navbar-component',
+            ['categories' => $categories]
         );
     }
 }
