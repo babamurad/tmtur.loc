@@ -142,6 +142,11 @@
                                                         </button>
                                                     @endif
                                                 @endif
+                                                <button type="button" wire:click="deleteBooking({{ $booking->id }})"
+                                                    class="btn btn-sm btn-outline-danger waves-effect waves-light"
+                                                    title="Удалить">
+                                                    <i class="fas fa-trash font-size-14"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @empty

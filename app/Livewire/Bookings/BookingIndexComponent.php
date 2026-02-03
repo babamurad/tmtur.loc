@@ -5,6 +5,7 @@ namespace App\Livewire\Bookings;
 use App\Models\Booking;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class BookingIndexComponent extends Component
 {
@@ -13,6 +14,9 @@ class BookingIndexComponent extends Component
 
     public $search = '';
     public $perPage = 10;
+    public $delId;
+
+    protected $listeners = ['bookingDelete'];
 
     public function updatedSearch()
     {
@@ -53,6 +57,31 @@ class BookingIndexComponent extends Component
 
         \App\Models\BlockedUser::where('email', $email)->delete();
         session()->flash('message', "Пользователь {$email} разблокирован.");
+    }
+
+    public function deleteBooking($id)
+    {
+        $this->delId = $id;
+
+        LivewireAlert::title('Удалить?')
+            ->text('Вы уверены, что хотите удалить это бронирование?')
+            ->timer(5000)
+            ->withConfirmButton('Да')
+            ->withCancelButton('Отмена')
+            ->onConfirm('bookingDelete')
+            ->show(null, ['backdrop' => true]);
+    }
+
+    public function bookingDelete()
+    {
+        $booking = Booking::findOrFail($this->delId);
+        $booking->delete();
+
+        LivewireAlert::title('Бронирование удалено.')
+            ->success()
+            ->toast()
+            ->position('top-end')
+            ->show();
     }
 
     public function render()
