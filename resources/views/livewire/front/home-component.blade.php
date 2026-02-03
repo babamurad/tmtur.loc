@@ -110,7 +110,8 @@
                             <div class="position-relative">
                                 <a href="{{ route('tours.show', $tour->slug) }}">
                                     <img src="{{ $tour->first_media_url }}" class="w-100" alt="{{ $tour->tr('title') }}"
-                                        loading="lazy" width="400" height="220">
+                                        @if($loop->first) fetchpriority="high" @else loading="lazy" @endif width="400"
+                                        height="220">
                                 </a>
 
                                 <!-- BADGE -->
