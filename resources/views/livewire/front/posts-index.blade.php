@@ -6,10 +6,17 @@
             @foreach ($posts as $post)
                 <div class="card mb-4">
                     @if ($post->image)
-                        <img src="{{ asset('uploads/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                            <img src="{{ asset('uploads/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
+                            <a href="{{ route('blog.show', $post->slug) }}">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                            </a>
+                        </div>
                     @endif
                     <div class="card-body">
-                        <h2 class="card-title">{{ $post->tr('title') }}</h2>
+                        <h2 class="card-title">
+                            <a href="{{ route('blog.show', $post->slug) }}" class="text-dark">{{ $post->tr('title') }}</a>
+                        </h2>
                         <!-- <div class="card-text">{!! Str::limit($post->tr('content'), 150) !!}</div>s -->
 
                         <a href="{{ route('blog.show', $post->slug) }}"
@@ -72,10 +79,11 @@
                                         data-ripple-color="light">
                                         @if ($featuredPost->image)
                                             <a href="{{ route('blog.show', $featuredPost->slug) }}">
-                                                <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);">
-                                                    <img src="{{ asset('uploads/' . $featuredPost->image) }}" class="img-fluid"
-                                                        alt="{{ $featuredPost->tr('title') }}">
-                                                </div>
+                                                <img src="{{ asset('uploads/' . $featuredPost->image) }}" class="img-fluid"
+                                                    alt="{{ $featuredPost->tr('title') }}">
+                                            </a>
+                                            <a href="{{ route('blog.show', $featuredPost->slug) }}">
+                                                <div class="mask" style="background-color: rgba(255, 255, 255, 0.15);"></div>
                                             </a>
                                         @endif
                                     </div>

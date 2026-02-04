@@ -195,10 +195,11 @@
                                         data-ripple-color="light">
                                         @if($fp->image)
                                             <a href="{{ route('blog.show', $fp->slug) }}">
-                                                <div class="mask" style="background-color:rgba(255,255,255,0.15)">
-                                                    <img src="{{ asset('uploads/' . $fp->image) }}" class="img-fluid"
-                                                        alt="{{ $fp->tr('title') }}">
-                                                </div>
+                                                <img src="{{ asset('uploads/' . $fp->image) }}" class="img-fluid"
+                                                    alt="{{ $fp->tr('title') }}">
+                                            </a>
+                                            <a href="{{ route('blog.show', $fp->slug) }}">
+                                                <div class="mask" style="background-color:rgba(255,255,255,0.15)"></div>
                                             </a>
                                         @endif
                                     </div>
@@ -225,27 +226,27 @@
 
 @push('scripts')
     <script type="application/ld+json">
-                                    {
-                                      "@@context": "https://schema.org",
-                                      "@@type": "BlogPosting",
-                                      "headline": "{{ addslashes($post->tr('title')) }}",
-                                      "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
-                                      "author": {
-                                        "@@type": "Person",
-                                        "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
-                                      },
-                                      "publisher": {
-                                        "@@type": "Organization",
-                                        "name": "TmTourism",
-                                        "logo": {
-                                            "@@type": "ImageObject",
-                                            "url": "{{ asset('img/logo.png') }}"
-                                        }
-                                      },
-                                      "url": "{{ url()->current() }}",
-                                      "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
-                                      "dateModified": "{{ $post->updated_at->toIso8601String() }}",
-                                      "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
-                                    }
-                                    </script>
+                                            {
+                                              "@@context": "https://schema.org",
+                                              "@@type": "BlogPosting",
+                                              "headline": "{{ addslashes($post->tr('title')) }}",
+                                              "image": "{{ $post->image ? asset('uploads/' . $post->image) : asset('img/logo.png') }}",
+                                              "author": {
+                                                "@@type": "Person",
+                                                "name": "{{ addslashes($post->user->name ?? 'TmTourism') }}"
+                                              },
+                                              "publisher": {
+                                                "@@type": "Organization",
+                                                "name": "TmTourism",
+                                                "logo": {
+                                                    "@@type": "ImageObject",
+                                                    "url": "{{ asset('img/logo.png') }}"
+                                                }
+                                              },
+                                              "url": "{{ url()->current() }}",
+                                              "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : $post->created_at->toIso8601String() }}",
+                                              "dateModified": "{{ $post->updated_at->toIso8601String() }}",
+                                              "description": "{{ addslashes($post->tr('short_description') ?? \Illuminate\Support\Str::limit(strip_tags($post->tr('content')), 160)) }}"
+                                            }
+                                            </script>
 @endpush
