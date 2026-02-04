@@ -27,7 +27,16 @@ class PostShow extends Component
         });
 
         $popularPosts = \Illuminate\Support\Facades\Cache::remember('popular_posts_sidebar', 3600, function () {
-            return Post::with('translations')->where('status', true)->orderBy('views', 'desc')->take(5)->get();
+            return Post::select('id', 'slug', 'image', 'status', 'views', 'published_at')
+                ->with([
+                    'translations' => function ($query) {
+                        $query->where('field', 'title');
+                    }
+                ])
+                ->where('status', true)
+                ->orderBy('views', 'desc')
+                ->take(5)
+                ->get();
         });
 
         $title = $this->post->tr('title');
