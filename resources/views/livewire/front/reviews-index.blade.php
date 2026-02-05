@@ -140,7 +140,20 @@
                                     <i class="fa-solid fa-star text-warning small"></i>
                                 @endfor
                             </div>
-                            <p class="card-text flex-grow-1">{{ Str::limit($review->comment, 150) }}</p>
+                            <div x-data="{ expanded: false }">
+                                <p class="card-text mb-1" x-show="!expanded">
+                                    {{ Str::limit($review->comment, 300) }}
+                                </p>
+                                <p class="card-text mb-1" x-show="expanded" style="display: none;">
+                                    {{ $review->comment }}
+                                </p>
+                                @if(Str::length($review->comment) > 300)
+                                    <button @click="expanded = !expanded" class="btn btn-link p-0 text-decoration-none small">
+                                        <span
+                                            x-text="expanded ? '{{ __('messages.read_less_btn') }}' : '{{ __('messages.read_more_btn') }}'"></span>
+                                    </button>
+                                @endif
+                            </div>
                             <div class="testimonial-avatar mt-3 d-flex align-items-center">
                                 <div class="avatar-thumb mr-3">
                                     <img src="{{ $review->user->avatar->url ?? asset('assets/images/users/default-user.jpeg') }}"

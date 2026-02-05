@@ -41,6 +41,8 @@ return [
     'review_updated_success' => 'Opinia została pomyślnie zaktualizowana.',
     'read_more' => 'Czytaj więcej',
     'read_more_btn' => 'Czytaj więcej',
+    'read_less_btn' => 'Pokaż mniej',
+    'buy_tour' => 'Kup wycieczkę',
     'modal_program_request_title' => 'Otrzymaj program i cenę',
     'modal_program_request_subtitle' => 'Zostaw swoje dane kontaktowe, a prześlemy Ci program i cenę.',
     'agree_terms_contact' => 'Wysyłając zapytanie, zgadzasz się na <a href=":terms_url" target="_blank">Warunki użytkowania</a> i przetwarzanie danych zgodnie z <a href=":privacy_url" target="_blank">Polityką prywatności</a>.',

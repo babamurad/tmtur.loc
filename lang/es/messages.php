@@ -2,6 +2,8 @@
 
 return [
     'read_more' => 'Leer más',
+    'read_more_btn' => 'Leer más',
+    'read_less_btn' => 'Leer menos',
     'buy_tour' => 'Comprar tour',
     'days' => ':count día|:count días',
     'days_label' => 'días',

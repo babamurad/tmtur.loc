@@ -41,6 +41,8 @@ return [
     'review_updated_success' => 'Avis mis à jour avec succès.',
     'read_more' => 'Lire la suite',
     'read_more_btn' => 'Lire la suite',
+    'read_less_btn' => 'Lire moins',
+    'buy_tour' => 'Acheter un tour',
     'modal_program_request_title' => 'Obtenir le programme et le prix',
     'modal_program_request_subtitle' => 'Laissez vos coordonnées et nous vous enverrons le programme et le prix.',
     'agree_terms_contact' => 'En soumettant une demande, vous acceptez les <a href=":terms_url" target="_blank">Conditions d\'utilisation</a> et le traitement des données conformément à la <a href=":privacy_url" target="_blank">Politique de confidentialité</a>.',

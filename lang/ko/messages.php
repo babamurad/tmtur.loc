@@ -1,6 +1,8 @@
 <?php
 return [
-    'read_more' => '더 보기',
+    'read_more' => '더 읽기',
+    'read_more_btn' => '더 읽기',
+    'read_less_btn' => '간략히 보기',
     'buy_tour' => '투어 구매',
     'days' => ':count일',
     'days_label' => '일',

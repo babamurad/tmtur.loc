@@ -2,6 +2,7 @@
 return [
     'read_more' => 'Читать далее',
     'read_more_btn' => 'Подробнее',
+    'read_less_btn' => 'Свернуть',
     'buy_tour' => 'Купить тур',
     'days' => ':count день|:count дня|:count дней',
     'days_label' => 'дней',
