@@ -13,7 +13,7 @@
     {{-- Список отзывов --}}
     <div class="mb-4 ">
         @forelse ($reviews as $review)
-            <div class="card mb-3">
+            <div class="card mb-3 shadow-sm border p-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="d-flex align-items-center">
@@ -27,13 +27,21 @@
                             </div>
                         </div>
                         <div class="text-warning">
-                            @for ($i = 1; $i <= 5; $i++)
-                                <i class="{{ $i <= $review->rating ? 'fas' : 'far' }} fa-star"></i>
+                            @for ($i = 1; $i <= (int)$review->rating; $i++)
+                                <i class="fa-solid fa-star"></i>
                             @endfor
                         </div>
                     </div>
                     <p class="card-text">{{ $review->comment }}</p>
                 </div>
+            </div>
+                @if(Auth::id() === $review->user_id)
+                    <div class="card-footer bg-transparent border-0 text-right p-2">
+                        <button wire:click="edit({{ $review->id }})" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> {{ __('messages.edit') }}
+                        </button>
+                    </div>
+                @endif
             </div>
         @empty
             <p class="text-muted">{{ __('messages.no_reviews_yet') }}</p>
@@ -43,24 +51,26 @@
     </div>
 
     {{-- Форма отзыва --}}
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mb-3" id="review-form">
         <div class="card-body">
-            <h5 class="card-title mb-3">{{ __('messages.leave_review_title') }}</h5>
+            <h5 class="card-title mb-3">
+                {{ $editingReviewId ? __('messages.edit_review_title') : __('messages.leave_review_title') }}
+            </h5>
 
             @auth
                 <form wire:submit="save">
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label>{{ __('messages.your_rating_label') }}</label>
                         <div class="rating-input text-warning" style="font-size: 1.5rem; cursor: pointer;">
                             @for ($i = 1; $i <= 5; $i++)
-                                <i class="{{ $i <= $rating ? 'fas' : 'far' }} fa-star"
+                                <i class="{{ $i <= $rating ? 'fa-solid' : 'fa-regular' }} fa-star"
                                     wire:click="$set('rating', {{ $i }})"></i>
                             @endfor
                         </div>
                         @error('rating') <span class="text-danger small">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="comment">{{ __('messages.comment_label') }}</label>
                         <textarea wire:model="comment" id="comment"
                             class="form-control @error('comment') is-invalid @enderror" rows="3"
@@ -68,10 +78,21 @@
                         @error('comment') <span class="invalid-feedback">{{ $message }}</span> @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
-                        <span wire:loading.remove wire:target="save">{{ __('messages.submit_review_btn') }}</span>
-                        <span wire:loading wire:target="save"><i class="fas fa-spinner fa-spin"></i> {{ __('messages.sending_btn') }}</span>
-                    </button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-primary">
+                            <span wire:loading.remove wire:target="save">
+                                {{ $editingReviewId ? __('messages.update_review_btn') : __('messages.submit_review_btn') }}
+                            </span>
+                            <span wire:loading wire:target="save"><i class="fas fa-spinner fa-spin"></i>
+                                {{ __('messages.sending_btn') }}</span>
+                        </button>
+
+                        @if($editingReviewId)
+                            <button type="button" wire:click="cancelEdit" class="btn btn-secondary btn-sm">
+                                {{ __('messages.modal_cancel_button') }}
+                            </button>
+                        @endif
+                    </div>
                 </form>
             @else
                 <div class="alert alert-info mb-0">

@@ -18,13 +18,27 @@ class ReviewsIndex extends Component
     public ?string $comment = '';
     public ?int $tour_id = null;
 
+    public ?int $editingReviewId = null;
+
     protected function rules()
     {
         return [
-            'tour_id' => 'required|exists:tours,id',
+            'tour_id' => 'nullable|exists:tours,id',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|min:10|max:2000',
         ];
+    }
+
+    public function edit($id)
+    {
+        $review = Review::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+
+        $this->editingReviewId = $review->id;
+        $this->tour_id = $review->tour_id;
+        $this->rating = $review->rating;
+        $this->comment = $review->comment;
+
+        $this->dispatch('open-modal');
     }
 
     public function save()
@@ -35,21 +49,28 @@ class ReviewsIndex extends Component
 
         $this->validate();
 
-        Review::create([
-            'user_id' => auth()->id(),
-            'tour_id' => $this->tour_id,
-            'rating' => $this->rating,
-            'comment' => $this->comment,
-            'is_active' => true, // Auto-approve for now
-        ]);
+        if ($this->editingReviewId) {
+            $review = Review::where('id', $this->editingReviewId)->where('user_id', auth()->id())->firstOrFail();
+            $review->update([
+                'tour_id' => $this->tour_id,
+                'rating' => $this->rating,
+                'comment' => $this->comment,
+            ]);
+            session()->flash('message', __('messages.review_updated_success'));
+        } else {
+            Review::create([
+                'user_id' => auth()->id(),
+                'tour_id' => $this->tour_id,
+                'rating' => $this->rating,
+                'comment' => $this->comment,
+                'is_active' => false, // Moderation enabled
+            ]);
+            session()->flash('message', __('messages.review_submitted_success'));
+        }
 
-        $this->reset(['rating', 'comment', 'tour_id']);
+        $this->reset(['rating', 'comment', 'tour_id', 'editingReviewId']);
 
-        // Close modal (using browser event dispatch if using Alpine/JS or just session flash)
-        // We'll use session flash to show success message
-        session()->flash('message', __('messages.review_submitted_success'));
-
-        $this->dispatch('review-added'); // To close modal if needed
+        $this->dispatch('close-modal');
     }
 
     public function getToursProperty()
