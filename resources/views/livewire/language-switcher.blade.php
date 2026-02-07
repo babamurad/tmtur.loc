@@ -1,4 +1,4 @@
-<div class="dropdown" x-data="{ open: false }" @click.outside="open = false">
+<div class="custom-dropdown" x-data="{ open: false }" @click.outside="open = false">
     <button class="btn btn-link text-decoration-none custom-dropdown-toggle" type="button" id="languageDropdown"
         @click="open = !open" :class="{ 'show': open }" :aria-expanded="open.toString()"
         style="box-shadow: none; color: #6B7280; padding-left: 0 !important; text-align: left;">
