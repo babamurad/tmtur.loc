@@ -172,6 +172,103 @@
 
 
 
+    <script>
+        // Animation init
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            }
+        });
+
+        // Функция для инициализации Bootstrap компонентов
+        function initBootstrapComponents() {
+            // Реинициализация всех dropdown элементов (только тех, что используют data-toggle)
+            if (typeof $ !== 'undefined') {
+                $('.dropdown-toggle[data-toggle="dropdown"]').each(function () {
+                    $(this).dropdown();
+                });
+
+                // Реинициализация WOW анимаций
+                if (typeof WOW !== 'undefined') {
+                    new WOW().init();
+                }
+
+                // Закрытие мобильного меню при клике на ссылку
+                // Используем off(), чтобы не дублировать событие, если init вызывается дважды
+                $('.navbar-collapse a').off('click').on('click', function (e) {
+                    // Не закрывать для dropdown toggle
+                    if (!$(this).hasClass('dropdown-toggle') && !$(this).hasClass('custom-dropdown-toggle')) {
+                        var navbar = $('.navbar-collapse');
+                        if (navbar.hasClass('show')) {
+                            navbar.collapse('hide');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Инициализация при первой загрузке страницы
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof $ !== 'undefined') {
+                initBootstrapComponents();
+            }
+        });
+
+        // Реинициализация после навигации Livewire
+        document.addEventListener('livewire:navigated', function () {
+            initBootstrapComponents();
+            updateNavbarState(window.scrollY);
+        });
+
+        // Smooth Scroll
+        document.addEventListener('click', function (e) {
+            if (e.target.matches('a[href^="#"]')) {
+                const anchor = e.target;
+                if (anchor.hasAttribute('data-toggle')) return;
+                const href = anchor.getAttribute('href');
+                if (href === '#' || href === '#home') return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const navbar = document.getElementById('mainNav');
+                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                    const targetPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = window.pageYOffset + targetPosition - navbarHeight;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    history.pushState(null, null, href);
+                }
+            }
+        });
+
+        // Navbar Scroll State
+        let lastKnownScrollPosition = 0;
+        let ticking = false;
+
+        function updateNavbarState(scrollPos) {
+            var navbar = document.getElementById('mainNav');
+            if (!navbar) return;
+            if (scrollPos > 10) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        }
+
+        document.addEventListener('scroll', function (e) {
+            lastKnownScrollPosition = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    updateNavbarState(lastKnownScrollPosition);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateNavbarState(window.scrollY);
+        });
+    </script>
 </head>
 
 <body>
@@ -234,122 +331,85 @@
     <!-- Scripts loaded via Vite -->
 
 
-    <script>
-        // Animation init
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof WOW !== 'undefined') {
-                new WOW().init();
-            }
-        });
-    </script>
+    <!-- Sticky Buttons -->
+    <div class="sticky-buttons">
+        <a href="https://wa.me/99362846733" target="_blank" class="btn-floating btn-lg btn-whatsapp mb-0 pb-0"
+            title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <button type="button" class="btn-floating btn-lg btn-contact mt-0 pt-0" data-toggle="modal"
+            data-target="#contactModal" title="{{ __('messages.contact_us') ?? 'Contact Us' }}">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
 
-    <script>
-        // Функция для инициализации Bootstrap компонентов
-        function initBootstrapComponents() {
-            // Реинициализация всех dropdown элементов (только тех, что используют data-toggle)
-            $('.dropdown-toggle[data-toggle="dropdown"]').each(function () {
-                $(this).dropdown();
-            });
+    @livewire('front.contact-modal')
 
-            // Реинициализация WOW анимаций
-            if (typeof WOW !== 'undefined') {
-                new WOW().init();
-            }
-
-            // Закрытие мобильного меню при клике на ссылку
-            $('.navbar-collapse a').on('click', function (e) {
-                // Не закрывать для dropdown toggle
-                if (!$(this).hasClass('dropdown-toggle')) {
-                    var navbar = $('.navbar-collapse');
-                    if (navbar.hasClass('show')) {
-                        navbar.collapse('hide');
-                    }
-                }
-            });
+    <style>
+        .sticky-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        // Инициализация при первой загрузке страницы
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof $ !== 'undefined') {
-                initBootstrapComponents();
-            }
-        });
-
-        // Реинициализация после навигации Livewire
-        document.addEventListener('livewire:navigated', function () {
-            initBootstrapComponents();
-        });
-    </script>
-
-    <script>
-        document.addEventListener('click', function (e) {
-            // Проверяем, что кликнули по якорной ссылке
-            if (e.target.matches('a[href^="#"]')) {
-                const anchor = e.target;
-                if (anchor.hasAttribute('data-toggle')) return;
-
-                const href = anchor.getAttribute('href');
-                if (href === '#' || href === '#home') return;
-
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-
-                    const navbar = document.getElementById('mainNav');
-                    const navbarHeight = navbar ? navbar.offsetHeight : 0;
-
-                    const targetPosition = target.getBoundingClientRect().top;
-                    const offsetPosition = window.pageYOffset + targetPosition - navbarHeight;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    history.pushState(null, null, href);
-                }
-            }
-        });
-    </script>
-
-    <script>
-        let lastKnownScrollPosition = 0;
-        let ticking = false;
-
-        function updateNavbarState(scrollPos) {
-            var navbar = document.getElementById('mainNav');
-            if (!navbar) return;
-
-            if (scrollPos > 10) {
-                navbar.classList.add('navbar-scrolled');
-            } else {
-                navbar.classList.remove('navbar-scrolled');
-            }
+        .btn-floating {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            color: white !important;
+            font-size: 28px;
+            text-decoration: none;
+            line-height: 1 !important;
         }
 
-        document.addEventListener('scroll', function (e) {
-            lastKnownScrollPosition = window.scrollY;
+        .btn-floating:hover {
+            transform: scale(1.1);
+            text-decoration: none;
+        }
 
-            if (!ticking) {
-                window.requestAnimationFrame(function () {
-                    updateNavbarState(lastKnownScrollPosition);
-                    ticking = false;
-                });
+        .btn-whatsapp {
+            background-color: #25D366;
+        }
 
-                ticking = true;
+        .btn-contact {
+            background-color: #007bff;
+            /* Primary color */
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Mobile adjustment */
+        @media (max-width: 768px) {
+            .sticky-buttons {
+                bottom: 20px;
+                right: 20px;
+                gap: 8px;
             }
-        });
 
-        // Initial check
-        document.addEventListener('DOMContentLoaded', function () {
-            updateNavbarState(window.scrollY);
-        });
+            .btn-floating {
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 20px !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center;
+                line-height: 1 !important;
+            }
+        }
+    </style>
 
-        // Check on navigation
-        document.addEventListener('livewire:navigated', function () {
-            updateNavbarState(window.scrollY);
-        });
-    </script>
+    @stack('quill-js')
+    @stack('scripts')
 
 
 
