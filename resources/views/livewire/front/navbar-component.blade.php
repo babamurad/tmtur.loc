@@ -107,17 +107,18 @@
             text-decoration: none;
         }
 
-        .custom-nav-link {
-            padding-top: 15px !important;
-            padding-bottom: 15px !important;
-            font-size: 16px !important;
-        }
+        @media (max-width: 991.98px) {
+            .custom-nav-link {
+                padding-top: 15px !important;
+                padding-bottom: 15px !important;
+                font-size: 16px !important;
+            }
 
-        .custom-nav-item {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            width: 100%;
-            /* Mobile full width */
-        }
+            .custom-nav-item {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+                width: 100%;
+                /* Mobile full width */
+            }
         }
     </style>
     <div class="container-fluid px-lg-5">
@@ -247,8 +248,8 @@
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                                                                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                                                                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                                                                        style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                                                                        wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
