@@ -69,6 +69,18 @@
                 outline: none;
                 box-shadow: none;
             }
+
+        }
+
+        .custom-dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
         }
     </style>
     <div class="container-fluid px-lg-5">
@@ -97,9 +109,9 @@
                 {{-- Выпадающий пункт «Туры» (Alpine.js) --}}
                 <li class="nav-item dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
                     @mouseleave="open = false">
-                    <a class="nav-link dropdown-toggle text-hover-primary" href="#" id="toursDropdown" role="button"
-                        @click.prevent="open = !open" :class="{ 'show': open }" :aria-expanded="open.toString()"
-                        style="color: #2D2D2D;">
+                    <a class="nav-link custom-dropdown-toggle text-hover-primary" href="#" id="toursDropdown"
+                        role="button" @click.prevent="open = !open" :class="{ 'show': open }"
+                        :aria-expanded="open.toString()" style="color: #2D2D2D;">
                         {{ __('menu.tours') }}
                     </a>
 
@@ -136,9 +148,9 @@
 
                 <li class="nav-item dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
                     @mouseleave="open = false">
-                    <a class="nav-link dropdown-toggle text-hover-primary" href="#" id="aboutDropdown" role="button"
-                        @click.prevent="open = !open" :class="{ 'show': open }" :aria-expanded="open.toString()"
-                        style="color: #2D2D2D;">
+                    <a class="nav-link custom-dropdown-toggle text-hover-primary" href="#" id="aboutDropdown"
+                        role="button" @click.prevent="open = !open" :class="{ 'show': open }"
+                        :aria-expanded="open.toString()" style="color: #2D2D2D;">
                         {{ __('menu.about_us') }}
                     </a>
 
@@ -174,7 +186,7 @@
                 <div class="d-flex align-items-center nav-auth-actions">
                     @auth
                         <div class="dropdown" x-data="{ open: false }" @click.outside="open = false">
-                            <a class="nav-link dropdown-toggle font-weight-medium text-dark" href="#" role="button"
+                            <a class="nav-link custom-dropdown-toggle font-weight-medium text-dark" href="#" role="button"
                                 id="accountMenu" @click.prevent="open = !open" :class="{ 'show': open }"
                                 :aria-expanded="open.toString()">
                                 {{ Auth::user()->name }}
@@ -197,8 +209,8 @@
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                            style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                            wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                        style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                        wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
