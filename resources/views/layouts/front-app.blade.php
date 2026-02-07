@@ -134,7 +134,7 @@
     </noscript>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="{{ asset('js/mdb.min.js') }}" defer></script>
+    <script src="{{ asset('js/mdb.min.js') }}?v={{ time() }}" defer></script>
     <style>
         body {
             padding-top: 72px;
