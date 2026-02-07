@@ -86,6 +86,30 @@
         .custom-dropdown {
             position: relative;
         }
+
+        /* Custom Nav Link to avoid MDB Waves effect interfering with Alpine */
+        .custom-nav-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: #2D2D2D;
+            text-decoration: none;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            font-weight: 400 !important;
+            letter-spacing: 0.02em;
+        }
+
+        .custom-nav-link:hover {
+            color: #0d6efd !important;
+            text-decoration: none;
+        }
+
+        @media (max-width: 991.98px) {
+            .custom-nav-link {
+                padding-top: 15px !important;
+                padding-bottom: 15px !important;
+                font-size: 16px !important;
+            }
+        }
     </style>
     <div class="container-fluid px-lg-5">
         <a class="navbar-brand font-weight-bold d-flex align-items-center" href="/#home">
@@ -113,7 +137,7 @@
                 {{-- Выпадающий пункт «Туры» (Alpine.js) --}}
                 <li class="nav-item custom-dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
                     @mouseleave="open = false">
-                    <a class="nav-link custom-dropdown-toggle text-hover-primary" href="#" id="toursDropdown"
+                    <a class="custom-nav-link custom-dropdown-toggle text-hover-primary" href="#" id="toursDropdown"
                         role="button" @click.prevent="open = !open" :class="{ 'show': open }"
                         :aria-expanded="open.toString()" style="color: #2D2D2D;">
                         {{ __('menu.tours') }}
@@ -152,7 +176,7 @@
 
                 <li class="nav-item custom-dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
                     @mouseleave="open = false">
-                    <a class="nav-link custom-dropdown-toggle text-hover-primary" href="#" id="aboutDropdown"
+                    <a class="custom-nav-link custom-dropdown-toggle text-hover-primary" href="#" id="aboutDropdown"
                         role="button" @click.prevent="open = !open" :class="{ 'show': open }"
                         :aria-expanded="open.toString()" style="color: #2D2D2D;">
                         {{ __('menu.about_us') }}
@@ -173,7 +197,7 @@
                 </li>
 
                 <li class="nav-item mx-2 mr-lg-4">
-                    <a class="nav-link text-hover-primary" href="/#contact"
+                    <a class="nav-link text-hover-primary" href="/#contact" wire:navigate
                         style="color: #2D2D2D;">{{ __('menu.contact') }}</a>
                 </li>
 
@@ -190,8 +214,8 @@
                 <div class="d-flex align-items-center nav-auth-actions">
                     @auth
                         <div class="custom-dropdown" x-data="{ open: false }" @click.outside="open = false">
-                            <a class="nav-link custom-dropdown-toggle font-weight-medium text-dark" href="#" role="button"
-                                id="accountMenu" @click.prevent="open = !open" :class="{ 'show': open }"
+                            <a class="custom-nav-link custom-dropdown-toggle font-weight-medium text-dark" href="#"
+                                role="button" id="accountMenu" @click.prevent="open = !open" :class="{ 'show': open }"
                                 :aria-expanded="open.toString()">
                                 {{ Auth::user()->name }}
                             </a>
@@ -213,8 +237,8 @@
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                                            style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                                            wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
