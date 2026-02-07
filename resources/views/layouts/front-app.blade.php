@@ -134,6 +134,7 @@
     </noscript>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="{{ asset('js/mdb.min.js') }}" defer></script>
     <style>
         body {
             padding-top: 72px;
@@ -231,7 +232,7 @@
 
     <!-- ========== SCRIPTS ========== -->
     <!-- Scripts loaded via Vite -->
-    <script src="{{ asset('js/mdb.min.js') }}" defer></script>
+
 
     <script>
         // Animation init
