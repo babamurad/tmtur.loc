@@ -174,7 +174,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#mainNav">
+<body>
 
     <!-- ========== НАВБАР ========== -->
     @livewire('front.navbar-component')
