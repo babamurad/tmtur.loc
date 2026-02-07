@@ -89,14 +89,16 @@
 
         /* Custom Nav Link to avoid MDB Waves effect interfering with Alpine */
         .custom-nav-link {
-            display: flex;
-            align-items: center;
+            display: block;
+            /* Revert to block to match baseline of other links */
             padding: 0.5rem 1rem;
             color: #2D2D2D;
             text-decoration: none;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
             font-weight: 400 !important;
             letter-spacing: 0.02em;
+            line-height: 1.5;
+            /* Ensure standard line height */
         }
 
         .custom-nav-link:hover {
@@ -238,8 +240,8 @@
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                                                                style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                                                                wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
