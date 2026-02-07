@@ -135,8 +135,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-lg-4 align-items-lg-center nav-links-spaced">
 
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-hover-primary" href="/#home" wire:navigate
+                <li class="custom-nav-item mx-2">
+                    <a class="custom-nav-link text-hover-primary" href="/#home" wire:navigate
                         style="color: #2D2D2D;">{{ __('menu.home') }}</a>
                 </li>
 
@@ -174,13 +174,13 @@
                     </div>
                 </li>
 
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-hover-primary" href="{{ route('visa') }}" wire:navigate
+                <li class="custom-nav-item mx-2">
+                    <a class="custom-nav-link text-hover-primary" href="{{ route('visa') }}" wire:navigate
                         style="color: #2D2D2D;">{{ __('menu.visa') }}</a>
                 </li>
 
-                <li class="nav-item mx-2">
-                    <a class="nav-link text-hover-primary" href="{{ route('blog.index') }}" wire:navigate
+                <li class="custom-nav-item mx-2">
+                    <a class="custom-nav-link text-hover-primary" href="{{ route('blog.index') }}" wire:navigate
                         style="color: #2D2D2D;">{{ __('menu.blog') }}</a>
                 </li>
 
@@ -206,8 +206,8 @@
                     </div>
                 </li>
 
-                <li class="nav-item mx-2 mr-lg-4">
-                    <a class="nav-link text-hover-primary" href="/#contact" wire:navigate
+                <li class="custom-nav-item mx-2 mr-lg-4">
+                    <a class="custom-nav-link text-hover-primary" href="/#contact" wire:navigate
                         style="color: #2D2D2D;">{{ __('menu.contact') }}</a>
                 </li>
 
@@ -245,11 +245,11 @@
                             </div>
                         </li>
                     @else
-                        <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
+                        <a href="{{ route('front.login') }}" class="custom-nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                                                                                        style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                                                                                        wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                                                                            style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                                                                            wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
