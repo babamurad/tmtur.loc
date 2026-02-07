@@ -91,7 +91,8 @@
         .custom-nav-link {
             display: block;
             /* Revert to block to match baseline of other links */
-            padding: 0.5rem 1rem;
+            padding: 0.7rem 1rem;
+            /* Increased from 0.5rem to match MDB */
             color: #2D2D2D;
             text-decoration: none;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
@@ -106,12 +107,17 @@
             text-decoration: none;
         }
 
-        @media (max-width: 991.98px) {
-            .custom-nav-link {
-                padding-top: 15px !important;
-                padding-bottom: 15px !important;
-                font-size: 16px !important;
-            }
+        .custom-nav-link {
+            padding-top: 15px !important;
+            padding-bottom: 15px !important;
+            font-size: 16px !important;
+        }
+
+        .custom-nav-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            width: 100%;
+            /* Mobile full width */
+        }
         }
     </style>
     <div class="container-fluid px-lg-5">
@@ -138,7 +144,7 @@
                 </li> -->
 
                 {{-- Выпадающий пункт «Туры» (Alpine.js) --}}
-                <li class="nav-item custom-dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
+                <li class="custom-nav-item custom-dropdown mx-2" x-data="{ open: false }" @click.outside="open = false"
                     @mouseleave="open = false">
                     <a class="custom-nav-link custom-dropdown-toggle text-hover-primary" href="#" id="toursDropdown"
                         role="button" @click.prevent="open = !open" :class="{ 'show': open }"
@@ -216,7 +222,8 @@
 
                 <div class="d-flex align-items-center nav-auth-actions">
                     @auth
-                        <div class="custom-dropdown" x-data="{ open: false }" @click.outside="open = false">
+                        <li class="custom-nav-item custom-dropdown mx-2" x-data="{ open: false }"
+                            @click.outside="open = false" @mouseleave="open = false">
                             <a class="custom-nav-link custom-dropdown-toggle font-weight-medium text-dark" href="#"
                                 role="button" id="accountMenu" @click.prevent="open = !open" :class="{ 'show': open }"
                                 :aria-expanded="open.toString()">
@@ -235,13 +242,13 @@
                                         class="btn btn-link p-0 text-danger">{{ __('menu.logout') ?? 'Logout' }}</button>
                                 </form>
                             </div>
-                        </div>
+                        </li>
                     @else
                         <a href="{{ route('front.login') }}" class="nav-link mr-4 text-hover-primary" wire:navigate
                             style="color: #6B7280;">{{ __('menu.login') ?? 'Войти' }}</a>
                         <!-- <a href="{{ route('front.register') }}" class="btn btn-primary btn-sm px-5 shadow-sm"
-                                                                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
-                                                                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
+                                                                                                    style="border-radius: 50px !important; text-transform: none !important; font-size: 0.85rem; font-weight: 400; box-shadow: 0 4px 15px rgba(59, 113, 202, 0.2) !important;"
+                                                                                                    wire:navigate>{{ __('menu.register') ?? 'Регистрация' }}</a> -->
                     @endauth
                 </div>
             </div>
